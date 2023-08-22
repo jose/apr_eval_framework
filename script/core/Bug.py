@@ -28,17 +28,28 @@ class Bug(object):
             self.project_data = json.load(fd)
             return self.project_data
 
-    def checkout(self, working_directory):
+    def checkout(self, working_directory, rm_tests=True, buggy_version=True):
         self.working_directory  = os.path.realpath(working_directory)
 
-        self.benchmark.checkout(self, self.working_directory)
-        pass
+        return self.benchmark.checkout(self, self.working_directory, rm_tests, buggy_version)
 
-    def compile(self):
-        return self.benchmark.compile(self, self.working_directory)
+    #
+    # Remove known failing and flaky test methods as well as test classes excluded
+    # in the build file.
+    #
+    # Returns 1 if remove is performed successfully, 0 otherwise.
+    #
+    def rm_tests(self):
+        return self.benchmark.rm_tests(self)
 
-    def run_test(self):
-        return self.benchmark.run_test(self, self.working_directory)
+    def compile(self, java_home=None):
+        return self.benchmark.compile(self, self.working_directory, java_home)
+
+    def run_test(self, java_home=None):
+        return self.benchmark.run_test(self, self.working_directory, java_home)
+
+    def get_tests(self):
+        return self.benchmark.get_tests(self, self.working_directory)
 
     def failing_tests(self):
         return self.benchmark.failing_tests(self)

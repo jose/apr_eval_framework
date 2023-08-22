@@ -39287,7 +39287,7 @@
         ], 
         "numberSkipping": 4
       }, 
-      "failingModule": "/root/workspace/openmrs/openmrs-module-htmlformentry/452596787/api-tests", 
+      "failingModule": "/root/workspace/openmrs/openmrs-module-htmlformentry/452596787/api", 
       "failingClasses": [
         {
           "numberPassing": 59, 

@@ -13,6 +13,4 @@ def get_renderer(runner):
     :param runner:
     :return: EmptyRenderer
     """
-    if is_grid5k_node():
-        return EmptyRenderer(runner)
-    return BashRenderer(runner)
+    return EmptyRenderer(runner)

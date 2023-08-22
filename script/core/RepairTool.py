@@ -8,30 +8,9 @@ import datetime
 from config import WORKING_DIRECTORY, REPAIR_ROOT
 from config import DATA_PATH
 from config import REPAIR_TOOL_FOLDER
+from filelock import FileLock
 
-LOCK_FILE = "LOCK_BUGS_INIT"
-
-
-def is_lock():
-    return os.path.exists(os.path.join(REPAIR_ROOT, LOCK_FILE))
-
-
-def wait_lock():
-    while is_lock():
-        secs = random.randrange(2, 8)
-        time.sleep(secs)
-
-
-def lock():
-    f = open(os.path.join(REPAIR_ROOT, LOCK_FILE), "w+")
-    f.close()
-    pass
-
-
-def unlock():
-    path = os.path.join(REPAIR_ROOT, LOCK_FILE)
-    if os.path.exists(path):
-        os.remove(path)
+LOCK_FILE = "LOCK_INIT"
 
 
 class RepairTool(object):
@@ -57,13 +36,17 @@ class RepairTool(object):
     def init_bug(self, bug, bug_path):
         if os.path.exists(bug_path):
             shutil.rmtree(bug_path)
+
+        lock = FileLock(os.path.join(REPAIR_ROOT, LOCK_FILE))
         try:
-            wait_lock()
-            lock()
+            lock.acquire()
             bug.checkout(bug_path)
         finally:
-            unlock()
-        bug.compile()
+            lock.release()
+
+        if bug.compile() != 0:
+            raise RuntimeError("compile has failed!\n")
+
         self.repair_begin = datetime.datetime.now().__str__()
         # bug.run_test()
 

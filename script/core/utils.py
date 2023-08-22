@@ -1,5 +1,8 @@
 import argparse
 import os
+import subprocess
+
+DEVNULL = open(os.devnull, 'r+b', 0)
 
 benchmarks = {}
 repair_tools = {}
@@ -37,6 +40,12 @@ def add_repair_tool(name, clas, description):
     parser.set_defaults(func=clas)
     return parser
 
+def run_cmd(cmd, stdout, stderr):
+    process = subprocess.Popen(cmd, shell=True, stdin=DEVNULL, stdout=stdout, stderr=stderr, preexec_fn=os.setsid)
+    # Wait for the process to terminate
+    process.wait()
+    # Return exit code
+    return process.returncode
 
 import core.benchmarks.Bears
 import core.benchmarks.BugDotJar

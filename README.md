@@ -44,10 +44,10 @@ If you use RepairThemAll, please cite our paper:
 | 5  | jKali         | Java     | https://github.com/SpoonLabs/Astor  | 26ee3dfc8 |
 | 6  | jMutRepair    | Java     | https://github.com/SpoonLabs/Astor  | 26ee3dfc8 |
 | 7  | Cardumen      | Java     | https://github.com/SpoonLabs/Astor  | 26ee3dfc8 |
-| 8  | ARJA          | Java     | https://github.com/yyxhdy/arja      | e60b990f9 |
-| 9  | GenProg-A     | Java     | https://github.com/yyxhdy/arja      | e60b990f9 |
-| 10 | RSRepair-A    | Java     | https://github.com/yyxhdy/arja      | e60b990f9 |
-| 11 | Kali-A        | Java     | https://github.com/yyxhdy/arja      | e60b990f9 |
+| 8  | ARJA          | Java     | https://github.com/yyxhdy/arja      | c34e400ed |
+| 9  | GenProg-A     | Java     | https://github.com/yyxhdy/arja      | c34e400ed |
+| 10 | RSRepair-A    | Java     | https://github.com/yyxhdy/arja      | c34e400ed |
+| 11 | Kali-A        | Java     | https://github.com/yyxhdy/arja      | c34e400ed |
 
 
 ## 3. Supported benchmarks of bugs

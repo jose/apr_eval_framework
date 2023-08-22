@@ -80,8 +80,8 @@ if __name__ == "__main__":
         repository['name'] = bug.project
         jsonFile['repository'] = repository
 
-        if bug.benchmark.name == 'Defects4J' or bug.benchmark.name == 'Bugs.jar' or bug.benchmark.name == 'Bears': 
-            projectInfo = bug.benchmark._get_project_info(bug)
+        if bug.benchmark.name == 'Bugs.jar' or bug.benchmark.name == 'Bears':
+            projectInfo = bug.benchmark._get_project_info(bug, bug.benchmark.failing_module(bug))
             projectMetrics = {}
             if projectInfo is not None:
                 projectMetrics['numberModules'] = len(projectInfo['modules'])

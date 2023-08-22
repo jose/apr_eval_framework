@@ -1,3 +1,11 @@
+#!/usr/bin/env bash
+
+OS_NAME=$(uname -s | tr "[:upper:]" "[:lower:]")
+if [[ $OS_NAME != *"linux"* ]]; then
+  echo "'$OS_NAME' not supported!"
+  exit 1
+fi
+
 # from https://askubuntu.com/questions/916976/bash-one-liner-to-check-if-version-is
 version_checker() {
     local ver1=$1
@@ -67,6 +75,9 @@ which mvn > /dev/null
 
 if ! perl -MDBI -e 1 2>/dev/null;then echo "[Error] Perl DBI not installed (perl -MCPAN -e 'install DBI')" && exit 1 ; fi 
 
+# Get Java-7 and Java-8
+./init-java.sh
+
 git submodule init;
 git submodule update;
 cd benchmarks/Bug-dot-jar/;
@@ -76,15 +87,11 @@ cd ../defects4j;
 ./init.sh
 cd ../../
 
-git clone https://github.com/tdurieux/project-info-maven-plugin
-cd project-info-maven-plugin 
-mvn -Dhttps.protocols=TLSv1.2 install -DskipTests
-cd ..
-rm -rf project-info-maven-plugin
+# Get maven .m2 per benchmark/project
+./init-mvn.sh
 
 cd libs/z3
 python scripts/mk_make.py --java
 cd build
 make
-make install
 cd ../../

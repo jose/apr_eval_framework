@@ -9,13 +9,14 @@ RepairThemAll can be executed directly from the **source** or via a **Docker** i
 1. Linux or OSX
 2. Java 7
 3. Java 8
-4. Python 2
+4. Python 2 (and the `filelock` module, i.e., `pip install filelock`)
 5. Maven
 6. Ant
 7. wget
 8. Git >= 1.9
 9. SVN >= 1.8
-10. Perl >= 5.0.10
+10. Perl >= 5.0.10 (and the `DBI` module, i.e., `perl -MCPAN -e 'install DBI'`)
+11. Gradle
 
 ### Init RepairThemAll
 

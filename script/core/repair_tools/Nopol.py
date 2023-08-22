@@ -9,6 +9,7 @@ from config import JAVA_ARGS
 from config import OUTPUT_PATH
 from config import WORKING_DIRECTORY
 from config import Z3_PATH
+from config import TOOL_TIMEOUT
 from core.RepairTool import RepairTool
 from core.runner.RepairTask import RepairTask
 from core.utils import add_repair_tool
@@ -37,17 +38,22 @@ class Nopol(RepairTool):
         repair_task.working_directory = bug_path
         self.init_bug(bug, bug_path)
         try:
+            java_tmp_dir_path = os.path.abspath(os.path.join(repair_task.log_dir(), ".tmp"))
+            if not os.path.exists(java_tmp_dir_path):
+                os.makedirs(java_tmp_dir_path)
+
             classpath = ":".join(bug.bin_folders() + bug.test_bin_folders())
             if classpath != ":":
                 classpath += ":" 
             classpath += bug.classpath()
             classpath += ":" + self.jar
             cmd = """cd %s;
-export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en -Djava.io.tmpdir=%s";
 TZ="America/New_York"; export TZ;
-export PATH="%s:$PATH";
 export JAVA_HOME="%s";
-time java %s -cp %s:%s/../lib/tools.jar %s \\
+export PATH="$JAVA_HOME/bin:$PATH";
+time timeout %sm java %s -cp %s:$JAVA_HOME/lib/tools.jar %s \\
+	--test %s \\
 	--mode %s \\
 	--type %s \\
 	--oracle %s \\
@@ -57,17 +63,19 @@ time java %s -cp %s:%s/../lib/tools.jar %s \\
 	--solver %s \\
 	--solver-path %s \\
 	--complianceLevel %s \\
+	--maxTime %s \\
 	--source %s \\
 	--classpath "%s";
 	echo "\\n\\nNode: `hostname`\\n";
 	echo "\\n\\nDate: `date`\\n";
 """ % (bug_path,
+       java_tmp_dir_path,
        JAVA8_HOME,
-       JAVA8_HOME,
+       TOOL_TIMEOUT,
        JAVA_ARGS,
        self.jar,
-       JAVA8_HOME,
        self.main,
+       ":".join(bug.get_tests()),
        self.mode,
        self.statement_type,
        self.oracle,
@@ -76,6 +84,7 @@ time java %s -cp %s:%s/../lib/tools.jar %s \\
        self.solver,
        os.path.join(Z3_PATH, "z3"),
        str(bug.compliance_level()),
+       TOOL_TIMEOUT,
        ":".join(bug.source_folders()),
        classpath)
             log_path = os.path.join(repair_task.log_dir(), "repair.log")

@@ -1,3 +1,9 @@
+# Ignore everything in 'mvn_deps/' but the 'mvn_deps/plugin/' directory
+mvn_deps/*
+!mvn_deps/plugin/*
+# Ignore the 'mvn_deps_sym' created by the init.sh script
+mvn_deps_sym/*
+
 results
 
 # Created by https://www.gitignore.io/api/python
@@ -57,7 +63,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
+#*.log
 local_settings.py
 db.sqlite3
 

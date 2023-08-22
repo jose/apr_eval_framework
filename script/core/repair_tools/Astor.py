@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import datetime
 
-from config import WORKING_DIRECTORY, REPAIR_ROOT, JAVA7_HOME, JAVA8_HOME, JAVA_ARGS
+from config import WORKING_DIRECTORY, REPAIR_ROOT, JAVA8_HOME, JAVA_ARGS, TOOL_TIMEOUT
 from core.RepairTool import RepairTool
 from core.utils import add_repair_tool
 from core.runner.RepairTask import RepairTask
@@ -16,7 +16,6 @@ class Astor(RepairTool):
                  seed=0,
                  mode="jgenprog",
                  maxgen="1000000",
-                 max_time=120,
                  population="1",
                  parameters="x:x",
                  stopfirst=True):
@@ -24,7 +23,6 @@ class Astor(RepairTool):
         self.seed = seed
         self.mode = mode
         self.maxgen = maxgen
-        self.max_time = max_time
         self.scope = scope
         self.population = population
         self.parameters = parameters
@@ -40,10 +38,12 @@ class Astor(RepairTool):
         repair_task.working_directory = bug_path
         self.init_bug(bug, bug_path)
 
-        jvm4testexecution = JAVA7_HOME
-        if bug.compliance_level() > 7:
-            jvm4testexecution = JAVA8_HOME
+        jvm4testexecution = os.path.join(JAVA8_HOME, "bin")
         try:
+            java_tmp_dir_path = os.path.abspath(os.path.join(repair_task.log_dir(), ".tmp"))
+            if not os.path.exists(java_tmp_dir_path):
+                os.makedirs(java_tmp_dir_path)
+
             classpath = bug.classpath()
             if classpath == "":
                 classpath = '""'
@@ -56,19 +56,19 @@ class Astor(RepairTool):
                 if not os.path.exists(os.path.join(bug_path, folder)):
                     test_bin_folders.remove(folder)
             cmd = """cd %s;
-export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en -Djava.io.tmpdir=%s";
 TZ="America/New_York"; export TZ;
-export PATH="%s:$PATH";
 export JAVA_HOME="%s";
-time java %s -cp %s %s \\
+export PATH="$JAVA_HOME/bin:$PATH";
+time timeout %sm java %s -cp %s %s \\
 	-mode %s \\
-	-location . \\
+	-location %s \\
 	-id %s \\
 	-failing %s \\
 	-jvm4testexecution %s \\
 	-jvm4evosuitetestexecution %s \\
 	-maxgen %s \\
-	-maxtime %d \\
+	-maxtime %s \\
 	-stopfirst %s \\
 	-seed %s \\
 	-scope %s \\
@@ -83,18 +83,20 @@ time java %s -cp %s %s \\
 	echo "\\n\\nNode: `hostname`\\n";
 	echo "\\n\\nDate: `date`\\n";
 """ % (bug_path,
+       java_tmp_dir_path,
        JAVA8_HOME,
-       JAVA8_HOME,
+       TOOL_TIMEOUT,
        JAVA_ARGS,
        os.path.join(REPAIR_ROOT, "libs", "jtestex7.jar") + ":" + self.jar,
        self.main,
        self.mode,
+       bug_path,
        "%s-%s" % (bug.project, bug.bug_id),
        ":".join(bug.failing_tests()),
        jvm4testexecution,
        jvm4testexecution,
        self.maxgen,
-       self.max_time,
+       TOOL_TIMEOUT,
        "true" if self.stopfirst else "false",
        self.seed,
        self.scope,
@@ -145,7 +147,6 @@ def init(args, name, mode):
     return Astor(name=name,
                     mode=mode,
                     maxgen=args.maxgen,
-                    max_time=args.maxtime,
                     population=args.population,
                     scope=args.scope,
                     parameters=args.parameters,
@@ -167,7 +168,6 @@ def jMutRepair_init(args):
 
 def astor_args(parser):
     parser.add_argument("--seed", help="The random seed", default=0, type=int)
-    parser.add_argument("--maxtime", help="Astor timeout", default=120, type=int)
     parser.add_argument("--population", help="Astor population", default=1, type=int)
     parser.add_argument("--maxgen", help="Astor maxgen", default=1000000, type=int)
     parser.add_argument("--scope", "-s", help="The scope of the ingredients", choices=("local", "package", "global"),

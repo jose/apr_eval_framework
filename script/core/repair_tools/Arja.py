@@ -3,7 +3,7 @@ import os
 import datetime
 import subprocess
 
-from config import WORKING_DIRECTORY, REPAIR_ROOT, JAVA7_HOME, JAVA8_HOME, JAVA_ARGS, TOOL_TIMEOUT
+from config import WORKING_DIRECTORY, REPAIR_ROOT, JAVA8_HOME, JAVA_ARGS, TOOL_TIMEOUT
 from core.RepairTool import RepairTool
 from core.utils import add_repair_tool
 from core.runner.RepairTask import RepairTask
@@ -42,34 +42,36 @@ class Arja(RepairTool):
             if not os.path.exists(os.path.dirname(log_path)):
                 os.makedirs(os.path.dirname(log_path))
 
+            java_tmp_dir_path = os.path.abspath(os.path.join(repair_task.log_dir(), ".tmp"))
+            if not os.path.exists(java_tmp_dir_path):
+                os.makedirs(java_tmp_dir_path)
+
             classpath = bug.classpath()
             if classpath == "":
                 classpath = '""'
             bin_folders = to_absolute(bug_path, bug.bin_folders())
             test_bin_folders = to_absolute(bug_path, bug.test_bin_folders())
             sources = to_absolute(bug_path, bug.source_folders())
-            java_version = JAVA7_HOME
-            if bug.compliance_level() > 7:
-                java_version = JAVA8_HOME
             cmd = """cd %s;
-export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en";
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8 -Duser.language=en-US -Duser.country=US -Duser.language=en -Djava.io.tmpdir=%s";
 TZ="America/New_York"; export TZ;
-export PATH="%s:$PATH";
 export JAVA_HOME="%s";
-timeout %sm java %s -cp %s %s \\
+export PATH="$JAVA_HOME/bin:$PATH";
+time timeout %sm java %s -cp %s %s \\
 	%s \\
 	-DexternalProjRoot %s \\
 	-DsrcJavaDir %s \\
 	-DbinJavaDir %s \\
 	-DbinTestDir %s \\
 	-DdiffFormat true \\
+	-Dtests %s \\
 	-Dseed %s \\
 	-Ddependences %s;
 	echo "\\n\\nNode: `hostname`\\n";
 	echo "\\n\\nDate: `date`\\n";
 """ % (bug_path,
-       java_version,
-       java_version,
+       java_tmp_dir_path,
+       JAVA8_HOME,
        TOOL_TIMEOUT,
        JAVA_ARGS,
        os.path.join(REPAIR_ROOT, "libs", "jmetal.jar") + ":" + self.jar,
@@ -79,6 +81,7 @@ timeout %sm java %s -cp %s %s \\
        ":".join(sources),
        ":".join(bin_folders),
        ":".join(test_bin_folders),
+       ":".join(bug.get_tests()),
        self.seed,
        classpath)
             log = file(log_path, 'w')
@@ -110,8 +113,10 @@ timeout %sm java %s -cp %s %s \\
                     patch = {
                         "edits": []
                     }
-                    with open(os.path.join(path_f.replace(".txt", ""), "diff")) as fd:
-                        patch["patch"] = fd.read()
+                    diff_file = os.path.join(path_f.replace(".txt", ""), "diff")
+                    if os.path.isfile(diff_file):
+                        with open(diff_file) as fd:
+                            patch["patch"] = fd.read()
                     with open(path_f) as fd:
                         str_patches = fd.read().split(
                             "**************************************************")

@@ -15,7 +15,7 @@ def run():
         program = "info.py"
     elif sys.argv[1] == "checkout":
         program = "checkout.py"
-    subprocess.call("python %s %s" % (os.path.join(REPAIR_ROOT, "script", program), program), shell=True)
+    subprocess.check_output("python %s %s" % (os.path.join(REPAIR_ROOT, "script", program), program), shell=True)
 
 
 if __name__ == "__main__":

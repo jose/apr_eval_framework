@@ -1,0 +1,10 @@
+--- com.fasterxml.jackson.dataformat.xml.failing.Issue37AdapterTest
+--- com.fasterxml.jackson.dataformat.xml.failing.PolymorphicList97Test
+--- com.fasterxml.jackson.dataformat.xml.failing.TestConflictingGetters
+--- com.fasterxml.jackson.dataformat.xml.failing.TestDeserialization
+--- com.fasterxml.jackson.dataformat.xml.failing.TestEmptyContent
+--- com.fasterxml.jackson.dataformat.xml.failing.TestEnums
+--- com.fasterxml.jackson.dataformat.xml.failing.TestPolymorphic
+--- com.fasterxml.jackson.dataformat.xml.failing.TestStringValues162
+--- com.fasterxml.jackson.dataformat.xml.failing.TestUntypedListSerialization
+--- com.fasterxml.jackson.dataformat.xml.failing.TestUnwrappedDeserIssue86

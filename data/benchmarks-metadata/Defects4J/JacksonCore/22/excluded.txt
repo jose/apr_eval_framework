@@ -1,0 +1,9 @@
+--- com.fasterxml.jackson.core.BaseTest
+--- com.fasterxml.jackson.core.read.TrailingCommasTest
+--- com.fasterxml.jackson.failing.async.AsyncNonStdNumbersTest
+--- com.fasterxml.jackson.failing.async.AsyncNonStdParsingTest
+--- com.fasterxml.jackson.failing.async.AsyncTokenErrorTest
+--- com.fasterxml.jackson.failing.ParserErrorHandlingTest
+--- com.fasterxml.jackson.failing.Surrogate223Test
+--- perf.ConcurrencyReadTest
+--- perf.ManualCharAccessTest

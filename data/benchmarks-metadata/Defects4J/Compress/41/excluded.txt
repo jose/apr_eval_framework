@@ -1,0 +1,4 @@
+--- org.apache.commons.compress.AbstractTestCase
+--- org.apache.commons.compress.archivers.TestArchiveStreamProvider
+--- org.apache.commons.compress.compressors.CompressorStreamFactoryRoundtripTest
+--- org.apache.commons.compress.compressors.TestCompressorStreamProvider

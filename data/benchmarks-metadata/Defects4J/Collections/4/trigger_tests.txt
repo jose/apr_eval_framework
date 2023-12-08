@@ -1,0 +1,3 @@
+--- org.apache.commons.collections.map.TestMultiValueMap::testPutWithList
+--- org.apache.commons.collections.map.TestMultiValueMap::testPutAll_KeyCollection
+--- org.apache.commons.collections.map.TestMultiValueMap::testPutWithSet

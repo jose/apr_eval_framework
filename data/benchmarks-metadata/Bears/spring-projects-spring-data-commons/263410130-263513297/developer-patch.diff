@@ -1,0 +1,69 @@
+diff --git a/src/main/java/org/springframework/data/util/ParameterizedTypeInformation.java b/src/main/java/org/springframework/data/util/ParameterizedTypeInformation.java
+index d7075911c..88a8a2fc4 100644
+--- a/src/main/java/org/springframework/data/util/ParameterizedTypeInformation.java
++++ b/src/main/java/org/springframework/data/util/ParameterizedTypeInformation.java
+@@ -181,6 +181,15 @@ class ParameterizedTypeInformation<T> extends ParentTypeAwareTypeInformation<T>
+ 	}
+ 
+ 	/* 
++	 * (non-Javadoc)
++	 * @see org.springframework.data.util.TypeDiscoverer#specialize(org.springframework.data.util.ClassTypeInformation)
++	 */
++	@Override
++	public TypeInformation<?> specialize(ClassTypeInformation<?> type) {
++		return isResolvedCompletely() ? type : super.specialize(type);
++	}
++
++	/*
+ 	 * (non-Javadoc)
+ 	 * @see org.springframework.data.util.ParentTypeAwareTypeInformation#equals(java.lang.Object)
+ 	 */
+diff --git a/src/test/java/org/springframework/data/util/ClassTypeInformationUnitTests.java b/src/test/java/org/springframework/data/util/ClassTypeInformationUnitTests.java
+index c4a4af0fa..1bfcfa7ea 100644
+--- a/src/test/java/org/springframework/data/util/ClassTypeInformationUnitTests.java
++++ b/src/test/java/org/springframework/data/util/ClassTypeInformationUnitTests.java
+@@ -106,7 +106,7 @@ public class ClassTypeInformationUnitTests {
+ 
+ 		property = information.getProperty("rawSet");
+ 		assertEquals(Set.class, property.getType());
+-		assertThat(property.getComponentType().getType(), is(Matchers.<Class<?>>equalTo(Object.class)));
++		assertThat(property.getComponentType().getType(), is(Matchers.<Class<?>> equalTo(Object.class)));
+ 		assertNull(property.getMapValueType());
+ 	}
+ 
+@@ -413,6 +413,18 @@ public class ClassTypeInformationUnitTests {
+ 		assertThat(information.getProperty("field").getType(), is(typeCompatibleWith(Nested.class)));
+ 	}
+ 
++	@Test // DATACMNS-1138
++	@SuppressWarnings("rawtypes")
++	public void usesTargetTypeForWildcardedBaseOnSpecialization() {
++
++		ClassTypeInformation<WildcardedWrapper> wrapper = ClassTypeInformation.from(WildcardedWrapper.class);
++		ClassTypeInformation<SomeConcrete> concrete = ClassTypeInformation.from(SomeConcrete.class);
++
++		TypeInformation<?> property = wrapper.getProperty("wildcarded");
++
++		assertThat(property.specialize(concrete), is((TypeInformation) concrete));
++	}
++
+ 	static class StringMapContainer extends MapContainer<String> {
+ 
+ 	}
+@@ -611,4 +623,16 @@ public class ClassTypeInformationUnitTests {
+ 	static class Nested extends SomeType<String> {}
+ 
+ 	static class Concrete extends SomeType<Nested> {}
++
++	// DATACMNS-1138
++
++	static class SomeGeneric<T> {
++		T value;
++	}
++
++	static class SomeConcrete extends SomeGeneric<String> {}
++
++	static class WildcardedWrapper {
++		SomeGeneric<?> wildcarded;
++	}
+ }

@@ -1,0 +1,69 @@
+diff --git a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+index b7bb8ad40..672c64cf6 100644
+--- a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
++++ b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+@@ -780,7 +780,7 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 				boolean isImportedField = importsContext.isImported(f.getVariable());
+ 
+ 				if (!isInitializeStaticFinalField && !(isStaticField && isImportedField)) {
+-					if (target.isImplicit()) {
++					if (target.isImplicit() && !(f.getVariable().getFieldDeclaration() == null && this.env.getNoClasspath())) {
+ 						/*
+ 						 * target is implicit, check whether there is no conflict with an local variable, catch variable or parameter
+ 						 * in case of conflict make it explicit, otherwise the field access is shadowed by that variable.
+diff --git a/src/test/java/spoon/test/prettyprinter/DefaultPrettyPrinterTest.java b/src/test/java/spoon/test/prettyprinter/DefaultPrettyPrinterTest.java
+index 4debb71f4..5585e4d96 100644
+--- a/src/test/java/spoon/test/prettyprinter/DefaultPrettyPrinterTest.java
++++ b/src/test/java/spoon/test/prettyprinter/DefaultPrettyPrinterTest.java
+@@ -30,6 +30,7 @@ import java.util.Arrays;
+ import java.util.List;
+ 
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertTrue;
+ import static spoon.testing.utils.ModelUtils.build;
+ 
+@@ -294,4 +295,16 @@ public class DefaultPrettyPrinterTest {
+ 		assertEquals(compile, snippet.compile());
+ 	}
+ 
++	@Test
++	public void testIssue1501() {
++		Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/resources/noclasspath/orwall/PreferencesActivity.java");
++		launcher.addInputResource("./src/test/resources/noclasspath/orwall/BackgroundProcess.java");
++		launcher.setSourceOutputDirectory("./target/issue1501");
++		launcher.getEnvironment().setNoClasspath(true);
++		launcher.run();
++
++		assertFalse(launcher.getModel().getAllTypes().isEmpty());
++	}
++
+ }
+diff --git a/src/test/java/spoon/test/prettyprinter/PrinterTest.java b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+index ddabff8b9..8db79aa12 100644
+--- a/src/test/java/spoon/test/prettyprinter/PrinterTest.java
++++ b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+@@ -1,12 +1,14 @@
+ package spoon.test.prettyprinter;
+ 
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertTrue;
+ import static org.junit.Assert.fail;
+ import static spoon.testing.utils.ModelUtils.canBeBuilt;
+ 
+ import org.junit.Test;
+ 
++import org.mockito.internal.matchers.Null;
+ import spoon.Launcher;
+ import spoon.SpoonException;
+ import spoon.compiler.SpoonResourceHelper;
+@@ -155,6 +157,7 @@ public class PrinterTest {
+ 			type.getMethodsByName("failingMethod").get(0).getBody().getStatement(0).toString();
+ 			fail();
+ 		} catch (SpoonException e) {
++			assertTrue(e.getCause() instanceof NullPointerException);
+ 			//the name of the missing field declaration is part of exception
+ 			assertTrue(e.getMessage().indexOf("testedField")>=0);
+ 			//the name of the method where field declaration is missing is part of exception

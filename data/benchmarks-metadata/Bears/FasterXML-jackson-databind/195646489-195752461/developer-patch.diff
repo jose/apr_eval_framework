@@ -1,0 +1,134 @@
+diff --git a/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java b/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java
+index f542d84f3..fd6a613e6 100644
+--- a/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java
++++ b/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java
+@@ -4,6 +4,7 @@ import java.lang.reflect.Modifier;
+ import java.util.*;
+ 
+ import com.fasterxml.jackson.annotation.JsonAnySetter;
++import com.fasterxml.jackson.annotation.JsonProperty.Access;
+ import com.fasterxml.jackson.databind.*;
+ import com.fasterxml.jackson.databind.cfg.HandlerInstantiator;
+ import com.fasterxml.jackson.databind.cfg.MapperConfig;
+@@ -727,10 +728,14 @@ public class POJOPropertiesCollector
+ 
+         while (it.hasNext()) {
+             POJOPropertyBuilder prop = it.next();
+-            prop.removeNonVisible(inferMutators);
++            // 26-Jan-2017, tatu: [databind#935]: need to denote removal of
++            Access acc = prop.removeNonVisible(inferMutators);
++            if (!_forSerialization && (acc == Access.READ_ONLY)) {
++                _collectIgnorals(prop.getName());
++            }
+         }
+     }
+-        
++
+     /**
+      * Helper method called to add explicitly ignored properties to a list
+      * of known ignored properties; this helps in proper reporting of
+diff --git a/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java b/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java
+index 954f5dd46..b9a403c13 100644
+--- a/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java
++++ b/src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java
+@@ -641,7 +641,7 @@ public class POJOPropertyBuilder
+      * @param inferMutators Whether mutators can be "pulled in" by visible
+      *    accessors or not. 
+      */
+-    public void removeNonVisible(boolean inferMutators)
++    public JsonProperty.Access removeNonVisible(boolean inferMutators)
+     {
+         /* 07-Jun-2015, tatu: With 2.6, we will allow optional definition
+          *  of explicit access type for property; if not "AUTO", it will
+@@ -680,6 +680,7 @@ public class POJOPropertyBuilder
+                 _setters = _removeNonVisible(_setters);
+             }
+         }
++        return acc;
+     }
+ 
+     /**
+diff --git a/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java b/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java
+new file mode 100644
+index 000000000..78d54bcc9
+--- /dev/null
++++ b/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java
+@@ -0,0 +1,78 @@
++package com.fasterxml.jackson.databind.deser;
++
++import com.fasterxml.jackson.annotation.JsonProperty;
++import com.fasterxml.jackson.databind.*;
++
++public class ReadOrWriteOnlyTest extends BaseMapTest
++{
++    // for [databind#935], verify read/write-only cases
++    static class ReadXWriteY {
++        @JsonProperty(access=JsonProperty.Access.READ_ONLY)
++        public int x = 1;
++
++        @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
++        public int y = 2;
++
++        public void setX(int x) {
++            throw new Error("Should NOT set x");
++        }
++
++        public int getY() {
++            throw new Error("Should NOT get y");
++        }
++    }
++
++    public static class Pojo935
++    {
++        private String firstName = "Foo";
++        private String lastName = "Bar";
++
++        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
++        public String getFullName() {
++            return firstName + " " + lastName;
++        }
++
++        public String getFirstName() {
++            return firstName;
++        }
++
++        public void setFirstName(String n) {
++            firstName = n;
++        }
++
++        public String getLastName() {
++            return lastName;
++        }
++
++        public void setLastName(String n) {
++            lastName = n;
++        }
++    }    
++
++    /*
++    /**********************************************************
++    /* Test methods
++    /**********************************************************
++     */
++
++    private final ObjectMapper MAPPER = new ObjectMapper();
++
++    // [databind#935]
++    public void testReadOnlyAndWriteOnly() throws Exception
++    {
++        String json = MAPPER.writeValueAsString(new ReadXWriteY());
++        assertEquals("{\"x\":1}", json);
++
++        ReadXWriteY result = MAPPER.readValue("{\"x\":5, \"y\":6}", ReadXWriteY.class);
++        assertNotNull(result);
++        assertEquals(1, result.x);
++        assertEquals(6, result.y);
++    }
++
++    public void testReadOnly935() throws Exception
++    {
++        String json = MAPPER.writeValueAsString(new Pojo935());
++        Pojo935 result = MAPPER.readValue(json, Pojo935.class);
++        assertNotNull(result);
++    }
++}

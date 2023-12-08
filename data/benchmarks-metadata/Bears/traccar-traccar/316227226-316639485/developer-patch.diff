@@ -1,0 +1,38 @@
+diff --git a/src/org/traccar/protocol/Gt06ProtocolDecoder.java b/src/org/traccar/protocol/Gt06ProtocolDecoder.java
+index 0fdd5ba10..adce11eab 100644
+--- a/src/org/traccar/protocol/Gt06ProtocolDecoder.java
++++ b/src/org/traccar/protocol/Gt06ProtocolDecoder.java
+@@ -554,14 +554,14 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
+             getLastLocation(position, dateBuilder.getDate());
+ 
+             int mcc = buf.readUnsignedShort();
+-            int mnc = buf.readUnsignedByte();
++            int mnc = BitUtil.check(mcc, 15) ? buf.readUnsignedShort() : buf.readUnsignedByte();
+             Network network = new Network();
+             for (int i = 0; i < 7; i++) {
+                 int lac = longFormat ? buf.readInt() : buf.readUnsignedShort();
+                 int cid = longFormat ? (int) buf.readLong() : buf.readUnsignedMedium();
+                 int rssi = -buf.readUnsignedByte();
+                 if (lac > 0) {
+-                    network.addCellTower(CellTower.from(mcc, mnc, lac, cid, rssi));
++                    network.addCellTower(CellTower.from(BitUtil.to(mcc, 15), mnc, lac, cid, rssi));
+                 }
+             }
+ 
+diff --git a/test/org/traccar/protocol/Gt06ProtocolDecoderTest.java b/test/org/traccar/protocol/Gt06ProtocolDecoderTest.java
+index 50fdd6cba..5404f4e55 100644
+--- a/test/org/traccar/protocol/Gt06ProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/Gt06ProtocolDecoderTest.java
+@@ -19,6 +19,12 @@ public class Gt06ProtocolDecoderTest extends ProtocolTest {
+         verifyAttributes(decoder, binary(
+                 "78780B23C00122040001000818720D0A"));
+ 
++        verifyNull(decoder, binary(
++                "78782EA4110C0C02281BF6026C18720C38D22800149C1181CC00010000260E000000000615F8012C05041102FF001058FD0D0A"));
++
++        verifyNotNull(decoder, binary(
++                "78787aa2110c0e06372c813601040000591200000000009d7c01040000591200000000009d7c01040000591200000000009d7c01040000591200000000009d7c01040000591200000000009d7c01040000591200000000009d7c01040000591200000000009d7c0104ff02001801eb4039d10000000000000004fabeb50d0a"));
++
+         verifyNotNull(decoder, binary(
+                 "78782727110c0b0e170f850450059107f461ae001c7e0a81360104cb8a00bef32806030c02ff000316b10d0a"));
+ 

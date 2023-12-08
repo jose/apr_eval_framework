@@ -1,0 +1,52 @@
+diff --git a/src/org/traccar/FilterHandler.java b/src/org/traccar/FilterHandler.java
+index 5e1214aba..f2a80a98f 100644
+--- a/src/org/traccar/FilterHandler.java
++++ b/src/org/traccar/FilterHandler.java
+@@ -84,7 +84,9 @@ public class FilterHandler extends BaseDataHandler {
+     }
+ 
+     private boolean filterInvalid(Position position) {
+-        return filterInvalid && !position.getValid();
++        return filterInvalid && (!position.getValid()
++           || position.getLatitude() > 90 || position.getLongitude() > 180
++           || position.getLatitude() < -90 || position.getLongitude() < -180);
+     }
+ 
+     private boolean filterZero(Position position) {
+diff --git a/src/org/traccar/protocol/WondexProtocolDecoder.java b/src/org/traccar/protocol/WondexProtocolDecoder.java
+index 8249d2c68..8be5e09b8 100644
+--- a/src/org/traccar/protocol/WondexProtocolDecoder.java
++++ b/src/org/traccar/protocol/WondexProtocolDecoder.java
+@@ -78,7 +78,6 @@ public class WondexProtocolDecoder extends BaseProtocolDecoder {
+             position.setProtocol(getProtocolName());
+             position.setDeviceId(deviceSession.getDeviceId());
+             getLastLocation(position, new Date());
+-            position.setValid(false);
+             position.set(Position.KEY_RESULT, buf.toString(StandardCharsets.US_ASCII));
+ 
+             return position;
+@@ -106,9 +105,8 @@ public class WondexProtocolDecoder extends BaseProtocolDecoder {
+             position.setCourse(parser.nextDouble(0));
+             position.setAltitude(parser.nextDouble(0));
+ 
+-            int satellites = parser.nextInt(0);
+-            position.setValid(satellites >= 3);
+-            position.set(Position.KEY_SATELLITES, satellites);
++            position.setValid(true);
++            position.set(Position.KEY_SATELLITES, parser.nextInt(0));
+ 
+             position.set(Position.KEY_EVENT, parser.next());
+             position.set(Position.KEY_BATTERY, parser.nextDouble());
+diff --git a/test/org/traccar/protocol/WondexProtocolDecoderTest.java b/test/org/traccar/protocol/WondexProtocolDecoderTest.java
+index c68b41671..c7ccfb457 100644
+--- a/test/org/traccar/protocol/WondexProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/WondexProtocolDecoderTest.java
+@@ -16,7 +16,7 @@ public class WondexProtocolDecoderTest extends ProtocolTest {
+ 
+         verifyPosition(decoder, buffer(
+                 "2000000257,20151030145351,69.379976,53.283905,0,0,16,2,0,0,469.1,58.9,0.0"),
+-                position("2015-10-30 14:53:51.000", false, 53.28390, 69.37998));
++                position("2015-10-30 14:53:51.000", true, 53.28390, 69.37998));
+ 
+         verifyPosition(decoder, buffer(
+                 "2000000232,20151030145206,51.166900,43.651353,0,132,11,2,0,0,0.0,0.0,0.0"));

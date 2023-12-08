@@ -1,0 +1,101 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+index 41a22b34d..58f0d86f7 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+@@ -84,6 +84,7 @@ import spoon.reflect.code.CtLambda;
+ import spoon.reflect.declaration.CtPackage;
+ import spoon.reflect.declaration.CtParameter;
+ import spoon.reflect.declaration.ModifierKind;
++import spoon.reflect.factory.PackageFactory;
+ import spoon.reflect.reference.CtArrayTypeReference;
+ import spoon.reflect.reference.CtCatchVariableReference;
+ import spoon.reflect.reference.CtExecutableReference;
+@@ -532,10 +533,11 @@ public class ReferenceBuilder {
+ 		if (res == null) {
+ 			return this.jdtTreeBuilder.getFactory().Type().createReference(CharOperation.toString(ref.getParameterizedTypeName()));
+ 		}
+-		CtPackageReference packageReference = index >= 0
+-				? this.jdtTreeBuilder.getFactory().Package().getOrCreate(concatSubArray(namesParameterized, index)).getReference()
+-				: this.jdtTreeBuilder.getFactory().Package().topLevel();
+-		inner.setPackage(packageReference);
++		if (inner.getPackage() == null) {
++			PackageFactory packageFactory = this.jdtTreeBuilder.getFactory().Package();
++			CtPackageReference packageReference = index >= 0 ? packageFactory.getOrCreate(concatSubArray(namesParameterized, index)).getReference() : packageFactory.topLevel();
++			inner.setPackage(packageReference);
++		}
+ 		return res;
+ 	}
+ 
+@@ -572,6 +574,8 @@ public class ReferenceBuilder {
+ 		} else if (Character.isUpperCase(name.charAt(0))) {
+ 			main = this.jdtTreeBuilder.getFactory().Core().createTypeReference();
+ 			main.setSimpleName(name);
++			final CtReference declaring = this.getDeclaringReferenceFromImports(name.toCharArray());
++			setPackageOrDeclaringType(main, declaring);
+ 		} else if (name.startsWith("?")) {
+ 			return (CtTypeReference) this.jdtTreeBuilder.getFactory().Core().createWildcardReference();
+ 		}
+diff --git a/src/test/java/spoon/test/arrays/ArraysTest.java b/src/test/java/spoon/test/arrays/ArraysTest.java
+index 9eb0a703a..9a234b0e2 100644
+--- a/src/test/java/spoon/test/arrays/ArraysTest.java
++++ b/src/test/java/spoon/test/arrays/ArraysTest.java
+@@ -60,7 +60,7 @@ public class ArraysTest {
+ 		assertEquals(1, local.getDimensionExpressions().size());
+ 		assertTrue(local.getDimensionExpressions().get(0) instanceof CtInvocation);
+ 		assertTrue(local.getType() instanceof CtArrayTypeReference);
+-		assertEquals("new Type[list.size()]", local.toString());
++		assertEquals("new com.example.Type[list.size()]", local.toString());
+ 	}
+ 
+ 	@Test
+diff --git a/src/test/java/spoon/test/constructorcallnewclass/NewClassTest.java b/src/test/java/spoon/test/constructorcallnewclass/NewClassTest.java
+index 09b43d55f..9a3415abd 100644
+--- a/src/test/java/spoon/test/constructorcallnewclass/NewClassTest.java
++++ b/src/test/java/spoon/test/constructorcallnewclass/NewClassTest.java
+@@ -162,9 +162,9 @@ public class NewClassTest {
+ 		assertNotNull(anonymousClass);
+ 		assertNotNull(anonymousClass.getSuperclass());
+ 		assertEquals("With", anonymousClass.getSuperclass().getSimpleName());
+-		assertEquals("Lock$With", anonymousClass.getSuperclass().getQualifiedName());
++		assertEquals("org.apache.lucene.store.Lock$With", anonymousClass.getSuperclass().getQualifiedName());
+ 		assertEquals("Lock", anonymousClass.getSuperclass().getDeclaringType().getSimpleName());
+-		assertEquals("Lock.With", anonymousClass.getSuperclass().toString());
++		assertEquals("org.apache.lucene.store.Lock.With", anonymousClass.getSuperclass().toString());
+ 		assertEquals("1", anonymousClass.getSimpleName());
+ 		assertEquals("2", secondNewClass.getAnonymousClass().getSimpleName());
+ 		assertEquals(1, anonymousClass.getMethods().size());
+diff --git a/src/test/java/spoon/test/type/TypeTest.java b/src/test/java/spoon/test/type/TypeTest.java
+index 5fef0735b..16795c7fd 100644
+--- a/src/test/java/spoon/test/type/TypeTest.java
++++ b/src/test/java/spoon/test/type/TypeTest.java
+@@ -26,6 +26,7 @@ import spoon.reflect.code.CtConstructorCall;
+ import spoon.reflect.code.CtFieldRead;
+ import spoon.reflect.code.CtLambda;
+ import spoon.reflect.code.CtLocalVariable;
++import spoon.reflect.code.CtNewClass;
+ import spoon.reflect.code.CtTypeAccess;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtMethod;
+@@ -156,6 +157,22 @@ public class TypeTest {
+ 		canBeBuilt(target, 8, true);
+ 	}
+ 
++	@Test
++	public void test() throws Exception {
++		final Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/resources/noclasspath/TorIntegration.java");
++		launcher.getEnvironment().setNoClasspath(true);
++		launcher.buildModel();
++
++		CtType<?> ctType = launcher.getFactory().Class().getAll().get(0);
++		List<CtNewClass> elements = ctType.getElements(new TypeFilter<>(CtNewClass.class));
++		assertEquals(4, elements.size());
++		for (int i = 0; i < elements.size(); i++) {
++			CtNewClass ctNewClass = elements.get(i);
++			assertEquals("android.content.DialogInterface$OnClickListener", ctNewClass.getAnonymousClass().getSuperclass().getQualifiedName());
++		}
++	}
++
+ 	@Test
+ 	public void testIntersectionTypeReferenceInGenericsAndCasts() throws Exception {
+ 		final String target = "./target/type";

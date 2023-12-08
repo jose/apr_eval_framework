@@ -1,0 +1,16 @@
+--- src/main/java/org/apache/commons/collections4/trie/UnmodifiableTrie.java	2023-12-05 20:09:36.633088070 +0000
++++ src/main/java/org/apache/commons/collections4/trie/UnmodifiableTrie.java	2023-12-05 20:09:40.387722713 +0000
+@@ -51,7 +51,12 @@
+      * @return a new unmodifiable trie
+      * @throws IllegalArgumentException if trie is null
+      */
+-    public static <K, V> UnmodifiableTrie<K, V> unmodifiableTrie(final Trie<K, ? extends V> trie) {
++    public static <K, V> Trie<K, V> unmodifiableTrie(final Trie<K, ? extends V> trie) {
++        if (trie instanceof Unmodifiable) {
++            @SuppressWarnings("unchecked") // safe to upcast
++            final Trie<K, V> tmpTrie = (Trie<K, V>) trie;
++            return tmpTrie;
++        }
+         return new UnmodifiableTrie<K, V>(trie);
+     }
+ 

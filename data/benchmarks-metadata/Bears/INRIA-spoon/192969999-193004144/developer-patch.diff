@@ -1,0 +1,119 @@
+diff --git a/src/main/java/spoon/support/reflect/reference/CtTypeReferenceImpl.java b/src/main/java/spoon/support/reflect/reference/CtTypeReferenceImpl.java
+index 82a30e618..e6ceb9e5e 100644
+--- a/src/main/java/spoon/support/reflect/reference/CtTypeReferenceImpl.java
++++ b/src/main/java/spoon/support/reflect/reference/CtTypeReferenceImpl.java
+@@ -465,7 +465,14 @@ public class CtTypeReferenceImpl<T> extends CtReferenceImpl implements CtTypeRef
+ 	public Collection<CtExecutableReference<?>> getDeclaredExecutables() {
+ 		CtType<T> t = getDeclaration();
+ 		if (t == null) {
+-			return RtHelper.getAllExecutables(getActualClass(), getFactory());
++			try {
++				return RtHelper.getAllExecutables(getActualClass(), getFactory());
++			} catch (final SpoonClassNotFoundException e) {
++				if (getFactory().getEnvironment().getNoClasspath()) {
++					return Collections.emptyList();
++				}
++				throw e;
++			}
+ 		} else {
+ 			return t.getDeclaredExecutables();
+ 		}
+@@ -508,12 +515,19 @@ public class CtTypeReferenceImpl<T> extends CtReferenceImpl implements CtTypeRef
+ 		if (t != null) {
+ 			return t.getSuperclass();
+ 		} else {
+-			Class<T> c = getActualClass();
+-			Class<?> sc = c.getSuperclass();
+-			if (sc == null) {
+-				return null;
++			try {
++				Class<T> c = getActualClass();
++				Class<?> sc = c.getSuperclass();
++				if (sc == null) {
++					return null;
++				}
++				return getFactory().Type().createReference(sc);
++			} catch (final SpoonClassNotFoundException e) {
++				if (getFactory().getEnvironment().getNoClasspath()) {
++					return null;
++				}
++				throw e;
+ 			}
+-			return getFactory().Type().createReference(sc);
+ 		}
+ 	}
+ 
+diff --git a/src/test/java/spoon/test/methodreference/MethodReferenceTest.java b/src/test/java/spoon/test/methodreference/MethodReferenceTest.java
+index 673995568..809db91ad 100644
+--- a/src/test/java/spoon/test/methodreference/MethodReferenceTest.java
++++ b/src/test/java/spoon/test/methodreference/MethodReferenceTest.java
+@@ -5,17 +5,20 @@ import org.junit.Test;
+ import spoon.Launcher;
+ import spoon.OutputType;
+ import spoon.compiler.SpoonCompiler;
++import spoon.reflect.CtModel;
+ import spoon.reflect.code.CtExecutableReferenceExpression;
+ import spoon.reflect.code.CtExpression;
+ import spoon.reflect.code.CtFieldRead;
+ import spoon.reflect.code.CtTypeAccess;
+ import spoon.reflect.code.CtVariableRead;
+ import spoon.reflect.declaration.CtClass;
++import spoon.reflect.declaration.CtMethod;
+ import spoon.reflect.factory.Factory;
+ import spoon.reflect.reference.CtExecutableReference;
+ import spoon.reflect.reference.CtTypeReference;
+ import spoon.reflect.visitor.Query;
+ import spoon.reflect.visitor.filter.AbstractFilter;
++import spoon.reflect.visitor.filter.NameFilter;
+ import spoon.reflect.visitor.filter.TypeFilter;
+ import spoon.test.methodreference.testclasses.Foo;
+ 
+@@ -26,6 +29,7 @@ import java.util.function.Supplier;
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertTrue;
++import static org.junit.Assert.assertNull;
+ import static spoon.testing.utils.ModelUtils.canBeBuilt;
+ 
+ public class MethodReferenceTest {
+@@ -160,6 +164,40 @@ public class MethodReferenceTest {
+ 		assertEquals("elemType::isInstance", element.toString());
+ 	}
+ 
++	@Test
++	public void testNoClasspathSuperExecutable() {
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setNoClasspath(true);
++		launcher.addInputResource("src/test/resources/noclasspath/superclass/UnknownSuperClass.java");
++		launcher.buildModel();
++		final CtModel model = launcher.getModel();
++
++		final CtTypeReference overrideRef = launcher.getFactory().
++				Annotation().createReference(Override.class);
++
++		// call `getSuperClass()` indirectly using `getOverridingExecutable()`
++
++		// some consistency checks...
++		assertEquals(1, model.getElements(
++				new NameFilter<CtMethod>("a")).size());
++		assertEquals(1, model.getElements(
++				new NameFilter<CtMethod>("b")).size());
++		assertEquals(1, model.getElements(
++				new NameFilter<CtMethod>("toString")).size());
++
++		// get super method of a class not available in classpath
++		final CtMethod bMethod = model.getElements(
++				new NameFilter<CtMethod>("b")).get(0);
++		assertNotNull(bMethod.getAnnotation(overrideRef));
++		assertNull(bMethod.getReference().getOverridingExecutable());
++
++		// get super method of a class available in classpath (Object)
++		final CtMethod toStringMethod = model.getElements(
++				new NameFilter<CtMethod>("toString")).get(0);
++		assertNotNull(toStringMethod.getAnnotation(overrideRef));
++		assertNotNull(toStringMethod.getReference().getOverridingExecutable());
++	}
++
+ 	private void assertTypedBy(Class<?> expected, CtTypeReference<?> type) {
+ 		assertEquals("Method reference must be typed.", expected, type.getActualClass());
+ 	}

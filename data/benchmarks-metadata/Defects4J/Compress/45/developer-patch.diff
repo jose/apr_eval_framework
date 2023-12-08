@@ -1,0 +1,13 @@
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:56:20.983636780 +0000
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:56:24.731282735 +0000
+@@ -484,8 +484,9 @@
+ 
+         if (length < 9) {
+             formatLongBinary(value, buf, offset, length, negative);
++        } else {
++            formatBigIntegerBinary(value, buf, offset, length, negative);
+         }
+-        formatBigIntegerBinary(value, buf, offset, length, negative);
+ 
+         buf[offset] = (byte) (negative ? 0xff : 0x80);
+         return offset + length;

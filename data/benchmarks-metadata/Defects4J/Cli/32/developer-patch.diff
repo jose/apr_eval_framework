@@ -1,0 +1,15 @@
+--- src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:03.248484191 +0000
++++ src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:06.447587500 +0000
+@@ -934,11 +934,7 @@
+         
+         // if we didn't find one, simply chop at startPos+width
+         pos = startPos + width;
+-        while ((pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
+-               && (c != '\n') && (c != '\r'))
+-        {
+-            ++pos;
+-        }        
++        
+         return pos == text.length() ? -1 : pos;
+     }
+ 

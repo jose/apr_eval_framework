@@ -1,0 +1,16 @@
+--- gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2023-12-05 20:59:02.356220476 +0000
++++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2023-12-05 20:59:04.421814272 +0000
+@@ -259,9 +259,13 @@
+       pathNames[stackSize - 2] = "null";
+     } else {
+       popStack();
++      if (stackSize > 0) {
+         pathNames[stackSize - 1] = "null";
++      }
+     }
++    if (stackSize > 0) {
+       pathIndices[stackSize - 1]++;
++    }
+   }
+ 
+   @Override public String toString() {

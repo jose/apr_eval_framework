@@ -1,0 +1,84 @@
+diff --git a/src/main/java/org/joo/libra/pointer/VariablePredicate.java b/src/main/java/org/joo/libra/pointer/VariablePredicate.java
+index a7ad5baa5..9186475ea 100644
+--- a/src/main/java/org/joo/libra/pointer/VariablePredicate.java
++++ b/src/main/java/org/joo/libra/pointer/VariablePredicate.java
+@@ -1,5 +1,7 @@
+ package org.joo.libra.pointer;
+ 
++import java.util.Collection;
++
+ import org.joo.libra.PredicateContext;
+ import org.joo.libra.common.CompositionPredicate;
+ import org.joo.libra.common.HasValue;
+@@ -33,6 +35,10 @@ public class VariablePredicate implements CompositionPredicate {
+         	return ((Number) rawValue).doubleValue() != 0.0;
+         if (rawValue instanceof Boolean)
+         	return Boolean.TRUE.equals(rawValue);
++        if (rawValue instanceof Collection)
++        	return !((Collection<?>) rawValue).isEmpty();
++        if (rawValue instanceof Object[])
++        	return ((Object[]) rawValue).length != 0;
+         return true;
+     }
+     
+diff --git a/src/test/java/org/joo/libra/test/TestSqlVariable.java b/src/test/java/org/joo/libra/test/TestSqlVariable.java
+index 69d1744a5..e65b43463 100644
+--- a/src/test/java/org/joo/libra/test/TestSqlVariable.java
++++ b/src/test/java/org/joo/libra/test/TestSqlVariable.java
+@@ -66,6 +66,10 @@ public class TestSqlVariable {
+         list.add(new Object[] { "name", true, context });
+         list.add(new Object[] { "age", true, context });
+         list.add(new Object[] { "salary", false, context });
++        list.add(new Object[] { "jobs", true, context });
++        list.add(new Object[] { "jobList", true, context });
++        list.add(new Object[] { "noJobs", false, context });
++        list.add(new Object[] { "noJobList", false, context });
+ 
+         list.add(new Object[] { "name > ", null, context });
+         list.add(new Object[] { "name is 'John'", true, context });
+diff --git a/src/test/java/org/joo/libra/test/support/Person.java b/src/test/java/org/joo/libra/test/support/Person.java
+index 654a6b044..e0122e71a 100644
+--- a/src/test/java/org/joo/libra/test/support/Person.java
++++ b/src/test/java/org/joo/libra/test/support/Person.java
+@@ -1,5 +1,6 @@
+ package org.joo.libra.test.support;
+ 
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ public class Person {
+@@ -14,8 +15,12 @@ public class Person {
+ 
+     private String[] jobs;
+ 
++    private String[] noJobs = new String[0];
++    
+     private List<String> jobList;
+     
++    private List<String> noJobList = new ArrayList<>();
++    
+     private boolean female;
+     
+     private String data;
+@@ -83,4 +88,20 @@ public class Person {
+ 	public void setSalary(int salary) {
+ 		this.salary = salary;
+ 	}
++
++	public String[] getNoJobs() {
++		return noJobs;
++	}
++
++	public void setNoJobs(String[] noJobs) {
++		this.noJobs = noJobs;
++	}
++
++	public List<String> getNoJobList() {
++		return noJobList;
++	}
++
++	public void setNoJobList(List<String> noJobList) {
++		this.noJobList = noJobList;
++	}
+ }
+\ No newline at end of file

@@ -1,0 +1,18 @@
+--- src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:11:40.274672824 +0000
++++ src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:11:45.583089435 +0000
+@@ -247,6 +247,15 @@
+         }
+ 
+         stepSize = hNew;
++        if (forward) {
++            if (stepStart + stepSize >= t) {
++                stepSize = t - stepStart;
++            }
++        } else {
++            if (stepStart + stepSize <= t) {
++                stepSize = t - stepStart;
++            }
++        }
+ 
+         // next stages
+         for (int k = 1; k < stages; ++k) {

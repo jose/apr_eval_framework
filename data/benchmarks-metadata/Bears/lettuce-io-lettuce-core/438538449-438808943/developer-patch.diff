@@ -1,0 +1,350 @@
+diff --git a/src/main/java/io/lettuce/core/dynamic/DeclaredCommandMethod.java b/src/main/java/io/lettuce/core/dynamic/DeclaredCommandMethod.java
+index 7540f73f3..3d14f1e6f 100644
+--- a/src/main/java/io/lettuce/core/dynamic/DeclaredCommandMethod.java
++++ b/src/main/java/io/lettuce/core/dynamic/DeclaredCommandMethod.java
+@@ -79,8 +79,7 @@ public class DeclaredCommandMethod implements CommandMethod {
+ 
+         ResolvableType actualReturnType = this.returnType;
+ 
+-        while (Future.class.isAssignableFrom(actualReturnType.getRawClass())
+-                || ReactiveTypes.supports(actualReturnType.getRawClass())) {
++        while (Future.class.isAssignableFrom(actualReturnType.getRawClass())) {
+             ResolvableType[] generics = actualReturnType.getGenerics();
+ 
+             if (generics.length != 1) {
+diff --git a/src/main/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactory.java b/src/main/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactory.java
+index 1def7e6a4..e4d4247be 100644
+--- a/src/main/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactory.java
++++ b/src/main/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactory.java
+@@ -31,7 +31,7 @@ class ReactiveCommandSegmentCommandFactory extends CommandSegmentCommandFactory
+ 
+     private boolean streamingExecution;
+ 
+-    public ReactiveCommandSegmentCommandFactory(CommandSegments commandSegments, CommandMethod commandMethod,
++    ReactiveCommandSegmentCommandFactory(CommandSegments commandSegments, CommandMethod commandMethod,
+             RedisCodec<?, ?> redisCodec, CommandOutputFactoryResolver outputResolver) {
+ 
+         super(commandSegments, commandMethod, redisCodec, outputResolver);
+@@ -49,20 +49,27 @@ class ReactiveCommandSegmentCommandFactory extends CommandSegmentCommandFactory
+     @Override
+     protected CommandOutputFactory resolveCommandOutputFactory(OutputSelector outputSelector) {
+ 
+-        CommandOutputFactory factory = getOutputResolver().resolveStreamingCommandOutput(outputSelector);
++        streamingExecution = ReactiveTypes.isMultiValueType(outputSelector.getOutputType().getRawClass());
+ 
+-        if (factory != null) {
+-            streamingExecution = true;
+-            return factory;
++        OutputSelector componentType = new OutputSelector(outputSelector.getOutputType().getGeneric(0),
++                outputSelector.getRedisCodec());
++
++        if (streamingExecution) {
++
++            CommandOutputFactory streamingFactory = getOutputResolver().resolveStreamingCommandOutput(componentType);
++
++            if (streamingExecution && streamingFactory != null) {
++                return streamingFactory;
++            }
+         }
+ 
+-        return super.resolveCommandOutputFactory(outputSelector);
++        return super.resolveCommandOutputFactory(componentType);
+     }
+ 
+     /**
+      * @return {@literal true} if the resolved {@link io.lettuce.core.output.CommandOutput} should use streaming.
+      */
+-    public boolean isStreamingExecution() {
++    boolean isStreamingExecution() {
+         return streamingExecution;
+     }
+ }
+diff --git a/src/test/java/io/lettuce/core/dynamic/DeclaredCommandMethodUnitTests.java b/src/test/java/io/lettuce/core/dynamic/DeclaredCommandMethodUnitTests.java
+index 62bd8c97f..e6729dad6 100644
+--- a/src/test/java/io/lettuce/core/dynamic/DeclaredCommandMethodUnitTests.java
++++ b/src/test/java/io/lettuce/core/dynamic/DeclaredCommandMethodUnitTests.java
+@@ -52,7 +52,7 @@ class DeclaredCommandMethodUnitTests {
+ 
+         CommandMethod commandMethod = DeclaredCommandMethod.create(getMethod("getFlux"));
+ 
+-        assertThat(commandMethod.getActualReturnType().getRawClass()).isEqualTo(String.class);
++        assertThat(commandMethod.getActualReturnType().getRawClass()).isEqualTo(Flux.class);
+         assertThat(commandMethod.getReturnType().getRawClass()).isEqualTo(Flux.class);
+     }
+ 
+@@ -60,7 +60,7 @@ class DeclaredCommandMethodUnitTests {
+         return MyInterface.class.getDeclaredMethod(name);
+     }
+ 
+-    private static interface MyInterface {
++    private interface MyInterface {
+ 
+         String getString();
+ 
+diff --git a/src/test/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactoryUnitTests.java b/src/test/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactoryUnitTests.java
+index fffc1d2b2..ed4a15e09 100644
+--- a/src/test/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactoryUnitTests.java
++++ b/src/test/java/io/lettuce/core/dynamic/ReactiveCommandSegmentCommandFactoryUnitTests.java
+@@ -17,25 +17,25 @@ package io.lettuce.core.dynamic;
+ 
+ import static org.assertj.core.api.Assertions.assertThat;
+ import static org.assertj.core.api.Assertions.fail;
+-import static org.mockito.Matchers.any;
+-import static org.mockito.Mockito.when;
+ 
+ import java.lang.reflect.Method;
+ 
+-import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.extension.ExtendWith;
+-import org.mockito.Mock;
+ import org.mockito.junit.jupiter.MockitoExtension;
+ import org.reactivestreams.Publisher;
+ 
++import reactor.core.publisher.Flux;
++import reactor.core.publisher.Mono;
+ import io.lettuce.core.codec.StringCodec;
+ import io.lettuce.core.dynamic.domain.Timeout;
+-import io.lettuce.core.dynamic.output.CommandOutputFactory;
+-import io.lettuce.core.dynamic.output.CommandOutputFactoryResolver;
++import io.lettuce.core.dynamic.output.CodecAwareOutputFactoryResolver;
++import io.lettuce.core.dynamic.output.OutputRegistry;
++import io.lettuce.core.dynamic.output.OutputRegistryCommandOutputFactoryResolver;
+ import io.lettuce.core.dynamic.segment.AnnotationCommandSegmentFactory;
+ import io.lettuce.core.dynamic.segment.CommandSegments;
+ import io.lettuce.core.dynamic.support.ReflectionUtils;
++import io.lettuce.core.output.StreamingOutput;
+ import io.lettuce.core.protocol.RedisCommand;
+ 
+ /**
+@@ -44,16 +44,8 @@ import io.lettuce.core.protocol.RedisCommand;
+ @ExtendWith(MockitoExtension.class)
+ class ReactiveCommandSegmentCommandFactoryUnitTests {
+ 
+-    @Mock
+-    private CommandOutputFactoryResolver outputFactoryResolver;
+-
+-    @Mock
+-    private CommandOutputFactory commandOutputFactory;
+-
+-    @BeforeEach
+-    void before() {
+-        when(outputFactoryResolver.resolveCommandOutput(any())).thenReturn(commandOutputFactory);
+-    }
++    private CodecAwareOutputFactoryResolver outputFactoryResolver = new CodecAwareOutputFactoryResolver(
++            new OutputRegistryCommandOutputFactoryResolver(new OutputRegistry()), StringCodec.UTF8);
+ 
+     @Test
+     void commandCreationWithTimeoutShouldFail() {
+@@ -66,6 +58,22 @@ class ReactiveCommandSegmentCommandFactoryUnitTests {
+         }
+     }
+ 
++    @Test
++    void shouldResolveNonStreamingOutput() {
++
++        RedisCommand<?, ?, ?> command = createCommand("getOne", ReactiveWithTimeout.class, String.class);
++
++        assertThat(command.getOutput()).isNotInstanceOf(StreamingOutput.class);
++    }
++
++    @Test
++    void shouldResolveStreamingOutput() {
++
++        RedisCommand<?, ?, ?> command = createCommand("getMany", ReactiveWithTimeout.class, String.class);
++
++        assertThat(command.getOutput()).isInstanceOf(StreamingOutput.class);
++    }
++
+     RedisCommand<?, ?, ?> createCommand(String methodName, Class<?> interfaceClass, Class<?>... parameterTypes) {
+ 
+         Method method = ReflectionUtils.findMethod(interfaceClass, methodName, parameterTypes);
+@@ -78,11 +86,15 @@ class ReactiveCommandSegmentCommandFactoryUnitTests {
+         ReactiveCommandSegmentCommandFactory factory = new ReactiveCommandSegmentCommandFactory(commandSegments, commandMethod,
+                 new StringCodec(), outputFactoryResolver);
+ 
+-        return factory.createCommand(null);
++        return factory.createCommand(new Object[] { "foo" });
+     }
+ 
+     private static interface ReactiveWithTimeout {
+ 
+         Publisher<String> get(String key, Timeout timeout);
++
++        Mono<String> getOne(String key);
++
++        Flux<String> getMany(String key);
+     }
+ }
+diff --git a/src/test/java/io/lettuce/core/dynamic/RedisCommandsReactiveIntegrationTests.java b/src/test/java/io/lettuce/core/dynamic/RedisCommandsReactiveIntegrationTests.java
+index 72ef977ee..2de91faf4 100644
+--- a/src/test/java/io/lettuce/core/dynamic/RedisCommandsReactiveIntegrationTests.java
++++ b/src/test/java/io/lettuce/core/dynamic/RedisCommandsReactiveIntegrationTests.java
+@@ -17,6 +17,7 @@ package io.lettuce.core.dynamic;
+ 
+ import javax.inject.Inject;
+ 
++import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.extension.ExtendWith;
+ 
+@@ -27,6 +28,7 @@ import io.lettuce.core.api.StatefulRedisConnection;
+ import io.lettuce.core.api.sync.RedisCommands;
+ import io.lettuce.core.dynamic.annotation.Command;
+ import io.lettuce.test.LettuceExtension;
++import io.reactivex.Maybe;
+ 
+ /**
+  * @author Mark Paluch
+@@ -41,6 +43,11 @@ class RedisCommandsReactiveIntegrationTests extends TestSupport {
+         this.redis = connection.sync();
+     }
+ 
++    @BeforeEach
++    void setUp() {
++        this.redis.flushall();
++    }
++
+     @Test
+     void reactive() {
+ 
+@@ -51,8 +58,56 @@ class RedisCommandsReactiveIntegrationTests extends TestSupport {
+         StepVerifier.create(api.setReactive(key, value)).expectNext("OK").verifyComplete();
+     }
+ 
+-    static interface MultipleExecutionModels extends Commands {
++    @Test
++    void shouldHandlePresentValue() {
++
++        RedisCommandFactory factory = new RedisCommandFactory(redis.getStatefulConnection());
++
++        MultipleExecutionModels api = factory.getCommands(MultipleExecutionModels.class);
++
++        StepVerifier.create(api.setReactive(key, value)).expectNext("OK").verifyComplete();
++        StepVerifier.create(api.get(key)).expectNext(value).verifyComplete();
++    }
++
++    @Test
++    void shouldHandleAbsentValue() {
++
++        RedisCommandFactory factory = new RedisCommandFactory(redis.getStatefulConnection());
++
++        MultipleExecutionModels api = factory.getCommands(MultipleExecutionModels.class);
++
++        StepVerifier.create(api.get("unknown")).verifyComplete();
++    }
++
++    @Test
++    void shouldHandlePresentValueRxJava() throws InterruptedException {
++
++        RedisCommandFactory factory = new RedisCommandFactory(redis.getStatefulConnection());
++
++        MultipleExecutionModels api = factory.getCommands(MultipleExecutionModels.class);
++
++        StepVerifier.create(api.setReactive(key, value)).expectNext("OK").verifyComplete();
++        api.getRxJava(key).test().await().onSuccess(value);
++    }
++
++    @Test
++    void shouldHandleAbsentValueRxJava() throws InterruptedException {
++
++        RedisCommandFactory factory = new RedisCommandFactory(redis.getStatefulConnection());
++
++        MultipleExecutionModels api = factory.getCommands(MultipleExecutionModels.class);
++
++        api.getRxJava(key).test().await().onSuccess(null);
++    }
++
++    interface MultipleExecutionModels extends Commands {
++
+         @Command("SET")
+         Mono<String> setReactive(String key, String value);
++
++        Mono<String> get(String key);
++
++        @Command("GET")
++        Maybe<String> getRxJava(String key);
+     }
+ }
+diff --git a/src/test/java/io/lettuce/core/dynamic/output/OutputRegistryCommandOutputFactoryResolverUnitTests.java b/src/test/java/io/lettuce/core/dynamic/output/OutputRegistryCommandOutputFactoryResolverUnitTests.java
+index 9a2b41418..d5c0d2f34 100644
+--- a/src/test/java/io/lettuce/core/dynamic/output/OutputRegistryCommandOutputFactoryResolverUnitTests.java
++++ b/src/test/java/io/lettuce/core/dynamic/output/OutputRegistryCommandOutputFactoryResolverUnitTests.java
+@@ -22,7 +22,10 @@ import java.util.Collection;
+ import java.util.List;
+ 
+ import org.junit.jupiter.api.Test;
++import org.reactivestreams.Publisher;
+ 
++import reactor.core.publisher.Flux;
++import reactor.core.publisher.Mono;
+ import io.lettuce.core.GeoCoordinates;
+ import io.lettuce.core.ScoredValue;
+ import io.lettuce.core.Value;
+@@ -46,6 +49,11 @@ class OutputRegistryCommandOutputFactoryResolverUnitTests {
+         assertThat(getCommandOutput("stringIterable")).isInstanceOf(KeyListOutput.class);
+     }
+ 
++    @Test
++    void shouldResolveStreamingStringListOutput() {
++        assertThat(getStreamingCommandOutput("stringFlux")).isInstanceOf(KeyListOutput.class);
++    }
++
+     @Test
+     void shouldResolveVoidOutput() {
+ 
+@@ -53,6 +61,11 @@ class OutputRegistryCommandOutputFactoryResolverUnitTests {
+         assertThat(getCommandOutput("voidWrapper")).isInstanceOf(VoidOutput.class);
+     }
+ 
++    @Test
++    void shouldResolveKeyOutput() {
++        assertThat(getCommandOutput("stringMono")).isInstanceOf(KeyOutput.class);
++    }
++
+     @Test
+     void shouldResolveStringValueListOutput() {
+ 
+@@ -143,23 +156,40 @@ class OutputRegistryCommandOutputFactoryResolverUnitTests {
+     CommandOutput<?, ?, ?> getCommandOutput(String methodName) {
+ 
+         OutputSelector outputSelector = getOutputSelector(methodName);
+-        CommandOutputFactory factory = resolver.resolveCommandOutput(outputSelector);
++        CommandOutputFactory factory = resolver.resolveCommandOutput(Publisher.class.isAssignableFrom(outputSelector
++                .getOutputType().getRawClass()) ? unwrapReactiveType(outputSelector) : outputSelector);
++
++        return factory.create(new StringCodec());
++    }
++
++    CommandOutput<?, ?, ?> getStreamingCommandOutput(String methodName) {
++
++        OutputSelector outputSelector = getOutputSelector(methodName);
++        CommandOutputFactory factory = resolver.resolveStreamingCommandOutput(unwrapReactiveType(outputSelector));
+ 
+         return factory.create(new StringCodec());
+     }
+ 
++    private OutputSelector unwrapReactiveType(OutputSelector outputSelector) {
++        return new OutputSelector(outputSelector.getOutputType().getGeneric(0), outputSelector.getRedisCodec());
++    }
++
+     private OutputSelector getOutputSelector(String methodName) {
+ 
+         Method method = ReflectionUtils.findMethod(CommandMethods.class, methodName);
+         return new OutputSelector(DeclaredCommandMethod.create(method).getActualReturnType(), StringCodec.UTF8);
+     }
+ 
+-    private static interface CommandMethods {
++    private interface CommandMethods {
+ 
+         List<String> stringList();
+ 
+         Iterable<String> stringIterable();
+ 
++        Mono<String> stringMono();
++
++        Flux<String> stringFlux();
++
+         Collection<Value<String>> stringValueCollection();
+ 
+         Collection<? extends Value<String>> stringWildcardValueCollection();

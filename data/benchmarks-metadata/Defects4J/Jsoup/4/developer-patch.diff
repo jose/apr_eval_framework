@@ -1,0 +1,26 @@
+--- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:02.581070644 +0000
++++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:04.491459138 +0000
+@@ -61,7 +61,7 @@
+                 } catch (NumberFormatException e) {
+                 } // skip
+             } else {
+-                String name = m.group(1).toLowerCase();
++                String name = m.group(1);
+                 if (full.containsKey(name))
+                     charval = full.get(name);
+             }
+@@ -2232,12 +2232,12 @@
+ 
+         for (Object[] entity : baseArray) {
+             Character c = Character.valueOf((char) ((Integer) entity[1]).intValue());
+-            baseByVal.put(c, ((String) entity[0]).toLowerCase());
++            baseByVal.put(c, ((String) entity[0]));
+         }
+         for (Object[] entity : fullArray) {
+             Character c = Character.valueOf((char) ((Integer) entity[1]).intValue());
+             full.put((String) entity[0], c);
+-            fullByVal.put(c, ((String) entity[0]).toLowerCase());
++            fullByVal.put(c, ((String) entity[0]));
+         }
+     }
+ 

@@ -1,0 +1,45 @@
+diff --git a/axon-server-connector/src/main/java/org/axonframework/axonserver/connector/ErrorCode.java b/axon-server-connector/src/main/java/org/axonframework/axonserver/connector/ErrorCode.java
+index b81ebcd4b..39affcdd9 100644
+--- a/axon-server-connector/src/main/java/org/axonframework/axonserver/connector/ErrorCode.java
++++ b/axon-server-connector/src/main/java/org/axonframework/axonserver/connector/ErrorCode.java
+@@ -116,7 +116,7 @@ public AxonException convert(ErrorMessage errorMessage){
+      * @return the Axon Framework exception
+      */
+     public AxonException convert(Throwable throwable){
+-        return convert(null, throwable);
++        return convert("", throwable);
+     }
+ 
+     /**
+diff --git a/axon-server-connector/src/test/java/org/axonframework/axonserver/connector/event/axon/ErrorCodeTest.java b/axon-server-connector/src/test/java/org/axonframework/axonserver/connector/event/axon/ErrorCodeTest.java
+index 456d6426f..4170fca28 100644
+--- a/axon-server-connector/src/test/java/org/axonframework/axonserver/connector/event/axon/ErrorCodeTest.java
++++ b/axon-server-connector/src/test/java/org/axonframework/axonserver/connector/event/axon/ErrorCodeTest.java
+@@ -35,7 +35,7 @@
+ public class ErrorCodeTest {
+ 
+     @Test
+-    public void testCovert4002FromCodeAndMessage(){
++    public void testConvert4002FromCodeAndMessage() {
+         ErrorCode errorCode = ErrorCode.getFromCode("AXONIQ-4002");
+         AxonException exception = errorCode.convert(ErrorMessage.newBuilder().setMessage("myMessage").build());
+         assertTrue(exception instanceof CommandExecutionException);
+@@ -43,11 +43,17 @@ public void testCovert4002FromCodeAndMessage(){
+     }
+ 
+     @Test
+-    public void testCovertUnknownFromCodeAndMessage(){
++    public void testConvertUnknownFromCodeAndMessage() {
+         ErrorCode errorCode = ErrorCode.getFromCode("????????");
+         AxonException exception = errorCode.convert(ErrorMessage.newBuilder().setMessage("myMessage").build());
+         assertTrue(exception instanceof AxonServerException);
+         assertEquals("myMessage", exception.getMessage());
+     }
+ 
++    @Test
++    public void testConvertWithoutSource() {
++        RuntimeException exception = new RuntimeException("oops");
++        AxonException axonException = ErrorCode.getFromCode("AXONIQ-4002").convert(exception);
++        assertEquals(exception.getMessage(), axonException.getMessage());
++    }
+ }

@@ -1,0 +1,86 @@
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index f3dc890ee..f5591cfdc 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -255,6 +255,13 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	 * Adds a type to the classImports.
+ 	 */
+ 	protected boolean addClassImport(CtTypeReference<?> ref) {
++		if (ref == null) {
++			return false;
++		}
++
++		if (targetType != null && targetType.getSimpleName().equals(ref.getSimpleName()) && !targetType.equals(ref)) {
++			return false;
++		}
+ 		if (classImports.containsKey(ref.getSimpleName())) {
+ 			return isImportedInClassImports(ref);
+ 		}
+@@ -277,6 +284,7 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 
+ 		// we want to be sure that we are not importing a class because a static field or method we already imported
+ 		// moreover we make exception for same package classes to avoid problems in FQN mode
++
+ 		if (targetType != null) {
+ 			try {
+ 				CtElement parent = ref.getParent();
+@@ -341,7 +349,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 				}
+ 			}
+ 		}
+-
+ 		//note: we must add the type refs from the same package too, to assure that isImported(typeRef) returns true for them
+ 		//these type refs are removed in #getClassImports()
+ 		classImports.put(ref.getSimpleName(), ref);
+diff --git a/src/test/java/spoon/test/imports/ImportScannerTest.java b/src/test/java/spoon/test/imports/ImportScannerTest.java
+index 800749bd5..12466253a 100644
+--- a/src/test/java/spoon/test/imports/ImportScannerTest.java
++++ b/src/test/java/spoon/test/imports/ImportScannerTest.java
+@@ -57,6 +57,21 @@ public class ImportScannerTest {
+ 		assertEquals(2, imports.size());
+ 	}
+ 
++	@Test
++	public void testComputeImportsInClassWithSameName() throws Exception {
++		String packageName = "spoon.test.imports.testclasses2";
++		String className = "ImportSameName";
++		String qualifiedName = packageName + "." + className;
++
++		Factory aFactory = build(packageName, className).getFactory();
++		CtType<?> theClass = aFactory.Type().get(qualifiedName);
++
++		ImportScanner importContext = new ImportScannerImpl();
++		Collection<CtTypeReference<?>> imports = importContext.computeImports(theClass);
++
++		assertEquals(0, imports.size());
++	}
++
+ 
+ 	@Test
+ 	public void testMultiCatchImport() throws Exception {
+diff --git a/src/test/java/spoon/test/imports/testclasses2/ImportSameName.java b/src/test/java/spoon/test/imports/testclasses2/ImportSameName.java
+new file mode 100644
+index 000000000..167dc16db
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/ImportSameName.java
+@@ -0,0 +1,7 @@
++package spoon.test.imports.testclasses2;
++
++/**
++ * Created by urli on 02/02/2017.
++ */
++public class ImportSameName extends spoon.test.imports.testclasses2.toto.ImportSameName {
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/toto/ImportSameName.java b/src/test/java/spoon/test/imports/testclasses2/toto/ImportSameName.java
+new file mode 100644
+index 000000000..e3a6c1d2e
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/toto/ImportSameName.java
+@@ -0,0 +1,7 @@
++package spoon.test.imports.testclasses2.toto;
++
++/**
++ * Created by urli on 02/02/2017.
++ */
++public class ImportSameName {
++}

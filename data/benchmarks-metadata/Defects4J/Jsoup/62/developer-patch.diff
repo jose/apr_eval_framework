@@ -1,0 +1,11 @@
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:18:34.942944653 +0000
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:18:37.008744355 +0000
+@@ -761,7 +761,7 @@
+         }
+ 
+         boolean anyOtherEndTag(Token t, HtmlTreeBuilder tb) {
+-            String name = t.asEndTag().normalName();
++            String name = t.asEndTag().name(); // matches with case sensitivity if enabled
+             ArrayList<Element> stack = tb.getStack();
+             for (int pos = stack.size() -1; pos >= 0; pos--) {
+                 Element node = stack.get(pos);

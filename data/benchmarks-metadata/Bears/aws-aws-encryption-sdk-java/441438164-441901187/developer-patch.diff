@@ -1,0 +1,88 @@
+diff --git a/src/main/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequest.java b/src/main/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequest.java
+index 5adee4874..f1ce1247c 100644
+--- a/src/main/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequest.java
++++ b/src/main/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequest.java
+@@ -54,7 +54,7 @@ public final class DecryptionMaterialsRequest {
+ 
+         private Builder(DecryptionMaterialsRequest request) {
+             this.algorithm = request.getAlgorithm();
+-            this.encryptedDataKeys = request.getEncryptedDataKeys();
++            this.encryptionContext = request.getEncryptionContext();
+             this.encryptedDataKeys = request.getEncryptedDataKeys();
+         }
+ 
+diff --git a/src/test/java/com/amazonaws/encryptionsdk/AllTestsSuite.java b/src/test/java/com/amazonaws/encryptionsdk/AllTestsSuite.java
+index de4ea4f98..0cd7766ef 100644
+--- a/src/test/java/com/amazonaws/encryptionsdk/AllTestsSuite.java
++++ b/src/test/java/com/amazonaws/encryptionsdk/AllTestsSuite.java
+@@ -22,6 +22,7 @@ import com.amazonaws.encryptionsdk.jce.KeyStoreProviderTest;
+ import com.amazonaws.encryptionsdk.model.CipherBlockHeadersTest;
+ import com.amazonaws.encryptionsdk.model.CipherFrameHeadersTest;
+ import com.amazonaws.encryptionsdk.model.KeyBlobTest;
++import com.amazonaws.encryptionsdk.model.DecryptionMaterialsRequestTest;
+ import com.amazonaws.encryptionsdk.multi.MultipleMasterKeyTest;
+ import com.amazonaws.encryptionsdk.kms.KMSProviderBuilderMockTests;
+ 
+@@ -40,6 +41,7 @@ import com.amazonaws.encryptionsdk.kms.KMSProviderBuilderMockTests;
+         CipherBlockHeadersTest.class,
+         CipherFrameHeadersTest.class,
+         KeyBlobTest.class,
++        DecryptionMaterialsRequestTest.class,
+         MultipleMasterKeyTest.class,
+         AwsCryptoTest.class,
+         CryptoInputStreamTest.class,
+diff --git a/src/test/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequestTest.java b/src/test/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequestTest.java
+new file mode 100644
+index 000000000..9f04304aa
+--- /dev/null
++++ b/src/test/java/com/amazonaws/encryptionsdk/model/DecryptionMaterialsRequestTest.java
+@@ -0,0 +1,49 @@
++/*
++ * Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
++ * 
++ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except
++ * in compliance with the License. A copy of the License is located at
++ * 
++ * http://aws.amazon.com/apache2.0
++ * 
++ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
++ * specific language governing permissions and limitations under the License.
++ */
++
++package com.amazonaws.encryptionsdk.model;
++
++import static org.junit.Assert.assertEquals;
++
++import java.util.HashMap;
++import java.util.Map;
++import java.util.List;
++import java.util.ArrayList;
++
++import org.junit.Test;
++
++import com.amazonaws.encryptionsdk.CryptoAlgorithm;
++import com.amazonaws.encryptionsdk.model.DecryptionMaterialsRequest;
++import com.amazonaws.encryptionsdk.model.KeyBlob;
++
++public class DecryptionMaterialsRequestTest {
++    @Test
++    public void build() {
++        CryptoAlgorithm alg = CryptoAlgorithm.ALG_AES_256_GCM_IV12_TAG16_HKDF_SHA256;
++        Map<String, String> encryptionContext = new HashMap<String, String>(1);
++        encryptionContext.put("DMR", "DecryptionMaterialsRequest Test");
++        List<KeyBlob> kbs = new ArrayList<KeyBlob>();
++        
++        DecryptionMaterialsRequest request0 = DecryptionMaterialsRequest.newBuilder()
++            .setAlgorithm(alg)
++            .setEncryptionContext(encryptionContext)
++            .setEncryptedDataKeys(kbs)
++            .build();
++        
++        DecryptionMaterialsRequest request1 = request0.toBuilder().build();
++
++        assertEquals(request0.getAlgorithm(), request1.getAlgorithm());
++        assertEquals(request0.getEncryptionContext().size(), request1.getEncryptionContext().size());
++        assertEquals(request0.getEncryptedDataKeys().size(), request1.getEncryptedDataKeys().size());
++    }
++}

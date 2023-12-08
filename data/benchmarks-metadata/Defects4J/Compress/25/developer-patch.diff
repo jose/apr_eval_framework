@@ -1,0 +1,10 @@
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:53:12.207123543 +0000
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:53:27.709531141 +0000
+@@ -181,6 +181,7 @@
+         this.allowStoredEntriesWithDataDescriptor =
+             allowStoredEntriesWithDataDescriptor;
+         // haven't read anything so far
++        buf.limit(0);
+     }
+ 
+     public ZipArchiveEntry getNextZipEntry() throws IOException {

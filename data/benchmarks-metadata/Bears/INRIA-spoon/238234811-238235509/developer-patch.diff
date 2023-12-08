@@ -1,0 +1,127 @@
+diff --git a/src/main/java/spoon/support/reflect/declaration/CtElementImpl.java b/src/main/java/spoon/support/reflect/declaration/CtElementImpl.java
+index c7750769d..9b9083063 100644
+--- a/src/main/java/spoon/support/reflect/declaration/CtElementImpl.java
++++ b/src/main/java/spoon/support/reflect/declaration/CtElementImpl.java
+@@ -31,8 +31,8 @@ import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
+ import spoon.reflect.visitor.Filter;
+ import spoon.reflect.visitor.ModelConsistencyChecker;
+ import spoon.reflect.visitor.Query;
+-import spoon.reflect.visitor.chain.CtFunction;
+ import spoon.reflect.visitor.chain.CtConsumableFunction;
++import spoon.reflect.visitor.chain.CtFunction;
+ import spoon.reflect.visitor.chain.CtQuery;
+ import spoon.reflect.visitor.filter.AnnotationFilter;
+ import spoon.support.util.EmptyClearableList;
+@@ -228,7 +228,9 @@ public abstract class CtElementImpl implements CtElement, Serializable {
+ 			LOGGER.error(ERROR_MESSAGE_TO_STRING, ignore);
+ 			errorMessage = ERROR_MESSAGE_TO_STRING;
+ 		}
+-		return printer.toString() + errorMessage;
++		// in line-preservation mode, newlines are added at the beginning to matches the lines
++		// removing them from the toString() representation
++		return printer.toString().replaceFirst("^\\s+", "") + errorMessage;
+ 	}
+ 
+ 	@SuppressWarnings("unchecked")
+diff --git a/src/test/java/spoon/test/prettyprinter/LinesTest.java b/src/test/java/spoon/test/prettyprinter/LinesTest.java
+index db790977c..b937bf627 100644
+--- a/src/test/java/spoon/test/prettyprinter/LinesTest.java
++++ b/src/test/java/spoon/test/prettyprinter/LinesTest.java
+@@ -1,31 +1,23 @@
+ package spoon.test.prettyprinter;
+ 
+-import org.apache.commons.io.IOUtils;
+ import org.junit.Before;
+ import org.junit.Test;
+ import spoon.Launcher;
+ import spoon.compiler.SpoonResourceHelper;
+-import spoon.reflect.code.CtThisAccess;
+-import spoon.reflect.code.CtTypeAccess;
+ import spoon.reflect.declaration.CtElement;
+-import spoon.reflect.declaration.CtNamedElement;
+ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.factory.Factory;
+-import spoon.reflect.reference.CtTypeReference;
+ import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
+-import spoon.reflect.visitor.filter.NameFilter;
+ import spoon.reflect.visitor.filter.TypeFilter;
+-import spoon.test.prettyprinter.testclasses.QualifiedThisRef;
+ 
+-import java.io.File;
+-import java.io.FileReader;
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.regex.Pattern;
+ 
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertNotSame;
+ import static org.junit.Assert.assertTrue;
+-import static spoon.test.limits.StaticFieldAccesOnInstance.test;
+ 
+ public class LinesTest {
+ 
+@@ -60,6 +52,11 @@ public class LinesTest {
+ 		assertEquals(0, factory.getEnvironment().getWarningCount());
+ 		assertEquals(0, factory.getEnvironment().getErrorCount());
+ 
++		// contract: in line preserve mode, toString is not prefixed or suffixed by newlines
++		String meth = factory.Type().get("spoon.test.prettyprinter.Validation").getMethodsByName("isIdentifier").get(0).toString();
++		// the added linebreaks due to line preservation are removed
++		assertFalse(Pattern.compile("^\\s", Pattern.DOTALL).asPredicate().test(meth.toString()));
++
+ 	}
+ 
+ 	@Test
+diff --git a/src/test/java/spoon/test/trycatch/TryCatchTest.java b/src/test/java/spoon/test/trycatch/TryCatchTest.java
+index 6d7b906ba..db08fda06 100644
+--- a/src/test/java/spoon/test/trycatch/TryCatchTest.java
++++ b/src/test/java/spoon/test/trycatch/TryCatchTest.java
+@@ -1,19 +1,6 @@
+ package spoon.test.trycatch;
+ 
+-import static org.junit.Assert.assertEquals;
+-import static org.junit.Assert.assertNotEquals;
+-import static org.junit.Assert.assertNotNull;
+-import static org.junit.Assert.assertTrue;
+-import static org.junit.Assert.fail;
+-import static spoon.testing.utils.ModelUtils.build;
+-import static spoon.testing.utils.ModelUtils.createFactory;
+-
+-import java.io.File;
+-import java.util.List;
+-import java.util.Set;
+-
+ import org.junit.Test;
+-
+ import spoon.Launcher;
+ import spoon.SpoonModelBuilder;
+ import spoon.reflect.code.CtCatch;
+@@ -28,6 +15,18 @@ import spoon.reflect.visitor.filter.AbstractFilter;
+ import spoon.reflect.visitor.filter.TypeFilter;
+ import spoon.test.trycatch.testclasses.Foo;
+ 
++import java.io.File;
++import java.util.List;
++import java.util.Set;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertNotEquals;
++import static org.junit.Assert.assertNotNull;
++import static org.junit.Assert.assertTrue;
++import static org.junit.Assert.fail;
++import static spoon.testing.utils.ModelUtils.build;
++import static spoon.testing.utils.ModelUtils.createFactory;
++
+ public class TryCatchTest {
+ 
+ 	@Test
+@@ -178,7 +177,7 @@ public class TryCatchTest {
+ 			}
+ 		}).get(0);
+ 
+-		final String expected = " catch (spoon.test.trycatch.testclasses.internal.MyException | spoon.test.trycatch.testclasses.internal.MyException2 ignore) {" + System.lineSeparator() + "}";
++		final String expected = "catch (spoon.test.trycatch.testclasses.internal.MyException | spoon.test.trycatch.testclasses.internal.MyException2 ignore) {" + System.lineSeparator() + "}";
+ 		assertEquals(expected, ctCatch.toString());
+ 	}
+ 

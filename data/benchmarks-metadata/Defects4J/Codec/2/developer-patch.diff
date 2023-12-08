@@ -1,0 +1,11 @@
+--- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:11.525594729 +0000
++++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:12.559338014 +0000
+@@ -443,7 +443,7 @@
+                     }
+                     break;
+             }
+-            if (lineLength > 0) {
++            if (lineLength > 0 && pos > 0) {
+                 System.arraycopy(lineSeparator, 0, buf, pos, lineSeparator.length);
+                 pos += lineSeparator.length;
+             }

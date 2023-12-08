@@ -1,0 +1,48 @@
+diff --git a/src/main/java/org/la4j/vector/sparse/CompressedVector.java b/src/main/java/org/la4j/vector/sparse/CompressedVector.java
+index 2e973e22b..08383a748 100644
+--- a/src/main/java/org/la4j/vector/sparse/CompressedVector.java
++++ b/src/main/java/org/la4j/vector/sparse/CompressedVector.java
+@@ -207,11 +207,12 @@ public class CompressedVector extends SparseVector {
+      */
+     public static CompressedVector fromMap(Map<Integer, ? extends Number> map, int length) {
+         //TODO goto lambdas
+-        int cardinality = map.size();
++        TreeMap<Integer, ? extends Number> sortedMap = new TreeMap<>(map);
++        int cardinality = sortedMap.size();
+         int[] indices = new int[cardinality];
+         double[] values = new double[cardinality];
+         int i = 0;
+-        for (Map.Entry<Integer, ? extends Number> entry : map.entrySet()) {
++        for (Map.Entry<Integer, ? extends Number> entry : sortedMap.entrySet()) {
+             int index = entry.getKey();
+             if (index < 0 || index >= length) {
+                 throw new IllegalArgumentException("Check your map: Index must be 0..n-1");
+diff --git a/src/test/java/org/la4j/vector/VectorTest.java b/src/test/java/org/la4j/vector/VectorTest.java
+index 5351cddb3..a55b8271e 100644
+--- a/src/test/java/org/la4j/vector/VectorTest.java
++++ b/src/test/java/org/la4j/vector/VectorTest.java
+@@ -38,6 +38,7 @@ import static org.la4j.M.*;
+ 
+ import java.util.Arrays;
+ import java.util.HashMap;
++import java.util.LinkedHashMap;
+ import java.util.LinkedList;
+ import java.util.List;
+ import java.util.Map;
+@@ -724,6 +725,16 @@ public abstract class VectorTest<T extends Vector> {
+         Assert.assertEquals(v, Vector.fromMap(map, 7));
+     }
+ 
++    @Test
++    public void testFromMap_unordered() {
++        Map<Integer, Double> map = new LinkedHashMap<>();
++        map.put(5, 1.0);
++        map.put(0, 1.0);
++        map.put(3, 2.0);
++        Vector v = Vector.fromArray(new double[]{1, 0, 0, 2, 0, 1, 0});
++        Assert.assertEquals(v, Vector.fromMap(map, 7));
++    }
++
+     @Test
+     public void testFromMap_emptyMap() {
+         Map<Integer, Double> map = new HashMap<>();

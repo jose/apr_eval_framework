@@ -1,0 +1,51 @@
+diff --git a/jgrapht-core/src/main/java/org/jgrapht/generate/WattsStrogatzGraphGenerator.java b/jgrapht-core/src/main/java/org/jgrapht/generate/WattsStrogatzGraphGenerator.java
+index f65118b37..adfdffc28 100644
+--- a/jgrapht-core/src/main/java/org/jgrapht/generate/WattsStrogatzGraphGenerator.java
++++ b/jgrapht-core/src/main/java/org/jgrapht/generate/WattsStrogatzGraphGenerator.java
+@@ -166,7 +166,7 @@ public class WattsStrogatzGraphGenerator<V, E>
+ 
+         for (int i = 0; i < n; i++) {
+             V vi = ring.get(i);
+-            List<E> viAdj = adj.get(i);
++            List<E> viAdj = adj.get(vi);
+ 
+             for (int j = 1; j <= k / 2; j++) {
+                 viAdj.add(target.addEdge(vi, ring.get((i + j) % n)));
+@@ -176,10 +176,9 @@ public class WattsStrogatzGraphGenerator<V, E>
+         // re-wire edges
+         for (int r = 0; r < k / 2; r++) {
+             for (int i = 0; i < n; i++) {
+-                V v = ring.get(i);
+-                E e = adj.get(i).get(r);
+-
+                 if (rng.nextDouble() < p) {
++                    V v = ring.get(i);
++                    E e = adj.get(v).get(r);
+                     V other = ring.get(rng.nextInt(n));
+                     if (!other.equals(v) && !target.containsEdge(v, other)) {
+                         if (!addInsteadOfRewire) {
+diff --git a/jgrapht-core/src/test/java/org/jgrapht/generate/WattsStrogatzGraphGeneratorTest.java b/jgrapht-core/src/test/java/org/jgrapht/generate/WattsStrogatzGraphGeneratorTest.java
+index 30da13d1e..a4649173d 100644
+--- a/jgrapht-core/src/test/java/org/jgrapht/generate/WattsStrogatzGraphGeneratorTest.java
++++ b/jgrapht-core/src/test/java/org/jgrapht/generate/WattsStrogatzGraphGeneratorTest.java
+@@ -180,5 +180,20 @@ public class WattsStrogatzGraphGeneratorTest
+         assertEquals(6, g.vertexSet().size());
+         assertEquals(12, g.edgeSet().size());
+     }
++    
++    @Test
++    public void testNonIntegerVertices()
++    {
++        final long seed = 5;
++
++        GraphGenerator<String, DefaultEdge, String> gen =
++            new WattsStrogatzGraphGenerator<>(10, 2, 0.1, seed);
++        Graph<String, DefaultEdge> g = new SimpleGraph<>(
++            SupplierUtil.createStringSupplier(1), SupplierUtil.DEFAULT_EDGE_SUPPLIER, false);
++        gen.generateGraph(g);
++
++        assertEquals(10, g.vertexSet().size());
++        assertEquals(10, g.edgeSet().size());
++    }
+ 
+ }

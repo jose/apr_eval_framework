@@ -1,0 +1,30 @@
+--- gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:37.389805876 +0000
++++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:39.470164938 +0000
+@@ -951,8 +951,12 @@
+     if (p == PEEKED_NUMBER) {
+       peekedString = new String(buffer, pos, peekedNumberLength);
+       pos += peekedNumberLength;
+-    } else if (p == PEEKED_SINGLE_QUOTED || p == PEEKED_DOUBLE_QUOTED) {
++    } else if (p == PEEKED_SINGLE_QUOTED || p == PEEKED_DOUBLE_QUOTED || p == PEEKED_UNQUOTED) {
++      if (p == PEEKED_UNQUOTED) {
++        peekedString = nextUnquotedValue();
++      } else {
+         peekedString = nextQuotedValue(p == PEEKED_SINGLE_QUOTED ? '\'' : '"');
++      }
+       try {
+         long result = Long.parseLong(peekedString);
+         peeked = PEEKED_NONE;
+@@ -1179,8 +1183,12 @@
+     if (p == PEEKED_NUMBER) {
+       peekedString = new String(buffer, pos, peekedNumberLength);
+       pos += peekedNumberLength;
+-    } else if (p == PEEKED_SINGLE_QUOTED || p == PEEKED_DOUBLE_QUOTED) {
++    } else if (p == PEEKED_SINGLE_QUOTED || p == PEEKED_DOUBLE_QUOTED || p == PEEKED_UNQUOTED) {
++      if (p == PEEKED_UNQUOTED) {
++        peekedString = nextUnquotedValue();
++      } else {
+         peekedString = nextQuotedValue(p == PEEKED_SINGLE_QUOTED ? '\'' : '"');
++      }
+       try {
+         result = Integer.parseInt(peekedString);
+         peeked = PEEKED_NONE;

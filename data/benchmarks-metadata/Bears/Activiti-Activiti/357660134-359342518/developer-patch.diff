@@ -1,0 +1,239 @@
+diff --git a/modules/activiti-engine/src/main/java/org/activiti/engine/impl/history/handler/ActivityInstanceEndHandler.java b/modules/activiti-engine/src/main/java/org/activiti/engine/impl/history/handler/ActivityInstanceEndHandler.java
+index 3828d8994..8ca8dcadf 100644
+--- a/modules/activiti-engine/src/main/java/org/activiti/engine/impl/history/handler/ActivityInstanceEndHandler.java
++++ b/modules/activiti-engine/src/main/java/org/activiti/engine/impl/history/handler/ActivityInstanceEndHandler.java
+@@ -15,17 +15,36 @@ package org.activiti.engine.impl.history.handler;
+ 
+ import org.activiti.engine.delegate.DelegateExecution;
+ import org.activiti.engine.delegate.ExecutionListener;
++import org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior;
+ import org.activiti.engine.impl.context.Context;
+ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
++import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
++import org.activiti.engine.impl.pvm.process.TransitionImpl;
++import org.activiti.engine.impl.pvm.runtime.InterpretableExecution;
+ 
+ 
+ /**
+  * @author Tom Baeyens
+  */
+ public class ActivityInstanceEndHandler implements ExecutionListener {
+-
+-  public void notify(DelegateExecution execution) {
+-    Context.getCommandContext().getHistoryManager()
+-      .recordActivityEnd((ExecutionEntity) execution);
+-  }
++    
++    public void notify(DelegateExecution execution) {
++        if (!isSourceTransitionNotExecutionActivityAndNonInterrupting((ExecutionEntity) execution)) {
++            Context.getCommandContext().getHistoryManager()
++                    .recordActivityEnd((ExecutionEntity) execution);
++        }
++    }
++    
++    private boolean isSourceTransitionNotExecutionActivityAndNonInterrupting(InterpretableExecution execution) {
++        TransitionImpl transition = execution.getTransition();
++        if (transition != null) {
++            ActivityBehavior activityBehavior = transition.getSource().getActivityBehavior();
++        
++            return (!(execution.getActivity().getId().equals(execution.getTransition().getSource().getId())) &&
++                    activityBehavior instanceof BoundaryEventActivityBehavior &&
++                    !(((BoundaryEventActivityBehavior) activityBehavior).isInterrupting()));
++        }
++        return false;
++    }
+ }
++
+diff --git a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/error/BoundaryErrorEventTest.java b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/error/BoundaryErrorEventTest.java
+index 46d64bba6..e39fd73d4 100644
+--- a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/error/BoundaryErrorEventTest.java
++++ b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/error/BoundaryErrorEventTest.java
+@@ -24,6 +24,7 @@ import org.activiti.engine.impl.history.HistoryLevel;
+ import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+ import org.activiti.engine.impl.util.CollectionUtil;
+ import org.activiti.engine.impl.util.JvmUtil;
++import org.activiti.engine.runtime.ProcessInstance;
+ import org.activiti.engine.task.Task;
+ import org.activiti.engine.test.Deployment;
+ 
+@@ -486,5 +487,24 @@ public class BoundaryErrorEventTest extends PluggableActivitiTestCase {
+     String procId = runtimeService.startProcessInstanceByKey("testCatchErrorThrownByJavaDelegateProvidedByDelegateExpressionOnServiceTask", variables).getId();
+     assertThatErrorHasBeenCaught(procId);
+   }
++  
++  @Deployment
++  public void testErrorOnScriptTask() {
++    ProcessInstance pi = runtimeService.startProcessInstanceByKey("errorOnScriptTask");
++    
++    HistoricActivityInstance userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++    
++    userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++    
++    assertNotNull(userTaskActivity);
++    
++    // catchError boundary event is set as non interrupting which is not supported yet
++    assertNotNull("Activity should have ended", userTaskActivity.getEndTime());
++    
++    Task userTask = taskService.createTaskQuery().singleResult();
++    taskService.complete(userTask.getId());
++    
++    assertProcessEnded(pi.getId());
++  }
+ 
+ }
+diff --git a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/message/MessageBoundaryEventTest.java b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/message/MessageBoundaryEventTest.java
+index b3dbd4390..3388ab22d 100644
+--- a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/message/MessageBoundaryEventTest.java
++++ b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/message/MessageBoundaryEventTest.java
+@@ -17,9 +17,9 @@ import java.util.Date;
+ import java.util.List;
+ import java.util.concurrent.Callable;
+ 
++import org.activiti.engine.history.HistoricActivityInstance;
+ import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+ import org.activiti.engine.runtime.Execution;
+-import org.activiti.engine.runtime.Job;
+ import org.activiti.engine.runtime.JobQuery;
+ import org.activiti.engine.runtime.ProcessInstance;
+ import org.activiti.engine.task.Task;
+@@ -703,5 +703,36 @@ public class MessageBoundaryEventTest extends PluggableActivitiTestCase {
+         .singleResult();
+     assertNull(execution);
+   }
+-
++  
++  @Deployment
++  public void testMessageOnUserTask() {
++    ProcessInstance pi = runtimeService.startProcessInstanceByKey("messageOnUserTask");
++    Task task1 = taskService.createTaskQuery().singleResult();
++    assertEquals("First Task", task1.getName());
++    
++    Execution execution = runtimeService.createExecutionQuery()
++            .messageEventSubscriptionName("messageName")
++            .singleResult();
++    
++    runtimeService.messageEventReceived("messageName", execution.getId());
++    
++    HistoricActivityInstance userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++    
++    assertNotNull(userTaskActivity);
++    assertNull("Activity should have not ended yet", userTaskActivity.getEndTime());
++    
++    Task userTask = taskService.createTaskQuery().taskDefinitionKey("firstTask").singleResult();
++    taskService.complete(userTask.getId());
++    
++    userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++    
++    assertNotNull(userTaskActivity);
++    assertNotNull("Activity should have ended", userTaskActivity.getEndTime());
++    
++    // one remaining task
++    userTask = taskService.createTaskQuery().singleResult();
++    taskService.complete(userTask.getId());
++    
++    assertProcessEnded(pi.getId());
++  }
+ }
+diff --git a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/signal/SignalEventTest.java b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/signal/SignalEventTest.java
+index f5e23776e..81a11831f 100644
+--- a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/signal/SignalEventTest.java
++++ b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/signal/SignalEventTest.java
+@@ -21,6 +21,7 @@ import java.util.List;
+ import org.activiti.engine.ActivitiException;
+ import org.activiti.engine.delegate.DelegateExecution;
+ import org.activiti.engine.delegate.ExecutionListener;
++import org.activiti.engine.history.HistoricActivityInstance;
+ import org.activiti.engine.impl.EventSubscriptionQueryImpl;
+ import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+ import org.activiti.engine.impl.util.CollectionUtil;
+@@ -737,4 +738,31 @@ public class SignalEventTest extends PluggableActivitiTestCase {
+     runtimeService.startProcessInstanceByKey("testMessageCatch");
+     assertEquals(1, runtimeService.createProcessInstanceQuery().count());
+   }
++    
++    @Deployment
++    public void testSignalOnUserTask() {
++        ProcessInstance pi = runtimeService.startProcessInstanceByKey("signalOnUserTask");
++        Task task1 = taskService.createTaskQuery().singleResult();
++        assertEquals("First Task", task1.getName());
++        
++        runtimeService.signalEventReceived("panicSignal");
++        
++        HistoricActivityInstance userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++        
++        assertNotNull(userTaskActivity);
++        assertNull("Activity should have not ended yet", userTaskActivity.getEndTime());
++        
++        Task userTask = taskService.createTaskQuery().taskDefinitionKey("firstTask").singleResult();
++        taskService.complete(userTask.getId());
++        
++        userTaskActivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++        
++        assertNotNull(userTaskActivity);
++        assertNotNull("Activity should have ended", userTaskActivity.getEndTime());
++        
++        userTask = taskService.createTaskQuery().singleResult();
++        taskService.complete(userTask.getId());
++        
++        assertProcessEnded(pi.getId());
++    }
+ }
+diff --git a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/timer/BoundaryTimerNonInterruptingEventTest.java b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/timer/BoundaryTimerNonInterruptingEventTest.java
+index 92f45a2ea..03e59c9fb 100644
+--- a/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/timer/BoundaryTimerNonInterruptingEventTest.java
++++ b/modules/activiti-engine/src/test/java/org/activiti/engine/test/bpmn/event/timer/BoundaryTimerNonInterruptingEventTest.java
+@@ -17,7 +17,7 @@ import java.util.Date;
+ import java.util.HashMap;
+ import java.util.List;
+ 
+-import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
++import org.activiti.engine.history.HistoricActivityInstance;
+ import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+ import org.activiti.engine.runtime.Execution;
+ import org.activiti.engine.runtime.Job;
+@@ -95,6 +95,45 @@ public class BoundaryTimerNonInterruptingEventTest extends PluggableActivitiTest
+     assertProcessEnded(pi.getId());
+   }
+   
++  @Deployment
++  public void testTimerOnUserTask() {
++    // After process start, there should be 3 timers created
++    ProcessInstance pi = runtimeService.startProcessInstanceByKey("timerOnUserTask");
++    Task task1 = taskService.createTaskQuery().singleResult();
++    assertEquals("First Task", task1.getName());
++    
++    JobQuery jobQuery = managementService.createJobQuery().processInstanceId(pi.getId());
++    List<Job> jobs = jobQuery.list();
++    assertEquals(1, jobs.size());
++    
++    Job job = managementService.createJobQuery().singleResult();
++    assertNotNull(job);
++    managementService.executeJob(job.getId());
++    
++    // we still have one timer more to fire
++    assertEquals(0L, jobQuery.count());
++    
++     HistoricActivityInstance userTaskAcivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++
++     assertNotNull(userTaskAcivity);
++     assertNull("Activity should have not ended yet", userTaskAcivity.getEndTime());
++     
++     Task userTask = taskService.createTaskQuery().taskDefinitionKey("firstTask").singleResult();
++     taskService.complete(userTask.getId());
++     
++     userTaskAcivity = historyService.createHistoricActivityInstanceQuery().activityId("firstTask").singleResult();
++
++     assertNotNull(userTaskAcivity);
++     assertNotNull("Activity should have ended", userTaskAcivity.getEndTime());
++     
++     // one remaining task
++     userTask = taskService.createTaskQuery().singleResult();
++     taskService.complete(userTask.getId());
++     
++     assertProcessEnded(pi.getId());
++     
++  }
++  
+   @Deployment
+   public void testJoin() {
+     // Set the clock fixed

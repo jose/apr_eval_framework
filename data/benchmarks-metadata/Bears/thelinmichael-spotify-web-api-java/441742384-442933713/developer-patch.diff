@@ -1,0 +1,31 @@
+diff --git a/src/main/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequest.java b/src/main/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequest.java
+index 82f5fd3f4..98e13ba33 100644
+--- a/src/main/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequest.java
++++ b/src/main/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequest.java
+@@ -127,7 +127,7 @@ public class StartResumeUsersPlaybackRequest extends AbstractDataRequest {
+     public Builder position_ms(final Integer position_ms) {
+       assert (position_ms != null);
+       assert (position_ms >= 0);
+-      return setQueryParameter("position_ms", position_ms);
++      return setBodyParameter("position_ms", position_ms);
+     }
+ 
+     /**
+diff --git a/src/test/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequestTest.java b/src/test/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequestTest.java
+index 09f52a9a7..cfc668d8c 100644
+--- a/src/test/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequestTest.java
++++ b/src/test/java/com/wrapper/spotify/requests/data/player/StartResumeUsersPlaybackRequestTest.java
+@@ -48,8 +48,12 @@ public class StartResumeUsersPlaybackRequestTest extends AbstractDataTest<String
+             defaultRequest,
+             "offset",
+             OFFSET_JSON);
++    assertHasBodyParameter(
++    		defaultRequest,
++    		"position_ms",
++    		POSITION_MS);
+     assertEquals(
+-            "https://api.spotify.com:443/v1/me/player/play?device_id=5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e&position_ms=10000",
++            "https://api.spotify.com:443/v1/me/player/play?device_id=5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e",
+             defaultRequest.getUri().toString());
+   }
+ 

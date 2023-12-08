@@ -1,0 +1,12 @@
+--- src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:01:29.402571572 +0000
++++ src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:01:33.991321272 +0000
+@@ -703,7 +703,8 @@
+     // other types
+     switch (this.testForEquality(that)) {
+       case TRUE:
+-        return new TypePair(null, null);
++        JSType noType = getNativeType(JSTypeNative.NO_TYPE);
++        return new TypePair(noType, noType);
+ 
+       case FALSE:
+       case UNKNOWN:

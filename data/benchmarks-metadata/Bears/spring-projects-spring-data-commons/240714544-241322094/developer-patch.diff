@@ -1,0 +1,34 @@
+diff --git a/src/main/java/org/springframework/data/repository/util/QueryExecutionConverters.java b/src/main/java/org/springframework/data/repository/util/QueryExecutionConverters.java
+index 4cb24fdf9..5dcb0f054 100644
+--- a/src/main/java/org/springframework/data/repository/util/QueryExecutionConverters.java
++++ b/src/main/java/org/springframework/data/repository/util/QueryExecutionConverters.java
+@@ -525,7 +525,7 @@ public abstract class QueryExecutionConverters {
+ 		 */
+ 		@Override
+ 		protected Object wrap(Object source) {
+-			return ReflectionUtils.invokeMethod(OF_METHOD, source);
++			return ReflectionUtils.invokeMethod(OF_METHOD, null, source);
+ 		}
+ 
+ 		public static WrapperType getWrapperType() {
+diff --git a/src/test/java/org/springframework/data/repository/util/QueryExecutionConvertersUnitTests.java b/src/test/java/org/springframework/data/repository/util/QueryExecutionConvertersUnitTests.java
+index 51b211e88..91037dced 100644
+--- a/src/test/java/org/springframework/data/repository/util/QueryExecutionConvertersUnitTests.java
++++ b/src/test/java/org/springframework/data/repository/util/QueryExecutionConvertersUnitTests.java
+@@ -303,6 +303,16 @@ public class QueryExecutionConvertersUnitTests {
+ 		assertThat(allowedPageableTypes, hasItem(io.vavr.collection.Seq.class));
+ 	}
+ 
++	@Test
++	public void convertsValueToVavrOption() {
++
++		io.vavr.control.Option<String> result = conversionService.convert(new NullableWrapper("foo"),
++				io.vavr.control.Option.class);
++
++		assertThat(result, is(vavrOption("foo")));
++
++	}
++
+ 	// Vavr
+ 
+ 	@SuppressWarnings("unchecked")

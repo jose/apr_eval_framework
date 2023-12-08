@@ -1,0 +1,18 @@
+--- source/org/jfree/chart/util/ShapeList.java	2023-12-05 17:32:38.064637270 +0000
++++ source/org/jfree/chart/util/ShapeList.java	2023-12-05 17:32:45.244481060 +0000
+@@ -108,7 +108,14 @@
+         if (!(obj instanceof ShapeList)) {
+             return false;
+         }
+-        return super.equals(obj);
++        ShapeList that = (ShapeList) obj;
++        int listSize = size();
++        for (int i = 0; i < listSize; i++) {
++           if (!ShapeUtilities.equal((Shape) get(i), (Shape) that.get(i))) {
++               return false;
++           }
++        }
++        return true;
+ 
+     }
+ 

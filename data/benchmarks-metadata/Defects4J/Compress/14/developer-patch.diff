@@ -1,0 +1,18 @@
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:12:00.712269744 +0000
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:13:43.353542822 +0000
+@@ -62,14 +62,7 @@
+             throw new IllegalArgumentException("Length "+length+" must be at least 2");
+         }
+ 
+-        boolean allNUL = true;
+-        for (int i = start; i < end; i++){
+-            if (buffer[i] != 0){
+-                allNUL = false;
+-                break;
+-            }
+-        }
+-        if (allNUL) {
++        if (buffer[start] == 0) {
+             return 0L;
+         }
+ 

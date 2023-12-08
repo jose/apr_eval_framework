@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:04.767636914 +0000
++++ src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:07.152883711 +0000
+@@ -322,7 +322,9 @@
+      */
+     public void println() throws IOException {
+         final String recordSeparator = format.getRecordSeparator();
++        if (recordSeparator != null) {
+             out.append(recordSeparator);
++        }
+         newRecord = true;
+     }
+ 

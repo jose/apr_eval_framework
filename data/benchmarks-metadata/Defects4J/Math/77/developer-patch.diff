@@ -1,0 +1,29 @@
+--- src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2023-12-05 17:18:38.506360373 +0000
++++ src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2023-12-05 17:18:42.697560580 +0000
+@@ -718,7 +718,7 @@
+     public double getLInfNorm() {
+         double max = 0;
+         for (double a : data) {
+-            max += Math.max(max, Math.abs(a));
++            max = Math.max(max, Math.abs(a));
+         }
+         return max;
+     }
+--- src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:18:38.507130468 +0000
++++ src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:18:42.698000197 +0000
+@@ -495,15 +495,6 @@
+         return max;
+     }
+ 
+-    public double getLInfNorm() {
+-        double max = 0;
+-        Iterator iter = entries.iterator();
+-        while (iter.hasNext()) {
+-            iter.advance();
+-            max += iter.value();
+-        }
+-        return max;
+-    }
+     /**
+      * Optimized method to compute LInfDistance.
+      * @param v The vector to compute from

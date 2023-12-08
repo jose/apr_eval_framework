@@ -1,0 +1,10 @@
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:20:02.351220529 +0000
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:20:05.400010084 +0000
+@@ -379,6 +379,7 @@
+                             tb.processEndTag("p");
+                         }
+                         tb.insert(startTag);
++                        tb.reader.matchConsume("\n"); // ignore LF if next token
+                         tb.framesetOk(false);
+                     } else if (name.equals("form")) {
+                         if (tb.getFormElement() != null) {

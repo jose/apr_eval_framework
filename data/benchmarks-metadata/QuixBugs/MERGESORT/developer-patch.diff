@@ -1,0 +1,17 @@
+--- java_programs/MERGESORT.java	2023-12-05 16:52:00.399502458 +0000
++++ correct_java_programs/MERGESORT.java	2023-12-05 16:52:00.381922997 +0000
+@@ -1,4 +1,4 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
+ 
+ /*
+@@ -35,7 +35,7 @@
+     }
+ 
+     public static ArrayList<Integer> mergesort(ArrayList<Integer> arr) {
+-        if (arr.size() == 0) { // <= 1 in correct version
++        if (arr.size() <= 1) { // <= 1 in correct version
+             return arr;
+         } else {
+             int middle = arr.size() / 2;

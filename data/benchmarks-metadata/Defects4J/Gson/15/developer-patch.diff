@@ -1,0 +1,11 @@
+--- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:59:17.725738377 +0000
++++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:59:19.723577514 +0000
+@@ -492,7 +492,7 @@
+    */
+   public JsonWriter value(double value) throws IOException {
+     writeDeferredName();
+-    if (Double.isNaN(value) || Double.isInfinite(value)) {
++    if (!lenient && (Double.isNaN(value) || Double.isInfinite(value))) {
+       throw new IllegalArgumentException("Numeric values must be finite, but was " + value);
+     }
+     beforeValue();

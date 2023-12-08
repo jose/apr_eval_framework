@@ -1,0 +1,167 @@
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index 2719f880e..0bb6db06a 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -59,6 +59,8 @@ import java.util.Map;
+ import java.util.Set;
+ import java.util.StringTokenizer;
+ import java.util.TreeMap;
++import java.util.regex.Matcher;
++import java.util.regex.Pattern;
+ 
+ /**
+  * A scanner that calculates the imports for a given model.
+@@ -153,20 +155,71 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 		stringBuilder.append(ctJavaDoc.getContent());
+ 
+ 		for (CtJavaDocTag ctJavaDocTag : ctJavaDoc.getTags()) {
+-			stringBuilder.append(ctJavaDocTag.getContent());
++			stringBuilder.append("\n").append(ctJavaDocTag.getType()).append(" ").append(ctJavaDocTag.getContent());
+ 		}
+ 
+ 		String javadoc = stringBuilder.toString();
+ 		for (CtImport ctImport : this.usedImport.keySet()) {
+ 			switch (ctImport.getImportKind()) {
+ 				case TYPE:
+-					if (javadoc.contains(ctImport.getReference().getSimpleName())) {
+-						this.setImportUsed(ctImport);
++					if (javadoc.contains(ctImport.getReference().getSimpleName()) && ctImport.getReference() instanceof CtTypeReference) {
++						//assure that it is not just any occurrence of same substring, but it is real javadoc link to the same type
++						if (matchesTypeName(javadoc, (CtTypeReference<?>) ctImport.getReference())) {
++							this.setImportUsed(ctImport);
++						}
+ 					}
+ 					break;
+ 			}
+ 		}
++	}
++
++	private static Set<String> mainTags = new HashSet<>(Arrays.asList("see", "throws", "exception"));
++	private static Set<String> inlineTags = new HashSet<>(Arrays.asList("link", "linkplain", "value"));
++	private static Pattern tagRE = Pattern.compile("(\\{)?@(\\w+)\\s+([\\w\\.\\$]+)(?:#(\\w+)(?:\\(([^\\)]*)\\)))?");
++
++	private boolean matchesTypeName(String javadoc, CtTypeReference<?> typeRef) {
++		Matcher m = tagRE.matcher(javadoc);
++		while (m.find()) {
++			String bracket = m.group(1);
++			String tag = m.group(2);
++			if ("{".equals(bracket)) {
++				if (inlineTags.contains(tag) == false) {
++					continue;
++				}
++			} else {
++				if (mainTags.contains(tag) == false) {
++					continue;
++				}
++			}
++			String type = m.group(3);
++//			String methodName = m.group(4);
++			String params = m.group(5);
+ 
++			if (isTypeMatching(type, typeRef)) {
++				return true;
++			}
++			if (params != null) {
++				String[] paramTypes = params.split("\\s*,\\s*");
++				for (String paramType : paramTypes) {
++					if (isTypeMatching(paramType, typeRef)) {
++						return true;
++					}
++				}
++			}
++		}
++		return false;
++	}
++
++	private boolean isTypeMatching(String typeName, CtTypeReference<?> typeRef) {
++		if (typeName != null) {
++			if (typeName.equals(typeRef.getQualifiedName())) {
++				return true;
++			}
++			if (typeName.equals(typeRef.getSimpleName())) {
++				return true;
++			}
++		}
++		return false;
+ 	}
+ 
+ 	@Override
+diff --git a/src/test/java/spoon/test/imports/ImportScannerTest.java b/src/test/java/spoon/test/imports/ImportScannerTest.java
+index 2e7239789..899507889 100644
+--- a/src/test/java/spoon/test/imports/ImportScannerTest.java
++++ b/src/test/java/spoon/test/imports/ImportScannerTest.java
+@@ -17,12 +17,15 @@ import spoon.reflect.visitor.PrettyPrinter;
+ import spoon.reflect.visitor.Query;
+ import spoon.reflect.visitor.filter.NamedElementFilter;
+ import spoon.support.JavaOutputProcessor;
++import spoon.test.imports.testclasses.ToBeModified;
++import spoon.testing.utils.ModelUtils;
+ 
+ import java.io.File;
+ import java.io.IOException;
+ import java.nio.file.Files;
+ import java.security.AccessControlException;
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.Collection;
+ import java.util.HashMap;
+ import java.util.HashSet;
+@@ -31,6 +34,7 @@ import java.util.Map;
+ import java.util.Set;
+ 
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertTrue;
+ import static spoon.testing.utils.ModelUtils.build;
+ 
+@@ -298,4 +302,30 @@ public class ImportScannerTest {
+ 
+ 		assertEquals(0, imports.size());
+ 	}
++
++	@Test
++	public void testImportByJavaDoc() throws Exception {
++		//contract imports are included only if type name is used in javadoc link, etc. Their occurrence in comment is not enough
++		CtType<?> type = ModelUtils.buildClass(launcher -> {
++			launcher.getEnvironment().setCommentEnabled(true);
++			launcher.getEnvironment().setAutoImports(true);
++		}, ToBeModified.class);
++
++		{
++			DefaultJavaPrettyPrinter printer = new DefaultJavaPrettyPrinter(type.getFactory().getEnvironment());
++			printer.calculate(type.getPosition().getCompilationUnit(), Arrays.asList(type));
++			assertTrue(printer.getResult().contains("import java.util.List;"));
++		}
++			
++		//delete first statement of method m
++		type.getMethodsByName("m").get(0).getBody().getStatement(0).delete();
++		//check that there is still javadoc comment which contains "List"
++		assertTrue(type.getMethodsByName("m").get(0).getComments().toString().indexOf("List")>=0);
++		
++		{
++			DefaultJavaPrettyPrinter printer = new DefaultJavaPrettyPrinter(type.getFactory().getEnvironment());
++			printer.calculate(type.getPosition().getCompilationUnit(), Arrays.asList(type));
++			assertFalse(printer.getResult().contains("import java.util.List;"));
++		}
++	}
+ }
+diff --git a/src/test/java/spoon/test/imports/testclasses/ToBeModified.java b/src/test/java/spoon/test/imports/testclasses/ToBeModified.java
+new file mode 100644
+index 000000000..2e14f4e4a
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses/ToBeModified.java
+@@ -0,0 +1,14 @@
++package spoon.test.imports.testclasses;
++
++import java.util.List;
++
++public class ToBeModified {
++
++	/**
++	 * This method contains List, but it will be removed during refactoring
++	 */
++	public void m() {
++		List<?> x;
++	}
++
++}

@@ -1,0 +1,11 @@
+--- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:17:23.782915924 +0000
++++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:17:25.680064261 +0000
+@@ -119,7 +119,7 @@
+                         break;
+                     case '<':
+                         // escape when in character data or when in a xml attribue val; not needed in html attr val
+-                        if (!inAttribute)
++                        if (!inAttribute || escapeMode == EscapeMode.xhtml)
+                             accum.append("&lt;");
+                         else
+                             accum.append(c);

@@ -1,0 +1,12 @@
+--- gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2023-12-05 20:58:32.402247641 +0000
++++ gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2023-12-05 20:58:34.480456120 +0000
+@@ -64,7 +64,9 @@
+       throw new IllegalArgumentException(
+           "@JsonAdapter value must be TypeAdapter or TypeAdapterFactory reference.");
+     }
++    if (typeAdapter != null) {
+       typeAdapter = typeAdapter.nullSafe();
++    }
+     return typeAdapter;
+   }
+ }

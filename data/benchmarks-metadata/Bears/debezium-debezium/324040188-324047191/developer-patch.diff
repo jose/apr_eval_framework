@@ -1,0 +1,34 @@
+diff --git a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+index 350d0c5d7..c5dd9599d 100644
+--- a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
++++ b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+@@ -1225,6 +1225,7 @@ protected void parseAlterSpecification(Marker start, TableEditor table, Consumer
+                 }
+                 String columnName = parseColumnName();
+                 table.removeColumn(columnName);
++                tokens.canConsume("RESTRICT");
+             }
+         } else if (tokens.canConsume("ALTER")) {
+             if (!isNextTokenQuotedIdentifier()) {
+diff --git a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+index 0c67063f7..fce2c2dcb 100644
+--- a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
++++ b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+@@ -1279,7 +1279,7 @@ public void shouldParseAlterTableStatementWithColumnNamedColumnWithoutColumnWord
+     }
+ 
+     @Test
+-    @FixFor({"DBZ-408", "DBZ-412"})
++    @FixFor({"DBZ-408", "DBZ-412", "DBZ-524"})
+     public void shouldParseAlterTableStatementWithColumnNamedColumnWithColumnWord() {
+         String ddl = "CREATE TABLE `mytable` ( " + System.lineSeparator()
+                     + " `def` int(11) unsigned NOT NULL AUTO_INCREMENT, " + System.lineSeparator()
+@@ -1329,7 +1329,7 @@ public void shouldParseAlterTableStatementWithColumnNamedColumnWithColumnWord()
+         ddl = "ALTER TABLE `mytable` "
+                 + "DROP COLUMN `column`, "
+                 + "DROP COLUMN `ghi`, "
+-                + "DROP COLUMN jkl";
++                + "DROP COLUMN jkl RESTRICT";
+ 
+         parser.parse(ddl, tables);
+         mytable = tables.forTable(new TableId(null, null, "mytable"));

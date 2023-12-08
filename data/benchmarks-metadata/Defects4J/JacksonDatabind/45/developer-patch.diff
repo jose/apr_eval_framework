@@ -1,0 +1,12 @@
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:06:16.804415293 +0000
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:06:19.454182426 +0000
+@@ -60,7 +60,8 @@
+                     return withFormat(Boolean.TRUE, null);
+                 }
+ 
+-                if (format.getShape() == JsonFormat.Shape.STRING) {
++                if ((shape == JsonFormat.Shape.STRING) || format.hasPattern()
++                                || format.hasLocale() || format.hasTimeZone()) {
+                     TimeZone tz = format.getTimeZone();
+                     final String pattern = format.hasPattern()
+                                     ? format.getPattern()

@@ -1,0 +1,193 @@
+diff --git a/src/main/java/spoon/support/visitor/ProcessingVisitor.java b/src/main/java/spoon/support/visitor/ProcessingVisitor.java
+index 268b27f81..07212e592 100644
+--- a/src/main/java/spoon/support/visitor/ProcessingVisitor.java
++++ b/src/main/java/spoon/support/visitor/ProcessingVisitor.java
+@@ -45,10 +45,11 @@ public class ProcessingVisitor extends CtScanner {
+ 		if (!factory.getEnvironment().isProcessingStopped()
+ 				&& processor.getProcessedElementTypes() != null) {
+ 			for (Object o : processor.getProcessedElementTypes()) {
+-				if (((Class<?>) o).isAssignableFrom(e.getClass())) {
+-					return true;
++				if (!((Class<?>) o).isAssignableFrom(e.getClass())) {
++					return false;
+ 				}
+ 			}
++			return true;
+ 		}
+ 		return false;
+ 	}
+diff --git a/src/test/java/spoon/test/processing/ProcessingTest.java b/src/test/java/spoon/test/processing/ProcessingTest.java
+index 7aedac311..c4f2b78ef 100644
+--- a/src/test/java/spoon/test/processing/ProcessingTest.java
++++ b/src/test/java/spoon/test/processing/ProcessingTest.java
+@@ -13,9 +13,14 @@ import spoon.reflect.code.CtSwitch;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtConstructor;
+ import spoon.reflect.declaration.CtElement;
++import spoon.reflect.declaration.CtInterface;
+ import spoon.reflect.declaration.CtMethod;
++import spoon.reflect.declaration.CtType;
+ import spoon.reflect.visitor.filter.TypeFilter;
+ import spoon.support.compiler.jdt.JDTBasedSpoonCompiler;
++import spoon.test.processing.testclasses.CtClassProcessor;
++import spoon.test.processing.testclasses.CtInterfaceProcessor;
++import spoon.test.processing.testclasses.CtTypeProcessor;
+ import spoon.testing.utils.ProcessorUtils;
+ 
+ import java.util.Collections;
+@@ -180,4 +185,69 @@ public class ProcessingTest {
+ 		assertEquals(5, p.anInt);
+ 		assertSame(o, p.anObject);
+ 	}
++
++	@Test
++	public void testProcessorWithGenericType() {
++		// contract: we can use generic type for another abstract processor
++
++		Launcher spoon = new Launcher();
++		spoon.addInputResource("./src/test/java/spoon/test/imports/testclasses");
++
++		CtClassProcessor classProcessor = new CtClassProcessor();
++		spoon.addProcessor(classProcessor);
++
++		spoon.run();
++
++		assertFalse(classProcessor.elements.isEmpty());
++
++		for (CtType type : classProcessor.elements) {
++			assertTrue("Type "+type.getSimpleName()+" is not a class", type instanceof CtClass);
++		}
++	}
++
++	@Test
++	public void testCallProcessorWithMultipleTypes() {
++		// contract: when calling a processor capable of treating CtClass and another capable of treating CtType, they are called on the right types
++
++		Launcher spoon = new Launcher();
++		spoon.addInputResource("./src/test/java/spoon/test/imports/testclasses");
++
++		CtClassProcessor classProcessor = new CtClassProcessor();
++		spoon.addProcessor(classProcessor);
++
++		CtTypeProcessor typeProcessor = new CtTypeProcessor();
++		spoon.addProcessor(typeProcessor);
++
++		CtInterfaceProcessor interfaceProcessor = new CtInterfaceProcessor();
++		spoon.addProcessor(interfaceProcessor);
++
++		spoon.run();
++
++		assertFalse(classProcessor.elements.isEmpty());
++
++		for (CtType type : classProcessor.elements) {
++			assertTrue("Type "+type.getSimpleName()+" is not a class", type instanceof CtClass);
++		}
++
++		assertFalse(classProcessor.elements.isEmpty());
++
++		for (CtType type : interfaceProcessor.elements) {
++			assertTrue("Type "+type.getSimpleName()+" is not an interface", type instanceof CtInterface);
++		}
++
++		assertFalse(typeProcessor.elements.isEmpty());
++
++		for (CtType type : typeProcessor.elements) {
++			if (type instanceof CtClass) {
++				assertTrue(classProcessor.elements.contains(type));
++				assertFalse(interfaceProcessor.elements.contains(type));
++			} else if (type instanceof CtInterface){
++				assertFalse(classProcessor.elements.contains(type));
++				assertTrue(interfaceProcessor.elements.contains(type));
++			} else {
++				assertFalse(classProcessor.elements.contains(type));
++				assertFalse(interfaceProcessor.elements.contains(type));
++			}
++		}
++	}
+ }
+diff --git a/src/test/java/spoon/test/processing/testclasses/CtClassProcessor.java b/src/test/java/spoon/test/processing/testclasses/CtClassProcessor.java
+new file mode 100644
+index 000000000..622d2862e
+--- /dev/null
++++ b/src/test/java/spoon/test/processing/testclasses/CtClassProcessor.java
+@@ -0,0 +1,13 @@
++package spoon.test.processing.testclasses;
++
++import spoon.reflect.declaration.CtClass;
++
++/**
++ * Created by urli on 10/08/2017.
++ */
++public class CtClassProcessor extends GenericCtTypeProcessor<CtClass> {
++
++    public CtClassProcessor() {
++        super(CtClass.class);
++    }
++}
+diff --git a/src/test/java/spoon/test/processing/testclasses/CtInterfaceProcessor.java b/src/test/java/spoon/test/processing/testclasses/CtInterfaceProcessor.java
+new file mode 100644
+index 000000000..a03c7fd68
+--- /dev/null
++++ b/src/test/java/spoon/test/processing/testclasses/CtInterfaceProcessor.java
+@@ -0,0 +1,12 @@
++package spoon.test.processing.testclasses;
++
++import spoon.reflect.declaration.CtInterface;
++
++/**
++ * Created by urli on 31/08/2017.
++ */
++public class CtInterfaceProcessor extends GenericCtTypeProcessor<CtInterface> {
++    public CtInterfaceProcessor() {
++        super(CtInterface.class);
++    }
++}
+diff --git a/src/test/java/spoon/test/processing/testclasses/CtTypeProcessor.java b/src/test/java/spoon/test/processing/testclasses/CtTypeProcessor.java
+new file mode 100644
+index 000000000..af562928b
+--- /dev/null
++++ b/src/test/java/spoon/test/processing/testclasses/CtTypeProcessor.java
+@@ -0,0 +1,13 @@
++package spoon.test.processing.testclasses;
++
++import spoon.reflect.declaration.CtType;
++
++/**
++ * Created by urli on 31/08/2017.
++ */
++public class CtTypeProcessor extends GenericCtTypeProcessor<CtType> {
++
++    public CtTypeProcessor() {
++        super(CtType.class);
++    }
++}
+diff --git a/src/test/java/spoon/test/processing/testclasses/GenericCtTypeProcessor.java b/src/test/java/spoon/test/processing/testclasses/GenericCtTypeProcessor.java
+new file mode 100644
+index 000000000..c512a8a4b
+--- /dev/null
++++ b/src/test/java/spoon/test/processing/testclasses/GenericCtTypeProcessor.java
+@@ -0,0 +1,24 @@
++package spoon.test.processing.testclasses;
++
++import spoon.processing.AbstractProcessor;
++import spoon.reflect.declaration.CtType;
++
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * Created by urli on 10/08/2017.
++ */
++public abstract class GenericCtTypeProcessor<T extends CtType> extends AbstractProcessor<T> {
++
++    public GenericCtTypeProcessor(Class<T> zeClass) {
++        super.addProcessedElementType(zeClass);
++    }
++
++    public List<T> elements = new ArrayList<T>();
++
++    @Override
++    public void process(T element) {
++        elements.add(element);
++    }
++}

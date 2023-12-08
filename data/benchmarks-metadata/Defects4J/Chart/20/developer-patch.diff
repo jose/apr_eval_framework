@@ -1,0 +1,11 @@
+--- source/org/jfree/chart/plot/ValueMarker.java	2023-12-05 17:36:31.286406783 +0000
++++ source/org/jfree/chart/plot/ValueMarker.java	2023-12-05 17:36:38.187838905 +0000
+@@ -92,7 +92,7 @@
+      */
+     public ValueMarker(double value, Paint paint, Stroke stroke, 
+                        Paint outlinePaint, Stroke outlineStroke, float alpha) {
+-        super(paint, stroke, paint, stroke, alpha);
++        super(paint, stroke, outlinePaint, outlineStroke, alpha);
+         this.value = value;
+     }
+     

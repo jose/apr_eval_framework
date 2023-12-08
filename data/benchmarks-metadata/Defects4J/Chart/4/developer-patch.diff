@@ -1,0 +1,18 @@
+--- source/org/jfree/chart/plot/XYPlot.java	2023-12-05 17:32:06.095606133 +0000
++++ source/org/jfree/chart/plot/XYPlot.java	2023-12-05 17:32:13.098468421 +0000
+@@ -4490,6 +4490,7 @@
+                     }
+                 }
+                 
++                if (r != null) {
+                     Collection c = r.getAnnotations();
+                     Iterator i = c.iterator();
+                     while (i.hasNext()) {
+@@ -4498,6 +4499,7 @@
+                             includedAnnotations.add(a);
+                         }
+                     }
++                }
+             }
+         }
+ 

@@ -1,0 +1,89 @@
+diff --git a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+index c78faf2f6..d93425e7c 100644
+--- a/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
++++ b/src/main/java/com/gdssecurity/pmd/rules/dfa/DfaSecurityRule.java
+@@ -544,6 +544,9 @@ public class DfaSecurityRule extends BaseSecurityRule implements Executable {
+ 	private boolean isAnyArgumentTainted(Node simpleNode) {
+ 		ASTArgumentList argListNode = simpleNode.getFirstDescendantOfType(ASTArgumentList.class);
+ 		if (argListNode != null) {
++			if (isSanitized(argListNode)) {
++				return false;
++			}
+ 			int numChildren = argListNode.jjtGetNumChildren();
+ 			for (int i = 0; i < numChildren; i++) {
+ 				Node argument = argListNode.jjtGetChild(i);
+@@ -555,6 +558,27 @@ public class DfaSecurityRule extends BaseSecurityRule implements Executable {
+ 		return false;
+ 	}
+ 
++	private boolean isSanitized(ASTArgumentList argListNode) {
++		try {
++			ASTArguments arguments = (ASTArguments) argListNode.jjtGetParent();
++			ASTPrimarySuffix suffix = (ASTPrimarySuffix) arguments.jjtGetParent();
++			ASTPrimaryExpression exp = (ASTPrimaryExpression) suffix.jjtGetParent();
++			String method = getMethod(exp);
++			Class<?> type = getJavaType(exp);
++			String typeName = type.getName();
++			if (isSink(typeName, method)) {
++				return false;
++			}
++			if (isSanitizerMethod(typeName, method) || isSafeType(getReturnType(exp, typeName, method))) {
++				return true;
++			}
++		}
++		catch (Exception e) {
++			return false;
++		}
++		return false;
++	}
++
+ 	private boolean isMethodCall(Node node) {
+ 		ASTArguments arguments = node.getFirstDescendantOfType(ASTArguments.class);
+ 		return arguments != null;
+diff --git a/src/test/java/com/gdssecurity/pmd/SanitizersTest.java b/src/test/java/com/gdssecurity/pmd/SanitizersTest.java
+index 8921af800..cca1823cb 100644
+--- a/src/test/java/com/gdssecurity/pmd/SanitizersTest.java
++++ b/src/test/java/com/gdssecurity/pmd/SanitizersTest.java
+@@ -38,4 +38,14 @@ public class SanitizersTest {
+ 		Assert.assertEquals(0, violations);
+ 	}
+ 	
++	@Test
++	public void testSanitizerParseInt() throws Exception {
++		int violations = 
++				PMDRunner.run(
++						"src/test/java/resources/cwe931xss/XSSSanitizersParseInt.java", 
++						PMDRunner.RULESET_XSS
++		);
++		Assert.assertEquals(0, violations);
++	}
++	
+ }
+diff --git a/src/test/java/resources/cwe931xss/XSSSanitizersParseInt.java b/src/test/java/resources/cwe931xss/XSSSanitizersParseInt.java
+new file mode 100644
+index 000000000..5298351fb
+--- /dev/null
++++ b/src/test/java/resources/cwe931xss/XSSSanitizersParseInt.java
+@@ -0,0 +1,22 @@
++package resources.cwe931xss;
++
++import java.io.IOException;
++
++import javax.servlet.jsp.JspWriter;
++
++public class XSSSanitizersParseInt {
++
++	public XSSSanitizersParseInt() {
++		super();
++	}
++
++	public void executeGood(JspWriter writer, String param) throws IOException {
++		String[] i_anualidad_sg_cert = { "a", "b", "c", "d", "e" };
++		writer.print(i_anualidad_sg_cert[Integer.parseInt(param)]);
++//		writer.print(i_anualidad_sg_cert[Integer.parseInt(param) - 1]);
++//		writer.print(Integer.parseInt(param) - 1);
++//		writer.print(Integer.parseInt(param));
++//		int pos = Integer.parseInt(param);
++//		writer.print(i_anualidad_sg_cert[pos]);
++	}
++}

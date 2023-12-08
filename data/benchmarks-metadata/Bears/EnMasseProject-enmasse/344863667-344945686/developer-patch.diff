@@ -1,0 +1,46 @@
+diff --git a/address-model-lib/src/main/java/io/enmasse/address/model/Status.java b/address-model-lib/src/main/java/io/enmasse/address/model/Status.java
+index 7745f9e6c..66e89f0a8 100644
+--- a/address-model-lib/src/main/java/io/enmasse/address/model/Status.java
++++ b/address-model-lib/src/main/java/io/enmasse/address/model/Status.java
+@@ -21,6 +21,7 @@ public class Status {
+ 
+     public Status(io.enmasse.address.model.Status other) {
+         this.isReady = other.isReady();
++        this.phase = other.getPhase();
+         this.messages.addAll(other.getMessages());
+     }
+ 
+diff --git a/address-model-lib/src/test/java/io/enmasse/address/model/v1/address/AddressTest.java b/address-model-lib/src/test/java/io/enmasse/address/model/v1/address/AddressTest.java
+index e752810d7..0a6d21bc9 100644
+--- a/address-model-lib/src/test/java/io/enmasse/address/model/v1/address/AddressTest.java
++++ b/address-model-lib/src/test/java/io/enmasse/address/model/v1/address/AddressTest.java
+@@ -8,6 +8,7 @@ import io.enmasse.address.model.*;
+ import org.junit.Test;
+ 
+ import static org.hamcrest.CoreMatchers.is;
++import static org.hamcrest.CoreMatchers.hasItem;
+ import static org.junit.Assert.assertThat;
+ import static org.junit.Assert.assertTrue;
+ 
+@@ -59,4 +60,21 @@ public class AddressTest {
+         assertThat(b1.getPlan(), is(b2.getPlan()));
+         assertThat(b1.getType(), is(b2.getType()));
+     }
++    
++    @Test
++    public void testCopy() {
++        Address a = new Address.Builder()
++                .setAddress("a1")
++                .setPlan("p1")
++                .setType("t1")
++                .setStatus(new Status(true).setPhase(Status.Phase.Active).appendMessage("foo"))
++                .build();
++        
++        Address b = new Address.Builder(a).build();
++        
++        assertThat(a, is(b));
++        assertTrue(b.getStatus().isReady());
++        assertThat(b.getStatus().getPhase(), is(Status.Phase.Active));
++        assertThat(b.getStatus().getMessages(), hasItem("foo"));
++    }
+ }

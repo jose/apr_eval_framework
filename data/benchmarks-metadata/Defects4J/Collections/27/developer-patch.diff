@@ -1,0 +1,16 @@
+--- src/main/java/org/apache/commons/collections4/map/MultiValueMap.java	2023-12-05 20:10:05.940677968 +0000
++++ src/main/java/org/apache/commons/collections4/map/MultiValueMap.java	2023-12-05 20:10:09.426014150 +0000
+@@ -565,6 +565,13 @@
+             }
+         }
+ 
++        private void readObject(ObjectInputStream is) throws IOException, ClassNotFoundException {
++            is.defaultReadObject();
++            // ensure that the de-serialized class is a Collection, COLLECTIONS-580
++            if (clazz != null && !Collection.class.isAssignableFrom(clazz)) {
++                throw new UnsupportedOperationException();
++            }
++        }
+     }
+ 
+ }

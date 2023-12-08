@@ -1,0 +1,12 @@
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/FromStringDeserializer.java	2023-12-05 21:05:58.837107084 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/FromStringDeserializer.java	2023-12-05 21:06:01.449375573 +0000
+@@ -281,6 +281,9 @@
+                 return URI.create("");
+             }
+             // As per [databind#1123], Locale too
++            if (_kind == STD_LOCALE) {
++                return Locale.ROOT;
++            }
+             return super._deserializeFromEmptyString();
+         }
+     }

@@ -1,0 +1,103 @@
+diff --git a/src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java b/src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java
+index 4c6144408..c69169f7f 100644
+--- a/src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java
++++ b/src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java
+@@ -441,9 +441,11 @@ public class BeanDeserializerFactory
+             BeanDescription beanDesc, BeanDeserializerBuilder builder)
+         throws JsonMappingException
+     {
+-        final SettableBeanProperty[] creatorProps =
+-                builder.getValueInstantiator().getFromObjectArguments(ctxt.getConfig());
+         final boolean isConcrete = !beanDesc.getType().isAbstract();
++        final SettableBeanProperty[] creatorProps = isConcrete
++                ? builder.getValueInstantiator().getFromObjectArguments(ctxt.getConfig())
++                : null;
++        final boolean hasCreatorProps = (creatorProps != null);
+         
+         // 01-May-2016, tatu: Which base type to use here gets tricky, since
+         //   it may often make most sense to use general type for overrides,
+@@ -490,8 +492,8 @@ public class BeanDeserializerFactory
+                 }
+             }
+         }
+-        final boolean useGettersAsSetters = (ctxt.isEnabled(MapperFeature.USE_GETTERS_AS_SETTERS)
+-                && ctxt.isEnabled(MapperFeature.AUTO_DETECT_GETTERS));
++        final boolean useGettersAsSetters = ctxt.isEnabled(MapperFeature.USE_GETTERS_AS_SETTERS)
++                && ctxt.isEnabled(MapperFeature.AUTO_DETECT_GETTERS);
+ 
+         // Ok: let's then filter out property definitions
+         List<BeanPropertyDefinition> propDefs = filterBeanProps(ctxt,
+@@ -531,7 +533,7 @@ public class BeanDeserializerFactory
+             }
+             // 25-Sep-2014, tatu: No point in finding constructor parameters for abstract types
+             //   (since they are never used anyway)
+-            if (isConcrete && propDef.hasConstructorParameter()) {
++            if (hasCreatorProps && propDef.hasConstructorParameter()) {
+                 /* If property is passed via constructor parameter, we must
+                  * handle things in special way. Not sure what is the most optimal way...
+                  * for now, let's just call a (new) method in builder, which does nothing.
+@@ -548,8 +550,13 @@ public class BeanDeserializerFactory
+                     }
+                 }
+                 if (cprop == null) {
+-                    ctxt.reportMappingException("Could not find creator property with name '%s' (in class %s)",
+-                            name, beanDesc.getBeanClass().getName());
++                    List<String> n = new ArrayList<>();
++                    for (SettableBeanProperty cp : creatorProps) {
++                        n.add(cp.getName());
++                    }
++                    ctxt.reportBadPropertyDefinition(beanDesc, propDef,
++                            "Could not find creator property with name '%s' (known Creator properties: %s)",
++                            name, n);
+                     continue;
+                 }
+                 if (prop != null) {
+diff --git a/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java b/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java
+index 78d54bcc9..0afd3ffb9 100644
+--- a/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java
++++ b/src/test/java/com/fasterxml/jackson/databind/deser/ReadOrWriteOnlyTest.java
+@@ -1,5 +1,7 @@
+ package com.fasterxml.jackson.databind.deser;
+ 
++import java.beans.ConstructorProperties;
++
+ import com.fasterxml.jackson.annotation.JsonProperty;
+ import com.fasterxml.jackson.databind.*;
+ 
+@@ -47,7 +49,22 @@ public class ReadOrWriteOnlyTest extends BaseMapTest
+         public void setLastName(String n) {
+             lastName = n;
+         }
+-    }    
++    }
++
++    // for [databind#1345], emulate way Lombok embellishes classes
++    static class Foo1345 {
++        @JsonProperty(access=JsonProperty.Access.READ_ONLY)
++        public String id;
++        public String name;
++
++        @ConstructorProperties({ "id", "name" })
++        public Foo1345(String id, String name) {
++            this.id = id;
++            this.name = name;
++        }
++
++        protected Foo1345() { }
++    }
+ 
+     /*
+     /**********************************************************
+@@ -75,4 +92,12 @@ public class ReadOrWriteOnlyTest extends BaseMapTest
+         Pojo935 result = MAPPER.readValue(json, Pojo935.class);
+         assertNotNull(result);
+     }
++
++    public void testReadOnly1345() throws Exception
++    {
++        Foo1345 result = MAPPER.readValue("{\"name\":\"test\"}", Foo1345.class);
++        assertNotNull(result);
++        assertEquals("test", result.name);
++        assertNull(result.id);
++    }
+ }

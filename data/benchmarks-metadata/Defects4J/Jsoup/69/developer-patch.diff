@@ -1,0 +1,14 @@
+--- src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:19:13.918742776 +0000
++++ src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:19:16.924758918 +0000
+@@ -46,6 +46,11 @@
+         return this;
+     }
+ 
++    @Override
++    protected void removeChild(Node out) {
++        super.removeChild(out);
++        elements.remove(out);
++    }
+ 
+     /**
+      * Prepare to submit this form. A Connection object is created with the request set up from the form values. You

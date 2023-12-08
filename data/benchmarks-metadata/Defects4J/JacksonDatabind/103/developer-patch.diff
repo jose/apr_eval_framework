@@ -1,0 +1,271 @@
+--- src/main/java/com/fasterxml/jackson/databind/DatabindContext.java	2023-12-05 21:12:18.306109365 +0000
++++ src/main/java/com/fasterxml/jackson/databind/DatabindContext.java	2023-12-05 21:12:20.852738086 +0000
+@@ -192,7 +192,7 @@
+                 throw invalidTypeIdException(baseType, subClass, String.format(
+                         "problem: (%s) %s",
+                         e.getClass().getName(),
+-                        e.getMessage()));
++                        ClassUtil.exceptionMessage(e)));
+             }
+             if (baseType.isTypeOrSuperTypeOf(cls)) {
+                 return getTypeFactory().constructSpecializedType(baseType, cls);
+--- src/main/java/com/fasterxml/jackson/databind/DeserializationContext.java	2023-12-05 21:12:18.306786856 +0000
++++ src/main/java/com/fasterxml/jackson/databind/DeserializationContext.java	2023-12-05 21:12:20.853298568 +0000
+@@ -711,7 +711,7 @@
+         } catch (ParseException e) {
+             throw new IllegalArgumentException(String.format(
+                     "Failed to parse Date value '%s': %s", dateStr,
+-                    e.getMessage()));
++                    ClassUtil.exceptionMessage(e)));
+         }
+     }
+ 
+@@ -1600,7 +1600,7 @@
+         String excMsg;
+         if (cause == null) {
+             excMsg = "N/A";
+-        } else if ((excMsg = cause.getMessage()) == null) {
++        } else if ((excMsg = ClassUtil.exceptionMessage(cause)) == null) {
+             excMsg = ClassUtil.nameOf(cause.getClass());
+         }
+         String msg = String.format("Cannot construct instance of %s, problem: %s",
+--- src/main/java/com/fasterxml/jackson/databind/JsonMappingException.java	2023-12-05 21:12:18.307197071 +0000
++++ src/main/java/com/fasterxml/jackson/databind/JsonMappingException.java	2023-12-05 21:12:20.853881885 +0000
+@@ -7,6 +7,7 @@
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
+ import com.fasterxml.jackson.core.*;
++import com.fasterxml.jackson.databind.util.ClassUtil;
+ 
+ /**
+  * Checked exception used to signal fatal problems with mapping of
+@@ -336,7 +337,7 @@
+         return new JsonMappingException(null,
+                 String.format("Unexpected IOException (of type %s): %s",
+                         src.getClass().getName(),
+-                        src.getMessage()));
++                        ClassUtil.exceptionMessage(src)));
+     }
+ 
+     /**
+@@ -377,7 +378,7 @@
+             jme = (JsonMappingException) src;
+         } else {
+             // [databind#2128]: try to avoid duplication
+-            String msg = src.getMessage();
++            String msg = ClassUtil.exceptionMessage(src);
+             // Let's use a more meaningful placeholder if all we have is null
+             if (msg == null || msg.length() == 0) {
+                 msg = "(was "+src.getClass().getName()+")";
+--- src/main/java/com/fasterxml/jackson/databind/SerializerProvider.java	2023-12-05 21:12:18.307687436 +0000
++++ src/main/java/com/fasterxml/jackson/databind/SerializerProvider.java	2023-12-05 21:12:20.854524338 +0000
+@@ -1338,7 +1338,7 @@
+             // We better only expose checked exceptions, since those
+             // are what caller is expected to handle
+             ser = null; // doesn't matter but compiler whines otherwise
+-            reportMappingProblem(iae, iae.getMessage());
++            reportMappingProblem(iae, ClassUtil.exceptionMessage(iae));
+         }
+ 
+         if (ser != null) {
+@@ -1358,7 +1358,7 @@
+             // We better only expose checked exceptions, since those
+             // are what caller is expected to handle
+             ser = null;
+-            reportMappingProblem(iae, iae.getMessage());
++            reportMappingProblem(iae, ClassUtil.exceptionMessage(iae));
+         }
+     
+         if (ser != null) {
+--- src/main/java/com/fasterxml/jackson/databind/deser/BasicDeserializerFactory.java	2023-12-05 21:12:18.171317802 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/BasicDeserializerFactory.java	2023-12-05 21:12:20.855805228 +0000
+@@ -1586,7 +1586,7 @@
+             return b.buildTypeDeserializer(config, baseType, subtypes);
+         } catch (IllegalArgumentException e0) {
+             InvalidDefinitionException e = InvalidDefinitionException.from((JsonParser) null,
+-                    e0.getMessage(), baseType);
++                    ClassUtil.exceptionMessage(e0), baseType);
+             e.initCause(e0);
+             throw e;
+         }
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:12:18.308507107 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:12:20.856514264 +0000
+@@ -219,7 +219,7 @@
+             //   to throw proper exception, it doesn't actually have reference to this
+             //   instance so...
+             throw InvalidDefinitionException.from(ctxt.getParser(),
+-                    e.getMessage(),
++                    ClassUtil.exceptionMessage(e),
+                     beanDesc, null);
+         }
+         BeanDeserializerBuilder builder = constructBeanDeserializerBuilder(ctxt, beanDesc);
+@@ -278,7 +278,7 @@
+             //   to throw proper exception, it doesn't actually have reference to this
+             //   instance so...
+             throw InvalidDefinitionException.from(ctxt.getParser(),
+-                    e.getMessage(),
++                    ClassUtil.exceptionMessage(e),
+                     builderDesc, null);
+         }
+         final DeserializationConfig config = ctxt.getConfig();
+--- src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:12:18.171533744 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:12:20.857081108 +0000
+@@ -265,7 +265,7 @@
+         } catch (IllegalArgumentException iae) {
+             // We better only expose checked exceptions, since those
+             // are what caller is expected to handle
+-            throw JsonMappingException.from(ctxt, iae.getMessage(), iae);
++            throw JsonMappingException.from(ctxt, ClassUtil.exceptionMessage(iae), iae);
+         }
+         if (deser == null) {
+             return null;
+--- src/main/java/com/fasterxml/jackson/databind/deser/SettableAnyProperty.java	2023-12-05 21:12:18.171632090 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/SettableAnyProperty.java	2023-12-05 21:12:20.857378712 +0000
+@@ -199,7 +199,7 @@
+             StringBuilder msg = new StringBuilder("Problem deserializing \"any\" property '").append(propName);
+             msg.append("' of class "+getClassName()+" (expected type: ").append(_type);
+             msg.append("; actual type: ").append(actType).append(")");
+-            String origMsg = e.getMessage();
++            String origMsg = ClassUtil.exceptionMessage(e);
+             if (origMsg != null) {
+                 msg.append(", problem: ").append(origMsg);
+             } else {
+@@ -211,7 +211,7 @@
+         ClassUtil.throwIfRTE(e);
+         // let's wrap the innermost problem
+         Throwable t = ClassUtil.getRootCause(e);
+-        throw new JsonMappingException(null, t.getMessage(), t);
++        throw new JsonMappingException(null, ClassUtil.exceptionMessage(t), t);
+     }
+ 
+     private String getClassName() { return _setter.getDeclaringClass().getName(); }
+--- src/main/java/com/fasterxml/jackson/databind/deser/SettableBeanProperty.java	2023-12-05 21:12:18.171730680 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/SettableBeanProperty.java	2023-12-05 21:12:20.857779307 +0000
+@@ -587,7 +587,7 @@
+                     .append(getType())
+                     .append("; actual type: ")
+                     .append(actType).append(")");
+-            String origMsg = e.getMessage();
++            String origMsg = ClassUtil.exceptionMessage(e);
+             if (origMsg != null) {
+                 msg.append(", problem: ")
+                     .append(origMsg);
+@@ -608,7 +608,7 @@
+         ClassUtil.throwIfRTE(e);
+         // let's wrap the innermost problem
+         Throwable th = ClassUtil.getRootCause(e);
+-        throw JsonMappingException.from(p, th.getMessage(), th);
++        throw JsonMappingException.from(p, ClassUtil.exceptionMessage(th), th);
+     }
+ 
+     @Deprecated // since 2.7
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StdDeserializer.java	2023-12-05 21:12:18.308984836 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdDeserializer.java	2023-12-05 21:12:20.858290354 +0000
+@@ -523,7 +523,7 @@
+         } catch (IllegalArgumentException iae) {
+             return (java.util.Date) ctxt.handleWeirdStringValue(_valueClass, value,
+                     "not a valid representation (error: %s)",
+-                    iae.getMessage());
++                    ClassUtil.exceptionMessage(iae));
+         }
+     }
+ 
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2023-12-05 21:12:18.309340972 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2023-12-05 21:12:20.858820545 +0000
+@@ -132,7 +132,7 @@
+         } catch (Exception re) {
+             return ctxt.handleWeirdKey(_keyClass, key, "not a valid representation, problem: (%s) %s",
+                     re.getClass().getName(),
+-                    re.getMessage());
++                    ClassUtil.exceptionMessage(re));
+         }
+         if (_keyClass.isEnum() && ctxt.getConfig().isEnabled(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL)) {
+             return null;
+@@ -259,7 +259,7 @@
+     // @since 2.9
+     protected Object _weirdKey(DeserializationContext ctxt, String key, Exception e) throws IOException {
+         return ctxt.handleWeirdKey(_keyClass, key, "problem: %s",
+-                e.getMessage());
++                ClassUtil.exceptionMessage(e));
+     }
+ 
+     /*
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2023-12-05 21:12:18.172049600 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2023-12-05 21:12:20.859178306 +0000
+@@ -453,7 +453,7 @@
+             }
+         }
+         return new JsonMappingException(null,
+-                "Instantiation of "+getValueTypeDesc()+" value failed: "+t.getMessage(), t);
++                "Instantiation of "+getValueTypeDesc()+" value failed: "+ClassUtil.exceptionMessage(t), t);
+     }
+ 
+     /**
+--- src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2023-12-05 21:12:18.309784982 +0000
++++ src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2023-12-05 21:12:20.859599475 +0000
+@@ -361,7 +361,7 @@
+             ClassUtil.throwIfRTE(t);
+             throw new IllegalArgumentException("Failed to instantiate bean of type "
+                     +_classInfo.getAnnotated().getName()+": ("+t.getClass().getName()+") "
+-                    +t.getMessage(), t);
++                    +ClassUtil.exceptionMessage(t), t);
+         }
+     }
+ 
+--- src/main/java/com/fasterxml/jackson/databind/ser/DefaultSerializerProvider.java	2023-12-05 21:12:18.172271367 +0000
++++ src/main/java/com/fasterxml/jackson/databind/ser/DefaultSerializerProvider.java	2023-12-05 21:12:20.859947554 +0000
+@@ -168,7 +168,7 @@
+         } catch (Throwable t) {
+             String msg = String.format(
+ "Problem determining whether filter of type '%s' should filter out `null` values: (%s) %s",
+-filter.getClass().getName(), t.getClass().getName(), t.getMessage());
++filter.getClass().getName(), t.getClass().getName(), ClassUtil.exceptionMessage(t));
+             reportBadDefinition(filter.getClass(), msg, t);
+             return false; // never gets here
+         }
+@@ -502,7 +502,7 @@
+         if (e instanceof IOException) {
+             return (IOException) e;
+         }
+-        String msg = e.getMessage();
++        String msg = ClassUtil.exceptionMessage(e);
+         if (msg == null) {
+             msg = "[no message for "+e.getClass().getName()+"]";
+         }
+--- src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:12:18.172434849 +0000
++++ src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:12:20.860497415 +0000
+@@ -100,9 +100,9 @@
+             serializationType = findSerializationType(am, defaultUseStaticTyping, declaredType);
+         } catch (JsonMappingException e) {
+             if (propDef == null) {
+-                return prov.reportBadDefinition(declaredType, e.getMessage());
++                return prov.reportBadDefinition(declaredType, ClassUtil.exceptionMessage(e));
+             }
+-            return prov.reportBadPropertyDefinition(_beanDesc, propDef, e.getMessage());
++            return prov.reportBadPropertyDefinition(_beanDesc, propDef, ClassUtil.exceptionMessage(e));
+         }
+ 
+         // Container types can have separate type serializers for content (value / element) type
+--- src/main/java/com/fasterxml/jackson/databind/util/ClassUtil.java	2023-12-05 21:12:18.310273805 +0000
++++ src/main/java/com/fasterxml/jackson/databind/util/ClassUtil.java	2023-12-05 21:12:20.861083568 +0000
+@@ -7,6 +7,7 @@
+ import java.util.*;
+ 
+ import com.fasterxml.jackson.core.JsonGenerator;
++import com.fasterxml.jackson.core.JsonProcessingException;
+ import com.fasterxml.jackson.databind.DeserializationContext;
+ import com.fasterxml.jackson.databind.JavaType;
+ import com.fasterxml.jackson.databind.JsonMappingException;
+@@ -749,6 +750,12 @@
+      *
+      * @since 2.9.7
+      */
++    public static String exceptionMessage(Throwable t) {
++        if (t instanceof JsonProcessingException) {
++            return ((JsonProcessingException) t).getOriginalMessage();
++        }
++        return t.getMessage();
++    }
+     
+     /*
+     /**********************************************************

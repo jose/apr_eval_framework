@@ -1,0 +1,14 @@
+--- src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:18:29.593812334 +0000
++++ src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:18:31.605468176 +0000
+@@ -317,9 +317,10 @@
+             while (iter.hasNext())
+             {
+                 buff.append(iter.next());
++                buff.append(", ");
+             }
+ 
+-            throw new MissingOptionException(buff.toString());
++            throw new MissingOptionException(buff.substring(0, buff.length() - 2));
+         }
+     }
+ 

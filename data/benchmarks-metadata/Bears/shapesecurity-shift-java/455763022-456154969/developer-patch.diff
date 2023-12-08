@@ -1,0 +1,29 @@
+diff --git a/src/main/java/com/shapesecurity/shift/es2017/parser/GenericParser.java b/src/main/java/com/shapesecurity/shift/es2017/parser/GenericParser.java
+index 69fa06578..4c3dcba46 100644
+--- a/src/main/java/com/shapesecurity/shift/es2017/parser/GenericParser.java
++++ b/src/main/java/com/shapesecurity/shift/es2017/parser/GenericParser.java
+@@ -2178,7 +2178,7 @@ public abstract class GenericParser<AdditionalStateT> extends Tokenizer {
+                     return Either.right(this.finishNode(startState, toReturn));
+                 }
+                 if (!this.match(TokenType.COLON)) {
+-                    if (token.type != TokenType.IDENTIFIER && token.type != TokenType.YIELD && token.type != TokenType.LET && token.type != TokenType.ASYNC) {
++                    if (token.type != TokenType.IDENTIFIER && token.type != TokenType.YIELD && token.type != TokenType.LET && token.type != TokenType.ASYNC && token.type != TokenType.AWAIT) {
+                         throw this.createUnexpected(token);
+                     }
+                     ShorthandProperty toReturn = new ShorthandProperty(this.finishNode(startState, new IdentifierExpression(staticPropertyName.value)));
+diff --git a/src/test/java/com/shapesecurity/shift/es2017/parser/miscellaneous/AsyncAwaitTest.java b/src/test/java/com/shapesecurity/shift/es2017/parser/miscellaneous/AsyncAwaitTest.java
+index b4840132f..7b5e8156e 100644
+--- a/src/test/java/com/shapesecurity/shift/es2017/parser/miscellaneous/AsyncAwaitTest.java
++++ b/src/test/java/com/shapesecurity/shift/es2017/parser/miscellaneous/AsyncAwaitTest.java
+@@ -78,6 +78,11 @@ public class AsyncAwaitTest {
+ 		testScript("(async function a() { await 0; })", new FunctionExpression(true, false, Maybe.of(new BindingIdentifier("a")), new FormalParameters(ImmutableList.empty(), Maybe.empty()), new FunctionBody(ImmutableList.empty(), ImmutableList.of(new ExpressionStatement(new AwaitExpression(new LiteralNumericExpression(0.0)))))));
+ 		testScript("async () => await 0", new ArrowExpression(true, new FormalParameters(ImmutableList.empty(), Maybe.empty()), new AwaitExpression(new LiteralNumericExpression(0.0))));
+ 		testScript("({ async a(){ await 0; } })", new ObjectExpression(ImmutableList.of(new Method(true, false, new StaticPropertyName("a"), new FormalParameters(ImmutableList.empty(), Maybe.empty()), new FunctionBody(ImmutableList.empty(), ImmutableList.of(new ExpressionStatement(new AwaitExpression(new LiteralNumericExpression(0.0)))))))));
++		testScript("var await; ({ await });", new Script(ImmutableList.empty(), ImmutableList.of(
++				new VariableDeclarationStatement(new VariableDeclaration(VariableDeclarationKind.Var, ImmutableList.of(new VariableDeclarator(new BindingIdentifier("await"), Maybe.empty())))),
++				new ExpressionStatement(new ObjectExpression(ImmutableList.of(new ShorthandProperty(new IdentifierExpression("await")))))
++		)));
++
+ 		testScriptFailure("await 0", 6, "Unexpected number");
+ 	}
+ 

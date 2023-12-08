@@ -1,0 +1,36 @@
+--- src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2023-12-05 20:08:56.800594251 +0000
++++ src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2023-12-05 20:09:00.397610275 +0000
+@@ -226,20 +226,26 @@
+ 
+     @Override
+     public boolean retainAll(Collection<?> coll) {
+-        boolean result = collection.retainAll(coll);
+-        if (result == false) {
++        Set<Object> collectionRetainAll = new HashSet<Object>();
++        for (Iterator<?> it = coll.iterator(); it.hasNext();) {
++            Object next = it.next();
++            if (collection.contains(next)) {
++                collectionRetainAll.add(next);
++            }
++        }
++        if (collectionRetainAll.size() == collection.size()) {
+             return false;
+         }
+-        if (collection.size() == 0) {
+-            setOrder.clear();
++        if (collectionRetainAll.size() == 0) {
++            clear();
+         } else {
+-            for (Iterator<E> it = setOrder.iterator(); it.hasNext();) {
+-                if (!collection.contains(it.next())) {
++            for (Iterator<E> it = iterator(); it.hasNext();) {
++                if (!collectionRetainAll.contains(it.next())) {
+                     it.remove();
+                 }
+             }
+         }
+-        return result;
++        return true;
+     }
+ 
+     @Override

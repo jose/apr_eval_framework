@@ -1,0 +1,36 @@
+diff --git a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+index c5dd9599d..b2a8e1361 100644
+--- a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
++++ b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+@@ -1297,7 +1297,9 @@ protected void parseAlterSpecification(Marker start, TableEditor table, Consumer
+         } else if (tokens.canConsume("REORGANIZE", "PARTITION")) {
+             parsePartitionNames(start);
+             tokens.consume("INTO", "(");
+-            parsePartitionDefinition(start, table);
++            do {
++                parsePartitionDefinition(start, table);
++            } while (tokens.canConsume(','));
+             tokens.consume(')');
+         } else if (tokens.canConsume("EXCHANGE", "PARTITION")) {
+             tokens.consume(); // partition name
+diff --git a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+index fce2c2dcb..1f09c7453 100644
+--- a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
++++ b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+@@ -1403,6 +1403,16 @@ public void parseUserDdlStatements() {
+         assertThat(tables.size()).isEqualTo(0);
+     }
+ 
++    @Test
++    @FixFor("DBZ-530")
++    public void parsePartitionReorganize() {
++        String ddl =
++                "CREATE TABLE flat_view_request_log (id INT NOT NULL, myvalue INT DEFAULT -10, PRIMARY KEY (`id`));"
++              + "ALTER TABLE flat_view_request_log REORGANIZE PARTITION p_max INTO ( PARTITION p_2018_01_17 VALUES LESS THAN ('2018-01-17'), PARTITION p_2018_01_18 VALUES LESS THAN ('2018-01-18'), PARTITION p_max VALUES LESS THAN MAXVALUE);";
++        parser.parse(ddl, tables);
++        assertThat(tables.size()).isEqualTo(1);
++    }
++
+     protected void assertParseEnumAndSetOptions(String typeExpression, String optionString) {
+         List<String> options = MySqlDdlParser.parseSetAndEnumOptions(typeExpression);
+         String commaSeperatedOptions = Strings.join(",", options);

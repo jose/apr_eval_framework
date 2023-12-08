@@ -1,0 +1,22 @@
+--- src/main/java/org/apache/commons/cli/Option.java	2023-12-05 19:21:17.413959735 +0000
++++ src/main/java/org/apache/commons/cli/Option.java	2023-12-05 19:21:20.569795823 +0000
+@@ -69,7 +69,7 @@
+     private int numberOfArgs = UNINITIALIZED;
+ 
+     /** the type of this Option */
+-    private Class type;
++    private Class type = String.class;
+ 
+     /** the list of argument values **/
+     private List values = new ArrayList();
+--- src/main/java/org/apache/commons/cli/OptionBuilder.java	2023-12-05 19:21:17.414294611 +0000
++++ src/main/java/org/apache/commons/cli/OptionBuilder.java	2023-12-05 19:21:20.570127863 +0000
+@@ -81,7 +81,7 @@
+         description = null;
+         argName = null;
+         longopt = null;
+-        type = null;
++        type = String.class;
+         required = false;
+         numberOfArgs = Option.UNINITIALIZED;
+         optionalArg = false;

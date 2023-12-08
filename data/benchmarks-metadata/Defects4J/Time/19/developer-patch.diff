@@ -1,0 +1,11 @@
+--- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:41:16.699743907 +0000
++++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:41:21.187109666 +0000
+@@ -897,7 +897,7 @@
+                     return offsetLocal;
+                 }
+             }
+-        } else if (offsetLocal > 0) {
++        } else if (offsetLocal >= 0) {
+             long prev = previousTransition(instantAdjusted);
+             if (prev < instantAdjusted) {
+                 int offsetPrev = getOffset(prev);

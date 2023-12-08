@@ -1,0 +1,14 @@
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:21.640241060 +0000
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:24.095290027 +0000
+@@ -1721,7 +1721,10 @@
+ 
+         for (Enumeration e = props.propertyNames(); e.hasMoreElements();) {
+             String s = (String) e.nextElement();
+-            c.setProperty(s, props.getProperty(s));
++            String value = props.getProperty(s);
++            if(value != null) {
++                c.setProperty(s, value);
++            }
+         }
+ 
+         return c;

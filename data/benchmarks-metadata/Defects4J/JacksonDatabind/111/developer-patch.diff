@@ -1,0 +1,97 @@
+--- src/main/java/com/fasterxml/jackson/databind/deser/CreatorProperty.java	2023-12-05 21:13:07.638521772 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/CreatorProperty.java	2023-12-05 21:13:10.396468183 +0000
+@@ -132,7 +132,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new CreatorProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new CreatorProperty(this, deser, nvp);
+     }
+ 
+     @Override
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/FieldProperty.java	2023-12-05 21:13:07.638994590 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/FieldProperty.java	2023-12-05 21:13:10.396733968 +0000
+@@ -90,7 +90,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new FieldProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new FieldProperty(this, deser, nvp);
+     }
+ 
+     @Override
+@@ -214,4 +215,4 @@
+     Object readResolve() {
+         return new FieldProperty(this);
+     }
+-}
++}
+\ No newline at end of file
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/MethodProperty.java	2023-12-05 21:13:07.639310621 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/MethodProperty.java	2023-12-05 21:13:10.396917195 +0000
+@@ -81,7 +81,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new MethodProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new MethodProperty(this, deser, nvp);
+     }
+ 
+     @Override
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/ObjectIdReferenceProperty.java	2023-12-05 21:13:07.639618327 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ObjectIdReferenceProperty.java	2023-12-05 21:13:10.397179513 +0000
+@@ -51,7 +51,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new ObjectIdReferenceProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new ObjectIdReferenceProperty(this, deser, nvp);
+     }
+ 
+     @Override
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/ObjectIdValueProperty.java	2023-12-05 21:13:07.639918697 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ObjectIdValueProperty.java	2023-12-05 21:13:10.397731331 +0000
+@@ -52,7 +52,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new ObjectIdValueProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new ObjectIdValueProperty(this, deser, nvp);
+     }
+ 
+     @Override
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/SetterlessProperty.java	2023-12-05 21:13:07.640227580 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/SetterlessProperty.java	2023-12-05 21:13:10.398025328 +0000
+@@ -65,7 +65,8 @@
+             return this;
+         }
+         // 07-May-2019, tatu: As per [databind#2303], must keep VD/NVP in-sync if they were
+-        return new SetterlessProperty(this, deser, _nullProvider);
++        NullValueProvider nvp = (_valueDeserializer == _nullProvider) ? deser : _nullProvider;
++        return new SetterlessProperty(this, deser, nvp);
+     }
+ 
+     @Override
+@@ -153,4 +154,4 @@
+         set(instance, value);
+         return instance;
+     }
+-}
++}
+\ No newline at end of file
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/AtomicReferenceDeserializer.java	2023-12-05 21:13:07.640530320 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/AtomicReferenceDeserializer.java	2023-12-05 21:13:10.398386672 +0000
+@@ -40,7 +40,7 @@
+ 
+     @Override
+     public AtomicReference<Object> getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+-        return new AtomicReference<Object>();
++        return new AtomicReference<Object>(_valueDeserializer.getNullValue(ctxt));
+     }
+ 
+     @Override

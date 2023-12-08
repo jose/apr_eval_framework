@@ -1,0 +1,16 @@
+--- src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:45.128418944 +0000
++++ src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:48.239105301 +0000
+@@ -307,8 +307,12 @@
+         // remove leading "-" and "=value"
+         int pos = token.indexOf("=");
+         String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
+-        return options.hasShortOption(optName);
++        if (options.hasShortOption(optName))
++        {
++            return true;
++        }
+         // check for several concatenated short options
++        return optName.length() > 0 && options.hasShortOption(String.valueOf(optName.charAt(0)));
+     }
+ 
+     /**

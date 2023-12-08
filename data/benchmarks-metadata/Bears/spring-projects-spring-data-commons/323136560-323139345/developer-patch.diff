@@ -1,0 +1,57 @@
+diff --git a/src/main/java/org/springframework/data/web/PagedResourcesAssembler.java b/src/main/java/org/springframework/data/web/PagedResourcesAssembler.java
+index b61e9ac0b..6979a4ffb 100644
+--- a/src/main/java/org/springframework/data/web/PagedResourcesAssembler.java
++++ b/src/main/java/org/springframework/data/web/PagedResourcesAssembler.java
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2013-2015 the original author or authors.
++ * Copyright 2013-2017 the original author or authors.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+@@ -45,6 +45,7 @@ import org.springframework.web.util.UriComponentsBuilder;
+  * @since 1.6
+  * @author Oliver Gierke
+  * @author Nick Williams
++ * @author Marcel Overdijk
+  */
+ public class PagedResourcesAssembler<T> implements ResourceAssembler<Page<T>, PagedResources<Resource<T>>> {
+ 
+@@ -285,10 +286,13 @@ public class PagedResourcesAssembler<T> implements ResourceAssembler<Page<T>, Pa
+ 	 * @param page must not be {@literal null}.
+ 	 * @return
+ 	 */
+-	private static <T> PageMetadata asPageMetadata(Page<T> page) {
++	private PageMetadata asPageMetadata(Page<?> page) {
+ 
+ 		Assert.notNull(page, "Page must not be null!");
+-		return new PageMetadata(page.getSize(), page.getNumber(), page.getTotalElements(), page.getTotalPages());
++
++		int number = pageableResolver.isOneIndexedParameters() ? page.getNumber() + 1 : page.getNumber();
++
++		return new PageMetadata(page.getSize(), number, page.getTotalElements(), page.getTotalPages());
+ 	}
+ 
+ 	private static class SimplePagedResourceAssembler<T> implements ResourceAssembler<T, Resource<T>> {
+diff --git a/src/test/java/org/springframework/data/web/PagedResourcesAssemblerUnitTests.java b/src/test/java/org/springframework/data/web/PagedResourcesAssemblerUnitTests.java
+index d082cbd21..3e25e1679 100644
+--- a/src/test/java/org/springframework/data/web/PagedResourcesAssemblerUnitTests.java
++++ b/src/test/java/org/springframework/data/web/PagedResourcesAssemblerUnitTests.java
+@@ -48,6 +48,7 @@ import org.springframework.web.util.UriComponentsBuilder;
+  * 
+  * @author Oliver Gierke
+  * @author Nick Williams
++ * @author Marcel Overdijk
+  */
+ public class PagedResourcesAssemblerUnitTests {
+ 
+@@ -164,6 +165,9 @@ public class PagedResourcesAssemblerUnitTests {
+ 		assertThat(resource.hasLink("prev"), is(true));
+ 		assertThat(resource.hasLink("next"), is(true));
+ 
++		// We expect 2 as the created page has index 1. Pages itself are always 0 indexed, so we created page 2 above.
++		assertThat(resource.getMetadata().getNumber(), is(2L));
++
+ 		assertThat(getQueryParameters(resource.getLink("prev")), hasEntry("page", "1"));
+ 		assertThat(getQueryParameters(resource.getLink("next")), hasEntry("page", "3"));
+ 	}

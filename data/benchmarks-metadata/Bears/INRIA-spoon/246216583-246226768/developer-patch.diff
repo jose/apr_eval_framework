@@ -1,0 +1,77 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/JDTTreeBuilder.java b/src/main/java/spoon/support/compiler/jdt/JDTTreeBuilder.java
+index eef2458f3..cb0d1873d 100644
+--- a/src/main/java/spoon/support/compiler/jdt/JDTTreeBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/JDTTreeBuilder.java
+@@ -153,6 +153,7 @@ import spoon.reflect.declaration.CtTypeParameter;
+ import spoon.reflect.declaration.ModifierKind;
+ import spoon.reflect.factory.Factory;
+ import spoon.reflect.reference.CtArrayTypeReference;
++import spoon.reflect.reference.CtReference;
+ import spoon.reflect.reference.CtTypeReference;
+ import spoon.reflect.reference.CtUnboundVariableReference;
+ import spoon.support.comparator.CtLineElementComparator;
+@@ -1415,7 +1416,15 @@ public class JDTTreeBuilder extends ASTVisitor {
+ 			return true;
+ 		}
+ 		if (context.stack.peekFirst().node instanceof UnionTypeReference) {
+-			context.enter(references.<Throwable>getTypeReference(singleTypeReference.resolvedType), singleTypeReference);
++			if (singleTypeReference.resolvedType == null) {
++				CtTypeReference typeReference = factory.Type().createReference(singleTypeReference.toString());
++				CtReference ref = references.getDeclaringReferenceFromImports(singleTypeReference.getLastToken());
++				references.setPackageOrDeclaringType(typeReference, ref);
++				context.enter(typeReference, singleTypeReference);
++			} else {
++				context.enter(references.<Throwable>getTypeReference(singleTypeReference.resolvedType), singleTypeReference);
++			}
++
+ 			return true;
+ 		} else if (context.stack.peekFirst().element instanceof CtCatch) {
+ 			context.enter(helper.createCatchVariable(singleTypeReference), singleTypeReference);
+diff --git a/src/test/java/spoon/test/exceptions/ExceptionTest.java b/src/test/java/spoon/test/exceptions/ExceptionTest.java
+index 080ceff0e..d10ec04f2 100644
+--- a/src/test/java/spoon/test/exceptions/ExceptionTest.java
++++ b/src/test/java/spoon/test/exceptions/ExceptionTest.java
+@@ -6,10 +6,16 @@ import spoon.SpoonModelBuilder;
+ import spoon.compiler.InvalidClassPathException;
+ import spoon.compiler.ModelBuildingException;
+ import spoon.compiler.SpoonResourceHelper;
++import spoon.reflect.code.CtCatch;
++import spoon.reflect.code.CtCatchVariable;
+ import spoon.reflect.factory.Factory;
++import spoon.reflect.visitor.filter.TypeFilter;
+ 
+ import java.io.FileNotFoundException;
++import java.util.List;
+ 
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.fail;
+ import static spoon.testing.utils.ModelUtils.createFactory;
+ 
+@@ -101,4 +107,26 @@ public class ExceptionTest {
+ 					.build();
+ 	}
+ 
++	@Test
++	public void testUnionCatchExceptionInsideLambdaInNoClasspath() {
++		// contract: the model should be built when defining a union catch inside a lambda which is not known (noclasspath)
++		// and the catch variable types should be the same than outside a lambda
++		Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/resources/noclasspath/UnionCatch.java");
++		launcher.getEnvironment().setNoClasspath(true);
++		launcher.buildModel();
++
++		List<CtCatch> catches = launcher.getFactory().getModel().getElements(new TypeFilter<>(CtCatch.class));
++		assertEquals(2, catches.size());
++
++		CtCatchVariable variable1 = catches.get(0).getParameter(); // inside a lambda
++		CtCatchVariable variable2 = catches.get(1).getParameter(); // outside the lambda
++
++		assertEquals(variable1.getMultiTypes(), variable2.getMultiTypes());
++
++		// for now the type of CtCatchVariable is not the same
++		// this should be fix in the future (see: https://github.com/INRIA/spoon/issues/1420)
++		//assertEquals(variable2, variable1);
++	}
++
+ }

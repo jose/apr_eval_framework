@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:31.566367383 +0000
++++ src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:33.688138155 +0000
+@@ -67,6 +67,9 @@
+         this.format.validate();
+         // TODO: Is it a good idea to do this here instead of on the first call to a print method?
+         // It seems a pain to have to track whether the header has already been printed or not.
++        if (format.getHeader() != null) {
++            this.printRecord((Object[]) format.getHeader());
++        }
+     }
+ 
+     // ======================================================

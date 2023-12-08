@@ -1,0 +1,49 @@
+diff --git a/foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java b/foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java
+index a5ff2e61c..bb3b41322 100644
+--- a/foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java
++++ b/foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java
+@@ -130,17 +130,17 @@ public final class ConfigUtil {
+     duplicateServiceCombConfigToCse(config,
+         convertEnvVariable(new ConcurrentMapConfiguration(new EnvironmentConfiguration())),
+         "configFromEnvironment");
+-    duplicateServiceCombConfigToCse(config,
+-        new DynamicConfiguration(
+-            new MicroserviceConfigurationSource(configModelList), new NeverStartPollingScheduler()),
+-        "configFromYamlFile");
+-    // If there is extra configurations, add it into config. Extra config has lowest priority.
++    // If there is extra configurations, add it into config.
+     EXTRA_CONFIG_MAP.entrySet().stream()
+         .filter(mapEntry -> !mapEntry.getValue().isEmpty())
+         .forEachOrdered(configMapEntry ->
+             duplicateServiceCombConfigToCse(config,
+                 new ConcurrentMapConfiguration(configMapEntry.getValue()),
+                 configMapEntry.getKey()));
++    duplicateServiceCombConfigToCse(config,
++        new DynamicConfiguration(
++            new MicroserviceConfigurationSource(configModelList), new NeverStartPollingScheduler()),
++        "configFromYamlFile");
+ 
+     return config;
+   }
+diff --git a/foundations/foundation-config/src/test/java/org/apache/servicecomb/config/TestConfigUtil.java b/foundations/foundation-config/src/test/java/org/apache/servicecomb/config/TestConfigUtil.java
+index b10142de7..cd04d4e70 100644
+--- a/foundations/foundation-config/src/test/java/org/apache/servicecomb/config/TestConfigUtil.java
++++ b/foundations/foundation-config/src/test/java/org/apache/servicecomb/config/TestConfigUtil.java
+@@ -326,14 +326,15 @@ public class TestConfigUtil {
+     String extraConfigValue = "value";
+     String overriddenConfigKey = "servicecomb.cse.servicecomb.file";
+     extraConfig.put(extraConfigKey, extraConfigValue);
+-    extraConfig.put(overriddenConfigKey, "should_be_overridden");
++    final String propertyHigherPriority = "higher_priority";
++    extraConfig.put(overriddenConfigKey, propertyHigherPriority);
+ 
+     ConfigUtil.addExtraConfig("testExtraConfig", extraConfig);
+ 
+     ConcurrentCompositeConfiguration localConfiguration = ConfigUtil.createLocalConfig();
+ 
+     Assert.assertEquals(extraConfigValue, localConfiguration.getProperty(extraConfigKey));
+-    Assert.assertEquals("value", localConfiguration.getString(overriddenConfigKey));
++    Assert.assertEquals(propertyHigherPriority, localConfiguration.getString(overriddenConfigKey));
+   }
+ 
+   @SuppressWarnings("unchecked")

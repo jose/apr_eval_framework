@@ -1,0 +1,11 @@
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:08.029207967 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:10.795193600 +0000
+@@ -492,7 +492,7 @@
+             boolean ignoreAny = ignorals.getIgnoreUnknown();
+             builder.setIgnoreUnknownProperties(ignoreAny);
+             // Or explicit/implicit definitions?
+-            ignored = ignorals.getIgnored();
++            ignored = ignorals.findIgnoredForDeserialization();
+             for (String propName : ignored) {
+                 builder.addIgnorable(propName);
+             }

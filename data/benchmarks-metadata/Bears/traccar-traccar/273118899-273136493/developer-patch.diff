@@ -1,0 +1,32 @@
+diff --git a/src/org/traccar/protocol/EelinkProtocolDecoder.java b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+index 11d111e54..2526282b1 100644
+--- a/src/org/traccar/protocol/EelinkProtocolDecoder.java
++++ b/src/org/traccar/protocol/EelinkProtocolDecoder.java
+@@ -160,7 +160,9 @@ public class EelinkProtocolDecoder extends BaseProtocolDecoder {
+ 
+             if (statusType == 0x01 || statusType == 0x02 || statusType == 0x03) {
+                 buf.readUnsignedInt(); // device time
+-                decodeStatus(position, buf.readUnsignedShort());
++                if (buf.readableBytes() >= 2) {
++                    decodeStatus(position, buf.readUnsignedShort());
++                }
+             }
+ 
+         }
+diff --git a/test/org/traccar/protocol/EelinkProtocolDecoderTest.java b/test/org/traccar/protocol/EelinkProtocolDecoderTest.java
+index 46c85d89a..d62357fe3 100644
+--- a/test/org/traccar/protocol/EelinkProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/EelinkProtocolDecoderTest.java
+@@ -13,6 +13,12 @@ public class EelinkProtocolDecoderTest extends ProtocolTest {
+         verifyNull(decoder, binary(
+                 "676701000c007b03525440717505180104"));
+ 
++        verifyPosition(decoder, binary(
++                "676705002102b459ae7388fcd360d7034332b1000000028f000a4f64002eb101010159ae7388"));
++
++        verifyPosition(decoder, binary(
++                "676702001c02b259ae7387fcd360d6034332b2000000028f000a4f64002eb10101"));
++
+         verifyPosition(decoder, binary(
+                 "6767050022001F59643640000000000000000000000001CC0000249500142000015964A6C0006E"));
+ 

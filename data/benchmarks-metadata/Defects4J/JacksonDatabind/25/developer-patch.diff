@@ -1,0 +1,44 @@
+--- src/main/java/com/fasterxml/jackson/databind/deser/BasicDeserializerFactory.java	2023-12-05 21:04:14.262260364 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/BasicDeserializerFactory.java	2023-12-05 21:04:17.071977275 +0000
+@@ -1754,7 +1754,7 @@
+         Class<?> subclass = intr.findDeserializationType(a, type);
+         if (subclass != null) {
+             try {
+-                type = (T) type.narrowBy(subclass);
++                type = (T) ctxt.getTypeFactory().constructSpecializedType(type, subclass);
+             } catch (IllegalArgumentException iae) {
+                 throw new JsonMappingException("Failed to narrow type "+type+" with concrete-type annotation (value "+subclass.getName()+"), method '"+a.getName()+"': "+iae.getMessage(), null, iae);
+             }
+--- src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:04:14.262369903 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:04:17.072573552 +0000
+@@ -474,7 +474,7 @@
+         Class<?> subclass = intr.findDeserializationType(a, type);
+         if (subclass != null) {
+             try {
+-                type = type.narrowBy(subclass);
++                type = ctxt.getTypeFactory().constructSpecializedType(type, subclass);
+             } catch (IllegalArgumentException iae) {
+                 throw new JsonMappingException("Failed to narrow type "+type+" with concrete-type annotation (value "+subclass.getName()+"), method '"+a.getName()+"': "+iae.getMessage(), null, iae);
+             }
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:04:14.447796599 +0000
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:04:17.073247395 +0000
+@@ -174,7 +174,7 @@
+                      *   important for some reason?
+                      *   Disabling the check will break 2 Enum-related tests.
+                      */
+-                    type = _baseType.narrowBy(type.getRawClass());
++                    type = ctxt.getTypeFactory().constructSpecializedType(_baseType, type.getRawClass());
+                 }
+                 deser = ctxt.findContextualValueDeserializer(type, _property);
+             }
+--- src/main/java/com/fasterxml/jackson/databind/module/SimpleAbstractTypeResolver.java	2023-12-05 21:04:14.448107298 +0000
++++ src/main/java/com/fasterxml/jackson/databind/module/SimpleAbstractTypeResolver.java	2023-12-05 21:04:17.073493110 +0000
+@@ -77,7 +77,7 @@
+             return null;
+         }
+         // 09-Aug-2015, tatu: Instead of direct call via JavaType, better use TypeFactory
+-        return type.narrowBy(dst);
++        return config.getTypeFactory().constructSpecializedType(type, dst);
+     }
+ 
+     

@@ -1,0 +1,24 @@
+--- src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:46.675592771 +0000
++++ src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:48.792440885 +0000
+@@ -316,7 +316,7 @@
+      *      http://dev.mysql.com/doc/refman/5.1/en/load-data.html</a>
+      */
+     public static final CSVFormat MYSQL = DEFAULT.withDelimiter(TAB).withEscape(BACKSLASH).withIgnoreEmptyLines(false)
+-            .withQuote(null).withRecordSeparator(LF);
++            .withQuote(null).withRecordSeparator(LF).withNullString("\\N");
+ 
+     /**
+      * Returns true if the given character is a line break character.
+--- src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:46.574039403 +0000
++++ src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:48.792737263 +0000
+@@ -136,7 +136,9 @@
+         if (!newRecord) {
+             out.append(format.getDelimiter());
+         }
+-        if (format.isQuoteCharacterSet()) {
++        if (object == null) {
++            out.append(value);
++        } else if (format.isQuoteCharacterSet()) {
+             // the original object is needed so can check for Number
+             printAndQuote(object, value, offset, len);
+         } else if (format.isEscapeCharacterSet()) {

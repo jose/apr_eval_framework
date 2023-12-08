@@ -1,0 +1,62 @@
+diff --git a/src/main/java/org/springframework/data/repository/support/Repositories.java b/src/main/java/org/springframework/data/repository/support/Repositories.java
+index 42692124c..63398ab30 100644
+--- a/src/main/java/org/springframework/data/repository/support/Repositories.java
++++ b/src/main/java/org/springframework/data/repository/support/Repositories.java
+@@ -121,7 +121,9 @@ public class Repositories implements Iterable<Class<?>> {
+ 
+ 		Assert.notNull(domainClass, DOMAIN_TYPE_MUST_NOT_BE_NULL);
+ 
+-		return repositoryFactoryInfos.containsKey(domainClass);
++		Class<?> userClass = ClassUtils.getUserClass(domainClass);
++
++		return repositoryFactoryInfos.containsKey(userClass);
+ 	}
+ 
+ 	/**
+@@ -134,7 +136,9 @@ public class Repositories implements Iterable<Class<?>> {
+ 
+ 		Assert.notNull(domainClass, DOMAIN_TYPE_MUST_NOT_BE_NULL);
+ 
+-		String repositoryBeanName = repositoryBeanNames.get(domainClass);
++		Class<?> userClass = ClassUtils.getUserClass(domainClass);
++		String repositoryBeanName = repositoryBeanNames.get(userClass);
++
+ 		return repositoryBeanName == null || beanFactory == null ? null : beanFactory.getBean(repositoryBeanName);
+ 	}
+ 
+diff --git a/src/test/java/org/springframework/data/repository/support/RepositoriesUnitTests.java b/src/test/java/org/springframework/data/repository/support/RepositoriesUnitTests.java
+index 4ac11fafd..cbcb54102 100644
+--- a/src/test/java/org/springframework/data/repository/support/RepositoriesUnitTests.java
++++ b/src/test/java/org/springframework/data/repository/support/RepositoriesUnitTests.java
+@@ -29,6 +29,7 @@ import org.junit.Before;
+ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.mockito.runners.MockitoJUnitRunner;
++import org.springframework.aop.framework.ProxyFactory;
+ import org.springframework.beans.factory.support.AbstractBeanDefinition;
+ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+@@ -139,6 +140,23 @@ public class RepositoriesUnitTests {
+ 		assertThat(information.getRepositoryInterface(), is(typeCompatibleWith(PersonRepository.class)));
+ 	}
+ 
++	@Test // DATACMNS-1215
++	public void exposesRepositoryForProxyType() {
++
++		ProxyFactory factory = new ProxyFactory();
++		factory.setTarget(new Person());
++		factory.setProxyTargetClass(true);
++
++		Object proxy = factory.getProxy();
++
++		assertThat(ClassUtils.isCglibProxy(proxy), is(true));
++
++		Repositories repositories = new Repositories(context);
++
++		assertThat(repositories.hasRepositoryFor(proxy.getClass()), is(true));
++		assertThat(repositories.getRepositoryFor(proxy.getClass()), is(notNullValue()));
++	}
++
+ 	class Person {}
+ 
+ 	class Address {}

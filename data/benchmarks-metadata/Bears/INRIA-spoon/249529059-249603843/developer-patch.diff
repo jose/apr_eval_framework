@@ -1,0 +1,62 @@
+diff --git a/src/main/java/spoon/reflect/visitor/chain/CtQueryImpl.java b/src/main/java/spoon/reflect/visitor/chain/CtQueryImpl.java
+index 651e21d7d..868e391bf 100644
+--- a/src/main/java/spoon/reflect/visitor/chain/CtQueryImpl.java
++++ b/src/main/java/spoon/reflect/visitor/chain/CtQueryImpl.java
+@@ -339,9 +339,15 @@ public class CtQueryImpl implements CtQuery {
+ 			try {
+ 				nextStep.accept(element);
+ 			} catch (ClassCastException e) {
+-				if (Launcher.LOGGER.isTraceEnabled()) {
+-					//log expected CCE ... there might be some unexpected too!
+-					Launcher.LOGGER.trace(e);
++				StackTraceElement[] stackEles = e.getStackTrace();
++				if (stackEles.length > 1 && stackEles[0].getClassName().equals(getClass().getName()) && stackEles[0].getMethodName().equals("accept")) {
++					if (Launcher.LOGGER.isTraceEnabled()) {
++						//log expected CCE ... there might be some unexpected too!
++						Launcher.LOGGER.trace(e);
++					}
++				} else {
++					//Do not ignore this exception it is not expected!
++					throw new SpoonException("Execution of query callback failed", e);
+ 				}
+ 			}
+ 		}
+diff --git a/src/test/java/spoon/test/filters/FilterTest.java b/src/test/java/spoon/test/filters/FilterTest.java
+index c8fe68ade..ee7662075 100644
+--- a/src/test/java/spoon/test/filters/FilterTest.java
++++ b/src/test/java/spoon/test/filters/FilterTest.java
+@@ -878,12 +878,28 @@ public class FilterTest {
+ 			int count = 0;
+ 		}
+ 		
+-		Context context = new Context();
+-		//contract: if the query produces elements which cannot be cast to forEach consumer, then they are ignored
+-		launcher.getFactory().Package().getRootPackage().filterChildren(f->{return true;}).forEach((CtType t)->{
+-			context.count++;
+-		});
+-		assertTrue(context.count>0);
++		{
++			Context context = new Context();
++			//contract: if the query produces elements which cannot be cast to forEach consumer, then they are ignored
++			launcher.getFactory().Package().getRootPackage().filterChildren(f->{return true;}).forEach((CtType t)->{
++				context.count++;
++			});
++			assertTrue(context.count>0);
++		}
++		{
++			Context context = new Context();
++			//contract: if the for each implementation throws CCE then it is reported
++			try {
++				launcher.getFactory().Package().getRootPackage().filterChildren(f->{return true;}).forEach((CtType t)->{
++					context.count++;
++					throw new ClassCastException("TEST");
++				});
++				fail("It must fail, because body of forEach should be called and thrown CCE");
++			} catch (SpoonException e) {
++				assertTrue(context.count>0);
++				assertEquals("TEST", e.getCause().getMessage());
++			}
++		}
+ 	}
+ 	
+ 	@Test

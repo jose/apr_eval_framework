@@ -1,0 +1,11 @@
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:30:57.843050991 +0000
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:31:01.953540794 +0000
+@@ -742,7 +742,7 @@
+         return false;
+       }
+     }
+-    return len > 0;
++    return len > 0 && s.charAt(0) != '0';
+   }
+ 
+   static double getSimpleNumber(String s) {

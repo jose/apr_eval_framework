@@ -1,0 +1,17 @@
+--- java_programs/BUCKETSORT.java	2023-12-05 16:52:00.394651385 +0000
++++ correct_java_programs/BUCKETSORT.java	2023-12-05 16:52:00.378888695 +0000
+@@ -1,4 +1,4 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
+ 
+ /*
+@@ -19,7 +19,7 @@
+ 
+         ArrayList<Integer> sorted_arr = new ArrayList<Integer>(100);
+         int i = 0;
+-        for (Integer count : arr) { // arr is counts in fixed version
++        for (Integer count : counts) {
+             sorted_arr.addAll(Collections.nCopies(count, i));
+             i++;
+         }

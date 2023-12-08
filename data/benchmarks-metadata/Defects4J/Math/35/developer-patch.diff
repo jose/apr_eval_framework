@@ -1,0 +1,20 @@
+--- src/main/java/org/apache/commons/math3/genetics/ElitisticListPopulation.java	2023-12-05 17:10:51.759720944 +0000
++++ src/main/java/org/apache/commons/math3/genetics/ElitisticListPopulation.java	2023-12-05 17:10:56.799269781 +0000
+@@ -48,7 +48,7 @@
+                                    final int populationLimit,
+                                    final double elitismRate) {
+         super(chromosomes, populationLimit);
+-        this.elitismRate = elitismRate;
++        setElitismRate(elitismRate);
+     }
+ 
+     /**
+@@ -62,7 +62,7 @@
+      */
+     public ElitisticListPopulation(final int populationLimit, final double elitismRate) {
+         super(populationLimit);
+-        this.elitismRate = elitismRate;
++        setElitismRate(elitismRate);
+     }
+ 
+     /**

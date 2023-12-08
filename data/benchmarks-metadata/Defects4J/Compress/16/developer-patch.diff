@@ -1,0 +1,13 @@
+--- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:14:13.993860556 +0000
++++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:14:26.869379128 +0000
+@@ -241,8 +241,9 @@
+                 try {
+                     TarArchiveInputStream tais = new TarArchiveInputStream(new ByteArrayInputStream(tarheader));
+                     // COMPRESS-191 - verify the header checksum
+-                    tais.getNextEntry();
++                    if (tais.getNextTarEntry().isCheckSumOK()) {
+                         return new TarArchiveInputStream(in);
++                    }
+                 } catch (Exception e) { // NOPMD
+                     // can generate IllegalArgumentException as well
+                     // as IOException

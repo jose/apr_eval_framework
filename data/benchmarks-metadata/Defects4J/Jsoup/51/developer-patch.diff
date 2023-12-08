@@ -1,0 +1,11 @@
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:17:42.437268173 +0000
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:17:44.454688144 +0000
+@@ -297,7 +297,7 @@
+         if (isEmpty())
+             return false;
+         char c = input[pos];
+-        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
++        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || Character.isLetter(c);
+     }
+ 
+     boolean matchesDigit() {

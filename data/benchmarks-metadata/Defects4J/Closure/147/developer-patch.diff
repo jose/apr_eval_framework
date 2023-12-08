@@ -1,0 +1,26 @@
+--- src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 20:01:39.301064217 +0000
++++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 20:01:43.603674536 +0000
+@@ -105,7 +105,8 @@
+       if (!(pType == Token.BLOCK ||
+             pType == Token.SCRIPT ||
+             pType == Token.NAME ||
+-            pType == Token.ASSIGN)) {
++            pType == Token.ASSIGN ||
++            pType == Token.OBJECTLIT)) {
+         return false;
+       }
+     }
+--- src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2023-12-05 20:01:39.302377094 +0000
++++ src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2023-12-05 20:01:43.606023966 +0000
+@@ -244,6 +244,11 @@
+ 
+       // To satisfy normalization constraints, the type checking must be
+       // added after any inner function declarations.
++      for (Node next = block.getFirstChild();
++           next != null && NodeUtil.isFunctionDeclaration(next);
++           next = next.getNext()) {
++        insertionPoint = next;
++      }
+ 
+       for (Node paramType : funType.getParameters()) {
+         // Can this ever happen?

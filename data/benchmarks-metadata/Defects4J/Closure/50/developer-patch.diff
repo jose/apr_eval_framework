@@ -1,0 +1,24 @@
+--- src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2023-12-05 19:30:39.562845944 +0000
++++ src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2023-12-05 19:30:43.710681637 +0000
+@@ -373,7 +373,7 @@
+ 
+     Node right = callTarget.getNext();
+     if (right != null) {
+-      if (!NodeUtil.isImmutableValue(right)) {
++      if (right.getNext() != null || !NodeUtil.isImmutableValue(right)) {
+         return n;
+       }
+     }
+@@ -386,7 +386,12 @@
+       return n;
+     }
+ 
++    if (right != null && right.getType() == Token.STRING
++        && ",".equals(right.getString())) {
+       // "," is the default, it doesn't need to be explicit
++      n.removeChild(right);
++      reportCodeChange();
++    }
+ 
+     String joinString = (right == null) ? "," : NodeUtil.getStringValue(right);
+     List<Node> arrayFoldedChildren = Lists.newLinkedList();

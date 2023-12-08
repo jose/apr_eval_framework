@@ -1,0 +1,53 @@
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:07:10.576009609 +0000
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:07:12.963101000 +0000
+@@ -175,6 +175,7 @@
+      * This is the name of the property that can point to other
+      * properties file for including other properties files.
+      */
++    private String includePropertyName = null;
+ 
+     /**
+      * This is the default name of the property that can point to other
+@@ -510,7 +511,13 @@
+      * @return the property name which includes another property
+      */
+     public String getInclude() {
++        if (includePropertyName == null) {
+             return include;  // backwards compatability
++        }
++        if ("".equals(includePropertyName)) {
++            return null;  // hack to allow backwards compatability
++        }
++        return includePropertyName;
+     }
+ 
+     /**
+@@ -525,7 +532,10 @@
+      * @param inc  the property name which includes another property, empty converted to null
+      */
+     public void setInclude(String inc) {
+-        include = inc;
++        if (inc == null) {
++            inc = "";  // hack to allow backwards compatability
++        }
++        includePropertyName = inc;
+     }
+ 
+     /**
+@@ -569,6 +579,7 @@
+         }
+ 
+         try {
++            String includeProperty = getInclude();
+             while (true) {
+                 String line = reader.readProperty();
+                 if (line == null) {
+@@ -585,7 +596,7 @@
+                         continue;
+                     }
+ 
+-                    if (getInclude() != null && key.equalsIgnoreCase(getInclude())) {
++                    if (includeProperty != null && key.equalsIgnoreCase(includeProperty)) {
+                         // Recursively load properties files.
+                         File file = null;
+ 

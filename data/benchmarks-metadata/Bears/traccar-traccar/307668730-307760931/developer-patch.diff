@@ -1,0 +1,39 @@
+diff --git a/src/org/traccar/protocol/TmgProtocolDecoder.java b/src/org/traccar/protocol/TmgProtocolDecoder.java
+index a7ca35f70..5e852aff2 100644
+--- a/src/org/traccar/protocol/TmgProtocolDecoder.java
++++ b/src/org/traccar/protocol/TmgProtocolDecoder.java
+@@ -70,7 +70,7 @@ public class TmgProtocolDecoder extends BaseProtocolDecoder {
+             .number("[^,]*,")                    // cid
+             .number("(d+),")                     // rssi
+             .number("(d+),")                     // satellites
+-            .number("(d+),")                     // battery level
++            .number("[^,]*,")                    // battery level
+             .expression("([01]),")               // ignition
+             .expression("[LH]{4},")              // input
+             .expression("[NT]{4},")              // tamper status
+@@ -166,11 +166,10 @@ public class TmgProtocolDecoder extends BaseProtocolDecoder {
+ 
+         }
+ 
+-        if (parser.hasNext()) {
++        if (parser.hasNext(6)) {
+ 
+             position.set(Position.KEY_RSSI, parser.nextInt());
+             position.set(Position.KEY_SATELLITES, parser.nextInt());
+-            position.set(Position.KEY_BATTERY_LEVEL, parser.nextInt());
+             position.set(Position.KEY_IGNITION, parser.nextInt() == 1);
+             position.set(Position.PREFIX_ADC + 1, parser.nextDouble());
+             position.set(Position.PREFIX_ADC + 2, parser.nextDouble());
+diff --git a/test/org/traccar/protocol/TmgProtocolDecoderTest.java b/test/org/traccar/protocol/TmgProtocolDecoderTest.java
+index 382d7fa63..fd027eddf 100644
+--- a/test/org/traccar/protocol/TmgProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/TmgProtocolDecoderTest.java
+@@ -14,7 +14,7 @@ public class TmgProtocolDecoderTest extends ProtocolTest {
+                 "$loc,869309013800417,08032014,094459,1,2826.1956,N,07659.7690,E,0.0,2.5,4441,31,6,95,1,LLLL,NNTN,HH,0.15,0.26,HR38AU1389,0,SW0.1a"));
+ 
+         verifyPosition(decoder, text(
+-                "$bak,864502037999604,21112017,120243,1,2826.5958,N,07718.6468,E,000.0,139.66,52847,22,4,99,0,LLLL,NNTN,HH,0.12,3.03,301116001,0,VER00.1a"));
++                "$bak,864502037999604,21112017,120243,1,2826.5958,N,07718.6468,E,000.0,139.66,52847,22,4,-174,0,LLLL,NNTN,HH,0.12,3.03,301116001,0,VER00.1a"));
+ 
+         verifyNull(decoder, text(
+                 "$iof,864502037999604,2282132017,8124280,0,299136216.-482258576,¥,1379245398.818734676,,-69969973.0,1153454437.-1986834092,492097799,20,0,-320,0,LLLL,NNTN,HH,0.17,3.01,301116001,0,VER00.1a"));

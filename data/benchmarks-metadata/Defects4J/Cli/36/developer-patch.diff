@@ -1,0 +1,40 @@
+--- src/main/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:21:31.254732927 +0000
++++ src/main/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:21:34.503976422 +0000
+@@ -19,8 +19,8 @@
+ 
+ import java.io.Serializable;
+ import java.util.Collection;
+-import java.util.HashMap;
+ import java.util.Iterator;
++import java.util.LinkedHashMap;
+ import java.util.Map;
+ 
+ /**
+@@ -34,7 +34,7 @@
+     private static final long serialVersionUID = 1L;
+     
+     /** hold the options */
+-    private final Map<String, Option> optionMap = new HashMap<String, Option>();
++    private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
+ 
+     /** the name of the selected option */
+     private String selected;
+--- src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:31.254855972 +0000
++++ src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:34.504222663 +0000
+@@ -21,7 +21,6 @@
+ import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Collections;
+-import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.LinkedHashMap;
+ import java.util.List;
+@@ -58,7 +57,7 @@
+     private final List<Object> requiredOpts = new ArrayList<Object>();
+ 
+     /** a map of the option groups */
+-    private final Map<String, OptionGroup> optionGroups = new HashMap<String, OptionGroup>();
++    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
+ 
+     /**
+      * Add the specified option group.

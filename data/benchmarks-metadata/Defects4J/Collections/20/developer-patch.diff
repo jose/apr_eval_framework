@@ -1,0 +1,22 @@
+--- src/main/java/org/apache/commons/collections/list/TreeList.java	2023-12-05 20:09:13.024135962 +0000
++++ src/main/java/org/apache/commons/collections/list/TreeList.java	2023-12-05 20:09:16.583168276 +0000
+@@ -900,16 +900,14 @@
+             if (currentIndex == -1) {
+                 throw new IllegalStateException();
+             }
+-            if (nextIndex == currentIndex) {
+-                next = next.next();
+-                parent.remove(currentIndex);
+-            } else {
++            parent.remove(currentIndex);
++            if (nextIndex != currentIndex) {
+                 // remove() following next()
+-                parent.remove(currentIndex);
+                 nextIndex--;
+             }
+             // the AVL node referenced by next may have become stale after a remove
+             // reset it now: will be retrieved by next call to next()/previous() via nextIndex
++            next = null;
+             current = null;
+             currentIndex = -1;
+             expectedModCount++;

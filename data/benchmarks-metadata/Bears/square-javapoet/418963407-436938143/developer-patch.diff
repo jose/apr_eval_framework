@@ -1,0 +1,48 @@
+diff --git a/src/main/java/com/squareup/javapoet/ParameterSpec.java b/src/main/java/com/squareup/javapoet/ParameterSpec.java
+index 63da3f234..e30cb0fef 100644
+--- a/src/main/java/com/squareup/javapoet/ParameterSpec.java
++++ b/src/main/java/com/squareup/javapoet/ParameterSpec.java
+@@ -160,6 +160,9 @@ public final class ParameterSpec {
+     public Builder addModifiers(Iterable<Modifier> modifiers) {
+       checkNotNull(modifiers, "modifiers == null");
+       for (Modifier modifier : modifiers) {
++        if (!modifier.equals(Modifier.FINAL)) {
++          throw new IllegalStateException("unexpected parameter modifier: " + modifier);
++        }
+         this.modifiers.add(modifier);
+       }
+       return this;
+diff --git a/src/test/java/com/squareup/javapoet/ParameterSpecTest.java b/src/test/java/com/squareup/javapoet/ParameterSpecTest.java
+index 7ae4502aa..f66850b80 100644
+--- a/src/test/java/com/squareup/javapoet/ParameterSpecTest.java
++++ b/src/test/java/com/squareup/javapoet/ParameterSpecTest.java
+@@ -15,6 +15,8 @@
+  */
+ package com.squareup.javapoet;
+ 
++import java.util.ArrayList;
++import java.util.List;
+ import org.junit.Test;
+ 
+ import static com.google.common.truth.Truth.assertThat;
+@@ -45,4 +47,18 @@ public class ParameterSpecTest {
+           .isEqualTo("annotationSpecs == null");
+     }
+   }
+-}
+\ No newline at end of file
++
++  @Test public void addNonFinalModifier() {
++    List<Modifier> modifiers = new ArrayList<>();
++    modifiers.add(Modifier.FINAL);
++    modifiers.add(Modifier.PUBLIC);
++
++    try {
++      ParameterSpec.builder(int.class, "foo").addModifiers(modifiers);
++      fail();
++    } catch (Exception e) {
++      assertThat(e.getMessage())
++          .isEqualTo("unexpected parameter modifier: public");
++    }
++  }
++}

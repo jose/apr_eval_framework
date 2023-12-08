@@ -1,0 +1,16 @@
+--- src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:07:27.818065944 +0000
++++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:07:30.250305833 +0000
+@@ -192,8 +192,12 @@
+ 
+         // adds all elements
+         for (final Iterator it = coll.iterator(); it.hasNext();) {
+-            add(it.next());
++            int sizeBeforeAddNext = size();
++            add(index, it.next());
+             // if it was inserted, then increase the target index
++            if (sizeBeforeAddNext != size()) {
++              index++;
++            }
+         }
+ 
+         // compares sizes to detect if collection changed

@@ -1,0 +1,12 @@
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:15.481097031 +0000
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:18.225390127 +0000
+@@ -820,7 +820,8 @@
+     public void combine(ExtendedProperties props) {
+         for (Iterator it = props.getKeys(); it.hasNext();) {
+             String key = (String) it.next();
+-            super.put(key, props.get(key));
++            clearProperty(key);
++            addPropertyDirect(key, props.get(key));
+         }
+     }
+     

@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/lang3/time/FastDateParser.java	2023-12-05 18:51:44.801053862 +0000
++++ src/main/java/org/apache/commons/lang3/time/FastDateParser.java	2023-12-05 18:51:51.451315413 +0000
+@@ -141,6 +141,9 @@
+             currentFormatField= nextFormatField;
+             currentStrategy= nextStrategy;
+         }
++        if (patternMatcher.regionStart() != patternMatcher.regionEnd()) {
++            throw new IllegalArgumentException("Failed to parse \""+pattern+"\" ; gave up at index "+patternMatcher.regionStart());
++        }
+         if(currentStrategy.addRegex(this, regex)) {
+             collector.add(currentStrategy);
+         }

@@ -1,0 +1,47 @@
+diff --git a/src/org/traccar/protocol/EskyProtocolDecoder.java b/src/org/traccar/protocol/EskyProtocolDecoder.java
+index 0d3dcafb2..d524224af 100644
+--- a/src/org/traccar/protocol/EskyProtocolDecoder.java
++++ b/src/org/traccar/protocol/EskyProtocolDecoder.java
+@@ -40,8 +40,8 @@ public class EskyProtocolDecoder extends BaseProtocolDecoder {
+             .number("(d+)").text("+")            // satellites
+             .number("(dd)(dd)(dd)")              // date
+             .number("(dd)(dd)(dd)").text("+")    // time
+-            .number("(d+.d+)").text("+")         // latitude
+-            .number("(d+.d+)").text("+")         // longitude
++            .number("(-?d+.d+)").text("+")       // latitude
++            .number("(-?d+.d+)").text("+")       // longitude
+             .number("(d+.d+)").text("+")         // speed
+             .number("(d+)").text("+")            // course
+             .text("0x").number("(d+)").text("+") // input
+diff --git a/test/org/traccar/protocol/EskyFrameDecoderTest.java b/test/org/traccar/protocol/EskyFrameDecoderTest.java
+index 34a984bb2..e8902e8be 100644
+--- a/test/org/traccar/protocol/EskyFrameDecoderTest.java
++++ b/test/org/traccar/protocol/EskyFrameDecoderTest.java
+@@ -11,6 +11,10 @@ public class EskyFrameDecoderTest extends ProtocolTest {
+ 
+         EskyFrameDecoder decoder = new EskyFrameDecoder();
+ 
++        verifyFrame(
++                binary("454c3b313b3836343930363032393139363632363b3137303832323134333432363b"),
++                decoder.decode(null, null, binary("454c3b313b3836343930363032393139363632363b3137303832323134333432363b")));
++
+         verifyFrame(
+                 binary("454f3b303b3836343930363032393139363632363b523b302b3137303830383135353335322b302e30303030302b302e30303030302b302e30302b302b3078312b302b302b302b31323333"),
+                 decoder.decode(null, null, binary("454f3b303b3836343930363032393139363632363b523b302b3137303830383135353335322b302e30303030302b302e30303030302b302e30302b302b3078312b302b302b302b31323333")));
+diff --git a/test/org/traccar/protocol/EskyProtocolDecoderTest.java b/test/org/traccar/protocol/EskyProtocolDecoderTest.java
+index 52dff971f..0617ba8a9 100644
+--- a/test/org/traccar/protocol/EskyProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/EskyProtocolDecoderTest.java
+@@ -10,6 +10,12 @@ public class EskyProtocolDecoderTest extends ProtocolTest {
+ 
+         EskyProtocolDecoder decoder = new EskyProtocolDecoder(new EskyProtocol());
+ 
++        verifyNull(decoder, text(
++                "EL;1;864906029196626;170822143426;"));
++
++        verifyPosition(decoder, text(
++                "EO;0;864906029196626;R;7+170822143646+-26.10806+27.94600+0.40+0+0x1+0+102540+0+1242"));
++
+         verifyPosition(decoder, text(
+                 "EO;0;864906029196626;R;0+170808155352+0.00000+0.00000+0.00+0+0x1+0+0+0+1233"));
+ 

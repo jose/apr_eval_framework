@@ -1,0 +1,57 @@
+diff --git a/src/main/java/org/cash/count/service/impl/TransferService.java b/src/main/java/org/cash/count/service/impl/TransferService.java
+index e93358cdd..2a670ad0d 100644
+--- a/src/main/java/org/cash/count/service/impl/TransferService.java
++++ b/src/main/java/org/cash/count/service/impl/TransferService.java
+@@ -41,6 +41,10 @@ public class TransferService implements ITransferService{
+         Account debitedAccount = debitedAccountWrapper.orElseThrow(NoSuchElementException::new);
+         Account creditedAccount = creditedAccountWrapper.orElseThrow(NoSuchElementException::new);
+         
++        if (debitedAccount.isDisabled() || creditedAccount.isDisabled()){
++            throw new IllegalStateException("Account disabled");
++        }
++        
+         BigDecimal debitedAccountBalance = calculateDebitedBalance(debitedAccount, amount);
+         BigDecimal creditedAccountBalance = calculateCreditedBalance(creditedAccount, amount);
+         
+diff --git a/src/test/java/org/cash/count/service/impl/TransferServiceTest.java b/src/test/java/org/cash/count/service/impl/TransferServiceTest.java
+index dc0d785a1..1edbcece5 100644
+--- a/src/test/java/org/cash/count/service/impl/TransferServiceTest.java
++++ b/src/test/java/org/cash/count/service/impl/TransferServiceTest.java
+@@ -13,6 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+ import org.cash.count.constant.AccountType;
+ import org.cash.count.model.Account;
+ import org.cash.count.repository.AccountRepository;
++import static org.junit.Assert.fail;
+ import org.junit.Before;
+ import org.junit.Test;
+ import org.junit.runner.RunWith;
+@@ -211,4 +212,29 @@ public class TransferServiceTest {
+         
+         transferService.transfer(2, 323, "100");
+     }
++    
++    /**
++     * Should not make the transfer. An account is disabled
++     */
++    @Test
++    public void shouldNotExecuteTransfer_accountDisabled(){
++        Account cashAccount = new Account();
++        cashAccount.setBalance(new BigDecimal("4000"));
++        cashAccount.setIncreasedBy(AccountType.DEBIT);
++        
++        Account equipmentAccount = new Account();
++        equipmentAccount.setBalance(new BigDecimal("1000"));
++        equipmentAccount.setIncreasedBy(AccountType.DEBIT);
++        equipmentAccount.setDisabled(true);
++        
++        when(accountRepository.findById(2)).thenReturn(Optional.of(equipmentAccount));
++        when(accountRepository.findById(5)).thenReturn(Optional.of(cashAccount));
++        
++        try{
++            transferService.transfer(2, 5, "100");
++            fail();
++        } catch(IllegalStateException e){
++            assertThat(e.getMessage()).isEqualTo("Account disabled");
++        }
++    }
+ }

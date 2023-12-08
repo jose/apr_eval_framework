@@ -1,0 +1,20 @@
+--- src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:03.894106399 +0000
++++ src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:09.116356284 +0000
+@@ -257,7 +257,7 @@
+ 
+         if (divisor.isZero) {
+             // return isZero ? NaN : INF; // See MATH-657
+-            return isZero ? NaN : INF;
++            return NaN;
+         }
+ 
+         if (divisor.isInfinite() && !isInfinite()) {
+@@ -294,7 +294,7 @@
+         }
+         if (divisor == 0d) {
+             // return isZero ? NaN : INF; // See MATH-657
+-            return isZero ? NaN : INF;
++            return NaN;
+         }
+         if (Double.isInfinite(divisor)) {
+             return !isInfinite() ? ZERO : NaN;

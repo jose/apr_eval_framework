@@ -1,0 +1,59 @@
+diff --git a/src/org/traccar/protocol/L100ProtocolDecoder.java b/src/org/traccar/protocol/L100ProtocolDecoder.java
+index f98e532bc..618448080 100644
+--- a/src/org/traccar/protocol/L100ProtocolDecoder.java
++++ b/src/org/traccar/protocol/L100ProtocolDecoder.java
+@@ -40,8 +40,9 @@ public class L100ProtocolDecoder extends BaseProtocolDecoder {
+             .text("ATL")
+             .number("(d{15}),")                  // imei
+             .text("$GPRMC,")
+-            .number("(dd)(dd)(dd).(ddd),")       // time (hhmmss.sss)
+-            .expression("([AV]),")               // validity
++            .number("(dd)(dd)(dd)")              // time (hhmmss.sss)
++            .number(".(ddd)").optional()
++            .expression(",([AV]),")              // validity
+             .number("(dd)(dd.d+),")              // latitude
+             .expression("([NS]),")
+             .number("(ddd)(dd.d+),")             // longitude
+@@ -52,7 +53,7 @@ public class L100ProtocolDecoder extends BaseProtocolDecoder {
+             .any()
+             .text("#")
+             .number("([01]+),")                  // io status
+-            .number("(d+.d+|N.C),")              // adc
++            .number("(d+.?d*|N.C),")             // adc
+             .expression("[^,]*,")                // reserved
+             .expression("[^,]*,")                // reserved
+             .number("(d+.d+),")                  // odometer
+@@ -61,8 +62,8 @@ public class L100ProtocolDecoder extends BaseProtocolDecoder {
+             .number("(d+),")                     // gsm
+             .number("(d+),")                     // mcc
+             .number("(d+),")                     // mnc
+-            .number("(d+),")                     // lac
+-            .number("(d+)")                      // cid
++            .number("(x+),")                     // lac
++            .number("(x+)")                      // cid
+             .text("ATL")
+             .compile();
+ 
+@@ -111,7 +112,7 @@ public class L100ProtocolDecoder extends BaseProtocolDecoder {
+ 
+         int rssi = parser.nextInt(0);
+         position.setNetwork(new Network(CellTower.from(
+-                parser.nextInt(0), parser.nextInt(0), parser.nextInt(0), parser.nextInt(0), rssi)));
++                parser.nextInt(0), parser.nextInt(0), parser.nextHexInt(0), parser.nextHexInt(0), rssi)));
+ 
+         return position;
+     }
+diff --git a/test/org/traccar/protocol/L100ProtocolDecoderTest.java b/test/org/traccar/protocol/L100ProtocolDecoderTest.java
+index 07e72140d..53609056e 100644
+--- a/test/org/traccar/protocol/L100ProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/L100ProtocolDecoderTest.java
+@@ -10,6 +10,9 @@ public class L100ProtocolDecoderTest extends ProtocolTest {
+ 
+         L100ProtocolDecoder decoder = new L100ProtocolDecoder(new L100Protocol());
+ 
++        verifyPosition(decoder, binary(
++                "200141544c3836313639333033353238353235332c244750524d432c3032323034302c412c323935342e303438312c4e2c30373335332e313639342c452c302c3135302c3238303431372c2c2c2a33362c2330313131313031313030303030302c302c302c302c38322e39322c33372e39322c342e302c32332c3430342c37302c3136332c6231373841544c0265"));
++
+         verifyPosition(decoder, binary(
+                 "200141544c3335363839353033373533333734352c244750524d432c3131313731392e3030302c412c323833382e303034352c4e2c30373731332e333730372c452c302e30302c2c3132303831302c2c2c412a37352c2330313130303131313030313031302c4e2e432c4e2e432c4e2e432c31323334352e36372c33312e342c342e322c32312c3130302c3030302c3030303030312c303030303041544c027a"));
+ 

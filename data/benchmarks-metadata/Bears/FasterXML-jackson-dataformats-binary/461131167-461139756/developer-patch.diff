@@ -1,0 +1,419 @@
+diff --git a/cbor/src/main/java/com/fasterxml/jackson/dataformat/cbor/CBORFactory.java b/cbor/src/main/java/com/fasterxml/jackson/dataformat/cbor/CBORFactory.java
+index 092ea66bb..f3f3361e7 100644
+--- a/cbor/src/main/java/com/fasterxml/jackson/dataformat/cbor/CBORFactory.java
++++ b/cbor/src/main/java/com/fasterxml/jackson/dataformat/cbor/CBORFactory.java
+@@ -274,27 +274,38 @@ public class CBORFactory extends JsonFactory
+     @SuppressWarnings("resource")
+     @Override
+     public CBORParser createParser(File f) throws IOException {
+-        return _createParser(new FileInputStream(f), _createContext(f, true));
++        IOContext ctxt = _createContext(f, true);
++        return _createParser(_decorate(new FileInputStream(f), ctxt), ctxt);
+     }
+ 
+     @Override
+     public CBORParser createParser(URL url) throws IOException {
+-        return _createParser(_optimizedStreamFromURL(url), _createContext(url, true));
++        IOContext ctxt = _createContext(url, true);
++        return _createParser(_decorate(_optimizedStreamFromURL(url), ctxt), ctxt);
+     }
+ 
+     @Override
+     public CBORParser createParser(InputStream in) throws IOException {
+-        return _createParser(in, _createContext(in, false));
++        IOContext ctxt = _createContext(in, false);
++        return _createParser(_decorate(in, ctxt), ctxt);
+     }
+ 
+     @Override
+     public CBORParser createParser(byte[] data) throws IOException {
+-        return _createParser(data, 0, data.length, _createContext(data, true));
++        return createParser(data, 0, data.length);
+     }
+ 
++    @SuppressWarnings("resource")
+     @Override
+     public CBORParser createParser(byte[] data, int offset, int len) throws IOException {
+-        return _createParser(data, offset, len, _createContext(data, true));
++        IOContext ctxt = _createContext(data, true);
++        if (_inputDecorator != null) {
++            InputStream in = _inputDecorator.decorate(ctxt, data, 0, data.length);
++            if (in != null) {
++                return _createParser(in, ctxt);
++            }
++        }
++        return _createParser(data, offset, len, ctxt);
+     }
+ 
+     /*
+@@ -312,8 +323,10 @@ public class CBORFactory extends JsonFactory
+      */
+     @Override
+     public CBORGenerator createGenerator(OutputStream out, JsonEncoding enc) throws IOException {
+-        return _createCBORGenerator(_createContext(out, false),
+-                _generatorFeatures, _formatGeneratorFeatures, _objectCodec, out);
++        final IOContext ctxt = _createContext(out, false);
++        return _createCBORGenerator(ctxt,
++                _generatorFeatures, _formatGeneratorFeatures, _objectCodec,
++                _decorate(out, ctxt));
+     }
+ 
+     /**
+@@ -325,8 +338,10 @@ public class CBORFactory extends JsonFactory
+      */
+     @Override
+     public CBORGenerator createGenerator(OutputStream out) throws IOException {
+-        return _createCBORGenerator(_createContext(out, false),
+-                _generatorFeatures, _formatGeneratorFeatures, _objectCodec, out);
++        final IOContext ctxt = _createContext(out, false);
++        return _createCBORGenerator(ctxt,
++                _generatorFeatures, _formatGeneratorFeatures, _objectCodec,
++                _decorate(out, ctxt));
+     }
+ 
+     /*
+diff --git a/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/filter/StreamingDecoratorsTest.java b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/filter/StreamingDecoratorsTest.java
+new file mode 100644
+index 000000000..c940e1a3c
+--- /dev/null
++++ b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/filter/StreamingDecoratorsTest.java
+@@ -0,0 +1,45 @@
++package com.fasterxml.jackson.dataformat.cbor.filter;
++
++import java.io.*;
++
++import com.fasterxml.jackson.core.*;
++import com.fasterxml.jackson.dataformat.cbor.*;
++import com.fasterxml.jackson.dataformat.cbor.util.PrefixInputDecorator;
++import com.fasterxml.jackson.dataformat.cbor.util.PrefixOutputDecorator;
++
++public class StreamingDecoratorsTest extends CBORTestBase
++{
++    public void testInputDecorators() throws Exception
++    {
++        final byte[] DOC = cborDoc("42   37");
++        final CBORFactory streamF = cborFactory();
++        streamF.setInputDecorator(new PrefixInputDecorator(DOC));
++        JsonParser p = streamF.createParser(new byte[0], 0, 0);
++        assertToken(JsonToken.VALUE_NUMBER_INT, p.nextToken());
++        assertEquals(42, p.getIntValue());
++        assertToken(JsonToken.VALUE_NUMBER_INT, p.nextToken());
++        assertEquals(37, p.getIntValue());
++        assertNull(p.nextToken());
++        p.close();
++    }
++
++    public void testOutputDecorators() throws Exception
++    {
++        final byte[] DOC = cborDoc(" 137");
++        final CBORFactory streamF = cborFactory();
++        streamF.setOutputDecorator(new PrefixOutputDecorator(DOC));
++        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
++
++        JsonGenerator g = streamF.createGenerator(bytes);
++        g.writeString("foo");
++        g.close();
++
++        JsonParser p = streamF.createParser(bytes.toByteArray());
++        assertToken(JsonToken.VALUE_NUMBER_INT, p.nextToken());
++        assertEquals(137, p.getIntValue());
++        assertToken(JsonToken.VALUE_STRING, p.nextToken());
++        assertEquals("foo", p.getText());
++        assertNull(p.nextToken());
++        p.close();
++    }
++}
+diff --git a/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixInputDecorator.java b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixInputDecorator.java
+new file mode 100644
+index 000000000..1c882def2
+--- /dev/null
++++ b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixInputDecorator.java
+@@ -0,0 +1,84 @@
++package com.fasterxml.jackson.dataformat.cbor.util;
++
++import java.io.ByteArrayInputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.io.Reader;
++import java.io.SequenceInputStream;
++import java.io.StringReader;
++import java.nio.charset.StandardCharsets;
++
++import com.fasterxml.jackson.core.io.IOContext;
++import com.fasterxml.jackson.core.io.InputDecorator;
++
++@SuppressWarnings("serial")
++public class PrefixInputDecorator extends InputDecorator
++{
++    protected final byte[] _prefix;
++
++    public PrefixInputDecorator(byte[] p) {
++        _prefix = p;
++    }
++
++    @Override
++    public InputStream decorate(IOContext ctxt, InputStream in) {
++        if (in instanceof MySequenceInputStream) {
++            throw new IllegalStateException("Trying to decorate MySequenceInputStream (double-decoration!)");
++        }
++        return new MySequenceInputStream(new ByteArrayInputStream(_prefix), in);
++    }
++
++    @Override
++    public InputStream decorate(IOContext ctxt, byte[] src, int offset, int length) {
++        return decorate(ctxt, new ByteArrayInputStream(src, offset, length));
++    }
++
++    @Override
++    public Reader decorate(IOContext ctxt, Reader r) throws IOException {
++        if (r instanceof SequenceReader) {
++            throw new IllegalStateException("Trying to decorate SequenceReader (double-decoration!)");
++        }
++        String str = new String(_prefix, StandardCharsets.UTF_8);
++        return new SequenceReader(new StringReader(str), r);
++    }
++
++    // sub-class only so we can check for "double decoration"
++    static class MySequenceInputStream extends SequenceInputStream {
++        public MySequenceInputStream(InputStream in1, InputStream in2) {
++            super(in1, in2);
++        }
++    }
++
++    static class SequenceReader extends Reader {
++        protected Reader _reader1, _reader2;
++
++        public SequenceReader(Reader r1, Reader r2) {
++            _reader1 = r1;
++            _reader2 = r2;
++        }
++
++        @Override
++        public int read(char[] cbuf, int off, int len) throws IOException {
++            if (_reader1 != null) {
++                int count = _reader1.read(cbuf, off, len);
++                if (count > 0) {
++                    return count;
++                }
++                _reader1 = null;
++            }
++            if (_reader2 != null) {
++                int count = _reader2.read(cbuf, off, len);
++                if (count > 0) {
++                    return count;
++                }
++                _reader2 = null;
++            }
++            return -1;
++        }
++
++        @Override
++        public void close() throws IOException {
++            _reader1 = _reader2 = null;
++        }
++    }
++}
+diff --git a/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixOutputDecorator.java b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixOutputDecorator.java
+new file mode 100644
+index 000000000..7829355c0
+--- /dev/null
++++ b/cbor/src/test/java/com/fasterxml/jackson/dataformat/cbor/util/PrefixOutputDecorator.java
+@@ -0,0 +1,64 @@
++package com.fasterxml.jackson.dataformat.cbor.util;
++
++import java.io.FilterOutputStream;
++import java.io.IOException;
++import java.io.OutputStream;
++import java.io.Writer;
++
++import com.fasterxml.jackson.core.io.IOContext;
++import com.fasterxml.jackson.core.io.OutputDecorator;
++
++@SuppressWarnings("serial")
++public class PrefixOutputDecorator extends OutputDecorator
++{
++    protected final byte[] _prefix;
++
++    public PrefixOutputDecorator(byte[] p) {
++        _prefix = p;
++    }
++
++    @Override
++    public OutputStream decorate(IOContext ctxt, OutputStream out)
++            throws IOException
++    {
++        if (out instanceof BufferedOut) {
++            throw new IllegalStateException("Trying to decorate `Buffered` (double-decoration!)");
++        }
++        return new BufferedOut(out, _prefix);
++    }
++
++    @Override
++    public Writer decorate(IOContext ctxt, Writer w) throws IOException {
++        for (byte b : _prefix) {
++            w.write((char) (b & 0xFF));
++        }
++        return w;
++    }
++
++    static class BufferedOut extends FilterOutputStream {
++        protected byte[] _prefix;
++
++        public BufferedOut(OutputStream b, byte[] prefix) {
++            super(b);
++            _prefix = prefix;
++        }
++
++        @Override
++        public void write(int b) throws IOException {
++            if (_prefix != null) {
++                out.write(_prefix);
++                _prefix = null;
++            }
++            super.write(b);
++        }
++
++        @Override
++        public void write(byte[] b, int offset, int len) throws IOException {
++            if (_prefix != null) {
++                out.write(_prefix);
++                _prefix = null;
++            }
++            super.write(b, offset, len);
++        }
++    }
++}
+diff --git a/smile/src/main/java/com/fasterxml/jackson/dataformat/smile/SmileFactory.java b/smile/src/main/java/com/fasterxml/jackson/dataformat/smile/SmileFactory.java
+index daa3aa27a..0e5d4f43c 100644
+--- a/smile/src/main/java/com/fasterxml/jackson/dataformat/smile/SmileFactory.java
++++ b/smile/src/main/java/com/fasterxml/jackson/dataformat/smile/SmileFactory.java
+@@ -319,7 +319,7 @@ public class SmileFactory extends JsonFactory
+     public SmileParser createParser(byte[] data) throws IOException {
+         return createParser(data, 0, data.length);
+     }
+-    
++
+     @SuppressWarnings("resource")
+     @Override
+     public SmileParser createParser(byte[] data, int offset, int len) throws IOException {
+@@ -327,7 +327,7 @@ public class SmileFactory extends JsonFactory
+         if (_inputDecorator != null) {
+             InputStream in = _inputDecorator.decorate(ctxt, data, 0, data.length);
+             if (in != null) {
+-                return _createParser(_decorate(in, ctxt), ctxt);
++                return _createParser(in, ctxt);
+             }
+         }
+         return _createParser(data, offset, len, ctxt);
+diff --git a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/filter/StreamingDecoratorsTest.java b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/filter/StreamingDecoratorsTest.java
+index f1759ba7f..6cbecff33 100644
+--- a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/filter/StreamingDecoratorsTest.java
++++ b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/filter/StreamingDecoratorsTest.java
+@@ -1,9 +1,8 @@
+ package com.fasterxml.jackson.dataformat.smile.filter;
+ 
+-import java.io.ByteArrayOutputStream;
++import java.io.*;
+ 
+ import com.fasterxml.jackson.core.*;
+-
+ import com.fasterxml.jackson.dataformat.smile.*;
+ import com.fasterxml.jackson.dataformat.smile.testutil.PrefixInputDecorator;
+ import com.fasterxml.jackson.dataformat.smile.testutil.PrefixOutputDecorator;
+@@ -12,14 +11,15 @@ public class StreamingDecoratorsTest extends BaseTestForSmile
+ {
+     public void testInputDecorators() throws Exception
+     {
+-        final byte[] DOC = _smileDoc("[ 42 ]");
++        final byte[] DOC = _smileDoc("42   37");
+         final SmileFactory streamF = smileFactory(false,  true,  false);
+         streamF.setInputDecorator(new PrefixInputDecorator(DOC));
+-        JsonParser p = streamF.createParser(new byte[0]);
+-        assertToken(JsonToken.START_ARRAY, p.nextToken());
++        JsonParser p = streamF.createParser(new byte[0], 0, 0);
+         assertToken(JsonToken.VALUE_NUMBER_INT, p.nextToken());
+         assertEquals(42, p.getIntValue());
+-        assertToken(JsonToken.END_ARRAY, p.nextToken());
++        assertToken(JsonToken.VALUE_NUMBER_INT, p.nextToken());
++        assertEquals(37, p.getIntValue());
++        assertNull(p.nextToken());
+         p.close();
+     }
+ 
+@@ -40,6 +40,7 @@ public class StreamingDecoratorsTest extends BaseTestForSmile
+         assertEquals(137, p.getIntValue());
+         assertToken(JsonToken.VALUE_STRING, p.nextToken());
+         assertEquals("foo", p.getText());
++        assertNull(p.nextToken());
+         p.close();
+     }
+ }
+diff --git a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixInputDecorator.java b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixInputDecorator.java
+index 96e0297d4..d1f47d5f0 100644
+--- a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixInputDecorator.java
++++ b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixInputDecorator.java
+@@ -22,7 +22,10 @@ public class PrefixInputDecorator extends InputDecorator
+ 
+     @Override
+     public InputStream decorate(IOContext ctxt, InputStream in) {
+-        return new SequenceInputStream(new ByteArrayInputStream(_prefix), in);
++        if (in instanceof MySequenceInputStream) {
++            throw new IllegalStateException("Trying to decorate MySequenceInputStream (double-decoration!)");
++        }
++        return new MySequenceInputStream(new ByteArrayInputStream(_prefix), in);
+     }
+ 
+     @Override
+@@ -32,11 +35,21 @@ public class PrefixInputDecorator extends InputDecorator
+ 
+     @Override
+     public Reader decorate(IOContext ctxt, Reader r) throws IOException {
++        if (r instanceof SequenceReader) {
++            throw new IllegalStateException("Trying to decorate SequenceReader (double-decoration!)");
++        }
+         String str = new String(_prefix, StandardCharsets.UTF_8);
+         return new SequenceReader(new StringReader(str), r);
+     }
+ 
+-    private static class SequenceReader extends Reader {
++    // sub-class only so we can check for "double decoration"
++    static class MySequenceInputStream extends SequenceInputStream {
++        public MySequenceInputStream(InputStream in1, InputStream in2) {
++            super(in1, in2);
++        }
++    }
++
++    static class SequenceReader extends Reader {
+         protected Reader _reader1, _reader2;
+ 
+         public SequenceReader(Reader r1, Reader r2) {
+diff --git a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixOutputDecorator.java b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixOutputDecorator.java
+index b1383a502..5f409eb53 100644
+--- a/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixOutputDecorator.java
++++ b/smile/src/test/java/com/fasterxml/jackson/dataformat/smile/testutil/PrefixOutputDecorator.java
+@@ -21,8 +21,10 @@ public class PrefixOutputDecorator extends OutputDecorator
+     public OutputStream decorate(IOContext ctxt, OutputStream out)
+             throws IOException
+     {
+-        out.write(_prefix);
+-        return out;
++        if (out instanceof BufferedOut) {
++            throw new IllegalStateException("Trying to decorate `Buffered` (double-decoration!)");
++        }
++        return new BufferedOut(out, _prefix);
+     }
+ 
+     @Override
+@@ -33,10 +35,10 @@ public class PrefixOutputDecorator extends OutputDecorator
+         return w;
+     }
+ 
+-    static class Buffered extends FilterOutputStream {
++    static class BufferedOut extends FilterOutputStream {
+         protected byte[] _prefix;
+ 
+-        public Buffered(OutputStream b, byte[] prefix) {
++        public BufferedOut(OutputStream b, byte[] prefix) {
+             super(b);
+             _prefix = prefix;
+         }

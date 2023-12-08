@@ -1,0 +1,68 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ContextBuilder.java b/src/main/java/spoon/support/compiler/jdt/ContextBuilder.java
+index 3b481e339..93db29500 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ContextBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ContextBuilder.java
+@@ -87,7 +87,7 @@ public class ContextBuilder {
+ 	void enter(CtElement e, ASTNode node) {
+ 		stack.push(new ASTPair(e, node));
+ 		if (!(e instanceof CtPackage) || (compilationUnitSpoon.getFile() != null && compilationUnitSpoon.getFile().getName().equals(DefaultJavaPrettyPrinter.JAVA_PACKAGE_DECLARATION))) {
+-			if (compilationunitdeclaration != null) {
++			if (compilationunitdeclaration != null && !e.isImplicit()) {
+ 				e.setPosition(this.jdtTreeBuilder.getPositionBuilder().buildPositionCtElement(e, node));
+ 			}
+ 		}
+diff --git a/src/test/java/spoon/test/position/PositionTest.java b/src/test/java/spoon/test/position/PositionTest.java
+index 2554d60a5..5d85074ab 100644
+--- a/src/test/java/spoon/test/position/PositionTest.java
++++ b/src/test/java/spoon/test/position/PositionTest.java
+@@ -6,6 +6,7 @@ import spoon.reflect.code.CtBlock;
+ import spoon.reflect.code.CtExpression;
+ import spoon.reflect.code.CtFieldAccess;
+ import spoon.reflect.code.CtIf;
++import spoon.reflect.code.CtStatement;
+ import spoon.reflect.cu.SourcePosition;
+ import spoon.reflect.cu.position.BodyHolderSourcePosition;
+ import spoon.reflect.cu.position.DeclarationSourcePosition;
+@@ -14,6 +15,7 @@ import spoon.reflect.declaration.CtConstructor;
+ import spoon.reflect.declaration.CtMethod;
+ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.factory.Factory;
++import spoon.test.position.testclasses.Foo;
+ import spoon.test.position.testclasses.FooClazz;
+ import spoon.test.position.testclasses.FooClazz2;
+ import spoon.test.position.testclasses.FooField;
+@@ -31,6 +33,7 @@ import java.nio.file.Paths;
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertTrue;
+ import static spoon.testing.utils.ModelUtils.build;
++import static spoon.testing.utils.ModelUtils.buildClass;
+ 
+ public class PositionTest {
+ 
+@@ -365,4 +368,14 @@ public class PositionTest {
+ 		assertTrue(s.hashCode() > 0); // no NPE
+ 	}
+ 
++	@Test
++	public void defaultConstructorPositionTest() throws Exception {
++		CtClass<Foo> aClass = (CtClass<Foo>) buildClass(Foo.class);
++		CtConstructor<Foo> defaultConstructor = aClass.getConstructor();
++		assertEquals(SourcePosition.NOPOSITION, defaultConstructor.getPosition());
++		CtStatement implicitSuperCall = defaultConstructor.getBody().getStatement(0);
++		assertTrue(implicitSuperCall.isImplicit());
++		assertEquals(SourcePosition.NOPOSITION, implicitSuperCall.getPosition());
++	}
++
+ }
+diff --git a/src/test/java/spoon/test/position/testclasses/Foo.java b/src/test/java/spoon/test/position/testclasses/Foo.java
+new file mode 100644
+index 000000000..4a5d1a49c
+--- /dev/null
++++ b/src/test/java/spoon/test/position/testclasses/Foo.java
+@@ -0,0 +1,5 @@
++package spoon.test.position.testclasses;
++
++public class Foo {
++
++}
+\ No newline at end of file

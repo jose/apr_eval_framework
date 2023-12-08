@@ -1,0 +1,55 @@
+diff --git a/src/org/traccar/protocol/SuntechProtocolDecoder.java b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+index 55d5c224a..e19335cb0 100644
+--- a/src/org/traccar/protocol/SuntechProtocolDecoder.java
++++ b/src/org/traccar/protocol/SuntechProtocolDecoder.java
+@@ -31,11 +31,13 @@ import java.util.TimeZone;
+ public class SuntechProtocolDecoder extends BaseProtocolDecoder {
+ 
+     private int protocolType;
++    private boolean hbm;
+ 
+     public SuntechProtocolDecoder(SuntechProtocol protocol) {
+         super(protocol);
+ 
+         protocolType = Context.getConfig().getInteger(getProtocolName() + ".protocolType");
++        hbm = Context.getConfig().getBoolean(getProtocolName() + ".hbm");
+     }
+ 
+     public void setProtocolType(int protocolType) {
+@@ -144,12 +146,16 @@ public class SuntechProtocolDecoder extends BaseProtocolDecoder {
+             position.set(Position.KEY_INDEX, Integer.parseInt(values[index++]));
+         }
+ 
+-        if (index < values.length) {
+-            position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
+-        }
++        if (hbm) {
++
++            if (index < values.length) {
++                position.set(Position.KEY_HOURS, Integer.parseInt(values[index++]));
++            }
++
++            if (index < values.length) {
++                position.set(Position.KEY_BATTERY, Double.parseDouble(values[index]));
++            }
+ 
+-        if (index < values.length) {
+-            position.set(Position.KEY_BATTERY, Double.parseDouble(values[index]));
+         }
+ 
+         return position;
+diff --git a/test/org/traccar/protocol/SuntechProtocolDecoderTest.java b/test/org/traccar/protocol/SuntechProtocolDecoderTest.java
+index 67791cb2f..84a8ea1e7 100644
+--- a/test/org/traccar/protocol/SuntechProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/SuntechProtocolDecoderTest.java
+@@ -13,8 +13,8 @@ public class SuntechProtocolDecoderTest extends ProtocolTest {
+         verifyPosition(decoder, text(
+                 "ST300STT;100850000;01;010;20081017;07:41:56;00100;+37.478519;+126.886819;000.012;000.00;9;1;0;15.30;001100;1;0072;0;4.5;1;1750;012497F1160000;1;004f001454;450;00;-320;20;255;1"));
+ 
+-        /*verifyPosition(decoder, text(
+-                "ST300STT;205589913;05;527;20170304;02:21:33;be139;-25.398868;-049.325636;000.476;000.00;6;1;427;12.57;100000010;1;0172;017.159;0;002.327;12;4.0"));*/
++        verifyPosition(decoder, text(
++                "ST300STT;205589913;05;527;20170304;02:21:33;be139;-25.398868;-049.325636;000.476;000.00;6;1;427;12.57;100000010;1;0172;017.159;0;002.327;12;4.0"));
+ 
+         verifyPosition(decoder, text(
+                 "SA200STT;638947;803;20170117;07:40:44;5d309;-01.287213;-047.917462;000.035;000.00;10;1;2036194;12.57;000000;1;0376;010360;4.2;1"));

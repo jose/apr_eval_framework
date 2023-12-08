@@ -1,0 +1,40 @@
+diff --git a/src/org/traccar/protocol/H02ProtocolDecoder.java b/src/org/traccar/protocol/H02ProtocolDecoder.java
+index c31f9edbb..aea8f0b3b 100644
+--- a/src/org/traccar/protocol/H02ProtocolDecoder.java
++++ b/src/org/traccar/protocol/H02ProtocolDecoder.java
+@@ -152,7 +152,6 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
+             .number("(d+),")                     // imei
+             .groupBegin()
+             .text("VP1,")
+-            .expression("[ABV],")
+             .or()
+             .groupBegin()
+             .text("V1,")
+@@ -164,7 +163,7 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
+             .groupEnd()
+             .number("(?:(dd)(dd)(dd))?,")        // time (hhmmss)
+             .groupEnd()
+-            .expression("([AV])?,")              // validity
++            .expression("([ABV])?,")             // validity
+             .groupBegin()
+             .number("-(d+)-(d+.d+),")            // latitude
+             .or()
+diff --git a/test/org/traccar/protocol/H02ProtocolDecoderTest.java b/test/org/traccar/protocol/H02ProtocolDecoderTest.java
+index 0b90a4767..103746e5e 100644
+--- a/test/org/traccar/protocol/H02ProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/H02ProtocolDecoderTest.java
+@@ -11,10 +11,13 @@ public class H02ProtocolDecoderTest extends ProtocolTest {
+ 
+         H02ProtocolDecoder decoder = new H02ProtocolDecoder(new H02Protocol());
+ 
++        verifyPosition(decoder, buffer(
++                "*hq,356327080425330,VP1,A,2702.7245,S,15251.9311,E,0.48,0.0000,080917#"));
++
+         verifyPosition(decoder, buffer(
+                 "*HQ,4209951296,V19,214452,A,5201.0178,N,01830.5029,E,000.00,000,200417,,195.63.13.195,89480610500392633029,BFFFFBFF#"));
+ 
+-        verifyNull(decoder, buffer(
++        verifyPosition(decoder, buffer(
+                 "*hq,356327080425330,VP1,A,2702.7215,S,15251.9309,E,0.62,0.0000,050917#"));
+ 
+         verifyNull(decoder, buffer(

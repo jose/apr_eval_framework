@@ -1,0 +1,93 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/JDTBasedSpoonCompiler.java b/src/main/java/spoon/support/compiler/jdt/JDTBasedSpoonCompiler.java
+index 71a37d7f4..58ba2da04 100644
+--- a/src/main/java/spoon/support/compiler/jdt/JDTBasedSpoonCompiler.java
++++ b/src/main/java/spoon/support/compiler/jdt/JDTBasedSpoonCompiler.java
+@@ -415,16 +415,18 @@ public class JDTBasedSpoonCompiler implements spoon.SpoonModelBuilder {
+ 		JDTTreeBuilder builder = new JDTTreeBuilder(factory);
+ 		unitLoop:
+ 		for (CompilationUnitDeclaration unit : units) {
+-			final String unitPath = new String(unit.getFileName());
+-			for (final CompilationUnitFilter cuf : compilationUnitFilters) {
+-				if (cuf.exclude(unitPath)) {
+-					// do not traverse this unit
+-					continue unitLoop;
++			if (!unit.isEmpty()) {
++				final String unitPath = new String(unit.getFileName());
++				for (final CompilationUnitFilter cuf : compilationUnitFilters) {
++					if (cuf.exclude(unitPath)) {
++						// do not traverse this unit
++						continue unitLoop;
++					}
++				}
++				unit.traverse(builder, unit.scope);
++				if (getFactory().getEnvironment().isCommentsEnabled()) {
++					new JDTCommentBuilder(unit, factory).build();
+ 				}
+-			}
+-			unit.traverse(builder, unit.scope);
+-			if (getFactory().getEnvironment().isCommentsEnabled()) {
+-				new JDTCommentBuilder(unit, factory).build();
+ 			}
+ 		}
+ 	}
+diff --git a/src/test/java/spoon/test/api/APITest.java b/src/test/java/spoon/test/api/APITest.java
+index 9f67fd116..c7a3805f0 100644
+--- a/src/test/java/spoon/test/api/APITest.java
++++ b/src/test/java/spoon/test/api/APITest.java
+@@ -54,7 +54,7 @@ public class APITest {
+ 		// this test shows a basic usage of the Launcher API without command line
+ 		// and asserts there is no exception
+ 		Launcher spoon = new Launcher();
+-		spoon.setArgs(new String[] {"--output-type", "nooutput" });
++		spoon.setArgs(new String[] {"--compile", "--output-type", "compilationunits" });
+ 		spoon.addInputResource("src/test/resources/spoon/test/api");
+ 		spoon.run();
+ 		Factory factory = spoon.getFactory();
+diff --git a/src/test/java/spoon/test/support/ResourceTest.java b/src/test/java/spoon/test/support/ResourceTest.java
+index 0ed10e376..727b94033 100644
+--- a/src/test/java/spoon/test/support/ResourceTest.java
++++ b/src/test/java/spoon/test/support/ResourceTest.java
+@@ -1,6 +1,8 @@
+ package spoon.test.support;
+ 
++import static org.hamcrest.CoreMatchers.is;
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertThat;
+ import static org.junit.Assert.assertTrue;
+ 
+ import java.io.File;
+@@ -30,14 +32,17 @@ public class ResourceTest {
+ 		FileSystemFolder fileSystemFolder = new FileSystemFolder(new File(dir));
+ 
+ 		// there is one file in api
+-		assertEquals(1, fileSystemFolder.getAllFiles().size());
+-		assertEquals(1, fileSystemFolder.getAllJavaFiles().size());
++		assertEquals(2, fileSystemFolder.getAllFiles().size());
++		assertEquals(2, fileSystemFolder.getAllJavaFiles().size());
+ 
+ 		String entry = "src/test/resources/spoon/test/api/Foo.java";
+ 		FileSystemFile file = new FileSystemFile(new File(entry));
+ 
+-		// this file in Foo.java
+-		assertEquals(file, fileSystemFolder.getAllFiles().get(0));
++		String entry1 = "src/test/resources/spoon/test/api/CommentedClass.java";
++		FileSystemFile file1 = new FileSystemFile(new File(entry1));
++
++		assertThat(fileSystemFolder.getAllFiles().contains(file), is(true));
++		assertThat(fileSystemFolder.getAllFiles().contains(file1), is(true));
+ 	}
+ 
+ 	@Test
+@@ -52,10 +57,10 @@ public class ResourceTest {
+ 		folder.addFolder(fileSystemFolder);
+ 		folder.addFolder(fileSystemFolder2);
+ 
+-		assertEquals(3, folder.getAllFiles().size());
++		assertEquals(4, folder.getAllFiles().size());
+ 
+ 		// the README is not a Java file
+-		assertEquals(2, folder.getAllJavaFiles().size());
++		assertEquals(3, folder.getAllJavaFiles().size());
+ 	}
+ 
+ 	@Test

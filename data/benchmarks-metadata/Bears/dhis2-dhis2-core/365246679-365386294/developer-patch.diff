@@ -1,0 +1,195 @@
+diff --git a/dhis-2/dhis-api/src/main/java/org/hisp/dhis/dataelement/DataElementOperand.java b/dhis-2/dhis-api/src/main/java/org/hisp/dhis/dataelement/DataElementOperand.java
+index 918a7946e..46919878c 100644
+--- a/dhis-2/dhis-api/src/main/java/org/hisp/dhis/dataelement/DataElementOperand.java
++++ b/dhis-2/dhis-api/src/main/java/org/hisp/dhis/dataelement/DataElementOperand.java
+@@ -317,9 +317,70 @@ public class DataElementOperand
+     }
+ 
+     // -------------------------------------------------------------------------
+-    // toString, mergeWith
++    // hashCode, equals and toString
+     // -------------------------------------------------------------------------
+ 
++    @Override
++    public int hashCode()
++    {
++        int result = dataElement.hashCode();
++        result = 31 * result + (categoryOptionCombo != null ? categoryOptionCombo.hashCode() : 0);
++        result = 31 * result + (attributeOptionCombo != null ? attributeOptionCombo.hashCode() : 0);
++        return result;
++    }
++
++    @Override
++    public boolean equals( Object object )
++    {
++        if ( this == object )
++        {
++            return true;
++        }
++
++        if ( object == null )
++        {
++            return false;
++        }
++
++        if ( getClass() != object.getClass() )
++        {
++            return false;
++        }
++
++        DataElementOperand other = (DataElementOperand) object;
++
++        if ( !dataElement.equals( other.dataElement ) )
++        {
++            return false;
++        }
++
++        if ( categoryOptionCombo == null )
++        {
++            if ( other.categoryOptionCombo != null )
++            {
++                return false;
++            }
++        }
++        else if ( !categoryOptionCombo.equals( other.categoryOptionCombo ) )
++        {
++            return false;
++        }
++
++        if ( attributeOptionCombo == null )
++        {
++            if ( other.attributeOptionCombo != null )
++            {
++                return false;
++            }
++        }
++        else if ( !attributeOptionCombo.equals( other.attributeOptionCombo ) )
++        {
++            return false;
++        }
++
++        return true;
++    }
++
+     @Override
+     public String toString()
+     {
+diff --git a/dhis-2/dhis-api/src/test/java/org/hisp/dhis/dataelement/OperandTest.java b/dhis-2/dhis-api/src/test/java/org/hisp/dhis/dataelement/OperandTest.java
+index 36bf2362f..bedeb36ed 100644
+--- a/dhis-2/dhis-api/src/test/java/org/hisp/dhis/dataelement/OperandTest.java
++++ b/dhis-2/dhis-api/src/test/java/org/hisp/dhis/dataelement/OperandTest.java
+@@ -33,6 +33,8 @@ import org.junit.Test;
+ import java.util.HashSet;
+ import java.util.Set;
+ 
++import static org.hisp.dhis.common.DataDimensionType.DISAGGREGATION;
++import static org.hisp.dhis.dataelement.DataElementCategoryCombo.DEFAULT_CATEGORY_COMBO_NAME;
+ import static org.junit.Assert.*;
+ 
+ /**
+@@ -43,56 +45,90 @@ public class OperandTest
+     @Test
+     public void testHashCode()
+     {
+-        DataElement dataElementA = new DataElement();
+-        dataElementA.setUid( "DE_UID_AAA" );
++        DataElement dataElementA = new DataElement( "DataElement A" );
++        DataElement dataElementB = new DataElement( "DataElement B" );
+ 
+-        DataElement dataElementB = new DataElement();
+-        dataElementB.setUid( "DE_UID_BBB" );
++        DataElementCategoryCombo categoryComboA = new DataElementCategoryCombo( "CategoryCombo A", DISAGGREGATION );
++        DataElementCategoryCombo categoryComboB = new DataElementCategoryCombo( "CategoryCombo B", DISAGGREGATION );
++        DataElementCategoryCombo defaultCatCombo = new DataElementCategoryCombo( DEFAULT_CATEGORY_COMBO_NAME, DISAGGREGATION );
+ 
+         DataElementCategoryOptionCombo categoryOptionComboA = new DataElementCategoryOptionCombo();
+-        categoryOptionComboA.setUid( "COC_UID_AAA" );
++        categoryOptionComboA.setCategoryCombo( categoryComboA );
+ 
+         DataElementCategoryOptionCombo categoryOptionComboB = new DataElementCategoryOptionCombo();
+-        categoryOptionComboB.setUid( "COC_UID_BBB" );
++        categoryOptionComboB.setCategoryCombo( categoryComboB );
++
++        DataElementCategoryOptionCombo defaultCatOptionCombo = new DataElementCategoryOptionCombo();
++        defaultCatOptionCombo.setCategoryCombo( defaultCatCombo );
+ 
+         DataElementOperand dataElementOperandA = new DataElementOperand( dataElementA, categoryOptionComboA );
+         DataElementOperand dataElementOperandB = new DataElementOperand( dataElementB, categoryOptionComboB );
+         DataElementOperand dataElementOperandC = new DataElementOperand( dataElementA, categoryOptionComboB );
+         DataElementOperand dataElementOperandD = new DataElementOperand( dataElementB, categoryOptionComboA );
++        DataElementOperand dataElementOperandE = new DataElementOperand( dataElementA, categoryOptionComboA, categoryOptionComboA );
++        DataElementOperand dataElementOperandF = new DataElementOperand( dataElementA, categoryOptionComboB, categoryOptionComboB );
++        DataElementOperand dataElementOperandG = new DataElementOperand( dataElementA, categoryOptionComboA, categoryOptionComboB );
++        DataElementOperand dataElementOperandH = new DataElementOperand( dataElementA, categoryOptionComboB, categoryOptionComboA );
++        DataElementOperand dataElementOperandI = new DataElementOperand( dataElementA );
++        DataElementOperand dataElementOperandJ = new DataElementOperand( dataElementA, defaultCatOptionCombo );
+ 
+         Set<DataElementOperand> dataElementOperands = new HashSet<>();
+         dataElementOperands.add( dataElementOperandA );
+         dataElementOperands.add( dataElementOperandB );
+         dataElementOperands.add( dataElementOperandC );
+         dataElementOperands.add( dataElementOperandD );
+-
+-        assertEquals( 4, dataElementOperands.size() );
++        dataElementOperands.add( dataElementOperandE );
++        dataElementOperands.add( dataElementOperandF );
++        dataElementOperands.add( dataElementOperandG );
++        dataElementOperands.add( dataElementOperandH );
++        dataElementOperands.add( dataElementOperandI );
++        dataElementOperands.add( dataElementOperandJ );
++
++        assertEquals( 10, dataElementOperands.size() );
+     }
+     
+     @Test
+     public void testEquals()
+     {
+-        DataElement dataElementA = new DataElement();
+-        dataElementA.setUid( "DE_UID_AAA" );
++        DataElement dataElementA = new DataElement( "DataElement A" );
++        DataElement dataElementB = new DataElement( "DataElement B" );
+ 
+-        DataElement dataElementB = new DataElement();
+-        dataElementB.setUid( "DE_UID_BBB" );
++        DataElementCategoryCombo categoryComboA = new DataElementCategoryCombo( "CategoryCombo A", DISAGGREGATION );
++        DataElementCategoryCombo categoryComboB = new DataElementCategoryCombo( "CategoryCombo B", DISAGGREGATION );
++        DataElementCategoryCombo defaultCatCombo = new DataElementCategoryCombo( DEFAULT_CATEGORY_COMBO_NAME, DISAGGREGATION );
+ 
+         DataElementCategoryOptionCombo categoryOptionComboA = new DataElementCategoryOptionCombo();
+-        categoryOptionComboA.setUid( "COC_UID_AAA" );
++        categoryOptionComboA.setCategoryCombo( categoryComboA );
+ 
+         DataElementCategoryOptionCombo categoryOptionComboB = new DataElementCategoryOptionCombo();
+-        categoryOptionComboB.setUid( "COC_UID_BBB" );
++        categoryOptionComboB.setCategoryCombo( categoryComboB );
++
++        DataElementCategoryOptionCombo defaultCatOptionCombo = new DataElementCategoryOptionCombo();
++        defaultCatOptionCombo.setCategoryCombo( defaultCatCombo );
+ 
+         DataElementOperand dataElementOperandA = new DataElementOperand( dataElementA, categoryOptionComboA );
+         DataElementOperand dataElementOperandB = new DataElementOperand( dataElementB, categoryOptionComboB );
+         DataElementOperand dataElementOperandC = new DataElementOperand( dataElementA, categoryOptionComboA );
+         DataElementOperand dataElementOperandD = new DataElementOperand( dataElementB, categoryOptionComboB );
+-        
++        DataElementOperand dataElementOperandE = new DataElementOperand( dataElementA, categoryOptionComboA, categoryOptionComboA );
++        DataElementOperand dataElementOperandF = new DataElementOperand( dataElementA, categoryOptionComboB, categoryOptionComboB );
++        DataElementOperand dataElementOperandG = new DataElementOperand( dataElementA, categoryOptionComboA, categoryOptionComboA );
++        DataElementOperand dataElementOperandH = new DataElementOperand( dataElementA, categoryOptionComboB, categoryOptionComboB );
++        DataElementOperand dataElementOperandI = new DataElementOperand( dataElementA );
++        DataElementOperand dataElementOperandJ = new DataElementOperand( dataElementA, defaultCatOptionCombo );
++
+         assertEquals( dataElementOperandA, dataElementOperandC );
+         assertEquals( dataElementOperandB, dataElementOperandD );
++        assertEquals( dataElementOperandE, dataElementOperandG );
++        assertEquals( dataElementOperandF, dataElementOperandH );
++
+         assertNotEquals( dataElementOperandA, dataElementOperandB );
+         assertNotEquals( dataElementOperandC, dataElementOperandD );
++        assertNotEquals( dataElementOperandE, dataElementOperandF );
++        assertNotEquals( dataElementOperandG, dataElementOperandH );
++        assertNotEquals( dataElementOperandI, dataElementOperandJ );
+ 
++        assertNotEquals( dataElementOperandA, dataElementOperandE );
++        assertNotEquals( dataElementOperandA, dataElementOperandI );
+     }
+ }

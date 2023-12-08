@@ -1,0 +1,39 @@
+diff --git a/src/main/java/io/github/classgraph/ClassGraph.java b/src/main/java/io/github/classgraph/ClassGraph.java
+index f8a2e9693..5ac712754 100644
+--- a/src/main/java/io/github/classgraph/ClassGraph.java
++++ b/src/main/java/io/github/classgraph/ClassGraph.java
+@@ -862,7 +862,7 @@ public class ClassGraph {
+         if (jarLeafNames.length == 0) {
+             // Blacklist all lib or ext jars
+             for (final String libOrExtJar : JarUtils.getJreLibOrExtJars()) {
+-                blacklistLibOrExtJars(libOrExtJar);
++                blacklistLibOrExtJars(JarUtils.leafName(libOrExtJar));
+             }
+         } else {
+             for (final String jarLeafName : jarLeafNames) {
+diff --git a/src/test/java/io/github/classgraph/issues/issue277/Issue227Test.java b/src/test/java/io/github/classgraph/issues/issue277/Issue227Test.java
+new file mode 100644
+index 000000000..33c29f9dc
+--- /dev/null
++++ b/src/test/java/io/github/classgraph/issues/issue277/Issue227Test.java
+@@ -0,0 +1,20 @@
++package io.github.classgraph.issues.issue277;
++
++import io.github.classgraph.ClassGraph;
++import org.junit.Test;
++
++/**
++ * https://github.com/classgraph/classgraph/issues/277
++ */
++public class Issue227Test {
++
++    @Test
++    public void testNoArgsBlacklistLibOrExtJars() {
++        new ClassGraph().blacklistLibOrExtJars();
++    }
++
++    @Test
++    public void testNoArgsWhitelistLibOrExtJars() {
++        new ClassGraph().whitelistLibOrExtJars();
++    }
++}

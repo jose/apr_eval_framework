@@ -1,0 +1,25 @@
+--- src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2023-12-05 17:16:36.880597515 +0000
++++ src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2023-12-05 17:16:40.706402992 +0000
+@@ -237,12 +237,7 @@
+      * @return RMS value
+      */
+     public double getRMS() {
+-        double criterion = 0;
+-        for (int i = 0; i < rows; ++i) {
+-            final double residual = residuals[i];
+-            criterion += residual * residual * residualsWeights[i];
+-        }
+-        return Math.sqrt(criterion / rows);
++        return Math.sqrt(getChiSquare() / rows);
+     }
+ 
+     /**
+@@ -255,7 +250,7 @@
+         double chiSquare = 0;
+         for (int i = 0; i < rows; ++i) {
+             final double residual = residuals[i];
+-            chiSquare += residual * residual / residualsWeights[i];
++            chiSquare += residual * residual * residualsWeights[i];
+         }
+         return chiSquare;
+     }

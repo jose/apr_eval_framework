@@ -1,0 +1,233 @@
+diff --git a/src/server/src/main/java/io/cassandrareaper/resources/view/RepairRunStatus.java b/src/server/src/main/java/io/cassandrareaper/resources/view/RepairRunStatus.java
+index 0c81b9243..b4ca87e97 100644
+--- a/src/server/src/main/java/io/cassandrareaper/resources/view/RepairRunStatus.java
++++ b/src/server/src/main/java/io/cassandrareaper/resources/view/RepairRunStatus.java
+@@ -19,6 +19,7 @@ import io.cassandrareaper.core.RepairUnit;
+ 
+ import java.util.Collection;
+ import java.util.UUID;
++
+ import javax.annotation.Nullable;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
+@@ -67,6 +68,8 @@ public final class RepairRunStatus {
+   @JsonIgnore
+   private DateTime pauseTime;
+ 
++  @JsonIgnore private DateTime currentTime;
++
+   @JsonProperty
+   private double intensity;
+ 
+@@ -139,6 +142,7 @@ public final class RepairRunStatus {
+     this.startTime = startTime;
+     this.endTime = endTime;
+     this.pauseTime = pauseTime;
++    this.currentTime = DateTime.now();
+     this.intensity = roundDoubleNicely(intensity);
+     this.incrementalRepair = incrementalRepair;
+     this.totalSegments = totalSegments;
+@@ -150,14 +154,31 @@ public final class RepairRunStatus {
+     this.datacenters = datacenters;
+     this.blacklistedTables = blacklistedTables;
+ 
+-    if (startTime == null || endTime == null) {
++    if (startTime == null) {
+       duration = null;
+     } else {
+-      duration = DurationFormatUtils.formatDurationWords(
+-          new Duration(startTime.toInstant(), endTime.toInstant()).getMillis(), true, false);
++      if (state == RepairRun.RunState.RUNNING || state == RepairRun.RunState.PAUSED) {
++        duration =
++            DurationFormatUtils.formatDurationWords(
++                new Duration(startTime.toInstant(), currentTime.toInstant()).getMillis(),
++                true,
++                false);
++      } else if (state == RepairRun.RunState.ABORTED) {
++        duration =
++            DurationFormatUtils.formatDurationWords(
++                new Duration(startTime.toInstant(), pauseTime.toInstant()).getMillis(),
++                true,
++                false);
++      } else if (endTime != null) {
++        duration =
++            DurationFormatUtils.formatDurationWords(
++                new Duration(startTime.toInstant(), endTime.toInstant()).getMillis(), true, false);
++      } else {
++        duration = null;
++      }
+     }
+ 
+-    if (startTime == null || (endTime != null && endTime.isAfter(startTime))) {
++    if (startTime == null) {
+       estimatedTimeOfArrival = null;
+     } else {
+       if (state == RepairRun.RunState.ERROR
+@@ -247,6 +268,18 @@ public final class RepairRunStatus {
+     }
+   }
+ 
++  @JsonProperty("current_time")
++  public void setCurrentTimeIso8601(String dateStr) {
++    if (null != dateStr) {
++      currentTime = ISODateTimeFormat.dateTimeNoMillis().parseDateTime(dateStr);
++    }
++  }
++
++  @JsonProperty("current_time")
++  public String getCurrentTimeIso8601() {
++    return dateTimeToIso8601(currentTime);
++  }
++
+   public String getCause() {
+     return cause;
+   }
+@@ -335,6 +368,14 @@ public final class RepairRunStatus {
+     this.pauseTime = pauseTime;
+   }
+ 
++  public DateTime getCurrentTime() {
++    return currentTime;
++  }
++
++  public void setCurrentTime(DateTime currentTime) {
++    this.currentTime = currentTime;
++  }
++
+   public double getIntensity() {
+     return intensity;
+   }
+diff --git a/src/server/src/test/java/io/cassandrareaper/resources/view/RepairRunStatusTest.java b/src/server/src/test/java/io/cassandrareaper/resources/view/RepairRunStatusTest.java
+index dbfe4a2f0..05bfa85cd 100644
+--- a/src/server/src/test/java/io/cassandrareaper/resources/view/RepairRunStatusTest.java
++++ b/src/server/src/test/java/io/cassandrareaper/resources/view/RepairRunStatusTest.java
+@@ -15,6 +15,12 @@
+ package io.cassandrareaper.resources.view;
+ 
+ 
++import io.cassandrareaper.core.RepairRun;
++
++import java.util.Collections;
++import java.util.UUID;
++
++import org.apache.cassandra.repair.RepairParallelism;
+ import org.joda.time.DateTime;
+ import org.joda.time.DateTimeZone;
+ import org.junit.Test;
+@@ -44,4 +50,116 @@ public final class RepairRunStatusTest {
+     DateTime dateTime = new DateTime(2015, 2, 20, 15, 24, 45, DateTimeZone.UTC);
+     assertEquals("2015-02-20T15:24:45Z", RepairRunStatus.dateTimeToIso8601(dateTime));
+   }
++
++  @Test
++  public void testRunningRepairDuration() {
++    RepairRunStatus repairStatus =
++        new RepairRunStatus(
++            UUID.randomUUID(), // runId
++            "test", // clusterName
++            "test", // keyspaceName
++            Collections.EMPTY_LIST, // tables
++            10, // segmentsRepaired
++            100, // totalSegments
++            RepairRun.RunState.RUNNING, // state
++            new DateTime().now().minusMinutes(1), // startTime
++            null, // endTime
++            "test", // cause
++            "alex", // owner
++            "", // lastEvent
++            new DateTime(2018, 4, 11, 15, 00, 00, DateTimeZone.UTC), // creationTime
++            null, // pauseTime
++            0.9, // intensity
++            false, // incremental
++            RepairParallelism.PARALLEL, // repairParellelism
++            Collections.EMPTY_LIST, // nodes
++            Collections.EMPTY_LIST, // datacenters
++            Collections.EMPTY_LIST); // blacklist
++
++    assertEquals("1 minute 0 seconds", repairStatus.getDuration());
++  }
++
++  @Test
++  public void testFinishedRepairDuration() {
++    RepairRunStatus repairStatus =
++        new RepairRunStatus(
++            UUID.randomUUID(), // runId
++            "test", // clusterName
++            "test", // keyspaceName
++            Collections.EMPTY_LIST, // tables
++            10, // segmentsRepaired
++            100, // totalSegments
++            RepairRun.RunState.DONE, // state
++            new DateTime().now().minusMinutes(1).minusSeconds(30), // startTime
++            new DateTime().now(), // endTime
++            "test", // cause
++            "alex", // owner
++            "", // lastEvent
++            new DateTime(2018, 4, 11, 15, 00, 00, DateTimeZone.UTC), // creationTime
++            null, // pauseTime
++            0.9, // intensity
++            false, // incremental
++            RepairParallelism.PARALLEL, // repairParellelism
++            Collections.EMPTY_LIST, // nodes
++            Collections.EMPTY_LIST, // datacenters
++            Collections.EMPTY_LIST); // blacklist
++
++    assertEquals("1 minute 30 seconds", repairStatus.getDuration());
++  }
++
++  @Test
++  public void testPausedRepairDuration() {
++    RepairRunStatus repairStatus =
++        new RepairRunStatus(
++            UUID.randomUUID(), // runId
++            "test", // clusterName
++            "test", // keyspaceName
++            Collections.EMPTY_LIST, // tables
++            10, // segmentsRepaired
++            100, // totalSegments
++            RepairRun.RunState.PAUSED, // state
++            new DateTime().now().minusMinutes(1).minusSeconds(50), // startTime
++            new DateTime().now(), // endTime
++            "test", // cause
++            "alex", // owner
++            "", // lastEvent
++            new DateTime(2018, 4, 11, 15, 00, 00, DateTimeZone.UTC), // creationTime
++            new DateTime().now().minusMinutes(1), // pauseTime
++            0.9, // intensity
++            false, // incremental
++            RepairParallelism.PARALLEL, // repairParellelism
++            Collections.EMPTY_LIST, // nodes
++            Collections.EMPTY_LIST, // datacenters
++            Collections.EMPTY_LIST); // blacklist
++
++    assertEquals("1 minute 50 seconds", repairStatus.getDuration());
++  }
++
++  @Test
++  public void testAbortedRepairDuration() {
++    RepairRunStatus repairStatus =
++        new RepairRunStatus(
++            UUID.randomUUID(), // runId
++            "test", // clusterName
++            "test", // keyspaceName
++            Collections.EMPTY_LIST, // tables
++            10, // segmentsRepaired
++            100, // totalSegments
++            RepairRun.RunState.ABORTED, // state
++            new DateTime().now().minusMinutes(1).minusSeconds(30), // startTime
++            null, // endTime
++            "test", // cause
++            "alex", // owner
++            "", // lastEvent
++            new DateTime(2018, 4, 11, 15, 00, 00, DateTimeZone.UTC), // creationTime
++            new DateTime().now().minusMinutes(1), // pauseTime
++            0.9, // intensity
++            false, // incremental
++            RepairParallelism.PARALLEL, // repairParellelism
++            Collections.EMPTY_LIST, // nodes
++            Collections.EMPTY_LIST, // datacenters
++            Collections.EMPTY_LIST); // blacklist
++
++    assertEquals("30 seconds", repairStatus.getDuration());
++  }
+ }

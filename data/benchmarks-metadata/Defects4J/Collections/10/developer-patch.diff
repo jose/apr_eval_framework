@@ -1,0 +1,23 @@
+--- src/java/org/apache/commons/collections/map/MultiValueMap.java	2023-12-05 20:08:02.684967836 +0000
++++ src/java/org/apache/commons/collections/map/MultiValueMap.java	2023-12-05 20:08:06.330542284 +0000
+@@ -66,9 +66,10 @@
+  * @version $Revision$ $Date$
+  * @since Commons Collections 3.2
+  */
+-public class MultiValueMap extends AbstractMapDecorator implements MultiMap {
++public class MultiValueMap extends AbstractMapDecorator implements MultiMap, Serializable {
+ 
+     /** Serialization version */
++    private static final long serialVersionUID = -2214159910087182007L;
+ 
+     /** The factory for creating value collections. */
+     private final Factory collectionFactory;
+@@ -457,7 +458,7 @@
+     /**
+      * Inner class that provides a simple reflection factory.
+      */
+-    private static class ReflectionFactory implements Factory {
++    private static class ReflectionFactory implements Factory, Serializable {
+         private final Class clazz;
+ 
+         public ReflectionFactory(Class clazz) {

@@ -1,0 +1,1098 @@
+diff --git a/src/main/java/spoon/reflect/visitor/filter/LocalVariableReferenceFunction.java b/src/main/java/spoon/reflect/visitor/filter/LocalVariableReferenceFunction.java
+index d11477e52..2c64708e7 100644
+--- a/src/main/java/spoon/reflect/visitor/filter/LocalVariableReferenceFunction.java
++++ b/src/main/java/spoon/reflect/visitor/filter/LocalVariableReferenceFunction.java
+@@ -17,7 +17,10 @@
+ package spoon.reflect.visitor.filter;
+ 
+ import spoon.reflect.code.CtLocalVariable;
++import spoon.reflect.declaration.CtElement;
++import spoon.reflect.declaration.CtType;
+ import spoon.reflect.reference.CtLocalVariableReference;
++import spoon.reflect.visitor.Filter;
+ import spoon.reflect.visitor.chain.CtConsumableFunction;
+ import spoon.reflect.visitor.chain.CtConsumer;
+ 
+@@ -40,10 +43,35 @@ public class LocalVariableReferenceFunction implements CtConsumableFunction<CtLo
+ 	}
+ 
+ 	@Override
+-	public void apply(CtLocalVariable<?> localVariable, CtConsumer<Object> outputConsumer) {
++	public void apply(final CtLocalVariable<?> localVariable, CtConsumer<Object> outputConsumer) {
++		final String simpleName = localVariable.getSimpleName();
++		class Context {
++			boolean hasLocalType = false;
++		}
++		final Context context = new Context();
+ 		localVariable
+ 			.map(new LocalVariableScopeFunction())
+-			.select(new DirectReferenceFilter<CtLocalVariableReference<?>>(localVariable.getReference()))
++			.select(new Filter<CtElement>() {
++				@Override
++				public boolean matches(CtElement element) {
++					if (element instanceof CtType) {
++						context.hasLocalType = true;
++					} else if (element instanceof CtLocalVariableReference<?>) {
++						CtLocalVariableReference<?> localVarRef = (CtLocalVariableReference<?>) element;
++						if (simpleName.equals(localVarRef.getSimpleName())) {
++							//we have found a variable reference in visibility scope of localVariable
++							if (context.hasLocalType) {
++								//there exists a local type in visibility scope of this variable declaration
++								//the variable declarations in scope of this local class may shadow input localVariable
++								//so finally check that there is no other localVariable, which shadows the input localVariable
++								return localVariable == localVarRef.getDeclaration();
++							}
++							return true;
++						}
++					}
++					return false;
++				}
++			})
+ 			.forEach(outputConsumer);
+ 	}
+ }
+diff --git a/src/main/java/spoon/reflect/visitor/filter/LocalVariableScopeFunction.java b/src/main/java/spoon/reflect/visitor/filter/LocalVariableScopeFunction.java
+index f72fab4b8..1c2cfc8d3 100644
+--- a/src/main/java/spoon/reflect/visitor/filter/LocalVariableScopeFunction.java
++++ b/src/main/java/spoon/reflect/visitor/filter/LocalVariableScopeFunction.java
+@@ -16,15 +16,9 @@
+  */
+ package spoon.reflect.visitor.filter;
+ 
+-import java.util.List;
+-
+-import spoon.SpoonException;
+ import spoon.reflect.code.CtLocalVariable;
+-import spoon.reflect.code.CtStatement;
+-import spoon.reflect.code.CtStatementList;
+ import spoon.reflect.visitor.chain.CtConsumableFunction;
+ import spoon.reflect.visitor.chain.CtConsumer;
+-import spoon.reflect.visitor.chain.CtQuery;
+ 
+ /**
+  * This Query expects a {@link CtLocalVariable} as input
+@@ -50,22 +44,6 @@ public class LocalVariableScopeFunction implements CtConsumableFunction<CtLocalV
+ 
+ 	@Override
+ 	public void apply(CtLocalVariable<?> localVariable, CtConsumer<Object> outputConsumer) {
+-		CtStatementList statements = localVariable.getParent(CtStatementList.class);
+-		if (statements == null) {
+-			//cannot search for variable references of variable which has no parent statement list/block
+-			return;
+-		}
+-		//create query which will be evaluated on each statement after local variable declaration
+-		CtQuery query = localVariable.getFactory().createQuery().filterChildren(null);
+-		List<CtStatement> stats = statements.getStatements();
+-		//search for variable declaration in statements of current block
+-		int idxOfVar = stats.indexOf(localVariable);
+-		if (idxOfVar < 0) {
+-			throw new SpoonException("Cannot found index of local variable declaration " + localVariable + " in statement list " + statements);
+-		}
+-		//scan only all elements AFTER this variable declaration
+-		for (int i = idxOfVar + 1; i < stats.size(); i++) {
+-			query.setInput(stats.get(i)).forEach(outputConsumer);
+-		}
++		localVariable.map(new SiblingsFunction().mode(SiblingsFunction.Mode.NEXT).includingSelf(true)).filterChildren(null).forEach(outputConsumer);
+ 	}
+ }
+diff --git a/src/main/java/spoon/reflect/visitor/filter/PotentialVariableDeclarationFunction.java b/src/main/java/spoon/reflect/visitor/filter/PotentialVariableDeclarationFunction.java
+new file mode 100644
+index 000000000..12d93e40a
+--- /dev/null
++++ b/src/main/java/spoon/reflect/visitor/filter/PotentialVariableDeclarationFunction.java
+@@ -0,0 +1,112 @@
++/**
++ * Copyright (C) 2006-2017 INRIA and contributors
++ * Spoon - http://spoon.gforge.inria.fr/
++ *
++ * This software is governed by the CeCILL-C License under French law and
++ * abiding by the rules of distribution of free software. You can use, modify
++ * and/or redistribute the software under the terms of the CeCILL-C license as
++ * circulated by CEA, CNRS and INRIA at http://www.cecill.info.
++ *
++ * This program is distributed in the hope that it will be useful, but WITHOUT
++ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ * FITNESS FOR A PARTICULAR PURPOSE. See the CeCILL-C License for more details.
++ *
++ * The fact that you are presently reading this means that you have had
++ * knowledge of the CeCILL-C license and that you accept its terms.
++ */
++package spoon.reflect.visitor.filter;
++
++import java.util.Collection;
++
++import spoon.reflect.code.CtBodyHolder;
++import spoon.reflect.code.CtCatch;
++import spoon.reflect.code.CtStatementList;
++import spoon.reflect.declaration.CtElement;
++import spoon.reflect.declaration.CtExecutable;
++import spoon.reflect.declaration.CtField;
++import spoon.reflect.declaration.CtPackage;
++import spoon.reflect.declaration.CtParameter;
++import spoon.reflect.declaration.CtType;
++import spoon.reflect.reference.CtFieldReference;
++import spoon.reflect.reference.CtVariableReference;
++import spoon.reflect.visitor.chain.CtConsumableFunction;
++import spoon.reflect.visitor.chain.CtConsumer;
++import spoon.reflect.visitor.chain.CtQuery;
++
++/**
++ * This Query expects a {@link CtVariableReference}, which represents reference to an variable, as input
++ * and returns all {@link CtElement} instances, which might be a declaration of that variable reference
++ * <br>
++ * In other words, it returns all elements,
++ * which might be declaration of input variable reference.
++ * <br>
++ * It returns {@link CtParameter} instances from methods, lambdas and catch blocks.
++ * It returns {@link CtField} instances from wrapping classes and their super classes too.
++ * <br>
++ * The elements are visited in defined order. First are elements from nearest parent blocks,
++ * then fields of wrapping classes, then fields of super classes, etc.
++ * <br>
++ * It can be used to search for variable declarations of
++ * variable references and for detection of variable name conflicts
++ * <br>
++ * Usage:<br>
++ * <pre> {@code
++ * CtVariableReference varRef = ...;
++ * varRef.map(new PotentialVariableDeclarationFunction()).forEach(...process result...);
++ * }
++ * </pre>
++ */
++public class PotentialVariableDeclarationFunction implements CtConsumableFunction<CtElement> {
++
++	private boolean includingFields = true;
++
++	public PotentialVariableDeclarationFunction() {
++	}
++
++	@Override
++	public void apply(CtElement input, CtConsumer<Object> outputConsumer) {
++		//Search previous siblings for element which may represents the declaration of this local variable
++		CtQuery siblingsQuery = input.getFactory().createQuery().map(new SiblingsFunction().mode(SiblingsFunction.Mode.PREVIOUS));
++
++		CtElement scopeElement = input;
++		//Search input and then all parents until first CtPackage for element which may represents the declaration of this local variable
++		while (scopeElement != null && !(scopeElement instanceof CtPackage)) {
++			CtElement parent = scopeElement.getParent();
++			if (parent instanceof CtType<?>) {
++				if (includingFields) {
++					//TODO replace getAllFields() followed by getFieldDeclaration, by direct visiting of fields of types in super classes.
++					Collection<CtFieldReference<?>> allFields = ((CtType<?>) parent).getAllFields();
++					for (CtFieldReference<?> fieldReference : allFields) {
++						outputConsumer.accept(fieldReference.getFieldDeclaration());
++					}
++				}
++			} else if (parent instanceof CtBodyHolder || parent instanceof CtStatementList) {
++				//visit all previous siblings of scopeElement element in parent BodyHolder or Statement list
++				siblingsQuery.setInput(scopeElement).forEach(outputConsumer);
++				//visit parameters of CtCatch and CtExecutable (method, lambda)
++				if (parent instanceof CtCatch) {
++					CtCatch ctCatch = (CtCatch) parent;
++					outputConsumer.accept(ctCatch.getParameter());
++				} else if (parent instanceof CtExecutable) {
++					CtExecutable<?> exec = (CtExecutable<?>) parent;
++					for (CtParameter<?> param : exec.getParameters()) {
++						outputConsumer.accept(param);
++					}
++				}
++			}
++			scopeElement = parent;
++		}
++	}
++
++	public boolean isIncludingFields() {
++		return includingFields;
++	}
++
++	/**
++	 * @param includingFields if true then CtFields of wrapping class and all super classes are returned too
++	 */
++	public PotentialVariableDeclarationFunction includingFields(boolean includingFields) {
++		this.includingFields = includingFields;
++		return this;
++	}
++}
+diff --git a/src/main/java/spoon/reflect/visitor/filter/SiblingsFunction.java b/src/main/java/spoon/reflect/visitor/filter/SiblingsFunction.java
+new file mode 100644
+index 000000000..50752460a
+--- /dev/null
++++ b/src/main/java/spoon/reflect/visitor/filter/SiblingsFunction.java
+@@ -0,0 +1,90 @@
++/**
++ * Copyright (C) 2006-2017 INRIA and contributors
++ * Spoon - http://spoon.gforge.inria.fr/
++ *
++ * This software is governed by the CeCILL-C License under French law and
++ * abiding by the rules of distribution of free software. You can use, modify
++ * and/or redistribute the software under the terms of the CeCILL-C license as
++ * circulated by CEA, CNRS and INRIA at http://www.cecill.info.
++ *
++ * This program is distributed in the hope that it will be useful, but WITHOUT
++ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ * FITNESS FOR A PARTICULAR PURPOSE. See the CeCILL-C License for more details.
++ *
++ * The fact that you are presently reading this means that you have had
++ * knowledge of the CeCILL-C license and that you accept its terms.
++ */
++package spoon.reflect.visitor.filter;
++
++import spoon.reflect.declaration.CtElement;
++import spoon.reflect.visitor.CtScanner;
++import spoon.reflect.visitor.chain.CtConsumableFunction;
++import spoon.reflect.visitor.chain.CtConsumer;
++
++/**
++ * visits siblings of input element.
++ * The sibling is the element whose sibling.getParent()==input.getParent()
++ * <br>
++ * The siblings are visited in order in which they would be visited by CtScanner.
++ * The input element is by default not visited. But if {@link #includingSelf(boolean)} is called with value true,
++ * then input element is visited too in the order in which CtScanner would visit it.
++ *
++ *  The visiting order is relevant, because this scanner is used for example resolve local variable declarations.
++ */
++public class SiblingsFunction implements CtConsumableFunction<CtElement> {
++
++	/**
++	 * Defines visiting mode
++	 */
++	public enum Mode {
++		ALL,	//all siblings are visited
++		PREVIOUS, //only previous siblings of input element
++		NEXT	//only next siblings of input element
++	}
++
++	private Mode mode = Mode.ALL;
++	private boolean includingSelf = false;
++
++	public SiblingsFunction() {
++	}
++
++	/**
++	 * @param includingSelf if false then input element is not visited
++	 */
++	public SiblingsFunction includingSelf(boolean includingSelf) {
++		this.includingSelf = includingSelf;
++		return this;
++	}
++
++	/**
++	 * @param mode defines which siblings will be visited. See {@link Mode} for possible values
++	 */
++	public SiblingsFunction mode(Mode mode) {
++		this.mode = mode;
++		return this;
++	}
++
++	@Override
++	public void apply(final CtElement input, final CtConsumer<Object> outputConsumer) {
++		final CtElement parent = input.getParent();
++		parent.accept(new CtScanner() {
++			boolean hasVisitedInput = false;
++			boolean visitPrev = mode == Mode.ALL || mode == Mode.PREVIOUS;
++			boolean visitNext = mode == Mode.ALL || mode == Mode.NEXT;
++			@Override
++			public void scan(CtElement element) {
++				if (element != null && element.getParent() == parent) {
++					//visit only elements whose parent is same
++					boolean canVisit = hasVisitedInput ? visitNext : visitPrev;
++					if (input == element) {
++						hasVisitedInput = true;
++						canVisit = includingSelf;
++					}
++					if (canVisit) {
++						outputConsumer.accept(element);
++					}
++				}
++			}
++		});
++	}
++}
+diff --git a/src/main/java/spoon/support/reflect/reference/CtLocalVariableReferenceImpl.java b/src/main/java/spoon/support/reflect/reference/CtLocalVariableReferenceImpl.java
+index 6711d3383..3bd525901 100644
+--- a/src/main/java/spoon/support/reflect/reference/CtLocalVariableReferenceImpl.java
++++ b/src/main/java/spoon/support/reflect/reference/CtLocalVariableReferenceImpl.java
+@@ -17,15 +17,13 @@
+ package spoon.support.reflect.reference;
+ 
+ import spoon.reflect.code.CtLocalVariable;
+-import spoon.reflect.declaration.CtElement;
+-import spoon.reflect.declaration.CtPackage;
++import spoon.reflect.declaration.CtVariable;
+ import spoon.reflect.declaration.ParentNotInitializedException;
+ import spoon.reflect.factory.Factory;
+ import spoon.reflect.reference.CtLocalVariableReference;
+ import spoon.reflect.visitor.CtVisitor;
+-import spoon.reflect.visitor.filter.AbstractFilter;
+-
+-import java.util.List;
++import spoon.reflect.visitor.Filter;
++import spoon.reflect.visitor.filter.PotentialVariableDeclarationFunction;
+ 
+ /**
+  * An implementation for {@link CtLocalVariableReference}.
+@@ -50,6 +48,7 @@ public class CtLocalVariableReferenceImpl<T>
+ 		visitor.visitCtLocalVariableReference(this);
+ 	}
+ 
++	@SuppressWarnings("unchecked")
+ 	@Override
+ 	public CtLocalVariable<T> getDeclaration() {
+ 		// without a factory, we are not able to filter for local variables
+@@ -57,30 +56,35 @@ public class CtLocalVariableReferenceImpl<T>
+ 		if (factory == null) {
+ 			return null;
+ 		}
+-		final SimpleNameFilter filter = new SimpleNameFilter();
+ 
+-		// successively iterate through all parents of this reference and
+-		// return first result (which must be the closest declaration
+-		// respecting visible scope)
++		final String simpleName = getSimpleName();
++
++		//handle the CtLocalVariableReference which were created by CtLocalVariable#getReference() and which are not yet part of model, so we cannot found them using standard rules
++		if (parent instanceof CtLocalVariable) {
++			CtLocalVariable<T> var = (CtLocalVariable<T>) parent;
++			if (simpleName.equals(var.getSimpleName())) {
++				return var;
++			}
++		}
+ 		try {
+-			CtElement parent = getParent();
+-			// stop at `package` level to avoid lookups to foreign Java files
+-			while (parent != null && !(parent instanceof CtPackage)) {
+-				final List<CtLocalVariable<T>> localVariables =
+-						parent.getElements(filter);
+-				// since `parent` may be a class declaring multiple local
+-				// variables with same name in different methods, we have to
+-				// check if any of the findings is visible in current scope by
+-				// validating that the parent of a finding is parent of this
+-				// reference as well
+-				for (final CtLocalVariable<T> lv : localVariables) {
+-					if (getParent().equals(lv) || hasParent(lv.getParent())) {
+-						return lv;
+-					}
++			// successively iterate through all parents of this reference and
++			// return first result (which must be the closest declaration
++			// respecting visible scope)
++			CtVariable<?> var = map(new PotentialVariableDeclarationFunction()).select(new Filter<CtVariable<?>>() {
++				@Override
++				public boolean matches(CtVariable<?> var) {
++					return simpleName.equals(var.getSimpleName());
+ 				}
+-				parent = parent.getParent();
++			}).first();
++			if (var instanceof CtLocalVariable) {
++				return (CtLocalVariable<T>) var;
+ 			}
+-		} catch (final ParentNotInitializedException e) {
++			if (var != null) {
++				//we have found another variable declaration with same simple name, which hides declaration of this local variable reference
++				//handle it as not found
++				return null;
++			}
++		} catch (ParentNotInitializedException e) {
+ 			// handle this case as 'not found'
+ 		}
+ 		return null;
+@@ -90,22 +94,4 @@ public class CtLocalVariableReferenceImpl<T>
+ 	public CtLocalVariableReference<T> clone() {
+ 		return (CtLocalVariableReference<T>) super.clone();
+ 	}
+-
+-	/**
+-	 * A {@link spoon.reflect.visitor.Filter} that filters all
+-	 * {@link CtLocalVariable}s with simple name equals to
+-	 * {@link #getSimpleName()}.
+-	 */
+-	private final class SimpleNameFilter
+-			extends AbstractFilter<CtLocalVariable<T>> {
+-
+-		SimpleNameFilter() {
+-			super();
+-		}
+-
+-		@Override
+-		public boolean matches(final CtLocalVariable<T> element) {
+-			return element.getSimpleName().equals(getSimpleName());
+-		}
+-	}
+ }
+diff --git a/src/test/java/spoon/test/query_function/VariableReferencesModelTest.java b/src/test/java/spoon/test/query_function/VariableReferencesModelTest.java
+new file mode 100644
+index 000000000..16ed134ca
+--- /dev/null
++++ b/src/test/java/spoon/test/query_function/VariableReferencesModelTest.java
+@@ -0,0 +1,284 @@
++package spoon.test.query_function;
++
++import static org.junit.Assert.assertTrue;
++
++import java.io.IOException;
++import java.io.Reader;
++import java.io.StringReader;
++import java.util.function.Consumer;
++
++import org.junit.Test;
++
++/**
++ * The main purpose of this test is to be transfomed by Spoon into Spoon model, 
++ * which is then used by {@link VariableReferencesTest}
++ * 
++ * The values of the fields must be a sequence starting from 1
++ */
++public class VariableReferencesModelTest {
++	int field = 15;
++
++	@Test
++	public void localVarsInNestedBlocks() {
++		assertTrue(this.field == 15);
++		{
++			{
++				int field = 1;
++				assertTrue(field == 1);
++			}
++			int f1,f2,f3,field = 2,f4;
++			assertTrue(field == 2);
++		}
++		int field = 3;
++		assertTrue(field == 3);
++		{
++			assertTrue(field == 3);
++		}
++		assertTrue(this.field == 15);
++	}
++	
++	@Test
++	public void localVarsInTryCatch() {
++		try
++		{
++			int field = 4;
++			assertTrue(field == 4);
++			throw new IllegalArgumentException();
++		}
++		catch(IllegalArgumentException e) {
++			assertTrue(field == 15);
++			{
++				int field = 5;
++				assertTrue(field == 5);
++			}
++			int field = 6;
++			assertTrue(field == 6);
++		}
++		catch(Exception /*7*/field) {
++			//7
++			field.getMessage();
++		}
++	}
++	
++	@Test
++	public void localVarsInWhile() {
++		while(true) {
++			int field = 8;
++			assertTrue(field == 8);
++			break;
++		}
++		int field = 9;
++		assertTrue(field == 9);
++	}
++	
++	@Test
++	public void localVarsInFor() {
++		for(int field=10;field == 10;) {
++			assertTrue(field == 10);
++			break;
++		}
++		int field = 11;
++		assertTrue(field == 11);
++	}
++	
++	@Test
++	public void localVarsInSwitch() {
++		switch(7) {
++		case 7:
++			int field=12;
++			assertTrue(field == 12);
++			break;
++		}
++		int field = 13;
++		assertTrue(field == 13);
++	}
++	
++	@Test
++	public void localVarsInTryWithResource() throws IOException {
++		try(/*14*/Reader field=new StringReader("")) {
++			//14
++			field.toString();
++		}
++	}
++	
++	@Test
++	public void checkParameter() {
++		parameter(16);
++	}
++	private void parameter(int field) {
++		assertTrue(field == 16);
++		{
++			assertTrue(field == 16);
++		}
++		while(true) {
++			assertTrue(field == 16);
++			break;
++		}
++	}
++	
++	@Test
++	public void parameterInLambdaWithBody() {
++		Consumer<Integer> fnc = (field)->{
++			assertTrue(field == 17);
++		};
++		fnc.accept(17);
++	}
++	
++	@Test
++	public void parameterInLambdaWithExpression() {
++		Consumer<Integer> fnc = (field)->assertTrue(field == 18);
++		fnc.accept(18);
++	}
++	
++	@Test
++	public void localVarInLambda() {
++		Runnable fnc = ()->{
++			int field = 19;
++			assertTrue(field == 19);
++		};
++		fnc.run();
++		
++		int field = 20;
++		Runnable fnc2 = ()->{
++			assertTrue(field == 20);
++		};
++		fnc2.run();
++	}
++	
++	static
++	{
++		int field = 21;
++		assertTrue(field == 21);
++	}
++	
++	{
++		int field = 22;
++		assertTrue(field == 22);
++	}
++	/*
++	 * check localVariable shadowed in Local class method by another LocalVariable declaration
++	 */
++	@Test
++	public void localVarInNestedClass() {
++		int field = 23;
++		assertTrue(field == 23);
++		Runnable fnc = new Runnable(){
++			@Override
++			public void run() {
++				{
++					int field = 24;
++					assertTrue(field == 24);
++				}
++				assertTrue(field == 23);
++				int field = 25;
++				assertTrue(field == 25);
++			}
++		};
++		fnc.run();
++		assertTrue(field == 23);
++	}
++	
++	/*
++	 * check localVariable shadowed in Local class method by CtField 27
++	 */
++	@Test
++	public void localVarInNestedClass2() {
++		int field = 26;
++		assertTrue(field == 26);
++		Runnable fnc = new Runnable(){
++			int field = 27;
++			@Override
++			public void run() {
++				{
++					int field = 36;
++					assertTrue(field == 36);
++				}
++				assertTrue(field == 27);
++				int field = 28;
++				assertTrue(field == 28);
++				assertTrue(this.field == 27);
++			}
++		};
++		fnc.run();
++		assertTrue(field == 26);
++	}
++	
++	class A {
++		int field = 29;
++	}
++	
++	abstract class B extends A {
++		abstract void run();
++	}
++	
++	/*
++	 * check localVariable shadowed in Local class method by inherited CtField 29
++	 */
++	@Test
++	public void localVarInNestedClass4() {
++		int field = 30;
++		assertTrue(field == 30);
++		B fnc = new B(){
++			@Override
++			public void run() {
++				{
++					int field = 31;
++					assertTrue(field == 31);
++				}
++				assertTrue(field == 29);
++				int field = 32;
++				assertTrue(field == 32);
++				assertTrue(this.field == 29);
++			}
++		};
++		fnc.run();
++		assertTrue(field == 30);
++	}
++	
++	/*
++	 * check localVariable shadowed in Local class anonymous executable by inherited CtField 29
++	 */
++	@Test
++	public void localVarInNestedClass5() {
++		int field = 33;
++		assertTrue(field == 33);
++		class Local {
++			{
++				{
++					int field = 34;
++					assertTrue(field == 34);
++				}
++				assertTrue(field == 33);
++				int field = 35;
++				assertTrue(field == 35);
++			}		
++		}
++		new Local();
++		assertTrue(field == 33);
++	}
++	
++	/*
++	 * check localVariable shadowed in Local class method by method parameter 39
++	 */
++	@Test
++	public void localVarInNestedClass6() {
++		int field = 37;
++		assertTrue(field == 37);
++		class Local {
++			int field = 38;
++			void method(int field) {
++				assertTrue(field == 39);
++				assertTrue(this.field == 38);
++			}		
++		}
++		new Local().method(39);
++		assertTrue(field == 37);
++	}
++	/*
++	 * The value of maxValue must be equal to maximum value of all variable values assigned above.
++	 * It is here mainly to keep this model consistent. 
++	 * If you write new test method, then always update this maxValue
++	 */
++	private static final int maxValue = 39;
++	
++}
+diff --git a/src/test/java/spoon/test/query_function/VariableReferencesTest.java b/src/test/java/spoon/test/query_function/VariableReferencesTest.java
+new file mode 100644
+index 000000000..29a94bb78
+--- /dev/null
++++ b/src/test/java/spoon/test/query_function/VariableReferencesTest.java
+@@ -0,0 +1,337 @@
++package spoon.test.query_function;
++
++import org.junit.Before;
++import org.junit.Test;
++
++import spoon.Launcher;
++import spoon.reflect.code.CtAbstractInvocation;
++import spoon.reflect.code.CtBinaryOperator;
++import spoon.reflect.code.CtCatchVariable;
++import spoon.reflect.code.CtExpression;
++import spoon.reflect.code.CtLambda;
++import spoon.reflect.code.CtLiteral;
++import spoon.reflect.code.CtLocalVariable;
++import spoon.reflect.cu.SourcePosition;
++import spoon.reflect.cu.position.NoSourcePosition;
++import spoon.reflect.declaration.CtClass;
++import spoon.reflect.declaration.CtElement;
++import spoon.reflect.declaration.CtExecutable;
++import spoon.reflect.declaration.CtField;
++import spoon.reflect.declaration.CtMethod;
++import spoon.reflect.declaration.CtParameter;
++import spoon.reflect.declaration.CtType;
++import spoon.reflect.declaration.CtVariable;
++import spoon.reflect.factory.Factory;
++import spoon.reflect.reference.CtExecutableReference;
++import spoon.reflect.reference.CtLocalVariableReference;
++import spoon.reflect.reference.CtVariableReference;
++import spoon.reflect.visitor.chain.CtConsumableFunction;
++import spoon.reflect.visitor.filter.CatchVariableReferenceFunction;
++import spoon.reflect.visitor.filter.CatchVariableScopeFunction;
++import spoon.reflect.visitor.filter.FieldScopeFunction;
++import spoon.reflect.visitor.filter.LocalVariableReferenceFunction;
++import spoon.reflect.visitor.filter.LocalVariableScopeFunction;
++import spoon.reflect.visitor.filter.NameFilter;
++import spoon.reflect.visitor.filter.ParameterReferenceFunction;
++import spoon.reflect.visitor.filter.ParameterScopeFunction;
++import spoon.reflect.visitor.filter.TypeFilter;
++import spoon.reflect.visitor.filter.VariableReferenceFunction;
++import spoon.reflect.visitor.filter.VariableScopeFunction;
++
++import java.util.HashMap;
++import java.util.HashSet;
++import java.util.List;
++import java.util.Map;
++import java.util.Set;
++
++import static org.junit.Assert.*;
++
++public class VariableReferencesTest {
++	CtClass<?> modelClass;
++	
++	@Before
++	public void setup() throws Exception {
++		final Launcher launcher = new Launcher();
++		launcher.setArgs(new String[] {"--output-type", "nooutput","--level","info" });
++		launcher.getEnvironment().setCommentEnabled(true);
++		launcher.addInputResource("./src/test/java/spoon/test/query_function/VariableReferencesModelTest.java");
++		launcher.run();
++		Factory factory = launcher.getFactory();
++		modelClass = factory.Class().get(VariableReferencesModelTest.class);
++	}
++
++	@Test
++	public void testCheckModelConsistency() throws Exception {
++		
++		//1) search for all variable declarations with name isTestFieldName(name)==true 
++		//2) check that each of them is using different identification value
++		class Context {
++			Map<Integer, CtElement> unique = new HashMap<>();
++			int maxKey = 0;
++			void checkKey(int key, CtElement ele) {
++				CtElement ambiquous = unique.put(key, ele);
++				if(ambiquous!=null) {
++					fail("Two variables ["+ambiquous.toString()+" in "+getParentMethodName(ambiquous)+","+ele.toString()+" in "+getParentMethodName(ele)+"] has same value");
++				}
++				maxKey = Math.max(maxKey, key);
++			}
++		}
++		Context context = new Context();
++		
++		modelClass.filterChildren((CtElement e)->{
++			if (e instanceof CtVariable) {
++				CtVariable<?> var = (CtVariable<?>) e;
++				if(isTestFieldName(var.getSimpleName())==false) {
++					return false;
++				}
++				//check only these variables whose name is isTestFieldName(name)==true
++				Integer val = getLiteralValue(var);
++//				System.out.println("key = "+val+" - "+var.toString());
++				context.checkKey(val, var);
++			}
++			return false;
++		}).list();
++//		System.out.println("Next available key is: "+(context.maxKey+1));
++		assertTrue(context.unique.size()>0);
++		assertEquals("Only these keys were found: "+context.unique.keySet(), context.maxKey, context.unique.size());
++		assertEquals("AllLocalVars#maxValue must be equal to maximum value number ", (int)getLiteralValue((CtVariable)modelClass.filterChildren(new NameFilter("maxValue")).first()), context.maxKey);
++	}
++	
++	@Test
++	public void testCatchVariableReferenceFunction() throws Exception {
++		//visits all the CtCatchVariable elements whose name is isTestFieldName(name)==true and search for all their references
++		//The test detects whether found references are correct by these two checks:
++		//1) the each found reference is on the left side of binary operator and on the right side there is unique reference identification number. Like: (field == 7)
++		//2) the model is searched for all variable references which has same identification number and counts them
++		//Then it checks that counted number of references and found number of references is same 
++		modelClass.filterChildren((CtCatchVariable<?> var)->{
++			if(isTestFieldName(var.getSimpleName())) {
++				int value = getLiteralValue(var);
++				checkVariableAccess(var, value, new CatchVariableReferenceFunction());
++			}
++			return false;
++		}).list();
++	}
++
++	@Test
++	public void testLocalVariableReferenceFunction() throws Exception {
++		//visits all the CtLocalVariable elements whose name is isTestFieldName(name)==true and search for all their references
++		//The test detects whether found references are correct by these two checks:
++		//1) the each found reference is on the left side of binary operator and on the right side there is unique reference identification number. Like: (field == 7)
++		//2) the model is searched for all variable references which has same identification number and counts them
++		//Then it checks that counted number of references and found number of references is same 
++		modelClass.filterChildren((CtLocalVariable<?> var)->{
++			if(isTestFieldName(var.getSimpleName())) {
++				int value = getLiteralValue(var);
++				checkVariableAccess(var, value, new LocalVariableReferenceFunction());
++			}
++			return false;
++		}).list();
++	}	
++
++	@Test
++	public void testParameterReferenceFunction() throws Exception {
++		//visits all the CtParameter elements whose name is isTestFieldName(name)==true and search for all their references
++		//The test detects whether found references are correct by these two checks:
++		//1) the each found reference is on the left side of binary operator and on the right side there is unique reference identification number. Like: (field == 7)
++		//2) the model is searched for all variable references which has same identification number and counts them
++		//Then it checks that counted number of references and found number of references is same 
++		modelClass.filterChildren((CtParameter<?> var)->{
++			if(isTestFieldName(var.getSimpleName())) {
++				int value = getLiteralValue(var);
++				checkVariableAccess(var, value, new ParameterReferenceFunction());
++			}
++			return false;
++		}).list();
++	}	
++
++	@Test
++	public void testVariableReferenceFunction() throws Exception {
++		//visits all the CtVariable elements whose name is isTestFieldName(name)==true and search for all their references
++		//The test detects whether found references are correct by these two checks:
++		//1) the each found reference is on the left side of binary operator and on the right side there is unique reference identification number. Like: (field == 7)
++		//2) the model is searched for all variable references which has same identification number and counts them
++		//Then it checks that counted number of references and found number of references is same 
++		modelClass.filterChildren((CtVariable<?> var)->{
++			if(isTestFieldName(var.getSimpleName())) {
++				int value = getLiteralValue(var);
++				checkVariableAccess(var, value, new VariableReferenceFunction());
++			}
++			return false;
++		}).list();
++	}
++	
++	private boolean isTestFieldName(String name) {
++		return "field".equals(name);
++	}
++
++	@Test
++	public void testVariableScopeFunction() throws Exception {
++		//visits all the CtVariable elements whose name is "field" and search for all elements in their scopes
++		//Comparing with the result found by basic functions
++		List list = modelClass.filterChildren((CtVariable<?> var)->{
++			if(var.getSimpleName().equals("field")) {
++				CtElement[] real = var.map(new VariableScopeFunction()).list().toArray(new CtElement[0]);
++				if(var instanceof CtLocalVariable) {
++					assertArrayEquals(var.map(new LocalVariableScopeFunction()).list().toArray(new CtElement[0]), real);
++				} else if(var instanceof CtField) {
++					assertArrayEquals(var.map(new FieldScopeFunction()).list().toArray(new CtElement[0]), real);
++				} else if(var instanceof CtParameter) {
++					assertArrayEquals(var.map(new ParameterScopeFunction()).list().toArray(new CtElement[0]), real);
++				} else if(var instanceof CtCatchVariable) {
++					assertArrayEquals(var.map(new CatchVariableScopeFunction()).list().toArray(new CtElement[0]), real);
++				} else {
++					fail("Unexpected variable of type "+var.getClass().getName());
++				}
++				return true;
++			}
++			return false;
++		}).list();
++		assertTrue(list.size()>0);
++	}
++	
++	@Test
++	public void testLocalVariableReferenceDeclarationFunction() throws Exception {
++		modelClass.filterChildren((CtLocalVariableReference<?> varRef)->{
++			if(isTestFieldName(varRef.getSimpleName())) {
++				CtLocalVariable<?> var = varRef.getDeclaration();
++				assertNotNull("The declaration of variable "+varRef.getSimpleName()+" in "+getParentMethodName(varRef)+" on line "+varRef.getPosition().getLine()+" with value "+getVariableReferenceValue(varRef)+" was not found", var);
++				assertEquals("CtLocalVariableReference#getDeclaration returned wrong declaration in "+getParentMethodName(varRef), getVariableReferenceValue(varRef), (int)getLiteralValue(var));
++			}
++			return false;
++		}).list();
++	}
++	
++
++	private void checkVariableAccess(CtVariable<?> var, int value, CtConsumableFunction<?> query) {
++		class Context {
++			int realCount = 0;
++			int expectedCount = 0;
++			Set<String> unique = new HashSet<>();
++		}
++		try {
++			Context context = new Context();
++			//use provided reference returning function to found all occurrences of the variable
++			var.map(query).forEach((CtVariableReference<?> fr)->{
++				//check that all the found field references has expected right hand expression
++				assertEquals(value, getVariableReferenceValue(fr));
++				//count number of found references
++				context.realCount++;
++			});
++			//use filterChildren to scan all field references in model and count the number of field references which has same value => expectedCount
++			modelClass.filterChildren(new TypeFilter<>(CtVariableReference.class))
++			.forEach((CtVariableReference varRef)->{
++				if(isTestFieldName(varRef.getSimpleName())==false) {
++					return;
++				}
++				int refValue = getVariableReferenceValue(varRef);
++				if(refValue<0) {
++					fail("Variable reference has no value:\n"+varRef);
++				}
++				if(refValue==value) {
++					context.expectedCount++;
++				}
++			});
++			//check that both scans found same number of references
++			assertEquals("Number of references to field="+value+" does not match", context.expectedCount, context.realCount);
++//			System.out.println("field="+value+" found "+context.realCount+" referenes");
++			
++		} catch (Throwable e) {
++			e.printStackTrace();
++			throw new AssertionError("Test failed on " + getParentMethodName(var), e);
++		}
++	}
++
++	private String getParentMethodName(CtElement ele) {
++		CtMethod parentMethod = ele.getParent(CtMethod.class);
++		CtMethod m;
++		while(parentMethod!=null && (m=parentMethod.getParent(CtMethod.class))!=null) {
++			parentMethod = m;
++		}
++		if(parentMethod!=null) {
++			return parentMethod.getParent(CtType.class).getSimpleName()+"#"+parentMethod.getSimpleName();
++		} else {
++			return ele.getParent(CtType.class).getSimpleName()+"#annonymous block";
++		}
++	}
++	
++	private int getVariableReferenceValue(CtVariableReference<?> fr) {
++		CtBinaryOperator binOp = fr.getParent(CtBinaryOperator.class);
++		if(binOp==null) {
++			return getCommentValue(fr);
++		}
++		return getLiteralValue(binOp.getRightHandOperand());
++	}
++
++	private Integer getLiteralValue(CtVariable<?> var) {
++		CtExpression<?> exp = var.getDefaultExpression();
++		if(exp!=null) {
++			try {
++				return getLiteralValue(exp);
++			} catch (ClassCastException e) {
++				
++			}
++		}
++		if (var instanceof CtParameter) {
++			CtParameter param = (CtParameter) var;
++			CtExecutable<?> l_exec = param.getParent(CtExecutable.class);
++			int l_argIdx = l_exec.getParameters().indexOf(param);
++			assertTrue(l_argIdx>=0);
++			if (l_exec instanceof CtLambda) {
++				CtLambda<?> lambda = (CtLambda<?>) l_exec;
++				CtLocalVariable<?> lamVar = (CtLocalVariable)lambda.getParent();
++				CtLocalVariableReference<?> lamVarRef = lamVar.getParent().filterChildren((CtLocalVariableReference ref)->ref.getSimpleName().equals(lamVar.getSimpleName())).first();
++				CtAbstractInvocation inv = lamVarRef.getParent(CtAbstractInvocation.class);
++				return getLiteralValue((CtExpression<?>)inv.getArguments().get(l_argIdx));
++			} else {
++				CtExecutableReference<?> l_execRef = l_exec.getReference();
++				List<CtAbstractInvocation<?>> list = l_exec.getFactory().Package().getRootPackage().filterChildren((CtAbstractInvocation inv)->{
++//					return inv.getExecutable().equals(l_execRef);
++					return inv.getExecutable().getExecutableDeclaration()==l_exec;
++				}).list();
++				CtAbstractInvocation inv = list.get(0);
++				Integer firstValue = getLiteralValue((CtExpression<?>)inv.getArguments().get(l_argIdx));
++				//check that all found method invocations are using same key
++				list.forEach(inv2->{
++					assertEquals(firstValue, getLiteralValue((CtExpression<?>)inv2.getArguments().get(l_argIdx)));
++				});
++				return firstValue;
++			}
++		}
++		return getCommentValue(var);
++	}
++	
++	private int getCommentValue(CtElement e) {
++		while(true) {
++			if(e==null) {
++				return -1;
++			}
++			if(e.getComments().isEmpty()==false) {
++				break;
++			}
++			e = e.getParent();
++		}
++		if(e.getComments().size()==1) {
++			String l_c = e.getComments().get(0).getContent();
++			return Integer.parseInt(l_c);
++		}
++		return -1;
++	}
++	
++	private Integer getLiteralValue(CtExpression<?> exp) {
++		return ((CtLiteral<Integer>) exp).getValue();
++	}
++	
++	private SourcePosition getPosition(CtElement e) {
++		SourcePosition sp = e.getPosition();
++		while(sp instanceof NoSourcePosition) {
++			e = e.getParent();
++			if(e==null) {
++				break;
++			}
++			sp = e.getPosition();
++		}
++		return sp;
++	}
++
++}
+diff --git a/src/test/java/spoon/test/reference/VariableAccessTest.java b/src/test/java/spoon/test/reference/VariableAccessTest.java
+index c01709328..bcab61c21 100644
+--- a/src/test/java/spoon/test/reference/VariableAccessTest.java
++++ b/src/test/java/spoon/test/reference/VariableAccessTest.java
+@@ -16,6 +16,7 @@ import spoon.reflect.reference.CtParameterReference;
+ import spoon.reflect.reference.CtVariableReference;
+ import spoon.reflect.visitor.CtScanner;
+ import spoon.reflect.visitor.filter.AbstractReferenceFilter;
++import spoon.reflect.visitor.filter.LocalVariableReferenceFunction;
+ import spoon.reflect.visitor.filter.TypeFilter;
+ import spoon.test.reference.testclasses.Pozole;
+ import spoon.test.reference.testclasses.Tortillas;
+@@ -177,6 +178,20 @@ public class VariableAccessTest {
+ 		assertEquals(localVarCloned.getReference().getDeclaration(), localVarCloned);
+ 		assertSame(localVarCloned.getReference().getDeclaration(), localVarCloned);
+ 	}
++	@Test
++	public void testReferencesInInitExpression() throws Exception {
++		/* test getReference on local variable
++		*  getReference().getDeclaration() must be circular
++		*/
++
++		final CtType<Tortillas> aTortillas = buildClass(Tortillas.class);
++		final CtMethod<Object> make = aTortillas.getMethod("make", aTortillas.getFactory().Type().stringType());
++		
++		final CtLocalVariable localVarNumber = make.getBody().getStatement(1);
++		List<CtLocalVariableReference<?>> refs = localVarNumber.map(new LocalVariableReferenceFunction()).list();
++		assertEquals(1, refs.size());
++		assertSame(localVarNumber, refs.get(0).getParent(CtLocalVariable.class));
++	}
+ 
+ 	@Test
+ 	public void testReferenceToLocalVariableDeclaredInLoop() {
+diff --git a/src/test/java/spoon/test/reference/testclasses/Tortillas.java b/src/test/java/spoon/test/reference/testclasses/Tortillas.java
+index d69deba39..16ed775d3 100644
+--- a/src/test/java/spoon/test/reference/testclasses/Tortillas.java
++++ b/src/test/java/spoon/test/reference/testclasses/Tortillas.java
+@@ -3,5 +3,6 @@ package spoon.test.reference.testclasses;
+ public class Tortillas {
+ 	public void make(String string) {
+ 		String string1 = string;
++		int number = number=40;
+ 	}
+ }

@@ -1,0 +1,33 @@
+--- src/java/org/apache/commons/codec/language/Caverphone.java	2023-12-05 20:06:08.888352062 +0000
++++ src/java/org/apache/commons/codec/language/Caverphone.java	2023-12-05 20:06:09.965188808 +0000
+@@ -56,7 +56,7 @@
+         }
+ 
+         // 1. Convert to lowercase
+-        txt = txt.toLowerCase();
++        txt = txt.toLowerCase(java.util.Locale.ENGLISH);
+ 
+         // 2. Remove anything not A-Z
+         txt = txt.replaceAll("[^a-z]", "");
+--- src/java/org/apache/commons/codec/language/Metaphone.java	2023-12-05 20:06:08.996805332 +0000
++++ src/java/org/apache/commons/codec/language/Metaphone.java	2023-12-05 20:06:09.965912479 +0000
+@@ -85,7 +85,7 @@
+         }
+         // single character is itself
+         if (txt.length() == 1) {
+-            return txt.toUpperCase() ;
++            return txt.toUpperCase(java.util.Locale.ENGLISH) ;
+         }
+       
+         char[] inwd = txt.toUpperCase(java.util.Locale.ENGLISH).toCharArray() ;
+--- src/java/org/apache/commons/codec/language/SoundexUtils.java	2023-12-05 20:06:08.997190732 +0000
++++ src/java/org/apache/commons/codec/language/SoundexUtils.java	2023-12-05 20:06:09.966217080 +0000
+@@ -50,7 +50,7 @@
+             }
+         }
+         if (count == len) {
+-            return str.toUpperCase();
++            return str.toUpperCase(java.util.Locale.ENGLISH);
+         }
+         return new String(chars, 0, count).toUpperCase(java.util.Locale.ENGLISH);
+     }

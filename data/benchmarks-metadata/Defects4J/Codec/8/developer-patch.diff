@@ -1,0 +1,28 @@
+--- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:27.443233118 +0000
++++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:28.430665578 +0000
+@@ -416,13 +416,6 @@
+         return eof ? -1 : 0;
+     }
+ 
+-    void setInitialBuffer(byte[] out, int outPos, int outAvail) {
+-        if (out != null && out.length == outAvail) {
+-            buffer = out;
+-            pos = outPos;
+-            readPos = outPos;
+-        }
+-    }
+     /**
+      * <p>
+      * Encodes all of the provided data, starting at inPos, for inAvail bytes. Must be called at least twice: once with
+--- src/java/org/apache/commons/codec/binary/Base64InputStream.java	2023-12-05 20:06:27.443563818 +0000
++++ src/java/org/apache/commons/codec/binary/Base64InputStream.java	2023-12-05 20:06:28.430965701 +0000
+@@ -166,9 +166,6 @@
+                 if (!base64.hasData()) {
+                     byte[] buf = new byte[doEncode ? 4096 : 8192];
+                     int c = in.read(buf);
+-                    if (c > 0 && b.length == len) {
+-                        base64.setInitialBuffer(b, offset, len);
+-                    }
+                     if (doEncode) {
+                         base64.encode(buf, 0, c);
+                     } else {

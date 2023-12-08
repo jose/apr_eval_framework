@@ -1,0 +1,10 @@
+--- src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2023-12-05 18:59:57.587203670 +0000
++++ src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2023-12-05 19:00:04.251422035 +0000
+@@ -419,6 +419,7 @@
+         int start = pos.getIndex();
+         char[] c = pattern.toCharArray();
+         if (escapingOn && c[start] == QUOTE) {
++            next(pos);
+             return appendTo == null ? null : appendTo.append(QUOTE);
+         }
+         int lastHold = start;

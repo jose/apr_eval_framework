@@ -1,0 +1,109 @@
+diff --git a/molgenis-data-csv/src/main/java/org/molgenis/data/csv/CsvIterator.java b/molgenis-data-csv/src/main/java/org/molgenis/data/csv/CsvIterator.java
+index e4a5fccc5..a87ffa655 100644
+--- a/molgenis-data-csv/src/main/java/org/molgenis/data/csv/CsvIterator.java
++++ b/molgenis-data-csv/src/main/java/org/molgenis/data/csv/CsvIterator.java
+@@ -21,6 +21,8 @@ import java.util.zip.ZipFile;
+ 
+ import static java.lang.String.format;
+ import static java.nio.charset.StandardCharsets.UTF_8;
++import static java.util.Arrays.stream;
++import static java.util.stream.Collectors.joining;
+ import static org.molgenis.data.csv.CsvRepositoryCollection.MAC_ZIP;
+ 
+ public class CsvIterator implements CloseableIterator<Entity>
+@@ -130,7 +132,7 @@ public class CsvIterator implements CloseableIterator<Entity>
+ 			{
+ 				String[] values = csvReader.readNext();
+ 
+-				if ((values != null) && (values.length >= colNamesMap.size()))
++				if (values != null && values.length == colNamesMap.size())
+ 				{
+ 					List<String> valueList = Arrays.asList(values);
+ 					for (int i = 0; i < values.length; ++i)
+@@ -149,6 +151,13 @@ public class CsvIterator implements CloseableIterator<Entity>
+ 						next.set(name, valueList.get(colNamesMap.get(name)));
+ 					}
+ 				}
++				else if (values != null && (values.length > 1 || (values.length == 1 && values[0].length() > 0))
++						&& values.length < colNamesMap.size())
++				{
++					throw new MolgenisDataException(
++							format("Number of values (%d) doesn't match the number of headers (%d): [%s]",
++									values.length, colNamesMap.size(), stream(values).collect(joining(","))));
++				}
+ 				else
+ 				{
+ 					next = null;
+diff --git a/molgenis-data-csv/src/test/java/org/molgenis/data/csv/CsvIteratorTest.java b/molgenis-data-csv/src/test/java/org/molgenis/data/csv/CsvIteratorTest.java
+index ffbc3e11d..a329c0dea 100644
+--- a/molgenis-data-csv/src/test/java/org/molgenis/data/csv/CsvIteratorTest.java
++++ b/molgenis-data-csv/src/test/java/org/molgenis/data/csv/CsvIteratorTest.java
+@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
+ import org.apache.commons.io.FileUtils;
+ import org.molgenis.data.AbstractMolgenisSpringTest;
+ import org.molgenis.data.Entity;
++import org.molgenis.data.MolgenisDataException;
+ import org.molgenis.data.meta.model.AttributeFactory;
+ import org.molgenis.data.meta.model.EntityType;
+ import org.molgenis.data.meta.model.EntityTypeFactory;
+@@ -13,10 +14,7 @@ import org.springframework.util.FileCopyUtils;
+ import org.testng.annotations.BeforeMethod;
+ import org.testng.annotations.Test;
+ 
+-import java.io.File;
+-import java.io.FileOutputStream;
+-import java.io.IOException;
+-import java.io.InputStream;
++import java.io.*;
+ import java.util.Arrays;
+ 
+ import static org.testng.Assert.assertEquals;
+@@ -54,6 +52,48 @@ public class CsvIteratorTest extends AbstractMolgenisSpringTest
+ 		assertEquals(entity.get("col2"), "val2");
+ 	}
+ 
++	@SuppressWarnings("deprecation")
++	@Test(expectedExceptions = MolgenisDataException.class, expectedExceptionsMessageRegExp = "Number of values \\(1\\) doesn't match the number of headers \\(2\\): \\[val1\\]")
++	public void testIteratorValueHeaderMismatchOneNonEmptyValue() throws IOException
++	{
++		File csvFile = File.createTempFile("testdata", ".csv");
++		try
++		{
++			try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(csvFile)))
++			{
++				outputStreamWriter.write("col1,col2\n");
++				outputStreamWriter.write("val1\n");
++			}
++			new CsvIterator(csvFile, "testdata", null, ',', entityType).next();
++		}
++		finally
++		{
++			//noinspection ResultOfMethodCallIgnored
++			csvFile.delete();
++		}
++	}
++
++	@SuppressWarnings("deprecation")
++	@Test(expectedExceptions = MolgenisDataException.class, expectedExceptionsMessageRegExp = "Number of values \\(2\\) doesn't match the number of headers \\(3\\): \\[val1,val2\\]")
++	public void testIteratorValueHeaderMismatch() throws IOException
++	{
++		File csvFile = File.createTempFile("testdata", ".csv");
++		try
++		{
++			try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(csvFile)))
++			{
++				outputStreamWriter.write("col1,col2,col3\n");
++				outputStreamWriter.write("val1,val2\n");
++			}
++			new CsvIterator(csvFile, "testdata", null, ',', entityType).next();
++		}
++		finally
++		{
++			//noinspection ResultOfMethodCallIgnored
++			csvFile.delete();
++		}
++	}
++
+ 	@Test
+ 	public void testIteratorFromZipFile() throws IOException
+ 	{

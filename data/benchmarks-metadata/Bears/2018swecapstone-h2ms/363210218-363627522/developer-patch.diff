@@ -1,0 +1,75 @@
+diff --git a/src/main/java/edu/harvard/h2ms/domain/core/User.java b/src/main/java/edu/harvard/h2ms/domain/core/User.java
+index db6f76aa1..ff0d57fd6 100644
+--- a/src/main/java/edu/harvard/h2ms/domain/core/User.java
++++ b/src/main/java/edu/harvard/h2ms/domain/core/User.java
+@@ -94,7 +94,7 @@ public class User implements UserDetails {
+         this.firstName = firstName;
+         this.middleName = middleName;
+         this.lastName = lastName;
+-        this.email = email;
++        setEmail(email);
+         this.type = type;
+         setPassword(password);
+     }
+@@ -147,7 +147,8 @@ public class User implements UserDetails {
+     }
+ 
+     public void setEmail(String email) {
+-        this.email = email;
++    	if(email != null)
++    		this.email = email.toLowerCase();
+     }
+ 
+     public String getNotificationFrequency() {
+diff --git a/src/main/java/edu/harvard/h2ms/service/UserDetailsServiceImpl.java b/src/main/java/edu/harvard/h2ms/service/UserDetailsServiceImpl.java
+index 66f61f304..7288dfa38 100644
+--- a/src/main/java/edu/harvard/h2ms/service/UserDetailsServiceImpl.java
++++ b/src/main/java/edu/harvard/h2ms/service/UserDetailsServiceImpl.java
+@@ -16,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
+ 
+     @Override
+     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+-        User user = userRepository.findOneByEmail(username);
++        User user = userRepository.findOneByEmail(username.toLowerCase());
+         
+         if (user == null) {
+             throw new UsernameNotFoundException(String.format("Unknown user: %s", username));
+diff --git a/src/test/java/edu/harvard/h2ms/domain/core/UserTest.java b/src/test/java/edu/harvard/h2ms/domain/core/UserTest.java
+index 05127fa9c..c7d447109 100644
+--- a/src/test/java/edu/harvard/h2ms/domain/core/UserTest.java
++++ b/src/test/java/edu/harvard/h2ms/domain/core/UserTest.java
+@@ -47,7 +47,13 @@ public class UserTest {
+         User user = new User("John", "Quincy", null, null, "password", "Other");
+         entityManager.persist(user);
+     }
+-
++    
++    @Test
++    public void testEmailIsLowerCase() {
++        User user = new User("John", "Quincy", null, "JqAdAmS@h2Ms.OrG", "password", "Other");
++        assertThat(user.getEmail(), is("jqadams@h2ms.org"));
++    }
++    
+     @Test(expected = ConstraintViolationException.class)
+     public void testPasswordRequired() {
+         User user = new User("John", "Quincy", "Adams", "jqadams@h2ms.org", null, "Other");
+diff --git a/src/test/java/edu/harvard/h2ms/service/UserDetailsServiceTest.java b/src/test/java/edu/harvard/h2ms/service/UserDetailsServiceTest.java
+index 57c2cdc61..3502c195e 100644
+--- a/src/test/java/edu/harvard/h2ms/service/UserDetailsServiceTest.java
++++ b/src/test/java/edu/harvard/h2ms/service/UserDetailsServiceTest.java
+@@ -53,6 +53,15 @@ public class UserDetailsServiceTest {
+ 				);
+ 	}
+ 	
++	@Test
++	@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
++	public void testLoadUserByUsernameIsCaseInsensitive() {
++		assertThat(
++				userDetailsService.loadUserByUsername("JqAdAmS@h2Ms.oRg"),
++				is(user)
++				);
++	}
++	
+ 	@Test(expected=UsernameNotFoundException.class)
+ 	public void testNonExistentUserThrows() {
+ 		userDetailsService.loadUserByUsername("doesntexist@example.com");

@@ -1,0 +1,29 @@
+--- src/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:17:53.823300892 +0000
++++ src/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:17:56.800115650 +0000
+@@ -22,7 +22,6 @@
+ 
+ import java.util.Date;
+ 
+-import org.apache.commons.lang.math.NumberUtils;
+ /**
+   * This is a temporary implementation. TypeHandler will handle the 
+   * pluggableness of OptionTypes and it will direct all of these types 
+@@ -159,7 +158,17 @@
+     {
+         try
+         {
+-            return NumberUtils.createNumber(str);
++            if( str != null )
++            {
++                if( str.indexOf('.') != -1 )
++                {
++                    return Double.valueOf(str);
++                }
++                else
++                {
++                    return Long.valueOf(str);
++                }
++            }
+         }
+         catch (NumberFormatException nfe)
+         {

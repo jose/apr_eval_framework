@@ -1,0 +1,348 @@
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index 41edede7b..9f46670f6 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -22,6 +22,7 @@ import spoon.reflect.code.CtFieldAccess;
+ import spoon.reflect.code.CtFieldRead;
+ import spoon.reflect.code.CtFieldWrite;
+ import spoon.reflect.code.CtInvocation;
++import spoon.reflect.code.CtLiteral;
+ import spoon.reflect.declaration.CtAnnotationType;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtElement;
+@@ -54,6 +55,7 @@ import java.util.LinkedList;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Set;
++import java.util.StringTokenizer;
+ import java.util.TreeMap;
+ 
+ /**
+@@ -100,10 +102,9 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	@Override
+ 	public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+ 		enter(reference);
++		scan(reference.getDeclaringType());
+ 		if (reference.isStatic()) {
+-			if (!addFieldImport(reference)) {
+-				scan(reference.getDeclaringType());
+-			}
++			addFieldImport(reference);
+ 		} else {
+ 			scan(reference.getDeclaringType());
+ 		}
+@@ -137,10 +138,15 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	@Override
+ 	public <T> void visitCtTypeReference(CtTypeReference<T> reference) {
+ 		if (!(reference instanceof CtArrayTypeReference)) {
++			CtTypeReference typeReference;
+ 			if (reference.getDeclaringType() == null) {
+-				addClassImport(reference);
++				typeReference = reference;
+ 			} else {
+-				addClassImport(reference.getAccessType());
++				typeReference = reference.getAccessType();
++			}
++
++			if (!this.isTypeInCollision(typeReference, false)) {
++				this.addClassImport(typeReference);
+ 			}
+ 		}
+ 		super.visitCtTypeReference(reference);
+@@ -277,14 +283,7 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 		if (ref.getPackage() == null || ref.getPackage().isUnnamedPackage()) {
+ 			return false;
+ 		}
+-		if (ref.getPackage().getSimpleName().equals("java.lang")) {
+-			if (classNamePresentInJavaLang(ref)) {
+-				// Don't import class with names clashing with some classes present in java.lang,
+-				// because it leads to undecidability and compilation errors. I. e. always leave
+-				// com.mycompany.String fully-qualified.
+-				return false;
+-			}
+-		}
++
+ 		if (targetType != null && targetType.canAccess(ref) == false) {
+ 			//ref type is not visible in targetType we must not add import for it, java compiler would fail on that.
+ 			return false;
+@@ -560,7 +559,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 
+ 	/**
+ 	 * Test if the reference can be imported, i.e. test if the importation could lead to a collision.
+-	 * In FQN mode, it only tests the first package name: if a collision occurs with this first one, it should be imported.
+ 	 * @param ref
+ 	 * @return true if the ref should be imported.
+ 	 */
+@@ -577,6 +575,12 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 				parent = ref;
+ 			}
+ 
++			// in that case we are trying to import a type because of a literal we are scanning
++			// i.e. a string, an int, etc.
++			if (parent instanceof CtLiteral) {
++				return false;
++			}
++
+ 			Set<String> localVariablesOfBlock = new HashSet<>();
+ 
+ 			if (parent instanceof CtField) {
+@@ -588,8 +592,13 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 			}
+ 
+ 			while (!(parent instanceof CtPackage)) {
+-				if ((parent instanceof CtFieldReference) || (parent instanceof CtExecutableReference)) {
+-					CtReference parentType = (CtReference) parent;
++				if ((parent instanceof CtFieldReference) || (parent instanceof CtExecutableReference) || (parent instanceof CtInvocation)) {
++					CtReference parentType;
++					if (parent instanceof CtInvocation) {
++						parentType = ((CtInvocation) parent).getExecutable();
++					} else {
++						parentType = (CtReference) parent;
++					}
+ 					LinkedList<String> qualifiedNameTokens = new LinkedList<>();
+ 
+ 					// we don't want to test the current ref name, as we risk to create field import and make autoreference
+@@ -600,39 +609,54 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 					CtTypeReference typeReference;
+ 					if (parent instanceof CtFieldReference) {
+ 						typeReference = ((CtFieldReference) parent).getDeclaringType();
+-					} else {
++					} else if (parent instanceof CtExecutableReference) {
+ 						typeReference = ((CtExecutableReference) parent).getDeclaringType();
++					} else {
++						typeReference = ((CtInvocation) parent).getExecutable().getDeclaringType();
+ 					}
+ 
+ 					if (typeReference != null) {
+-						qualifiedNameTokens.add(typeReference.getSimpleName());
++						qualifiedNameTokens.addFirst(typeReference.getSimpleName());
+ 
+ 						if (typeReference.getPackage() != null) {
+-							CtPackage ctPackage = typeReference.getPackage().getDeclaration();
+-
+-							while (ctPackage != null) {
+-								qualifiedNameTokens.add(ctPackage.getSimpleName());
+-
+-								CtElement packParent = ctPackage.getParent();
+-								if (packParent.getParent() != null && !((CtPackage) packParent).getSimpleName().equals(CtPackage.TOP_LEVEL_PACKAGE_NAME)) {
+-									ctPackage = (CtPackage) packParent;
+-								} else {
+-									ctPackage = null;
+-								}
++							StringTokenizer token = new StringTokenizer(typeReference.getPackage().getSimpleName(), CtPackage.PACKAGE_SEPARATOR);
++							int index = 0;
++							while (token.hasMoreElements()) {
++								qualifiedNameTokens.add(index, token.nextToken());
++								index++;
+ 							}
+ 						}
+ 					}
+ 					if (!qualifiedNameTokens.isEmpty()) {
+ 						// qualified name token are ordered in the reverse order
+ 						// if the first package name is a variable name somewhere, it could lead to a collision
+-						if (fieldAndMethodsNames.contains(qualifiedNameTokens.getLast()) || localVariablesOfBlock.contains(qualifiedNameTokens.getLast())) {
+-							qualifiedNameTokens.removeLast();
++						if (fieldAndMethodsNames.contains(qualifiedNameTokens.getFirst()) || localVariablesOfBlock.contains(qualifiedNameTokens.getFirst())) {
++							qualifiedNameTokens.removeFirst();
+ 
+ 							if (fqnMode) {
+-								return true;
++								// in case we are testing a type: we should not import it if its entire name is in collision
++								// for example: spoon.Launcher if a field spoon and another one Launcher exists
++								if (ref instanceof CtTypeReference) {
++									if (qualifiedNameTokens.isEmpty()) {
++										return true;
++									}
++									// but if the other package names are not a variable name, it's ok to import
++									for (int i =  0; i < qualifiedNameTokens.size(); i++) {
++										String testedToken = qualifiedNameTokens.get(i);
++										if (!fieldAndMethodsNames.contains(testedToken) && !localVariablesOfBlock.contains(testedToken)) {
++											return true;
++										}
++									}
++									return false;
++
++								// However if it is a static method/field, we always accept to import them in this case
++								// It is the last possibility for managing import for us
++								} else {
++									return true;
++								}
+ 							} else {
+ 								// but if the other package names are not a variable name, it's ok to import
+-								for (int i = qualifiedNameTokens.size() - 1; i > 0; i--) {
++								for (int i =  0; i < qualifiedNameTokens.size(); i++) {
+ 									String testedToken = qualifiedNameTokens.get(i);
+ 									if (!fieldAndMethodsNames.contains(testedToken) && !localVariablesOfBlock.contains(testedToken)) {
+ 										return false;
+diff --git a/src/main/java/spoon/reflect/visitor/MinimalImportScanner.java b/src/main/java/spoon/reflect/visitor/MinimalImportScanner.java
+index 912692f6c..8f93166e3 100644
+--- a/src/main/java/spoon/reflect/visitor/MinimalImportScanner.java
++++ b/src/main/java/spoon/reflect/visitor/MinimalImportScanner.java
+@@ -29,7 +29,8 @@ public class MinimalImportScanner extends ImportScannerImpl implements ImportSca
+ 
+ 	/**
+ 	 * This method use @link{ImportScannerImpl#isTypeInCollision} to import a ref only if there is a collision
+-	 * @param ref
++	 * @param ref: the type we are testing, it can be a CtTypeReference, a CtFieldReference or a CtExecutableReference
++	 *
+ 	 * @return true if the ref should be imported.
+ 	 */
+ 	private boolean shouldTypeBeImported(CtReference ref) {
+@@ -54,6 +55,12 @@ public class MinimalImportScanner extends ImportScannerImpl implements ImportSca
+ 
+ 	@Override
+ 	protected boolean addFieldImport(CtFieldReference ref) {
++		if (ref.getDeclaringType() != null) {
++			if (isImportedInClassImports(ref.getDeclaringType())) {
++				return false;
++			}
++		}
++
+ 		boolean shouldTypeBeImported = this.shouldTypeBeImported(ref);
+ 
+ 		if (shouldTypeBeImported) {
+@@ -70,6 +77,11 @@ public class MinimalImportScanner extends ImportScannerImpl implements ImportSca
+ 
+ 	@Override
+ 	protected boolean addMethodImport(CtExecutableReference ref) {
++		if (ref.getDeclaringType() != null) {
++			if (isImportedInClassImports(ref.getDeclaringType())) {
++				return false;
++			}
++		}
+ 		boolean shouldTypeBeImported = this.shouldTypeBeImported(ref);
+ 
+ 		if (shouldTypeBeImported) {
+diff --git a/src/main/java/spoon/reflect/visitor/printer/ElementPrinterHelper.java b/src/main/java/spoon/reflect/visitor/printer/ElementPrinterHelper.java
+index 2133fe568..8ede107b0 100644
+--- a/src/main/java/spoon/reflect/visitor/printer/ElementPrinterHelper.java
++++ b/src/main/java/spoon/reflect/visitor/printer/ElementPrinterHelper.java
+@@ -283,7 +283,7 @@ public class ElementPrinterHelper {
+ 					importTypeStr = this.removeInnerTypeSeparator(fieldRef.getDeclaringType().getQualifiedName()) + "." + fieldRef.getSimpleName();
+ 				}
+ 
+-				if (!importTypeStr.equals("")) {
++				if (!importTypeStr.equals("") && !importTypeStr.startsWith("java.lang")) {
+ 					printer.write(importStr + " " + importTypeStr + ";").writeln().writeTabs();
+ 				}
+ 			}
+diff --git a/src/test/java/spoon/test/imports/ImportScannerTest.java b/src/test/java/spoon/test/imports/ImportScannerTest.java
+index 12466253a..27fa13a53 100644
+--- a/src/test/java/spoon/test/imports/ImportScannerTest.java
++++ b/src/test/java/spoon/test/imports/ImportScannerTest.java
+@@ -54,7 +54,8 @@ public class ImportScannerTest {
+ 		ImportScanner importContext = new ImportScannerImpl();
+ 		Collection<CtTypeReference<?>> imports = importContext.computeImports(theClass);
+ 
+-		assertEquals(2, imports.size());
++		// java.lang are also computed
++		assertEquals(4, imports.size());
+ 	}
+ 
+ 	@Test
+diff --git a/src/test/java/spoon/test/imports/ImportTest.java b/src/test/java/spoon/test/imports/ImportTest.java
+index 61dd998a1..8ce03e450 100644
+--- a/src/test/java/spoon/test/imports/ImportTest.java
++++ b/src/test/java/spoon/test/imports/ImportTest.java
+@@ -249,7 +249,8 @@ public class ImportTest {
+ 		//check that printer did not used the package protected class like "SuperClass.InnerClassProtected"
+ 		assertTrue(anotherClass.toString().indexOf("InnerClass extends ChildClass.InnerClassProtected")>0);
+ 		final Collection<CtTypeReference<?>> imports2 = importScanner.computeImports(classWithInvocation);
+-		assertEquals("Spoon ignores the arguments of CtInvocations", 1, imports2.size());
++		// java.lang imports are also computed
++		assertEquals("Spoon ignores the arguments of CtInvocations", 3, imports2.size());
+ 	}
+ 
+ 	@Test
+@@ -339,9 +340,10 @@ public class ImportTest {
+ 		ImportScanner importContext = new ImportScannerImpl();
+ 		Collection<CtTypeReference<?>> imports = importContext.computeImports(factory.Class().get(NotImportExecutableType.class));
+ 
+-		assertEquals(2, imports.size());
++		// java.lang.Object is considered as imported but it will never be output
++		assertEquals(3, imports.size());
+ 		Set<String> expectedImports = new HashSet<>(
+-				Arrays.asList("spoon.test.imports.testclasses.internal3.Foo", "java.io.File"));
++				Arrays.asList("spoon.test.imports.testclasses.internal3.Foo", "java.io.File", "java.lang.Object"));
+ 		Set<String> actualImports = imports.stream().map(CtTypeReference::toString).collect(Collectors.toSet());
+ 		assertEquals(expectedImports, actualImports);
+ 	}
+@@ -915,4 +917,16 @@ public class ImportTest {
+ 		types = classUSC.getSuperclass().map(new SuperInheritanceHierarchyFunction().includingSelf(true)).list();
+ 		assertEquals(0, types.size());
+ 	}
++
++	@Test
++	public void testJavaLangIsConsideredAsImported() {
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setAutoImports(false);
++		String outputDir = "./target/spooned-javalang";
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/JavaLangConflict.java");
++		launcher.setSourceOutputDirectory(outputDir);
++		launcher.run();
++
++		canBeBuilt(outputDir, 7);
++	}
+ }
+diff --git a/src/test/java/spoon/test/imports/testclasses2/JavaLangConflict.java b/src/test/java/spoon/test/imports/testclasses2/JavaLangConflict.java
+new file mode 100644
+index 000000000..57ecf2253
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/JavaLangConflict.java
+@@ -0,0 +1,10 @@
++package spoon.test.imports.testclasses2;
++
++import java.io.File;
++
++/**
++ * Created by urli on 22/05/2017.
++ */
++public class JavaLangConflict {
++    String java = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
++}
+diff --git a/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java b/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
+index 0c40056cf..2db18d8eb 100644
+--- a/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
++++ b/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
+@@ -54,8 +54,8 @@ public class AccessFullyQualifiedFieldTest {
+ 		String output = "target/spooned-" + this.getClass().getSimpleName()+"-Field/";
+ 		String result = this.buildResourceAndReturnResult(pathResource, output);
+ 
+-		assertTrue("The java file should contain import for Launcher", result.contains("import static spoon.Launcher.SPOONED_CLASSES;"));
+-		assertTrue("The xx variable is attributed with Launcher.SPOONED_CLASSES", result.contains("xx = SPOONED_CLASSES"));
++		assertTrue("The java file should contain import for Launcher", result.contains("import spoon.Launcher;"));
++		assertTrue("The xx variable is attributed with Launcher.SPOONED_CLASSES", result.contains("xx = Launcher.SPOONED_CLASSES"));
+ 		canBeBuilt(output, 7);
+ 	}
+ 
+@@ -66,8 +66,8 @@ public class AccessFullyQualifiedFieldTest {
+ 		String pathResource = "src/test/java/spoon/test/variable/testclasses/Burritos.java";
+ 		String result = this.buildResourceAndReturnResult(pathResource, output);
+ 
+-		assertTrue("The java file should contain import for Launcher", result.contains("import static spoon.Launcher.SPOONED_CLASSES;"));
+-		assertTrue("The x variable should be attributed with SPOONED_CLASSES", result.contains("x = SPOONED_CLASSES"));
++		assertTrue("The java file should contain import for Launcher", result.contains("import spoon.Launcher;"));
++		assertTrue("The x variable should be attributed with SPOONED_CLASSES", result.contains("x = Launcher.SPOONED_CLASSES"));
+ 		assertTrue("The java.util.Map is not imported", !result.contains("import java.util.Map"));
+ 		assertTrue("The Map type use FQN", result.contains("java.util.Map uneMap"));
+ 		assertTrue("The other variable use FQN too", result.contains("ForStaticVariables.Map"));
+@@ -91,7 +91,8 @@ public class AccessFullyQualifiedFieldTest {
+ 		String output = "target/spooned-" + this.getClass().getSimpleName()+"-TryCatch/";
+ 		String pathResource = "src/test/java/spoon/test/variable/testclasses/BurritosWithTryCatch.java";
+ 		String result = this.buildResourceAndReturnResult(pathResource, output);
+-		assertTrue("The xx variable should be attributed with SPOONED_CLASSES", result.contains("xx = SPOONED_CLASSES"));
++		assertTrue("The java file should contain import for Launcher", result.contains("import spoon.Launcher;"));
++		assertTrue("The xx variable should be attributed with SPOONED_CLASSES", result.contains("xx = Launcher.SPOONED_CLASSES"));
+ 		canBeBuilt(output, 7);
+ 	}
+ 
+@@ -101,7 +102,8 @@ public class AccessFullyQualifiedFieldTest {
+ 		String output = "target/spooned-" + this.getClass().getSimpleName()+"-Loop/";
+ 		String pathResource = "src/test/java/spoon/test/variable/testclasses/BurritosWithLoop.java";
+ 		String result = this.buildResourceAndReturnResult(pathResource, output);
+-		assertTrue("The xx variable should be attributed with SPOONED_CLASSES", result.contains("xx = SPOONED_CLASSES"));
++		assertTrue("The java file should contain import for Launcher", result.contains("import spoon.Launcher;"));
++		assertTrue("The xx variable should be attributed with SPOONED_CLASSES", result.contains("xx = Launcher.SPOONED_CLASSES"));
+ 		canBeBuilt(output, 7);
+ 	}
+ 

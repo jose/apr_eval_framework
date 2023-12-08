@@ -1,0 +1,138 @@
+diff --git a/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleHandle.java b/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleHandle.java
+index 3b1a547d9..601818464 100644
+--- a/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleHandle.java
++++ b/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleHandle.java
+@@ -54,64 +54,17 @@ import java.util.Locale;
+  * Handle for a locale object.
+  */
+ public class LocaleHandle implements java.io.Serializable, HessianHandle {
+-    private String value;
+-
+-    public LocaleHandle(String locale) {
+-        this.value = locale;
++    private String language;
++    private String country;
++    private String variant;
++
++    public LocaleHandle(String language, String country, String variant) {
++        this.language = language;
++        this.country = country;
++        this.variant = variant;
+     }
+ 
+     private Object readResolve() {
+-        String s = this.value;
+-
+-        if (s == null)
+-            return null;
+-
+-        int len = s.length();
+-        char ch = ' ';
+-
+-        int i = 0;
+-        for (;
+-             i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+-                     || 'A' <= ch && ch <= 'Z'
+-                     || '0' <= ch && ch <= '9');
+-             i++) {
+-        }
+-
+-        String language = s.substring(0, i);
+-        String country = null;
+-        String var = null;
+-
+-        if (ch == '-' || ch == '_') {
+-            int head = ++i;
+-
+-            for (;
+-                 i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+-                         || 'A' <= ch && ch <= 'Z'
+-                         || '0' <= ch && ch <= '9');
+-                 i++) {
+-            }
+-
+-            country = s.substring(head, i);
+-        }
+-
+-        if (ch == '-' || ch == '_') {
+-            int head = ++i;
+-
+-            for (;
+-                 i < len && ('a' <= (ch = s.charAt(i)) && ch <= 'z'
+-                         || 'A' <= ch && ch <= 'Z'
+-                         || '0' <= ch && ch <= '9');
+-                 i++) {
+-            }
+-
+-            var = s.substring(head, i);
+-        }
+-
+-        if (var != null)
+-            return new Locale(language, country, var);
+-        else if (country != null)
+-            return new Locale(language, country);
+-        else
+-            return new Locale(language);
++        return new Locale(language, country, variant);
+     }
+ }
+diff --git a/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleSerializer.java b/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleSerializer.java
+index 86f6cb0f3..6555e4a6b 100644
+--- a/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleSerializer.java
++++ b/hessian-lite/src/main/java/com/alibaba/com/caucho/hessian/io/LocaleSerializer.java
+@@ -68,7 +68,7 @@ public class LocaleSerializer extends AbstractSerializer {
+         else {
+             Locale locale = (Locale) obj;
+ 
+-            out.writeObject(new LocaleHandle(locale.toString()));
++            out.writeObject(new LocaleHandle(locale.getLanguage(), locale.getCountry(), locale.getVariant()));
+         }
+     }
+ }
+diff --git a/hessian-lite/src/test/java/com/alibaba/com/caucho/hessian/io/LocaleSerializerTest.java b/hessian-lite/src/test/java/com/alibaba/com/caucho/hessian/io/LocaleSerializerTest.java
+new file mode 100644
+index 000000000..0732e5171
+--- /dev/null
++++ b/hessian-lite/src/test/java/com/alibaba/com/caucho/hessian/io/LocaleSerializerTest.java
+@@ -0,0 +1,41 @@
++package com.alibaba.com.caucho.hessian.io;
++
++import com.alibaba.com.caucho.hessian.io.base.SerializeTestBase;
++import junit.framework.TestCase;
++import org.junit.Test;
++
++import java.util.Locale;
++
++public class LocaleSerializerTest extends SerializeTestBase {
++    @Test
++    public void hessian2() throws Exception {
++        Locale locale = new Locale("zh");
++        Locale result = baseHession2Serialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh", "CN");
++        result = baseHession2Serialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh", "CN", "GBK");
++        result = baseHession2Serialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh-hant", "CN");
++        result = baseHession2Serialize(locale);
++        TestCase.assertEquals(locale, result);
++    }
++
++    @Test
++    public void hessian1() throws Exception {
++        Locale locale = new Locale("zh");
++        Locale result = baseHessionSerialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh", "CN");
++        result = baseHessionSerialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh", "CN", "GBK");
++        result = baseHessionSerialize(locale);
++        TestCase.assertEquals(locale, result);
++        locale = new Locale("zh-hant", "CN");
++        result = baseHessionSerialize(locale);
++        TestCase.assertEquals(locale, result);
++    }
++}

@@ -1,0 +1,16 @@
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:28.511731422 +0000
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:32.217789934 +0000
+@@ -1667,7 +1667,13 @@
+ 
+       // Prototypes of constructors and interfaces are always declared.
+       if (qName != null && qName.endsWith(".prototype")) {
++        String className = qName.substring(0, qName.lastIndexOf(".prototype"));
++        Var slot = scope.getSlot(className);
++        JSType classType = slot == null ? null : slot.getType();
++        if (classType != null
++            && (classType.isConstructor() || classType.isInterface())) {
+           return false;
++        }
+       }
+ 
+       boolean inferred = true;

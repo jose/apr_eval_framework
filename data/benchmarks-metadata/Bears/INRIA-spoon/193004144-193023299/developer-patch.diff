@@ -1,0 +1,213 @@
+diff --git a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+index 9ed925854..e1921c03c 100644
+--- a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
++++ b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+@@ -185,6 +185,9 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 	 * Enters an expression.
+ 	 */
+ 	protected void enterCtExpression(CtExpression<?> e) {
++		if (!(e instanceof CtStatement)) {
++			elementPrinterHelper.writeComment(e, CommentOffset.BEFORE);
++		}
+ 		printer.mapLine(e, sourceCompilationUnit);
+ 		if (shouldSetBracket(e)) {
+ 			context.parenthesedExpression.push(e);
+@@ -221,6 +224,9 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 			context.parenthesedExpression.pop();
+ 			printer.write(")");
+ 		}
++		if (!(e instanceof CtStatement)) {
++			elementPrinterHelper.writeComment(e, CommentOffset.AFTER);
++		}
+ 	}
+ 
+ 	/**
+@@ -507,9 +513,6 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 	public <T> void visitCtConditional(CtConditional<T> conditional) {
+ 		enterCtExpression(conditional);
+ 		CtExpression<Boolean> condition = conditional.getCondition();
+-		if (!(condition instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(condition, CommentOffset.BEFORE);
+-		}
+ 		boolean parent;
+ 		try {
+ 			parent = conditional.getParent() instanceof CtAssignment || conditional.getParent() instanceof CtVariable;
+@@ -524,18 +527,9 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 		if (parent) {
+ 			printer.write(")");
+ 		}
+-		if (!(condition instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(condition, CommentOffset.AFTER);
+-		}
+ 		printer.write(" ? ");
+ 		CtExpression<T> thenExpression = conditional.getThenExpression();
+-		if (!(thenExpression instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(thenExpression, CommentOffset.BEFORE);
+-		}
+ 		scan(thenExpression);
+-		if (!(thenExpression instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(thenExpression, CommentOffset.AFTER);
+-		}
+ 		printer.write(" : ");
+ 
+ 		CtExpression<T> elseExpression = conditional.getElseExpression();
+@@ -543,13 +537,7 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 		if ((isAssign = elseExpression instanceof CtAssignment)) {
+ 			printer.write("(");
+ 		}
+-		if (!(elseExpression instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(elseExpression, CommentOffset.BEFORE);
+-		}
+ 		scan(elseExpression);
+-		if (!(elseExpression instanceof CtStatement)) {
+-			elementPrinterHelper.writeComment(elseExpression, CommentOffset.AFTER);
+-		}
+ 		if (isAssign) {
+ 			printer.write(")");
+ 		}
+@@ -1188,7 +1176,6 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 	@SuppressWarnings("rawtypes")
+ 	public <T> void visitCtNewArray(CtNewArray<T> newArray) {
+ 		enterCtExpression(newArray);
+-		elementPrinterHelper.writeComment(newArray, CommentOffset.BEFORE);
+ 		boolean isNotInAnnotation;
+ 		try {
+ 			isNotInAnnotation = (newArray.getParent(CtAnnotationType.class) == null) && (newArray.getParent(CtAnnotation.class) == null);
+@@ -1210,13 +1197,7 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 				printer.write("[");
+ 				if (newArray.getDimensionExpressions().size() > i) {
+ 					CtExpression<Integer> e = newArray.getDimensionExpressions().get(i);
+-					if (!(e instanceof CtStatement)) {
+-						elementPrinterHelper.writeComment(e, CommentOffset.BEFORE);
+-					}
+ 					scan(e);
+-					if (!(e instanceof CtStatement)) {
+-						elementPrinterHelper.writeComment(e, CommentOffset.AFTER);
+-					}
+ 				}
+ 				printer.write("]");
+ 				ref = ((CtArrayTypeReference) ref).getComponentType();
+@@ -1227,21 +1208,16 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 			List<CtExpression<?>> l_elements = newArray.getElements();
+ 			for (int i = 0; i < l_elements.size(); i++) {
+ 				CtExpression e = l_elements.get(i);
+-				if (!(e instanceof CtStatement)) {
+-					elementPrinterHelper.writeComment(e, CommentOffset.BEFORE);
+-				}
+ 				scan(e);
+ 				printer.write(" , ");
+ 				if (i + 1 == l_elements.size()) {
+-					/*
+-					 * we have to remove last char before we writeComment.
+-					 * We cannot simply skip adding of " , ",
+-					 * because it influences formatting and EOL too
+-					 */
+ 					printer.removeLastChar();
+-				}
+-				if (!(e instanceof CtStatement)) {
+-					elementPrinterHelper.writeComment(e, CommentOffset.AFTER);
++					// if the last element c
++					List<CtComment> comments = elementPrinterHelper.getComments(e, CommentOffset.AFTER);
++					// if the last element contains an inline comment, print a new line before closing the array
++					if (!comments.isEmpty() && comments.get(comments.size() - 1).getCommentType() == CtComment.CommentType.INLINE) {
++						printer.insertLine();
++					}
+ 				}
+ 			}
+ 
+diff --git a/src/main/java/spoon/support/compiler/jdt/ParentExiter.java b/src/main/java/spoon/support/compiler/jdt/ParentExiter.java
+index f7fa778c0..23f33cdad 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ParentExiter.java
++++ b/src/main/java/spoon/support/compiler/jdt/ParentExiter.java
+@@ -75,6 +75,7 @@ import spoon.reflect.code.CtUnaryOperator;
+ import spoon.reflect.code.BinaryOperatorKind;
+ import spoon.reflect.code.CtThisAccess;
+ import spoon.reflect.code.CtLocalVariable;
++import spoon.reflect.cu.SourcePosition;
+ import spoon.reflect.declaration.CtAnnotation;
+ import spoon.reflect.declaration.CtElement;
+ import spoon.reflect.declaration.CtExecutable;
+@@ -397,6 +398,10 @@ public class ParentExiter extends CtInheritanceScanner {
+ 				op.setLeftHandOperand(operator.getRightHandOperand());
+ 				op.setRightHandOperand((CtExpression<?>) child);
+ 				operator.setRightHandOperand(op);
++				int[] lineSeparatorPositions = this.jdtTreeBuilder.getContextBuilder().compilationunitdeclaration.compilationResult.lineSeparatorPositions;
++				SourcePosition leftPosition = op.getLeftHandOperand().getPosition();
++				SourcePosition rightPosition = op.getRightHandOperand().getPosition();
++				op.setPosition(op.getFactory().createSourcePosition(leftPosition.getCompilationUnit(), leftPosition.getSourceStart(), rightPosition.getSourceEnd(), lineSeparatorPositions));
+ 				return;
+ 			}
+ 		}
+diff --git a/src/test/java/spoon/test/comment/CommentTest.java b/src/test/java/spoon/test/comment/CommentTest.java
+index 2993145a0..89ac465a4 100644
+--- a/src/test/java/spoon/test/comment/CommentTest.java
++++ b/src/test/java/spoon/test/comment/CommentTest.java
+@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
+ import org.apache.commons.lang3.StringEscapeUtils;
+ import org.junit.Test;
+ import spoon.Launcher;
++import spoon.reflect.code.CtBinaryOperator;
+ import spoon.reflect.code.CtComment;
+ import spoon.reflect.code.CtConditional;
+ import spoon.reflect.code.CtConstructorCall;
+@@ -110,7 +111,7 @@ public class CommentTest {
+ 
+ 		List<CtComment> comments = type.getElements(new TypeFilter<CtComment>(CtComment.class));
+ 		// verify that the number of comment present in the AST is correct
+-		assertEquals(61, comments.size());
++		assertEquals(64, comments.size());
+ 
+ 		// verify that all comments present in the AST is printed
+ 		for (CtComment comment : comments) {
+@@ -249,8 +250,8 @@ public class CommentTest {
+ 		assertEquals(createFakeComment(f, "comment after then CtConditional"), ctConditional.getThenExpression().getComments().get(1));
+ 		assertEquals(createFakeComment(f, "comment before else CtConditional"), ctConditional.getElseExpression().getComments().get(0));
+ 		assertEquals(createFakeComment(f, "comment after else CtConditional"), ctLocalVariable1.getComments().get(0));
+-		assertEquals("java.lang.Double dou = (i == 1)// comment after condition CtConditional" + newLine
+-				+ " ? // comment before then CtConditional" + newLine
++		assertEquals("java.lang.Double dou = (i == 1// comment after condition CtConditional" + newLine
++				+ ") ? // comment before then CtConditional" + newLine
+ 				+ "null// comment after then CtConditional" + newLine
+ 				+ " : // comment before else CtConditional" + newLine
+ 				+ "new java.lang.Double((j / ((double) (i - 1))))", ctLocalVariable1.toString());
+@@ -263,7 +264,18 @@ public class CommentTest {
+ 		assertEquals(createFakeComment(f, "comment after array value"), arrayValue.getComments().get(1));
+ 
+ 
+-		CtReturn ctReturn = m1.getBody().getStatement(12);
++		CtLocalVariable ctLocalVariableString = m1.getBody().getStatement(12);
++		assertEquals(createFakeComment(f, "comment multi line string"), ((CtBinaryOperator)((CtBinaryOperator)ctLocalVariableString.getDefaultExpression()).getRightHandOperand()).getLeftHandOperand().getComments().get(0));
++		assertEquals("\"\" + (\"\"// comment multi line string" + newLine
++				+ " + \"\")", ctLocalVariableString.getDefaultExpression().toString());
++
++		ctLocalVariable1 = m1.getBody().getStatement(13);
++		ctConditional = (CtConditional) ctLocalVariable1.getDefaultExpression();
++		assertEquals("boolean c = (i == 1) ? // comment before then boolean CtConditional" + newLine
++				+ "i == 1// comment after then boolean CtConditional" + newLine
++				+ " : i == 2", ctLocalVariable1.toString());
++
++		CtReturn ctReturn = m1.getBody().getStatement(14);
+ 		assertEquals(createFakeComment(f, "comment return"), ctReturn.getComments().get(0));
+ 		assertEquals("// comment return" + newLine
+ 				+ "return ", ctReturn.toString());
+diff --git a/src/test/java/spoon/test/comment/testclasses/InlineComment.java b/src/test/java/spoon/test/comment/testclasses/InlineComment.java
+index 552e2e40b..e92abc628 100644
+--- a/src/test/java/spoon/test/comment/testclasses/InlineComment.java
++++ b/src/test/java/spoon/test/comment/testclasses/InlineComment.java
+@@ -94,6 +94,16 @@ public class InlineComment {
+ 			3
+ 				// last comment at the end of array
+ 		};
++
++		String m = "" +
++				"" + // comment multi line string
++				"";
++
++		boolean c = (i == 1) ?
++				// comment before then boolean CtConditional
++				i == 1    // comment after then boolean CtConditional
++				:
++				i == 2;
+ 		// comment return
+ 		return;
+ 	}

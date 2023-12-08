@@ -1,0 +1,16 @@
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:27.037848012 +0000
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:28.062592010 +0000
+@@ -73,7 +73,13 @@
+             return containsMatch((Iterator) right, left);
+         }
+         double ld = InfoSetUtil.doubleValue(left);
++        if (Double.isNaN(ld)) {
++            return false;
++        }
+         double rd = InfoSetUtil.doubleValue(right);
++        if (Double.isNaN(rd)) {
++            return false;
++        }
+         return evaluateCompare(ld == rd ? 0 : ld < rd ? -1 : 1);
+     }
+ 

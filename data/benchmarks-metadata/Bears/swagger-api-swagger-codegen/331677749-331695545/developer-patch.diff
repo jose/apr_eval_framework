@@ -1,0 +1,37 @@
+diff --git a/modules/swagger-codegen/src/main/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegen.java b/modules/swagger-codegen/src/main/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegen.java
+index ba0c837be..f48b4e340 100644
+--- a/modules/swagger-codegen/src/main/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegen.java
++++ b/modules/swagger-codegen/src/main/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegen.java
+@@ -85,6 +85,9 @@ public class JavaJAXRSSpecServerCodegen extends AbstractJavaJAXRSServerCodegen
+         }
+         if (additionalProperties.containsKey(INTERFACE_ONLY)) {
+             interfaceOnly = Boolean.valueOf(additionalProperties.get(INTERFACE_ONLY).toString());
++            if (!interfaceOnly) {
++                additionalProperties.remove(INTERFACE_ONLY);
++            }
+         }
+         if (interfaceOnly) {
+             // Change default artifactId if genereating interfaces only, before command line options are applied in base class.
+diff --git a/modules/swagger-codegen/src/test/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegenTest.java b/modules/swagger-codegen/src/test/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegenTest.java
+index 465ed7b90..fe42e33e2 100644
+--- a/modules/swagger-codegen/src/test/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegenTest.java
++++ b/modules/swagger-codegen/src/test/java/io/swagger/codegen/languages/JavaJAXRSSpecServerCodegenTest.java
+@@ -74,4 +74,18 @@ public class JavaJAXRSSpecServerCodegenTest {
+         }
+         Assert.fail("Missing " + JavaJAXRSSpecServerCodegen.INTERFACE_ONLY);
+     }
++
++    @Test
++    public void verify_that_interfaceOnly_is_removed_from_additional_properties_if_false() {
++        generator.additionalProperties().put(JavaJAXRSSpecServerCodegen.INTERFACE_ONLY, Boolean.FALSE.toString());
++        generator.processOpts();
++        Assert.assertFalse(generator.additionalProperties().containsKey(JavaJAXRSSpecServerCodegen.INTERFACE_ONLY));
++    }
++
++    @Test
++    public void verify_that_interfaceOnly_is_preserved_in_additional_properties_if_true() {
++        generator.additionalProperties().put(JavaJAXRSSpecServerCodegen.INTERFACE_ONLY, Boolean.TRUE.toString());
++        generator.processOpts();
++        Assert.assertTrue(generator.additionalProperties().containsKey(JavaJAXRSSpecServerCodegen.INTERFACE_ONLY));
++    }
+ }

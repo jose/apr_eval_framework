@@ -1,0 +1,10 @@
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:16:18.522958574 +0000
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:16:20.582768445 +0000
+@@ -159,6 +159,7 @@
+         if (startTag.isSelfClosing()) {
+             Element el = insertEmpty(startTag);
+             stack.add(el);
++            tokeniser.transition(TokeniserState.Data); // handles <script />, otherwise needs breakout steps from script data
+             tokeniser.emit(new Token.EndTag(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
+             return el;
+         }

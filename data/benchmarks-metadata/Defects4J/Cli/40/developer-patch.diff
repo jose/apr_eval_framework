@@ -1,0 +1,11 @@
+--- src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:21:58.779165039 +0000
++++ src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:22:01.957320465 +0000
+@@ -100,7 +100,7 @@
+         }
+         else
+         {
+-            return null;
++            throw new ParseException("Unable to handle the class: " + clazz);
+         }
+     }
+ 

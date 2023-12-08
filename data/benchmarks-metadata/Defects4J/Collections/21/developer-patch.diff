@@ -1,0 +1,19 @@
+--- src/main/java/org/apache/commons/collections4/list/SetUniqueList.java	2023-12-05 20:09:20.954286357 +0000
++++ src/main/java/org/apache/commons/collections4/list/SetUniqueList.java	2023-12-05 20:09:24.442877248 +0000
+@@ -24,6 +24,7 @@
+ import java.util.ListIterator;
+ import java.util.Set;
+ 
++import org.apache.commons.collections4.ListUtils;
+ import org.apache.commons.collections4.set.UnmodifiableSet;
+ import org.apache.commons.collections4.iterators.AbstractIteratorDecorator;
+ import org.apache.commons.collections4.iterators.AbstractListIteratorDecorator;
+@@ -329,7 +330,7 @@
+     public List<E> subList(final int fromIndex, final int toIndex) {
+         final List<E> superSubList = super.subList(fromIndex, toIndex);
+         final Set<E> subSet = createSetBasedOnList(set, superSubList);
+-        return new SetUniqueList<E>(superSubList, subSet);
++        return ListUtils.unmodifiableList(new SetUniqueList<E>(superSubList, subSet));
+     }
+ 
+     /**

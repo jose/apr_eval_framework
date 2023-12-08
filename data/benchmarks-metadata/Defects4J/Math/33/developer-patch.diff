@@ -1,0 +1,11 @@
+--- src/main/java/org/apache/commons/math3/optimization/linear/SimplexTableau.java	2023-12-05 17:10:28.905043596 +0000
++++ src/main/java/org/apache/commons/math3/optimization/linear/SimplexTableau.java	2023-12-05 17:10:33.896420269 +0000
+@@ -335,7 +335,7 @@
+         // positive cost non-artificial variables
+         for (int i = getNumObjectiveFunctions(); i < getArtificialVariableOffset(); i++) {
+             final double entry = tableau.getEntry(0, i);
+-            if (Precision.compareTo(entry, 0d, maxUlps) > 0) {
++            if (Precision.compareTo(entry, 0d, epsilon) > 0) {
+                 columnsToDrop.add(i);
+             }
+         }

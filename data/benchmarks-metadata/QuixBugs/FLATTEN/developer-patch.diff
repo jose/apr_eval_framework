@@ -1,0 +1,25 @@
+--- java_programs/FLATTEN.java	2023-12-05 16:52:00.396325316 +0000
++++ correct_java_programs/FLATTEN.java	2023-12-05 16:52:00.379869836 +0000
+@@ -1,5 +1,6 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
++
+ /*
+  * To change this template, choose Tools | Templates
+  * and open the template in the editor.
+@@ -18,12 +19,12 @@
+                 if (x instanceof ArrayList) {
+                     result.addAll((ArrayList) flatten(x));
+                 } else {
+-                    result.add(flatten(x));
++                    result.add((x));
+                 }
+             }
+             return result;
+         } else {
+-            return flatten(arr);
++            return arr;
+         }
+     }
+ }

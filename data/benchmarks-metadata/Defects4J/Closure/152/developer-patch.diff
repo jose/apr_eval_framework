@@ -1,0 +1,14 @@
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:02:24.979549248 +0000
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:02:28.987485336 +0000
+@@ -868,7 +868,10 @@
+     // Warning about typeOfThis if it doesn't resolve to an ObjectType
+     // is handled further upstream.
+     // TODO(nicksantos): Handle this correctly if we have a UnionType.
+-    typeOfThis = (ObjectType) safeResolve(typeOfThis, t, scope);
++    JSType maybeTypeOfThis = safeResolve(typeOfThis, t, scope);
++    if (maybeTypeOfThis instanceof ObjectType) {
++      typeOfThis = (ObjectType) maybeTypeOfThis;
++    }
+ 
+     boolean changed = false;
+     ImmutableList.Builder<ObjectType> resolvedInterfaces =

@@ -1,0 +1,12 @@
+--- src/java/org/apache/commons/cli/Util.java	2023-12-05 19:18:07.441937551 +0000
++++ src/java/org/apache/commons/cli/Util.java	2023-12-05 19:18:10.541946185 +0000
+@@ -33,6 +33,9 @@
+      */
+     static String stripLeadingHyphens(String str)
+     {
++        if (str == null) {
++            return null;
++        }
+         if (str.startsWith("--"))
+         {
+             return str.substring(2, str.length());

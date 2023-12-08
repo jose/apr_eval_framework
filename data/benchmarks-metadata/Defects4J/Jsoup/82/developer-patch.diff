@@ -1,0 +1,13 @@
+--- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:44.710120006 +0000
++++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:47.837290265 +0000
+@@ -168,7 +168,10 @@
+             }
+             Charset charset = Charset.forName(charsetName);
+             doc.outputSettings().charset(charset);
++            if (!charset.canEncode()) {
+                 // some charsets can read but not encode; switch to an encodable charset and update the meta el
++                doc.charset(Charset.forName(defaultCharset));
++            }
+         }
+         input.close();
+         return doc;

@@ -1,0 +1,43 @@
+diff --git a/src/main/java/com/github/underscore/lodash/Xml.java b/src/main/java/com/github/underscore/lodash/Xml.java
+index f7ae88492..71906b870 100644
+--- a/src/main/java/com/github/underscore/lodash/Xml.java
++++ b/src/main/java/com/github/underscore/lodash/Xml.java
+@@ -696,7 +696,15 @@ public final class Xml {
+             if (localMap != null && localMap.size() == 1
+                 && ((Map.Entry) localMap.entrySet().iterator().next()).getValue() instanceof List
+                 && !((List) ((Map.Entry) localMap.entrySet().iterator().next()).getValue()).isEmpty()) {
+-                name = String.valueOf(((Map.Entry) localMap.entrySet().iterator().next()).getKey());
++                boolean allMapItems = true;
++                for (Object item : (List) ((Map.Entry) localMap.entrySet().iterator().next()).getValue()) {
++                    if (!(item instanceof Map)) {
++                       allMapItems = false;
++                       break;
++                    }
++                }
++                name = allMapItems ? String.valueOf(((Map.Entry) localMap.entrySet().iterator().next()).getKey())
++                    : "root";
+             } else {
+                 name = "root";
+             }
+diff --git a/src/test/java/com/github/underscore/lodash/StringTest.java b/src/test/java/com/github/underscore/lodash/StringTest.java
+index 96f571ef0..7a29a3238 100644
+--- a/src/test/java/com/github/underscore/lodash/StringTest.java
++++ b/src/test/java/com/github/underscore/lodash/StringTest.java
+@@ -1965,6 +1965,17 @@ _.repeat('abc', 0);
+                 + "<root>\n  <a>\n  </a>\n</root>", U.toXml((Map<String, Object>) U.fromJson(json3)));
+     }
+ 
++    @SuppressWarnings("unchecked")
++    @Test
++    public void toXmlFromJson21() {
++        final String json = "{\"a\": [0]}";
++        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
++                + "<root>\n"
++                + "  <a>0</a>\n"
++                + "</root>",
++            U.toXml((Map<String, Object>) U.fromJson(json)));
++    }
++
+     @SuppressWarnings("unchecked")
+     @Test
+     public void toXml() {

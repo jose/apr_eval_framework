@@ -1,0 +1,289 @@
+diff --git a/src/main/java/spoon/support/visitor/ClassTypingContext.java b/src/main/java/spoon/support/visitor/ClassTypingContext.java
+index f5ce92120..36e5c588d 100644
+--- a/src/main/java/spoon/support/visitor/ClassTypingContext.java
++++ b/src/main/java/spoon/support/visitor/ClassTypingContext.java
+@@ -17,6 +17,7 @@
+ package spoon.support.visitor;
+ 
+ import java.util.ArrayList;
++import java.util.Collections;
+ import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.List;
+@@ -691,6 +692,19 @@ public class ClassTypingContext extends AbstractTypingContext {
+ 					//the type cannot be adapted.
+ 					return false;
+ 				}
++
++				// we can be in a case where thisType is CtType and thatType is CtType<?>
++				// the types are not equals but it's overridden
++				// in that specific case we simply remove the list of actualTypeArguments from thatType
++				if (thisType.getActualTypeArguments().isEmpty() && thatType.getActualTypeArguments().size() == 1) {
++					CtTypeReference actualTA = thatType.getActualTypeArguments().get(0);
++					if (actualTA instanceof CtWildcardReference) {
++						if (((CtWildcardReference) actualTA).getBoundingType() == null) {
++							thatType.setActualTypeArguments(Collections.EMPTY_LIST);
++						}
++					}
++				}
++
+ 				if (thisType.equals(thatType) == false) {
+ 					return false;
+ 				}
+diff --git a/src/main/java/spoon/template/Substitution.java b/src/main/java/spoon/template/Substitution.java
+index 966fbd43d..825c7dff5 100644
+--- a/src/main/java/spoon/template/Substitution.java
++++ b/src/main/java/spoon/template/Substitution.java
+@@ -41,6 +41,7 @@ import spoon.support.template.SubstitutionVisitor;
+ 
+ import java.lang.reflect.Field;
+ import java.util.List;
++import java.util.Set;
+ 
+ /**
+  * This class defines the substitution API for templates (see {@link Template}).
+@@ -171,6 +172,7 @@ public abstract class Substitution {
+ 	 */
+ 	static void insertAllMethods(CtType<?> targetType, Template<?> template, CtClass<?> sourceClass) {
+ 
++		Set<CtMethod<?>> methodsOfTemplate = sourceClass.getFactory().Type().get(Template.class).getMethods();
+ 		// insert all the methods
+ 		for (CtMethod<?> m : sourceClass.getMethods()) {
+ 			if (m.getAnnotation(Local.class) != null) {
+@@ -179,6 +181,18 @@ public abstract class Substitution {
+ 			if (m.getAnnotation(Parameter.class) != null) {
+ 				continue;
+ 			}
++
++			boolean isOverridingTemplateItf = false;
++			for (CtMethod m2 : methodsOfTemplate) {
++				if (m.isOverriding(m2)) {
++					isOverridingTemplateItf = true;
++				}
++			}
++
++			if (isOverridingTemplateItf) {
++				continue;
++			}
++
+ 			insertMethod(targetType, template, m);
+ 		}
+ 	}
+diff --git a/src/test/java/spoon/test/template/TemplateTest.java b/src/test/java/spoon/test/template/TemplateTest.java
+index 49b89e73f..15b6b87da 100644
+--- a/src/test/java/spoon/test/template/TemplateTest.java
++++ b/src/test/java/spoon/test/template/TemplateTest.java
+@@ -23,7 +23,9 @@ import spoon.template.TemplateMatcher;
+ import spoon.template.TemplateParameter;
+ import spoon.test.template.testclasses.ArrayAccessTemplate;
+ import spoon.test.template.testclasses.InvocationTemplate;
++import spoon.test.template.testclasses.NtonCodeTemplate;
+ import spoon.test.template.testclasses.SecurityCheckerTemplate;
++import spoon.test.template.testclasses.SimpleTemplate;
+ import spoon.test.template.testclasses.bounds.CheckBound;
+ import spoon.test.template.testclasses.bounds.CheckBoundMatcher;
+ import spoon.test.template.testclasses.bounds.CheckBoundTemplate;
+@@ -45,6 +47,7 @@ import java.rmi.Remote;
+ import java.util.ArrayList;
+ import java.util.Date;
+ import java.util.List;
++import java.util.Set;
+ 
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertFalse;
+@@ -478,6 +481,40 @@ public class TemplateTest {
+ 		//iface.$method$() becomes iface.hashCode()
+ 		assertEquals("iface.hashCode()", templateRoot.toString());
+ 	}
++
++	@Test
++	public void testSimpleTemplate() {
++		Launcher spoon = new Launcher();
++		spoon.addTemplateResource(new FileSystemFile("./src/test/java/spoon/test/template/testclasses/SimpleTemplate.java"));
++		spoon.buildModel();
++
++		Factory factory = spoon.getFactory();
++
++		CtClass<?> testSimpleTpl = factory.Class().create("TestSimpleTpl");
++		new SimpleTemplate("Hello world").apply(testSimpleTpl);
++
++		Set<CtMethod<?>> listMethods = testSimpleTpl.getMethods();
++		assertEquals(0, testSimpleTpl.getMethodsByName("apply").size());
++		assertEquals(1, listMethods.size());
++	}
++
++	@Test
++	public void testSubstitutionInsertAllNtoN() {
++		Launcher spoon = new Launcher();
++		spoon.addTemplateResource(new FileSystemFile("./src/test/java/spoon/test/template/testclasses/NtonCodeTemplate.java"));
++		spoon.addInputResource("./src/test/java/spoon/test/template/testclasses/C.java");
++		spoon.buildModel();
++
++		Factory factory = spoon.getFactory();
++
++		CtClass<?> cclass = factory.Class().get("spoon.test.template.testclasses.C");
++		new NtonCodeTemplate(cclass.getReference(), 5).apply(cclass);
++
++		Set<CtMethod<?>> listMethods = cclass.getMethods();
++		assertEquals(0, cclass.getMethodsByName("apply").size());
++		assertEquals(4, listMethods.size());
++	}
++
+ 	@Test
+ 	public void testTemplateArrayAccess() throws Exception {
+ 		//contract: the template engine supports substitution of arrays of parameters.
+diff --git a/src/test/java/spoon/test/template/testclasses/C.java b/src/test/java/spoon/test/template/testclasses/C.java
+new file mode 100644
+index 000000000..5fa5b6668
+--- /dev/null
++++ b/src/test/java/spoon/test/template/testclasses/C.java
+@@ -0,0 +1,26 @@
++package spoon.test.template.testclasses;
++
++
++public class C {
++
++	public static void main(String[] args) {
++		try {
++			System.out.print(".");
++			new C();
++			System.out.print(".");
++			new C();
++			System.out.print(".");
++			new C();
++			System.out.print(".");
++			new C();
++			System.out.print(".");
++			new C();
++			System.out.print(".");
++			new C();
++		} catch (RuntimeException e) {
++			System.out.flush();
++			System.err.println(e.getMessage());
++		}
++	}
++
++}
+diff --git a/src/test/java/spoon/test/template/testclasses/NtonCodeTemplate.java b/src/test/java/spoon/test/template/testclasses/NtonCodeTemplate.java
+new file mode 100644
+index 000000000..0be8f267d
+--- /dev/null
++++ b/src/test/java/spoon/test/template/testclasses/NtonCodeTemplate.java
+@@ -0,0 +1,75 @@
++package spoon.test.template.testclasses;
++
++import spoon.reflect.code.CtStatement;
++import spoon.reflect.declaration.CtClass;
++import spoon.reflect.declaration.CtConstructor;
++import spoon.reflect.declaration.CtType;
++import spoon.reflect.reference.CtTypeReference;
++import spoon.template.AbstractTemplate;
++import spoon.template.Local;
++import spoon.template.Parameter;
++import spoon.template.Substitution;
++
++public class NtonCodeTemplate extends AbstractTemplate<CtClass<?>> implements _TargetType_ {
++	@Parameter
++	static int _n_;
++
++	@Parameter
++    CtTypeReference<?> _TargetType_;
++
++	static _TargetType_[] instances = new _TargetType_[_n_];
++
++	static int instanceCount = 0;
++
++	@Local
++	public NtonCodeTemplate(CtTypeReference<?> targetType, int n) {
++		_n_ = n;
++		_TargetType_ = targetType;
++	}
++
++	@Local
++	public void initializer() {
++		if (instanceCount >= _n_) {
++			throw new RuntimeException("max number of instances reached");
++		}
++		instances[instanceCount++] = this;
++	}
++
++	public int getInstanceCount() {
++		return instanceCount;
++	}
++
++	public _TargetType_ getInstance(int i) {
++		if (i > _n_)
++			throw new RuntimeException("instance number greater than " + _n_);
++		return instances[i];
++	}
++
++	public int getMaxInstanceCount() {
++		return _n_;
++	}
++
++	@Override
++	public CtClass<?> apply(CtType<?> ctType) {
++		if (ctType instanceof CtClass) {
++			CtClass<?> zeClass = (CtClass) ctType;
++			Substitution.insertAll(zeClass, this);
++
++			for (CtConstructor<?> c : zeClass.getConstructors()) {
++				c.getBody().insertEnd((CtStatement) Substitution.substituteMethodBody(zeClass, this, "initializer"));
++			}
++
++			return zeClass;
++		} else {
++			return null;
++		}
++	}
++
++	class Test {
++		public void _name_() {}
++	}
++}
++
++interface _TargetType_ {
++
++}
+\ No newline at end of file
+diff --git a/src/test/java/spoon/test/template/testclasses/SimpleTemplate.java b/src/test/java/spoon/test/template/testclasses/SimpleTemplate.java
+new file mode 100644
+index 000000000..fbf366207
+--- /dev/null
++++ b/src/test/java/spoon/test/template/testclasses/SimpleTemplate.java
+@@ -0,0 +1,35 @@
++package spoon.test.template.testclasses;
++
++import spoon.reflect.declaration.CtClass;
++import spoon.reflect.declaration.CtType;
++import spoon.template.Local;
++import spoon.template.Parameter;
++import spoon.template.Substitution;
++import spoon.template.Template;
++
++/**
++ * Created by urli on 31/05/2017.
++ */
++public class SimpleTemplate implements Template<CtClass> {
++    // template parameter fields
++    @Parameter
++    String _parameter_;
++
++    // parameters binding
++    @Local
++    public SimpleTemplate(String parameter) {
++        _parameter_ = parameter;
++    }
++
++    // template method
++    public void simpleTemplateMethod() {
++        System.out.println(_parameter_);
++    }
++
++    @Override
++    public CtClass apply(CtType targetType) {
++        Substitution.insertAll(targetType, this);
++
++        return (CtClass) targetType;
++    }
++}

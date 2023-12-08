@@ -1,0 +1,66 @@
+diff --git a/molgenis-data-security/src/main/java/org/molgenis/data/security/owned/AbstractRowLevelSecurityRepositoryDecorator.java b/molgenis-data-security/src/main/java/org/molgenis/data/security/owned/AbstractRowLevelSecurityRepositoryDecorator.java
+index d85df4bcc..908e2b52d 100644
+--- a/molgenis-data-security/src/main/java/org/molgenis/data/security/owned/AbstractRowLevelSecurityRepositoryDecorator.java
++++ b/molgenis-data-security/src/main/java/org/molgenis/data/security/owned/AbstractRowLevelSecurityRepositoryDecorator.java
+@@ -75,14 +75,7 @@ public abstract class AbstractRowLevelSecurityRepositoryDecorator<E extends Enti
+ 	@Override
+ 	public E findOne(Query<E> q)
+ 	{
+-		E entity = delegate().findOne(q);
+-
+-		if (entity != null && !isOperationPermitted(entity, Action.READ))
+-		{
+-			return null;
+-		}
+-
+-		return entity;
++		return findAllPermitted(q, Action.READ).findFirst().orElse(null);
+ 	}
+ 
+ 	@Override
+diff --git a/molgenis-data-security/src/test/java/org/molgenis/data/security/meta/EntityTypeRepositorySecurityDecoratorTest.java b/molgenis-data-security/src/test/java/org/molgenis/data/security/meta/EntityTypeRepositorySecurityDecoratorTest.java
+index 672a8ee33..1799be2fc 100644
+--- a/molgenis-data-security/src/test/java/org/molgenis/data/security/meta/EntityTypeRepositorySecurityDecoratorTest.java
++++ b/molgenis-data-security/src/test/java/org/molgenis/data/security/meta/EntityTypeRepositorySecurityDecoratorTest.java
+@@ -209,7 +209,7 @@ public class EntityTypeRepositorySecurityDecoratorTest extends AbstractMockitoTe
+ 		EntityType entityType0 = when(mock(EntityType.class).getId()).thenReturn(entityType0Name).getMock();
+ 		@SuppressWarnings("unchecked")
+ 		Query q = mock(Query.class);
+-		when(delegateRepository.findOne(q)).thenReturn(entityType0);
++		when(delegateRepository.findAll(any(Query.class))).thenReturn(Stream.of(entityType0));
+ 		when(permissionService.hasPermission(new EntityTypeIdentity(entityType0Name),
+ 				EntityTypePermission.COUNT)).thenReturn(true);
+ 		assertEquals(repo.findOne(q), entityType0);
+@@ -223,7 +223,7 @@ public class EntityTypeRepositorySecurityDecoratorTest extends AbstractMockitoTe
+ 		EntityType entityType0 = when(mock(EntityType.class).getId()).thenReturn(entityType0Name).getMock();
+ 		@SuppressWarnings("unchecked")
+ 		Query q = mock(Query.class);
+-		when(delegateRepository.findOne(q)).thenReturn(entityType0);
++		when(delegateRepository.findAll(any(Query.class))).thenReturn(Stream.of(entityType0));
+ 		when(permissionService.hasPermission(new EntityTypeIdentity(entityType0Name),
+ 				EntityTypePermission.COUNT)).thenReturn(false);
+ 		assertNull(repo.findOne(q));
+diff --git a/molgenis-data-security/src/test/java/org/molgenis/data/security/owned/RowLevelSecurityRepositoryDecoratorTest.java b/molgenis-data-security/src/test/java/org/molgenis/data/security/owned/RowLevelSecurityRepositoryDecoratorTest.java
+index df8bcf75c..6b0685b26 100644
+--- a/molgenis-data-security/src/test/java/org/molgenis/data/security/owned/RowLevelSecurityRepositoryDecoratorTest.java
++++ b/molgenis-data-security/src/test/java/org/molgenis/data/security/owned/RowLevelSecurityRepositoryDecoratorTest.java
+@@ -331,7 +331,8 @@ public class RowLevelSecurityRepositoryDecoratorTest extends AbstractMockitoTest
+ 		@SuppressWarnings("unchecked")
+ 		Query<Entity> query = mock(Query.class);
+ 		Entity entity = getEntityMock();
+-		when(delegateRepository.findOne(query)).thenReturn(entity);
++		when(delegateRepository.findAll(new QueryImpl<>().setOffset(0).setPageSize(Integer.MAX_VALUE))).thenAnswer(
++				invocation -> Stream.of(entity));
+ 		when(userPermissionEvaluator.hasPermission(new EntityIdentity(entity), READ)).thenReturn(true);
+ 		assertEquals(entity, rowLevelSecurityRepositoryDecorator.findOne(query));
+ 	}
+@@ -342,7 +343,8 @@ public class RowLevelSecurityRepositoryDecoratorTest extends AbstractMockitoTest
+ 		@SuppressWarnings("unchecked")
+ 		Query<Entity> query = mock(Query.class);
+ 		Entity entity = getEntityMock();
+-		when(delegateRepository.findOne(query)).thenReturn(entity);
++		when(delegateRepository.findAll(new QueryImpl<>().setOffset(0).setPageSize(Integer.MAX_VALUE))).thenAnswer(
++				invocation -> Stream.of(entity));
+ 		assertNull(rowLevelSecurityRepositoryDecorator.findOne(query));
+ 	}
+ 

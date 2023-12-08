@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2023-12-05 20:55:08.606483087 +0000
++++ src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2023-12-05 20:55:12.151177092 +0000
+@@ -899,6 +899,9 @@
+     }
+     
+     private InputStream getCurrentStream() throws IOException {
++        if (archive.files[currentEntryIndex].getSize() == 0) {
++            return new ByteArrayInputStream(new byte[0]);
++        }
+         if (deferredBlockStreams.isEmpty()) {
+             throw new IllegalStateException("No current 7z entry (call getNextEntry() first).");
+         }

@@ -1,0 +1,10 @@
+--- src/java/org/apache/commons/lang/BooleanUtils.java	2023-12-05 19:01:54.366738404 +0000
++++ src/java/org/apache/commons/lang/BooleanUtils.java	2023-12-05 19:02:00.763455525 +0000
+@@ -679,6 +679,7 @@
+                         (str.charAt(1) == 'E' || str.charAt(1) == 'e') &&
+                         (str.charAt(2) == 'S' || str.charAt(2) == 's');
+                 }
++                return false;
+             }
+             case 4: {
+                 char ch = str.charAt(0);

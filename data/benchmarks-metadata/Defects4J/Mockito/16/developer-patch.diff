@@ -1,0 +1,36 @@
+--- src/org/mockito/Mockito.java	2023-12-05 17:26:48.497478458 +0000
++++ src/org/mockito/Mockito.java	2023-12-05 17:26:53.694841220 +0000
+@@ -824,7 +824,7 @@
+      * @return mock object
+      */
+     public static <T> T mock(Class<T> classToMock, MockSettings mockSettings) {
+-        return MOCKITO_CORE.mock(classToMock, mockSettings);
++        return MOCKITO_CORE.mock(classToMock, mockSettings, true);
+     }
+     
+     /**
+@@ -896,7 +896,7 @@
+     public static <T> T spy(T object) {
+         return MOCKITO_CORE.mock((Class<T>) object.getClass(), withSettings()
+                 .spiedInstance(object)
+-                .defaultAnswer(CALLS_REAL_METHODS)); 
++                .defaultAnswer(CALLS_REAL_METHODS), true); 
+     }
+ 
+     /**
+--- src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:48.628964042 +0000
++++ src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:53.695183914 +0000
+@@ -29,10 +29,11 @@
+     private final MockUtil mockUtil = new MockUtil();
+     private final MockingProgress mockingProgress = new ThreadSafeMockingProgress();
+     
+-    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) { return mock(classToMock, mockSettings); }
+-    public <T> T mock(Class<T> classToMock, MockSettings mockSettings) {
++    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) {
+         mockingProgress.validateState();
++        if (shouldResetOngoingStubbing) {
+             mockingProgress.resetOngoingStubbing();
++        }
+         return mockUtil.createMock(classToMock, (MockSettingsImpl) mockSettings);
+     }
+     

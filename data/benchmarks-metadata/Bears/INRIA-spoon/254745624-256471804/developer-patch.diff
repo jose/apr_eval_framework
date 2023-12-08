@@ -1,0 +1,42 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+index d7797f1bb..c53cd180a 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+@@ -540,6 +540,10 @@ public class ReferenceBuilder {
+ 			CtPackageReference packageReference = index >= 0 ? packageFactory.getOrCreate(concatSubArray(namesParameterized, index)).getReference() : packageFactory.topLevel();
+ 			inner.setPackage(packageReference);
+ 		}
++		if (!res.toString().replace(", ?", ",?").endsWith(CharOperation.toString(ref.getParameterizedTypeName()))) {
++			// verify that we did not match a class that have the same name in a different package
++			return this.jdtTreeBuilder.getFactory().Type().createReference(CharOperation.toString(ref.getParameterizedTypeName()));
++		}
+ 		return res;
+ 	}
+ 
+diff --git a/src/test/java/spoon/test/reference/TypeReferenceTest.java b/src/test/java/spoon/test/reference/TypeReferenceTest.java
+index e8afdce7c..1682aa95a 100644
+--- a/src/test/java/spoon/test/reference/TypeReferenceTest.java
++++ b/src/test/java/spoon/test/reference/TypeReferenceTest.java
+@@ -280,6 +280,22 @@ public class TypeReferenceTest {
+ 		assertNotNull(circularRef);
+ 	}
+ 
++	@Test
++	public void testUnknownSuperClassWithSameNameInNoClasspath() throws Exception {
++		// contract: Gets the import of a type specified in the declaration of a class.
++		final Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/resources/noclasspath/Attachment.java");
++		launcher.setSourceOutputDirectory("./target/class-declaration");
++		launcher.getEnvironment().setNoClasspath(true);
++		launcher.run();
++
++		CtClass<?> ctType = (CtClass<?>) launcher.getFactory().Class().getAll().get(0);
++		assertNotEquals(ctType.getSuperclass(), ctType.getReference());
++		assertEquals("it.feio.android.omninotes.commons.models.Attachment", ctType.getSuperclass().toString());
++		assertEquals("it.feio.android.omninotes.models.Attachment", ctType.getReference().toString());
++
++	}
++
+ 	@Test
+ 	public void testPackageInNoClasspath () {
+ 		final Launcher launcher = new Launcher();

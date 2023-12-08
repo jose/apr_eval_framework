@@ -1,0 +1,41 @@
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index 9f46670f6..614a6f93e 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -563,7 +563,7 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	 * @return true if the ref should be imported.
+ 	 */
+ 	protected boolean isTypeInCollision(CtReference ref, boolean fqnMode) {
+-		if (targetType.getSimpleName().equals(ref.getSimpleName()) && !targetType.equals(ref)) {
++		if (targetType != null && targetType.getSimpleName().equals(ref.getSimpleName()) && !targetType.equals(ref)) {
+ 			return true;
+ 		}
+ 
+diff --git a/src/test/java/spoon/test/imports/ImportScannerTest.java b/src/test/java/spoon/test/imports/ImportScannerTest.java
+index 27fa13a53..4000915e1 100644
+--- a/src/test/java/spoon/test/imports/ImportScannerTest.java
++++ b/src/test/java/spoon/test/imports/ImportScannerTest.java
+@@ -7,6 +7,7 @@ import spoon.compiler.SpoonResourceHelper;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.factory.Factory;
++import spoon.reflect.reference.CtFieldReference;
+ import spoon.reflect.reference.CtTypeReference;
+ import spoon.reflect.visitor.ImportScanner;
+ import spoon.reflect.visitor.ImportScannerImpl;
+@@ -94,4 +95,15 @@ public class ImportScannerTest {
+ 		//assertTrue( importScanner.isImported( factory.Type().createReference( ArithmeticException.class ) ));
+ 		assertTrue( importScanner.isImported( factory.Type().createReference( AccessControlException.class ) ));
+ 	}
++
++	@Test
++	public void testTargetTypeNull() throws Exception {
++		Launcher spoon = new Launcher();
++		Factory factory = spoon.createFactory();
++		CtFieldReference fieldRef = factory.createFieldReference();
++		fieldRef.setStatic(true);
++
++		ImportScanner importScanner = new MinimalImportScanner();
++		importScanner.computeImports(fieldRef);
++	}
+ }

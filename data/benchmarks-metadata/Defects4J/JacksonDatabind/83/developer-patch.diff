@@ -1,0 +1,12 @@
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/FromStringDeserializer.java	2023-12-05 21:10:14.341397627 +0000
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/FromStringDeserializer.java	2023-12-05 21:10:16.892559705 +0000
+@@ -116,9 +116,7 @@
+                 // 19-May-2017, tatu: Used to require non-null result (assuming `null`
+                 //    indicated error; but that seems wrong. Should be able to return
+                 //    `null` as value.
+-                if (_deserialize(text, ctxt) != null) {
+                 return _deserialize(text, ctxt);
+-                }
+             } catch (IllegalArgumentException iae) {
+                 cause = iae;
+             } catch (MalformedURLException me) {

@@ -1,0 +1,293 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+index 3e81dbc25..d7797f1bb 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+@@ -632,6 +632,7 @@ public class ReferenceBuilder {
+ 				ref = getTypeReference(binding.actualType());
+ 			} else {
+ 				ref = this.jdtTreeBuilder.getFactory().Core().createTypeReference();
++				this.exploringParameterizedBindings.put(binding, ref);
+ 				if (binding.isAnonymousType()) {
+ 					ref.setSimpleName("");
+ 				} else {
+@@ -702,7 +703,13 @@ public class ReferenceBuilder {
+ 				// if the type parameter has a super class other than java.lang.Object, we get it
+ 				// superClass.superclass() is null if it's java.lang.Object
+ 				if (superClass != null && !(superClass.superclass() == null)) {
+-					refSuperClass = this.getTypeReference(superClass);
++
++					// this case could happen with Enum<E extends Enum<E>> for example:
++					// in that case we only want to have E -> Enum -> E
++					// to conserve the same behavior as JavaReflectionTreeBuilder
++					if (!(superClass instanceof ParameterizedTypeBinding) || !this.exploringParameterizedBindings.containsKey(superClass)) {
++						refSuperClass = this.getTypeReference(superClass);
++					}
+ 
+ 				// if the type parameter has a super interface, then we'll get it too, as a superclass
+ 				// type parameter can only extends an interface or a class, so we don't make the distinction
+diff --git a/src/main/java/spoon/support/reflect/reference/CtExecutableReferenceImpl.java b/src/main/java/spoon/support/reflect/reference/CtExecutableReferenceImpl.java
+index 8dddb381c..12ad83e51 100644
+--- a/src/main/java/spoon/support/reflect/reference/CtExecutableReferenceImpl.java
++++ b/src/main/java/spoon/support/reflect/reference/CtExecutableReferenceImpl.java
+@@ -150,7 +150,10 @@ public class CtExecutableReferenceImpl<T> extends CtReferenceImpl implements CtE
+ 	@SuppressWarnings("unchecked")
+ 	public CtExecutable<T> getDeclaration() {
+ 		final CtTypeReference<?> typeRef = getDeclaringType();
+-		return typeRef == null ? null : getCtExecutable(typeRef.getDeclaration());
++		if (typeRef == null || typeRef.getDeclaration() == null) {
++			return null;
++		}
++		return getCtExecutable(typeRef.getDeclaration());
+ 	}
+ 
+ 	@Override
+diff --git a/src/main/java/spoon/support/visitor/AbstractTypingContext.java b/src/main/java/spoon/support/visitor/AbstractTypingContext.java
+index 46d998261..1cbb2ea12 100644
+--- a/src/main/java/spoon/support/visitor/AbstractTypingContext.java
++++ b/src/main/java/spoon/support/visitor/AbstractTypingContext.java
+@@ -71,9 +71,6 @@ abstract class AbstractTypingContext implements GenericTypeAdapter {
+ 			return adaptTypeParameterReferenceBoundingType(typeParamRef, typeParamRef.getBoundingType());
+ 		}
+ 		CtTypeReference<?> typeRefAdapted = adaptTypeParameter(typeParamRef.getDeclaration());
+-		if (typeRefAdapted instanceof CtTypeParameterReference) {
+-			return adaptTypeParameterReferenceBoundingType((CtTypeParameterReference) typeRefAdapted, typeParamRef.getBoundingType());
+-		}
+ 		return typeRefAdapted;
+ 	}
+ 
+diff --git a/src/main/java/spoon/support/visitor/java/JavaReflectionTreeBuilder.java b/src/main/java/spoon/support/visitor/java/JavaReflectionTreeBuilder.java
+index e380bbbed..3f410c139 100644
+--- a/src/main/java/spoon/support/visitor/java/JavaReflectionTreeBuilder.java
++++ b/src/main/java/spoon/support/visitor/java/JavaReflectionTreeBuilder.java
+@@ -329,7 +329,12 @@ public class JavaReflectionTreeBuilder extends JavaReflectionVisitorImpl {
+ 
+ 	@Override
+ 	public void visitType(Type type) {
+-		final CtTypeReference<?> ctTypeReference = factory.Core().createTypeReference();
++		CtTypeReference<?> ctTypeReference;
++		if (type instanceof TypeVariable) {
++			ctTypeReference = factory.Core().createTypeParameterReference();
++		} else {
++			ctTypeReference = factory.Core().createTypeReference();
++		}
+ 		enter(new TypeReferenceRuntimeBuilderContext(ctTypeReference));
+ 		ctTypeReference.setSimpleName(getTypeName(type));
+ 
+diff --git a/src/test/java/spoon/reflect/declaration/CtTypeInformationTest.java b/src/test/java/spoon/reflect/declaration/CtTypeInformationTest.java
+index 9f22519c4..4b2c011e1 100644
+--- a/src/test/java/spoon/reflect/declaration/CtTypeInformationTest.java
++++ b/src/test/java/spoon/reflect/declaration/CtTypeInformationTest.java
+@@ -137,18 +137,13 @@ public class CtTypeInformationTest {
+ 
+ 		// + 48 of ArrayList (in library)
+ 		// + 12 of java.lang.Object
+-		// The final +1 is the result of the only usage of `ClassTypingContext#isSameSignature` in `getAllMethods`
+-		// (see: https://github.com/INRIA/spoon/pull/1375)
+-		// now it gets both `ArrayList#forEach` and `Iterable#forEach`
+-		// this has been spotted as an issue in https://github.com/INRIA/spoon/issues/1407
+-		Assert.assertEquals(1+12+48+1, extendObject.getAllMethods().size());
++		Assert.assertEquals(1+12+48, extendObject.getAllMethods().size());
+ 
+ 		final CtType<?> subClass = this.factory.Type().get(Subclass.class);
+ 		assertEquals(2, subClass.getMethods().size());
+ 
+ 		// the abstract method from Comparable which is overridden should not be present in the model
+-		// The +1 happens for the same reason as below
+-		assertEquals(61+2+1, subClass.getAllMethods().size());
++		assertEquals(61+2, subClass.getAllMethods().size());
+ 
+ 		CtTypeReference<?> superclass = subClass.getSuperclass();
+ 		Assert.assertEquals(ExtendsObject.class.getName(), superclass.getQualifiedName());
+diff --git a/src/test/java/spoon/reflect/declaration/UnknownDeclarationTest.java b/src/test/java/spoon/reflect/declaration/UnknownDeclarationTest.java
+index dae109b39..f834a455e 100644
+--- a/src/test/java/spoon/reflect/declaration/UnknownDeclarationTest.java
++++ b/src/test/java/spoon/reflect/declaration/UnknownDeclarationTest.java
+@@ -6,6 +6,7 @@ import spoon.reflect.reference.CtExecutableReference;
+ import spoon.reflect.visitor.CtScanner;
+ 
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertNull;
+ 
+ /**
+@@ -21,6 +22,7 @@ public class UnknownDeclarationTest {
+         public <T> void visitCtExecutableReference(final CtExecutableReference<T> reference) {
+             final CtExecutable executable = reference.getDeclaration();
+             assertNull(executable);
++
+             referenceCounter++;
+         }
+     }
+diff --git a/src/test/java/spoon/test/filters/FilterTest.java b/src/test/java/spoon/test/filters/FilterTest.java
+index a73129b54..c8fe68ade 100644
+--- a/src/test/java/spoon/test/filters/FilterTest.java
++++ b/src/test/java/spoon/test/filters/FilterTest.java
+@@ -447,7 +447,11 @@ public class FilterTest {
+ 		final CtExecutableReference<?> expectedExecutable = expectedInv.getExecutable();
+ 		assertNotNull(expectedExecutable);
+ 		assertEquals("size", expectedExecutable.getSimpleName());
++
+ 		assertNull(expectedExecutable.getDeclaration());
++		CtExecutable<?> exec = expectedExecutable.getExecutableDeclaration();
++		assertEquals("size", exec.getSimpleName());
++		assertEquals("ArrayList", ((CtClass)exec.getParent()).getSimpleName());
+ 		final CtExecutable<?> declaration = expectedExecutable.getExecutableDeclaration();
+ 		assertNotNull(declaration);
+ 		assertEquals("size", declaration.getSimpleName());
+diff --git a/src/test/java/spoon/test/generics/GenericsTest.java b/src/test/java/spoon/test/generics/GenericsTest.java
+index a7bb8fea7..ada8fc6c7 100644
+--- a/src/test/java/spoon/test/generics/GenericsTest.java
++++ b/src/test/java/spoon/test/generics/GenericsTest.java
+@@ -14,6 +14,7 @@ import spoon.reflect.declaration.CtAnnotation;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtConstructor;
+ import spoon.reflect.declaration.CtElement;
++import spoon.reflect.declaration.CtExecutable;
+ import spoon.reflect.declaration.CtField;
+ import spoon.reflect.declaration.CtInterface;
+ import spoon.reflect.declaration.CtMethod;
+@@ -43,18 +44,21 @@ import spoon.test.ctType.testclasses.ErasureModelA;
+ import spoon.test.generics.testclasses.Banana;
+ import spoon.test.generics.testclasses.CelebrationLunch;
+ import spoon.test.generics.testclasses.CelebrationLunch.WeddingLunch;
++import spoon.test.generics.testclasses.EnumSetOf;
+ import spoon.test.generics.testclasses.FakeTpl;
+ import spoon.test.generics.testclasses.Lunch;
+ import spoon.test.generics.testclasses.Mole;
+ import spoon.test.generics.testclasses.Orange;
+ import spoon.test.generics.testclasses.Paella;
+ import spoon.test.generics.testclasses.Panini;
++import spoon.test.generics.testclasses.SameSignature;
+ import spoon.test.generics.testclasses.Spaghetti;
+ import spoon.test.generics.testclasses.Tacos;
+ import spoon.testing.utils.ModelUtils;
+ 
+ import java.io.File;
+ import java.util.ArrayList;
++import java.util.EnumSet;
+ import java.util.List;
+ 
+ import static org.junit.Assert.assertEquals;
+@@ -62,6 +66,7 @@ import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertNotEquals;
+ import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertNotSame;
++import static org.junit.Assert.assertNull;
+ import static org.junit.Assert.assertSame;
+ import static org.junit.Assert.assertTrue;
+ import static spoon.testing.utils.ModelUtils.build;
+@@ -1094,4 +1099,53 @@ public class GenericsTest {
+ 		assertSame(innerTotoFormatCtType.get(0), paramInnerToto.getDeclaration());
+ 		assertSame(innerTypeParametersList.get(0), returnInnerToto.getDeclaration());
+ 	}
++
++	@Test
++	public void testIsSameSignatureWithGenerics() {
++		Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/java/spoon/test/generics/testclasses/SameSignature.java");
++		launcher.buildModel();
++
++		CtClass ctClass = launcher.getFactory().Class().get(SameSignature.class);
++
++		List<CtMethod> methods = ctClass.getMethodsByName("forEach");
++		assertEquals(1, methods.size());
++
++		CtType<?> iterableItf = launcher.getFactory().Type().get(Iterable.class);
++
++		List<CtMethod<?>> methodsItf = iterableItf.getMethodsByName("forEach");
++		assertEquals(1, methodsItf.size());
++
++		ClassTypingContext ctc = new ClassTypingContext(ctClass.getReference());
++		assertTrue(ctc.isOverriding(methods.get(0), methodsItf.get(0)));
++		assertTrue(ctc.isSubSignature(methods.get(0), methodsItf.get(0)));
++		assertTrue(ctc.isSameSignature(methods.get(0), methodsItf.get(0)));
++	}
++	@Test
++	public void testGetExecDeclarationOfEnumSetOf() {
++		Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/java/spoon/test/generics/testclasses/EnumSetOf.java");
++		launcher.buildModel();
++
++		CtClass<?> ctClass = launcher.getFactory().Class().get(EnumSetOf.class);
++
++		CtInvocation invocation = ctClass.getMethodsByName("m").get(0).getBody().getStatement(0);
++		CtExecutable<?> decl = invocation.getExecutable().getDeclaration();
++		assertNull(decl);
++
++		CtClass<?> enumClass = launcher.getFactory().Class().get(EnumSet.class);
++		List<CtMethod<?>> methods = enumClass.getMethodsByName("of");
++
++		CtMethod rightOfMethod = null;
++		for (CtMethod method : methods) {
++			if (method.getParameters().size() == 1) {
++				rightOfMethod = method;
++			}
++		}
++
++		assertNotNull(rightOfMethod);
++
++		decl = invocation.getExecutable().getExecutableDeclaration();
++		assertEquals(rightOfMethod, decl);
++	}
+ }
+diff --git a/src/test/java/spoon/test/generics/testclasses/EnumSetOf.java b/src/test/java/spoon/test/generics/testclasses/EnumSetOf.java
+new file mode 100644
+index 000000000..723420640
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/EnumSetOf.java
+@@ -0,0 +1,13 @@
++package spoon.test.generics.testclasses;
++
++import java.util.EnumSet;
++
++import spoon.reflect.declaration.ModifierKind;
++
++public class EnumSetOf {
++
++	public void m() {
++		EnumSet.of(ModifierKind.STATIC);
++	}
++
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/SameSignature.java b/src/test/java/spoon/test/generics/testclasses/SameSignature.java
+new file mode 100644
+index 000000000..1ce91d21b
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/SameSignature.java
+@@ -0,0 +1,19 @@
++package spoon.test.generics.testclasses;
++
++import java.util.Iterator;
++import java.util.function.Consumer;
++
++/**
++ * Created by urli on 21/06/2017.
++ */
++public class SameSignature<T extends String> implements Iterable<T> {
++    @Override
++    public Iterator<T> iterator() {
++        return null;
++    }
++
++    @Override
++    public void forEach(Consumer<? super T> action) {
++
++    }
++}
+diff --git a/src/test/java/spoon/test/reference/ExecutableReferenceGenericTest.java b/src/test/java/spoon/test/reference/ExecutableReferenceGenericTest.java
+index 41067a065..a3aa8ddc5 100644
+--- a/src/test/java/spoon/test/reference/ExecutableReferenceGenericTest.java
++++ b/src/test/java/spoon/test/reference/ExecutableReferenceGenericTest.java
+@@ -86,7 +86,11 @@ public class ExecutableReferenceGenericTest {
+ 		assertEquals(3, refConstructors.size());
+ 		assertEquals(0, emptyConstructorClass1.getParameters().size());
+ 		assertEquals(0, emptyConstructorClass3.getParameters().size());
+-		assertNull(refConstructors.get(0).getDeclaration()); // reference to Object constructor.
++
++		assertNull(refConstructors.get(0).getDeclaration());
++		CtExecutable<?> decl = refConstructors.get(0).getExecutableDeclaration();
++		assertEquals("Object", decl.getType().getSimpleName());
++		assertEquals(0, decl.getParameters().size());
+ 		assertNotNull(refConstructors.get(0).getExecutableDeclaration());
+ 		assertEquals(emptyConstructorClass1, refConstructors.get(1).getDeclaration());
+ 		assertEquals(emptyConstructorClass3, refConstructors.get(2).getDeclaration());

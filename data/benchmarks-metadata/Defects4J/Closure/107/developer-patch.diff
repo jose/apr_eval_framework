@@ -1,0 +1,10 @@
+--- src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 19:39:17.879234464 +0000
++++ src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 19:39:21.749912966 +0000
+@@ -859,6 +859,7 @@
+       // so we might as well inline it. But shut off the i18n warnings,
+       // because the user didn't really ask for i18n.
+       options.messageBundle = new EmptyMessageBundle();
++      options.setWarningLevel(JsMessageVisitor.MSG_CONVENTIONS, CheckLevel.OFF);
+     }
+ 
+     return options;

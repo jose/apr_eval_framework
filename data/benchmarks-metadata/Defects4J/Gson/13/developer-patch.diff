@@ -1,0 +1,11 @@
+--- gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:59:07.211603015 +0000
++++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:59:09.391945201 +0000
+@@ -728,7 +728,7 @@
+     }
+ 
+     // We've read a complete number. Decide if it's a PEEKED_LONG or a PEEKED_NUMBER.
+-    if (last == NUMBER_CHAR_DIGIT && fitsInLong && (value != Long.MIN_VALUE || negative)) {
++    if (last == NUMBER_CHAR_DIGIT && fitsInLong && (value != Long.MIN_VALUE || negative) && (value!=0 || false==negative)) {
+       peekedLong = negative ? value : -value;
+       pos += i;
+       return peeked = PEEKED_LONG;

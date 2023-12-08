@@ -1,0 +1,21 @@
+--- java_programs/SHORTEST_PATH_LENGTH.java	2023-12-05 16:52:00.402686699 +0000
++++ correct_java_programs/SHORTEST_PATH_LENGTH.java	2023-12-05 16:52:00.383584509 +0000
+@@ -1,6 +1,8 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
+ 
++import java_programs.Node;
++
+ /**
+  *
+  * @author Angela Chen
+@@ -35,7 +37,7 @@
+                 }
+ 
+                 unvisitedNodes.put(nextnode, Math.min(unvisitedNodes.get(nextnode),
+-                        unvisitedNodes.get(nextnode) + length_by_edge.get(Arrays.asList(node, nextnode))));
++                        distance + length_by_edge.get(Arrays.asList(node, nextnode))));
+             }
+         }
+ 

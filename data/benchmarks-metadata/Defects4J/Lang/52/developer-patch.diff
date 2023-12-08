@@ -1,0 +1,13 @@
+--- src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:03:38.660572874 +0000
++++ src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:03:45.879181217 +0000
+@@ -233,6 +233,10 @@
+                         out.write('\\');
+                         out.write('\\');
+                         break;
++                    case '/':
++                        out.write('\\');
++                        out.write('/');
++                        break;
+                     default :
+                         out.write(ch);
+                         break;

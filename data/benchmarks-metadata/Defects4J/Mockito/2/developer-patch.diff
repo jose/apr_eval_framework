@@ -1,0 +1,27 @@
+--- src/org/mockito/internal/util/Timer.java	2023-12-05 17:24:13.141486733 +0000
++++ src/org/mockito/internal/util/Timer.java	2023-12-05 17:24:18.266315284 +0000
+@@ -1,5 +1,6 @@
+ package org.mockito.internal.util;
+ 
++import org.mockito.exceptions.Reporter;
+ 
+ public class Timer {
+ 
+@@ -7,6 +8,7 @@
+     private long startTime = -1;
+ 
+     public Timer(long durationMillis) {
++        validateInput(durationMillis);
+         this.durationMillis = durationMillis;
+     }
+ 
+@@ -25,4 +27,9 @@
+         startTime = System.currentTimeMillis();
+     }
+ 
++    private void validateInput(long durationMillis) {
++        if (durationMillis < 0) {
++            new Reporter().cannotCreateTimerWithNegativeDurationTime(durationMillis);
++        }
++    }
+ }

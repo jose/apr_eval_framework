@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:24.441556980 +0000
++++ src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:27.510539839 +0000
+@@ -237,6 +237,9 @@
+         List<String> matchingOpts = new ArrayList<String>();
+ 
+         // for a perfect match return the single option only
++        if(longOpts.keySet().contains(opt)) {
++            return Collections.singletonList(opt);
++        }
+ 
+         for (String longOpt : longOpts.keySet())
+         {

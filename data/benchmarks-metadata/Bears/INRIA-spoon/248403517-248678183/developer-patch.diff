@@ -1,0 +1,134 @@
+diff --git a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+index 29a5a84c4..d2e069a5d 100644
+--- a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
++++ b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+@@ -16,6 +16,7 @@
+  */
+ package spoon.reflect.visitor;
+ 
++import spoon.SpoonException;
+ import spoon.compiler.Environment;
+ import spoon.reflect.code.CtAnnotationFieldAccess;
+ import spoon.reflect.code.CtArrayAccess;
+@@ -67,6 +68,7 @@ import spoon.reflect.code.CtTry;
+ import spoon.reflect.code.CtTryWithResource;
+ import spoon.reflect.code.CtTypeAccess;
+ import spoon.reflect.code.CtUnaryOperator;
++import spoon.reflect.code.CtVariableAccess;
+ import spoon.reflect.code.CtVariableRead;
+ import spoon.reflect.code.CtVariableWrite;
+ import spoon.reflect.code.CtWhile;
+@@ -292,12 +294,46 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 					printer.adjustStartPosition(e);
+ 				}
+ 			}
+-			e.accept(this);
++			try {
++				e.accept(this);
++			} catch (SpoonException ex) {
++				throw ex;
++			} catch (Exception ex) {
++				String elementInfo = e.getClass().getName();
++				elementInfo += " on path " + getPath(e) + "\n";
++				if (e.getPosition() != null) {
++					elementInfo += "at position " + e.getPosition().toString() + " ";
++				}
++				throw new SpoonException("Printing of " + elementInfo + "failed", ex);
++			}
+ 			context.elementStack.pop();
+ 		}
+ 		return this;
+ 	}
+ 
++	private static String getPath(CtElement ele) {
++		StringBuilder sb = new StringBuilder();
++		addParentPath(sb, ele);
++		if (ele instanceof CtVariableAccess) {
++			sb.append(':').append(((CtVariableAccess) ele).getVariable().getSimpleName());
++		}
++		return sb.toString();
++	}
++	private static void addParentPath(StringBuilder sb, CtElement ele) {
++		if (ele == null || (ele instanceof CtPackage && ((CtPackage) ele).isUnnamedPackage())) {
++			return;
++		}
++		if (ele.isParentInitialized()) {
++			addParentPath(sb, ele.getParent());
++		}
++		sb.append("\n\t").append(ele.getClass().getSimpleName());
++		if (ele instanceof CtNamedElement) {
++			sb.append(":").append(((CtNamedElement) ele).getSimpleName());
++		} else if (ele instanceof CtReference) {
++			sb.append(":").append(((CtReference) ele).getSimpleName());
++		}
++	}
++
+ 	/**
+ 	 * The generic scan method for a reference.
+ 	 */
+diff --git a/src/test/java/spoon/test/prettyprinter/PrinterTest.java b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+index e48a53b7a..ddabff8b9 100644
+--- a/src/test/java/spoon/test/prettyprinter/PrinterTest.java
++++ b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+@@ -2,15 +2,19 @@ package spoon.test.prettyprinter;
+ 
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertTrue;
++import static org.junit.Assert.fail;
+ import static spoon.testing.utils.ModelUtils.canBeBuilt;
+ 
+ import org.junit.Test;
+ 
+ import spoon.Launcher;
++import spoon.SpoonException;
+ import spoon.compiler.SpoonResourceHelper;
+ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.factory.Factory;
+ import spoon.reflect.visitor.PrettyPrinter;
++import spoon.test.prettyprinter.testclasses.MissingVariableDeclaration;
++import spoon.testing.utils.ModelUtils;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -140,4 +144,23 @@ public class PrinterTest {
+ 		canBeBuilt(output, 7);
+ 	}
+ 
++	@Test
++	public void testPrintingOfOrphanFieldReference() throws Exception {
++		CtType<?> type = ModelUtils.buildClass(MissingVariableDeclaration.class);
++		//delete the field, so the model is broken.
++		//It may happen during substitution operations and then it is helpful to display descriptive error message
++		type.getField("testedField").delete();
++		//contract: printer fails with descriptive exception and not with NPE
++		try {
++			type.getMethodsByName("failingMethod").get(0).getBody().getStatement(0).toString();
++			fail();
++		} catch (SpoonException e) {
++			//the name of the missing field declaration is part of exception
++			assertTrue(e.getMessage().indexOf("testedField")>=0);
++			//the name of the method where field declaration is missing is part of exception
++			assertTrue(e.getMessage().indexOf("failingMethod")>=0);
++			//the name of the class where field is missing is part of exception
++			assertTrue(e.getMessage().indexOf("MissingVariableDeclaration")>=0);
++		} //other exceptions are not OK
++	}
+ }
+diff --git a/src/test/java/spoon/test/prettyprinter/testclasses/MissingVariableDeclaration.java b/src/test/java/spoon/test/prettyprinter/testclasses/MissingVariableDeclaration.java
+new file mode 100644
+index 000000000..7f315df09
+--- /dev/null
++++ b/src/test/java/spoon/test/prettyprinter/testclasses/MissingVariableDeclaration.java
+@@ -0,0 +1,12 @@
++package spoon.test.prettyprinter.testclasses;
++
++public class MissingVariableDeclaration {
++
++	//this field is removed by refactoring. Then the PrettyPrinter of m fails...
++	int testedField;
++	
++	void failingMethod() {
++		testedField = 1;
++	}
++
++}

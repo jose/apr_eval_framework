@@ -1,0 +1,298 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+index b842daa08..3e81dbc25 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+@@ -86,10 +86,8 @@ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collections;
+ import java.util.HashMap;
+-import java.util.HashSet;
+ import java.util.List;
+ import java.util.Map;
+-import java.util.Set;
+ import java.util.TreeMap;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+@@ -102,7 +100,7 @@ public class ReferenceBuilder {
+ 
+ 	// Allow to detect circular references and to avoid endless recursivity
+ 	// when resolving parameterizedTypes (e.g. Enum<E extends Enum<E>>)
+-	private Set<TypeBinding> exploringParameterizedBindings = new HashSet<>();
++	private Map<TypeBinding, CtTypeReference> exploringParameterizedBindings = new HashMap<>();
+ 	private Map<String, CtTypeReference<?>> basestypes = new TreeMap<>();
+ 
+ 	private boolean bounds = false;
+@@ -654,11 +652,16 @@ public class ReferenceBuilder {
+ 					if (bindingCache.containsKey(b)) {
+ 						ref.addActualTypeArgument(getCtCircularTypeReference(b));
+ 					} else {
+-						if (!this.exploringParameterizedBindings.contains(b)) {
+-							this.exploringParameterizedBindings.add(b);
+-							ref.addActualTypeArgument(getTypeReference(b));
++						if (!this.exploringParameterizedBindings.containsKey(b)) {
++							this.exploringParameterizedBindings.put(b, null);
++							CtTypeReference typeRefB = getTypeReference(b);
++							this.exploringParameterizedBindings.put(b, typeRefB);
++							ref.addActualTypeArgument(typeRefB);
+ 						} else {
+-							this.exploringParameterizedBindings.remove(b);
++							CtTypeReference typeRefB = this.exploringParameterizedBindings.get(b);
++							if (typeRefB != null) {
++								ref.addActualTypeArgument(typeRefB.clone());
++							}
+ 						}
+ 					}
+ 				}
+diff --git a/src/test/java/spoon/test/generics/GenericsTest.java b/src/test/java/spoon/test/generics/GenericsTest.java
+index 71c976d2d..9bf3b979f 100644
+--- a/src/test/java/spoon/test/generics/GenericsTest.java
++++ b/src/test/java/spoon/test/generics/GenericsTest.java
+@@ -1006,6 +1006,34 @@ public class GenericsTest {
+ 		factory = launcher.getFactory();
+ 		CtInterface<?> fakeTplItf2 = factory.Interface().get(FakeTpl.class);
+ 		checkFakeTpl(fakeTplItf2);
++	}
++
++	@Test
++	public void testDiamondComplexGenericsRxJava() {
++		Launcher launcher = new Launcher();
++		launcher.addInputResource("./src/test/java/spoon/test/generics/testclasses/rxjava/");
++		launcher.setSourceOutputDirectory("./target/spooned-rxjava");
++		launcher.run();
++
++		Factory factory = launcher.getFactory();
++
++		List<CtConstructorCall> invocations = factory.getModel().getElements(new TypeFilter<>(CtConstructorCall.class));
++
++		boolean invocationDetected = false;
++		for (CtConstructorCall call : invocations) {
++			if (call.getType().getSimpleName().equals("ToNotificationSubscriber")) {
++				assertEquals(1, call.getType().getActualTypeArguments().size());
++
++				CtTypeReference actualTA = call.getType().getActualTypeArguments().get(0);
++				assertTrue(actualTA instanceof CtWildcardReference);
++				assertEquals("?", actualTA.getSimpleName());
++				assertTrue( ((CtWildcardReference)actualTA).getBoundingType() == null );
++				invocationDetected = true;
++			}
++		}
++
++		canBeBuilt("./target/spooned-rxjava",8);
+ 
++		assertTrue(invocationDetected);
+ 	}
+ }
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/BehaviorSubject.java b/src/test/java/spoon/test/generics/testclasses/rxjava/BehaviorSubject.java
+new file mode 100644
+index 000000000..0d9aef2b1
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/BehaviorSubject.java
+@@ -0,0 +1,25 @@
++package spoon.test.generics.testclasses.rxjava;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public final class BehaviorSubject<T> extends Subject<T, T> {
++    public static <T> BehaviorSubject<T> create() {
++        return new BehaviorSubject<>();
++    }
++
++    @Override
++    public void onNext(T var1) {
++
++    }
++
++    @Override
++    public void onError(Throwable var1) {
++
++    }
++
++    @Override
++    public void onComplete() {
++
++    }
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Observable.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Observable.java
+new file mode 100644
+index 000000000..b3a67ff3e
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Observable.java
+@@ -0,0 +1,13 @@
++package spoon.test.generics.testclasses.rxjava;
++
++import java.util.Objects;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public class Observable<T> implements Publisher<T> {
++
++    public final void subscribe(Subscriber<? super T> s) {
++        Objects.requireNonNull(s);
++    }
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Processor.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Processor.java
+new file mode 100644
+index 000000000..9d2ba9365
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Processor.java
+@@ -0,0 +1,7 @@
++package spoon.test.generics.testclasses.rxjava;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public interface Processor<T, R> extends Subscriber<T>, Publisher<R> {
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Publisher.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Publisher.java
+new file mode 100644
+index 000000000..d33887b61
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Publisher.java
+@@ -0,0 +1,8 @@
++package spoon.test.generics.testclasses.rxjava;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public interface Publisher<T> {
++    void subscribe(Subscriber<? super T> var1);
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/PublisherRedo.java b/src/test/java/spoon/test/generics/testclasses/rxjava/PublisherRedo.java
+new file mode 100644
+index 000000000..a8f51131c
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/PublisherRedo.java
+@@ -0,0 +1,50 @@
++package spoon.test.generics.testclasses.rxjava;
++
++import java.util.Optional;
++import java.util.concurrent.atomic.AtomicBoolean;
++import java.util.function.Function;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public final class PublisherRedo<T> implements Publisher<T> {
++    final Function<? super Observable<Try<Optional<Object>>>, ? extends Publisher<?>> manager;
++
++    public PublisherRedo(Function<? super Observable<Try<Optional<Object>>>, ? extends Publisher<?>> manager) {
++        this.manager = manager;
++    }
++
++    public void subscribe(Subscriber<? super T> s) {
++
++        BehaviorSubject<Try<Optional<Object>>> subject = BehaviorSubject.create();
++        RedoSubscriber<T> parent = new RedoSubscriber<>();
++        Publisher<?> action = manager.apply(subject);
++
++        action.subscribe(new ToNotificationSubscriber<>(parent::handle));
++    }
++
++    private void subscribe(ToNotificationSubscriber truc) {
++
++    }
++
++    static final class RedoSubscriber<T> extends AtomicBoolean implements Subscriber<T> {
++        void handle(Try<Optional<Object>> notification) {
++
++        }
++
++        @Override
++        public void onNext(T var1) {
++
++        }
++
++        @Override
++        public void onError(Throwable var1) {
++
++        }
++
++        @Override
++        public void onComplete() {
++
++        }
++    }
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Subject.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Subject.java
+new file mode 100644
+index 000000000..bb58b64d2
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Subject.java
+@@ -0,0 +1,7 @@
++package spoon.test.generics.testclasses.rxjava;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public abstract class Subject<T, R> extends Observable<R> implements Processor<T, R> {
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Subscriber.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Subscriber.java
+new file mode 100644
+index 000000000..cc4e91ad9
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Subscriber.java
+@@ -0,0 +1,12 @@
++package spoon.test.generics.testclasses.rxjava;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public interface Subscriber<T> {
++    void onNext(T var1);
++
++    void onError(Throwable var1);
++
++    void onComplete();
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/ToNotificationSubscriber.java b/src/test/java/spoon/test/generics/testclasses/rxjava/ToNotificationSubscriber.java
+new file mode 100644
+index 000000000..a76b6cc34
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/ToNotificationSubscriber.java
+@@ -0,0 +1,30 @@
++package spoon.test.generics.testclasses.rxjava;
++
++import java.util.Optional;
++import java.util.function.Consumer;
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public final class ToNotificationSubscriber<T> implements Subscriber<T> {
++    final Consumer<? super Try<Optional<Object>>> consumer;
++
++    public ToNotificationSubscriber(Consumer<? super Try<Optional<Object>>> consumer) {
++        this.consumer = consumer;
++    }
++
++    @Override
++    public void onNext(T var1) {
++
++    }
++
++    @Override
++    public void onError(Throwable var1) {
++
++    }
++
++    @Override
++    public void onComplete() {
++
++    }
++}
+diff --git a/src/test/java/spoon/test/generics/testclasses/rxjava/Try.java b/src/test/java/spoon/test/generics/testclasses/rxjava/Try.java
+new file mode 100644
+index 000000000..68d10ad26
+--- /dev/null
++++ b/src/test/java/spoon/test/generics/testclasses/rxjava/Try.java
+@@ -0,0 +1,8 @@
++package spoon.test.generics.testclasses.rxjava;
++
++
++/**
++ * Created by urli on 07/06/2017.
++ */
++public final class Try<T> {
++}

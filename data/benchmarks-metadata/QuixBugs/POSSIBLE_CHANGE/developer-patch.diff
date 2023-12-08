@@ -1,0 +1,17 @@
+--- java_programs/POSSIBLE_CHANGE.java	2023-12-05 16:52:00.400903850 +0000
++++ correct_java_programs/POSSIBLE_CHANGE.java	2023-12-05 16:52:00.382659298 +0000
+@@ -1,4 +1,4 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
+ /*
+  * To change this template, choose Tools | Templates
+@@ -14,7 +14,7 @@
+         if (total == 0) {
+             return 1;
+         }
+-        if (total < 0) {
++        if (total < 0 ||coins.length==0) {
+             return 0;
+         }
+ 

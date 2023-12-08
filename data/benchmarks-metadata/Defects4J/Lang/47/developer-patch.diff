@@ -1,0 +1,22 @@
+--- src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:00:56.110687398 +0000
++++ src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:01:02.847035637 +0000
+@@ -1183,6 +1183,9 @@
+         if (width > 0) {
+             ensureCapacity(size + width);
+             String str = (obj == null ? getNullText() : obj.toString());
++            if (str == null) {
++                str = "";
++            }
+             int strLen = str.length();
+             if (strLen >= width) {
+                 str.getChars(strLen - width, strLen, buffer, size);
+@@ -1227,6 +1230,9 @@
+         if (width > 0) {
+             ensureCapacity(size + width);
+             String str = (obj == null ? getNullText() : obj.toString());
++            if (str == null) {
++                str = "";
++            }
+             int strLen = str.length();
+             if (strLen >= width) {
+                 str.getChars(0, width, buffer, size);

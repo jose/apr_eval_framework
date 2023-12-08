@@ -1,0 +1,10 @@
+--- src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:22:01.575376894 +0000
++++ src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:22:04.616670872 +0000
+@@ -86,6 +86,7 @@
+             if (name.length() == 0) continue;
+             String type = el.attr("type");
+ 
++            if (type.equalsIgnoreCase("button")) continue; // browsers don't submit these
+ 
+             if ("select".equals(el.normalName())) {
+                 Elements options = el.select("option[selected]");

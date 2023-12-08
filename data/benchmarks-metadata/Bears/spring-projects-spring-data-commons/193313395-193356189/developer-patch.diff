@@ -1,0 +1,65 @@
+diff --git a/src/main/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverter.java b/src/main/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverter.java
+index bda6f47e0..efe34b17b 100644
+--- a/src/main/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverter.java
++++ b/src/main/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverter.java
+@@ -117,7 +117,8 @@ public class ProjectingJackson2HttpMessageConverter extends MappingJackson2HttpM
+ 			return false;
+ 		}
+ 
+-		Class<?> rawType = ResolvableType.forType(type).getRawClass();
++		ResolvableType owner = contextClass == null ? null : ResolvableType.forClass(contextClass);
++		Class<?> rawType = ResolvableType.forType(type, owner).resolve(Object.class);
+ 		Boolean result = supportedTypesCache.get(rawType);
+ 
+ 		if (result != null) {
+diff --git a/src/test/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverterUnitTests.java b/src/test/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverterUnitTests.java
+index 8df4f79b4..0266d0cb8 100644
+--- a/src/test/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverterUnitTests.java
++++ b/src/test/java/org/springframework/data/web/ProjectingJackson2HttpMessageConverterUnitTests.java
+@@ -18,6 +18,9 @@ package org.springframework.data.web;
+ import static org.hamcrest.CoreMatchers.*;
+ import static org.junit.Assert.*;
+ 
++import java.lang.reflect.Method;
++import java.lang.reflect.Type;
++
+ import org.junit.Test;
+ import org.springframework.http.MediaType;
+ 
+@@ -48,10 +51,36 @@ public class ProjectingJackson2HttpMessageConverterUnitTests {
+ 		assertThat(converter.canRead(SampleClass.class, ANYTHING_JSON), is(false));
+ 	}
+ 
++	@Test // DATACMNS-972
++	public void doesNotConsiderTypeVariableBoundTo() throws Throwable {
++
++		Method method = BaseController.class.getDeclaredMethod("createEntity", AbstractDto.class);
++		Type type = method.getGenericParameterTypes()[0];
++
++		assertThat(converter.canRead(type, BaseController.class, ANYTHING_JSON), is(false));
++	}
++
++	@Test // DATACMNS-972
++	public void genericTypeOnConcreteOne() throws Throwable {
++
++		Method method = ConcreteController.class.getMethod("createEntity", AbstractDto.class);
++		Type type = method.getGenericParameterTypes()[0];
++
++		assertThat(converter.canRead(type, ConcreteController.class, ANYTHING_JSON), is(false));
++	}
++
+ 	@ProjectedPayload
+ 	interface SampleInterface {}
+ 
+ 	interface UnannotatedInterface {}
+ 
+ 	class SampleClass {}
++
++	class AbstractDto {}
++
++	abstract class BaseController<D extends AbstractDto> {
++		public void createEntity(D dto) {}
++	}
++
++	class ConcreteController extends BaseController<AbstractDto> {}
+ }

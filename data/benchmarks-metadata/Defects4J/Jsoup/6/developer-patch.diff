@@ -1,0 +1,14 @@
+--- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:11.738947036 +0000
++++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:13.764927803 +0000
+@@ -67,9 +67,9 @@
+ 
+             if (charval != -1 || charval > 0xFFFF) { // out of range
+                 String c = Character.toString((char) charval);
+-                m.appendReplacement(accum, c);
++                m.appendReplacement(accum, Matcher.quoteReplacement(c));
+             } else {
+-                m.appendReplacement(accum, m.group(0));
++                m.appendReplacement(accum, Matcher.quoteReplacement(m.group(0))); // replace with original string
+             }
+         }
+         m.appendTail(accum);

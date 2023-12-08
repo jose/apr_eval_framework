@@ -1,0 +1,30 @@
+--- src/java/org/apache/commons/collections/map/Flat3Map.java	2023-12-05 20:07:04.576114712 +0000
++++ src/java/org/apache/commons/collections/map/Flat3Map.java	2023-12-05 20:07:07.116891488 +0000
+@@ -651,10 +651,13 @@
+             switch (nextIndex) {
+                 case 3: 
+                     parent.value3 = value;
++                    break;
+                 case 2:
+                     parent.value2 = value;
++                    break;
+                 case 1:
+                     parent.value1 = value;
++                    break;
+             }
+             return old;
+         }
+@@ -803,10 +806,13 @@
+             switch (nextIndex) {
+                 case 3: 
+                     parent.value3 = value;
++                    break;
+                 case 2:
+                     parent.value2 = value;
++                    break;
+                 case 1:
+                     parent.value1 = value;
++                    break;
+             }
+             return old;
+         }

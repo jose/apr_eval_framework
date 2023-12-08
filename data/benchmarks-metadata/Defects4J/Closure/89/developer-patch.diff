@@ -1,0 +1,23 @@
+--- src/com/google/javascript/jscomp/CollapseProperties.java	2023-12-05 19:36:36.633719744 +0000
++++ src/com/google/javascript/jscomp/CollapseProperties.java	2023-12-05 19:36:40.662731947 +0000
+@@ -481,6 +481,9 @@
+     Node greatGramps = gramps.getParent();
+     Node greatGreatGramps = greatGramps.getParent();
+ 
++    if (rvalue != null && rvalue.getType() == Token.FUNCTION) {
++      checkForHosedThisReferences(rvalue, refName.docInfo, refName);
++    }
+ 
+     // Create the new alias node.
+     Node nameNode = NodeUtil.newName(
+--- src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:36:36.634318742 +0000
++++ src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:36:40.663452563 +0000
+@@ -917,7 +917,7 @@
+       }
+ 
+       // If this is aliased, then its properties can't be collapsed either.
+-      if (type != Type.FUNCTION && aliasingGets > 0) {
++      if (aliasingGets > 0) {
+         return false;
+       }
+ 

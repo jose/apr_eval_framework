@@ -1,0 +1,47 @@
+--- gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2023-12-05 20:58:47.315905075 +0000
++++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2023-12-05 20:58:49.491815497 +0000
+@@ -159,6 +159,13 @@
+     return this;
+   }
+ 
++  @Override public JsonWriter value(Boolean value) throws IOException {
++    if (value == null) {
++      return nullValue();
++    }
++    put(new JsonPrimitive(value));
++    return this;
++  }
+ 
+   @Override public JsonWriter value(double value) throws IOException {
+     if (!isLenient() && (Double.isNaN(value) || Double.isInfinite(value))) {
+--- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:47.209798267 +0000
++++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:49.492222022 +0000
+@@ -162,10 +162,6 @@
+     }
+     @Override
+     public void write(JsonWriter out, Boolean value) throws IOException {
+-      if (value == null) {
+-        out.nullValue();
+-        return;
+-      }
+       out.value(value);
+     }
+   };
+--- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:47.316276274 +0000
++++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:49.492727943 +0000
+@@ -473,6 +473,15 @@
+    *
+    * @return this writer.
+    */
++  public JsonWriter value(Boolean value) throws IOException {
++    if (value == null) {
++      return nullValue();
++    }
++    writeDeferredName();
++    beforeValue();
++    out.write(value ? "true" : "false");
++    return this;
++  }
+ 
+   /**
+    * Encodes {@code value}.

@@ -1,0 +1,26 @@
+--- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:12.292232869 +0000
++++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:14.458868578 +0000
+@@ -76,7 +76,11 @@
+    */
+   public static WildcardType subtypeOf(Type bound) {
+     Type[] upperBounds;
++    if (bound instanceof WildcardType) {
++      upperBounds = ((WildcardType) bound).getUpperBounds();
++    } else {
+       upperBounds = new Type[] { bound };
++    }
+     return new WildcardTypeImpl(upperBounds, EMPTY_TYPE_ARRAY);
+   }
+ 
+@@ -87,7 +91,11 @@
+    */
+   public static WildcardType supertypeOf(Type bound) {
+     Type[] lowerBounds;
++    if (bound instanceof WildcardType) {
++      lowerBounds = ((WildcardType) bound).getLowerBounds();
++    } else {
+       lowerBounds = new Type[] { bound };
++    }
+     return new WildcardTypeImpl(new Type[] { Object.class }, lowerBounds);
+   }
+ 

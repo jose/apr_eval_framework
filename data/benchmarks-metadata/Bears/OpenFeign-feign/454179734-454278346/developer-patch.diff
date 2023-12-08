@@ -1,0 +1,244 @@
+diff --git a/core/src/main/java/feign/querymap/FieldQueryMapEncoder.java b/core/src/main/java/feign/querymap/FieldQueryMapEncoder.java
+index 0d1759a1a..034fefd1f 100644
+--- a/core/src/main/java/feign/querymap/FieldQueryMapEncoder.java
++++ b/core/src/main/java/feign/querymap/FieldQueryMapEncoder.java
+@@ -17,6 +17,7 @@ import feign.QueryMapEncoder;
+ import feign.codec.EncodeException;
+ import java.lang.reflect.Field;
+ import java.util.*;
++import java.util.stream.Collectors;
+ 
+ /**
+  * the query map will be generated using member variable names as query parameter names.
+@@ -66,14 +67,11 @@ public class FieldQueryMapEncoder implements QueryMapEncoder {
+     }
+ 
+     private static ObjectParamMetadata parseObjectType(Class<?> type) {
+-      List<Field> fields = new ArrayList<Field>();
+-      for (Field field : type.getDeclaredFields()) {
+-        if (!field.isAccessible()) {
+-          field.setAccessible(true);
+-        }
+-        fields.add(field);
+-      }
+-      return new ObjectParamMetadata(fields);
++      return new ObjectParamMetadata(
++          Arrays.stream(type.getDeclaredFields())
++              .filter(field -> !field.isSynthetic())
++              .peek(field -> field.setAccessible(true))
++              .collect(Collectors.toList()));
+     }
+   }
+ }
+diff --git a/core/src/test/java/feign/querymap/BeanQueryMapEncoderTest.java b/core/src/test/java/feign/querymap/BeanQueryMapEncoderTest.java
+new file mode 100644
+index 000000000..0cc2f8b73
+--- /dev/null
++++ b/core/src/test/java/feign/querymap/BeanQueryMapEncoderTest.java
+@@ -0,0 +1,133 @@
++/**
++ * Copyright 2012-2018 The Feign Authors
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
++ * in compliance with the License. You may obtain a copy of the License at
++ *
++ * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software distributed under the License
++ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
++ * or implied. See the License for the specific language governing permissions and limitations under
++ * the License.
++ */
++package feign.querymap;
++
++import feign.QueryMapEncoder;
++import org.junit.Rule;
++import org.junit.Test;
++import org.junit.rules.ExpectedException;
++import java.util.HashMap;
++import java.util.Map;
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertTrue;
++
++/**
++ * Test for {@link BeanQueryMapEncoder}
++ */
++public class BeanQueryMapEncoderTest {
++
++  @Rule
++  public final ExpectedException thrown = ExpectedException.none();
++
++  private final QueryMapEncoder encoder = new BeanQueryMapEncoder();
++
++  @Test
++  public void testDefaultEncoder_normalClassWithValues() {
++    Map<String, Object> expected = new HashMap<>();
++    expected.put("foo", "fooz");
++    expected.put("bar", "barz");
++    expected.put("fooAppendBar", "foozbarz");
++    NormalObject normalObject = new NormalObject("fooz", "barz");
++
++    Map<String, Object> encodedMap = encoder.encode(normalObject);
++
++    assertEquals("Unexpected encoded query map", expected, encodedMap);
++  }
++
++  @Test
++  public void testDefaultEncoder_normalClassWithOutValues() {
++    NormalObject normalObject = new NormalObject(null, null);
++
++    Map<String, Object> encodedMap = encoder.encode(normalObject);
++
++    assertTrue("Non-empty map generated from null getter: " + encodedMap, encodedMap.isEmpty());
++  }
++
++  @Test
++  public void testDefaultEncoder_haveSuperClass() {
++    Map<String, Object> expected = new HashMap<>();
++    expected.put("page", 1);
++    expected.put("size", 10);
++    expected.put("query", "queryString");
++    SubClass subClass = new SubClass();
++    subClass.setPage(1);
++    subClass.setSize(10);
++    subClass.setQuery("queryString");
++
++    Map<String, Object> encodedMap = encoder.encode(subClass);
++
++    assertEquals("Unexpected encoded query map", expected, encodedMap);
++  }
++
++
++  class NormalObject {
++
++    private NormalObject(String foo, String bar) {
++      this.foo = foo;
++      this.bar = bar;
++    }
++
++    private String foo;
++    private String bar;
++
++    public String getFoo() {
++      return foo;
++    }
++
++    public String getBar() {
++      return bar;
++    }
++
++    public String getFooAppendBar() {
++      if (foo != null && bar != null) {
++        return foo + bar;
++      }
++      return null;
++    }
++  }
++
++  class SuperClass {
++    private int page;
++    private int size;
++
++    public int getPage() {
++      return page;
++    }
++
++    public void setPage(int page) {
++      this.page = page;
++    }
++
++    public int getSize() {
++      return size;
++    }
++
++    public void setSize(int size) {
++      this.size = size;
++    }
++  }
++
++  class SubClass extends SuperClass {
++
++    private String query;
++
++    public String getQuery() {
++      return query;
++    }
++
++    public void setQuery(String query) {
++      this.query = query;
++    }
++  }
++}
+diff --git a/core/src/test/java/feign/querymap/FieldQueryMapEncoderTest.java b/core/src/test/java/feign/querymap/FieldQueryMapEncoderTest.java
+new file mode 100644
+index 000000000..19b31c9e6
+--- /dev/null
++++ b/core/src/test/java/feign/querymap/FieldQueryMapEncoderTest.java
+@@ -0,0 +1,67 @@
++/**
++ * Copyright 2012-2018 The Feign Authors
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
++ * in compliance with the License. You may obtain a copy of the License at
++ *
++ * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software distributed under the License
++ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
++ * or implied. See the License for the specific language governing permissions and limitations under
++ * the License.
++ */
++package feign.querymap;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertTrue;
++import org.junit.Rule;
++import org.junit.Test;
++import org.junit.rules.ExpectedException;
++import java.util.HashMap;
++import java.util.Map;
++import feign.QueryMapEncoder;
++
++/**
++ * Test for {@link FieldQueryMapEncoder}
++ */
++public class FieldQueryMapEncoderTest {
++
++  @Rule
++  public final ExpectedException thrown = ExpectedException.none();
++
++  private final QueryMapEncoder encoder = new FieldQueryMapEncoder();
++
++  @Test
++  public void testDefaultEncoder_normalClassWithValues() {
++    final Map<String, Object> expected = new HashMap<>();
++    expected.put("foo", "fooz");
++    expected.put("bar", "barz");
++    final NormalObject normalObject = new NormalObject("fooz", "barz");
++
++    final Map<String, Object> encodedMap = encoder.encode(normalObject);
++
++    assertEquals("Unexpected encoded query map", expected, encodedMap);
++  }
++
++  @Test
++  public void testDefaultEncoder_normalClassWithOutValues() {
++    final NormalObject normalObject = new NormalObject(null, null);
++
++    final Map<String, Object> encodedMap = encoder.encode(normalObject);
++
++    assertTrue("Non-empty map generated from null getter: " + encodedMap, encodedMap.isEmpty());
++  }
++
++  class NormalObject {
++
++    private NormalObject(String foo, String bar) {
++      this.foo = foo;
++      this.bar = bar;
++    }
++
++    private final String foo;
++    private final String bar;
++  }
++
++}

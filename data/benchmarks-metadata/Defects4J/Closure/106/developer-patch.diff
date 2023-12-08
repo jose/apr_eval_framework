@@ -1,0 +1,25 @@
+--- src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:39:08.907099954 +0000
++++ src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:39:13.024470913 +0000
+@@ -904,6 +904,10 @@
+       // Don't try to collapse if the one global set is a twin reference.
+       // We could theoretically handle this case in CollapseProperties, but
+       // it's probably not worth the effort.
++      Preconditions.checkNotNull(declaration);
++      if (declaration.getTwin() != null) {
++        return false;
++      }
+ 
+       if (isClassOrEnum) {
+         return true;
+--- src/com/google/javascript/rhino/JSDocInfoBuilder.java	2023-12-05 19:39:08.907541486 +0000
++++ src/com/google/javascript/rhino/JSDocInfoBuilder.java	2023-12-05 19:39:13.024874897 +0000
+@@ -186,9 +186,7 @@
+    * @return {@code true} if the description was recorded.
+    */
+   public boolean recordBlockDescription(String description) {
+-    if (parseDocumentation) {
+     populated = true;
+-    }
+     return currentInfo.documentBlock(description);
+   }
+ 

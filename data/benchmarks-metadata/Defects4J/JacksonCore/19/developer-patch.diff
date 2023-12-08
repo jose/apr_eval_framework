@@ -1,0 +1,26 @@
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:06.428025912 +0000
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:08.585426586 +0000
+@@ -1415,6 +1415,10 @@
+         int fractLen = 0;
+         // And then see if we get other parts
+         if (c == '.') { // yes, fraction
++            if (outPtr >= outBuf.length) {
++                outBuf = _textBuffer.finishCurrentSegment();
++                outPtr = 0;
++            }
+             outBuf[outPtr++] = c;
+ 
+             fract_loop:
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:01:06.535045529 +0000
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:01:08.586064778 +0000
+@@ -1541,6 +1541,10 @@
+ 
+         // And then see if we get other parts
+         if (c == INT_PERIOD) { // yes, fraction
++            if (outPtr >= outBuf.length) {
++                outBuf = _textBuffer.finishCurrentSegment();
++                outPtr = 0;
++            }
+             outBuf[outPtr++] = (char) c;
+ 
+             fract_loop:

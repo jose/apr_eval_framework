@@ -1,0 +1,46 @@
+--- src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:20:49.312943002 +0000
++++ src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:20:52.530316537 +0000
+@@ -147,12 +147,18 @@
+         {
+             String option = e.nextElement().toString();
+             
+-            if (!cmd.hasOption(option))
++            Option opt = options.getOption(option);
++            if (opt == null)
+             {
+-                Option opt = options.getOption(option);
++                throw new UnrecognizedOptionException("Default option wasn't defined", option);
++            }
+             
+             // if the option is part of a group, check if another option of the group has been selected
++            OptionGroup group = options.getOptionGroup(opt);
++            boolean selected = group != null && group.getSelected() != null;
+             
++            if (!cmd.hasOption(option) && !selected)
++            {
+                 // get the value from the properties
+                 String value = properties.getProperty(option);
+                 
+--- src/main/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:49.313281194 +0000
++++ src/main/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:52.530662188 +0000
+@@ -260,12 +260,18 @@
+         {
+             String option = e.nextElement().toString();
+             
+-            if (!cmd.hasOption(option))
++            Option opt = options.getOption(option);
++            if (opt == null)
+             {
+-                Option opt = getOptions().getOption(option);
++                throw new UnrecognizedOptionException("Default option wasn't defined", option);
++            }
+             
+             // if the option is part of a group, check if another option of the group has been selected
++            OptionGroup group = options.getOptionGroup(opt);
++            boolean selected = group != null && group.getSelected() != null;
+             
++            if (!cmd.hasOption(option) && !selected)
++            {
+                 // get the value from the properties instance
+                 String value = properties.getProperty(option);
+ 

@@ -1,0 +1,17 @@
+--- src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:09:04.878738395 +0000
++++ src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:09:08.546498054 +0000
+@@ -232,9 +232,12 @@
+             // the object is already in the uniq list
+             // (and it hasn't been swapped with itself)
+             super.remove(pos); // remove the duplicate by index
++            set.remove(removed); // remove the item deleted by the set
++        } else if (pos == -1) {
++            set.add(object); // add the new item to the unique set
++            set.remove(removed); // remove the item deleted by the set
+         }
+-        set.add(object); 
+-        set.remove(removed);
++        
+         return removed; // return the item deleted by the set
+     }
+ 

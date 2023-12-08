@@ -1,0 +1,87 @@
+diff --git a/apollo-adminservice/src/main/java/com/ctrip/framework/apollo/adminservice/controller/ClusterController.java b/apollo-adminservice/src/main/java/com/ctrip/framework/apollo/adminservice/controller/ClusterController.java
+index 775c88cfa..40fa53680 100644
+--- a/apollo-adminservice/src/main/java/com/ctrip/framework/apollo/adminservice/controller/ClusterController.java
++++ b/apollo-adminservice/src/main/java/com/ctrip/framework/apollo/adminservice/controller/ClusterController.java
+@@ -8,6 +8,7 @@ import com.ctrip.framework.apollo.common.exception.NotFoundException;
+ import com.ctrip.framework.apollo.common.utils.BeanUtils;
+ import com.ctrip.framework.apollo.common.utils.InputValidator;
+ 
++import com.ctrip.framework.apollo.core.ConfigConsts;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestBody;
+@@ -51,10 +52,17 @@ public class ClusterController {
+   @RequestMapping(path = "/apps/{appId}/clusters/{clusterName:.+}", method = RequestMethod.DELETE)
+   public void delete(@PathVariable("appId") String appId,
+                      @PathVariable("clusterName") String clusterName, @RequestParam String operator) {
++
+     Cluster entity = clusterService.findOne(appId, clusterName);
++
+     if (entity == null) {
+       throw new NotFoundException("cluster not found for clusterName " + clusterName);
+     }
++
++    if(ConfigConsts.CLUSTER_NAME_DEFAULT.equals(entity.getName())){
++      throw new BadRequestException("default cluster can not be delete.");
++    }
++
+     clusterService.delete(entity.getId(), operator);
+   }
+ 
+diff --git a/apollo-adminservice/src/test/java/com/ctrip/framework/apollo/adminservice/controller/ClusterControllerTest.java b/apollo-adminservice/src/test/java/com/ctrip/framework/apollo/adminservice/controller/ClusterControllerTest.java
+new file mode 100644
+index 000000000..820cf809c
+--- /dev/null
++++ b/apollo-adminservice/src/test/java/com/ctrip/framework/apollo/adminservice/controller/ClusterControllerTest.java
+@@ -0,0 +1,50 @@
++package com.ctrip.framework.apollo.adminservice.controller;
++
++import com.ctrip.framework.apollo.biz.entity.Cluster;
++import com.ctrip.framework.apollo.biz.service.ClusterService;
++import com.ctrip.framework.apollo.common.exception.BadRequestException;
++import com.ctrip.framework.apollo.core.ConfigConsts;
++import org.junit.Before;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++import org.mockito.Mock;
++import org.mockito.MockitoAnnotations;
++import org.mockito.runners.MockitoJUnitRunner;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.context.junit4.SpringRunner;
++import org.springframework.test.util.ReflectionTestUtils;
++
++import static org.junit.Assert.*;
++import static org.mockito.Matchers.any;
++import static org.mockito.Mockito.when;
++
++public class ClusterControllerTest{
++
++    ClusterController clusterController=new ClusterController();
++    @Mock
++    ClusterService clusterService;
++
++    @Before
++    public void setUp() {
++        MockitoAnnotations.initMocks(this);
++
++        ReflectionTestUtils.setField(clusterController, "clusterService", clusterService);
++    }
++
++
++    @Test(expected = BadRequestException.class)
++    public void testDeleteDefaultFail() {
++        Cluster cluster=new Cluster();
++        cluster.setName(ConfigConsts.CLUSTER_NAME_DEFAULT);
++        when(clusterService.findOne(any(String.class), any(String.class))).thenReturn(cluster);
++        clusterController.delete("1","2","d");
++    }
++
++    @Test()
++    public void testDeleteSuccess() {
++        Cluster cluster=new Cluster();
++        when(clusterService.findOne(any(String.class), any(String.class))).thenReturn(cluster);
++        clusterController.delete("1","2","d");
++    }
++}
+\ No newline at end of file

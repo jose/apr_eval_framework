@@ -1,0 +1,13 @@
+--- src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:05.327808518 +0000
++++ src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:08.484346203 +0000
+@@ -41,8 +41,9 @@
+      * @see #createFromEncoded*/
+     public Attribute(String key, String val, Attributes parent) {
+         Validate.notNull(key);
+-        this.key = key.trim();
++        key = key.trim();
+         Validate.notEmpty(key); // trimming could potentially make empty, so validate here
++        this.key = key;
+         this.val = val;
+         this.parent = parent;
+     }

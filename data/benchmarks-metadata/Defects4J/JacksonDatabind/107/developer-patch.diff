@@ -1,0 +1,11 @@
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:12:42.868019913 +0000
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:12:45.548220323 +0000
+@@ -162,7 +162,7 @@
+                     JavaType actual = _handleUnknownTypeId(ctxt, typeId);
+                     if (actual == null) { // what should this be taken to mean?
+                         // 17-Jan-2019, tatu: As per [databind#2221], better NOT return `null` but...
+-                        return null;
++                        return NullifyingDeserializer.instance;
+                     }
+                     // ... would this actually work?
+                     deser = ctxt.findContextualValueDeserializer(actual, _property);

@@ -1,0 +1,50 @@
+diff --git a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+index add493ebe..7ee9d21e7 100644
+--- a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
++++ b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+@@ -834,6 +834,15 @@ protected void parseColumnDefinition(Marker start, String columnName, TokenStrea
+             column.charsetName("utf8");
+         }
+ 
++        if (Types.DECIMAL == dataType.jdbcType()) {
++            if (dataType.length() == -1) {
++                column.length(10);
++            }
++            if (dataType.scale() == -1) {
++                column.scale(0);
++            }
++        }
++
+         if (tokens.canConsume("CHARSET") || tokens.canConsume("CHARACTER", "SET")) {
+             String charsetName = tokens.consume();
+             if (!"DEFAULT".equalsIgnoreCase(charsetName)) {
+diff --git a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+index 1f09c7453..34564f164 100644
+--- a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
++++ b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+@@ -1358,10 +1358,24 @@ public void parseDdlForDecAndFixed() {
+         assertThat(t).isNotNull();
+         assertThat(t.columnNames()).containsExactly("c1", "c2");
+         assertThat(t.primaryKeyColumnNames()).isEmpty();
+-        assertColumn(t, "c1", "DEC", Types.DECIMAL, 2, -1, false, false, false);
++        assertColumn(t, "c1", "DEC", Types.DECIMAL, 2, 0, false, false, false);
+         assertColumn(t, "c2", "FIXED", Types.DECIMAL, 1, 0, false, false, false);
+     }
+ 
++    @Test
++    @FixFor("DBZ-615")
++    public void parseDdlForUnscaledDecAndFixed() {
++        String ddl = "CREATE TABLE t ( c1 DEC NOT NULL, c2 FIXED(3) NOT NULL);";
++        parser.parse(ddl, tables);
++        assertThat(tables.size()).isEqualTo(1);
++        Table t = tables.forTable(new TableId(null, null, "t"));
++        assertThat(t).isNotNull();
++        assertThat(t.columnNames()).containsExactly("c1", "c2");
++        assertThat(t.primaryKeyColumnNames()).isEmpty();
++        assertColumn(t, "c1", "DEC", Types.DECIMAL, 10, 0, false, false, false);
++        assertColumn(t, "c2", "FIXED", Types.DECIMAL, 3, 0, false, false, false);
++    }
++
+     @Test
+     public void parseTableWithPageChecksum() {
+         String ddl =

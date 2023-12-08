@@ -1,0 +1,79 @@
+diff --git a/src/main/java/com/json/ignore/JsonIgnoreFields.java b/src/main/java/com/json/ignore/JsonIgnoreFields.java
+index f22ad181b..cacc33ee1 100644
+--- a/src/main/java/com/json/ignore/JsonIgnoreFields.java
++++ b/src/main/java/com/json/ignore/JsonIgnoreFields.java
+@@ -130,7 +130,7 @@ public class JsonIgnoreFields {
+     }
+ 
+     private boolean fieldAcceptable(Field field) {
+-        return field.getType().isPrimitive() || field.getType().isArray() || ignoredNames.contains(field.getName());
++        return /*field.getType().isPrimitive() ||*/ field.getType().isArray() || ignoredNames.contains(field.getName());
+     }
+ 
+     public void ignoreFields(Object object) throws IllegalAccessException {
+diff --git a/src/test/java/com/json/ignore/JsonIgnoreFieldsTest.java b/src/test/java/com/json/ignore/JsonIgnoreFieldsTest.java
+index c83d66328..92749289c 100644
+--- a/src/test/java/com/json/ignore/JsonIgnoreFieldsTest.java
++++ b/src/test/java/com/json/ignore/JsonIgnoreFieldsTest.java
+@@ -18,12 +18,12 @@ import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertTrue;
+ 
+ public class JsonIgnoreFieldsTest {
+-    private static final String SERIALIZED_USER = "{\"id\":100,\"email\":\"mail@mail.com\",\"fullName\":\"Jane Doe\",\"password\":\"1234567\",\"intValue\":0,\"collectionValue\":[\"Hello\",\"World\"],\"mapValue\":{\"name\":\"value\"}}";
+-    private static final String USER_WITHOUT_ID = "{\"email\":\"mail@mail.com\",\"fullName\":\"Jane Doe\",\"password\":\"1234567\",\"intValue\":0,\"collectionValue\":[\"Hello\",\"World\"],\"mapValue\":{\"name\":\"value\"}}";
+-    private static final String USER_EMPTY = "{\"intValue\":0}";
++    private static final String SERIALIZED_USER = "{\"id\":100,\"email\":\"mail@mail.com\",\"fullName\":\"Jane Doe\",\"password\":\"1234567\",\"intValue\":0,\"collectionValue\":[\"Hello\",\"World\"],\"mapValue\":{\"name\":\"value\"},\"boolValue\":true}";
++    private static final String USER_WITHOUT_ID = "{\"email\":\"mail@mail.com\",\"fullName\":\"Jane Doe\",\"password\":\"1234567\",\"intValue\":0,\"collectionValue\":[\"Hello\",\"World\"],\"mapValue\":{\"name\":\"value\"},\"boolValue\":true}";
++    private static final String USER_EMPTY = "{\"intValue\":" + Integer.MIN_VALUE +",\"boolValue\":false}";
+ 
+     private static final List<String> LIST_ID = Arrays.asList("id");
+-    private static final List<String> LIST_ALL = Arrays.asList("id", "email", "fullName", "password", "intValue", "collectionValue", "mapValue");
++    private static final List<String> LIST_ALL = Arrays.asList("id", "email", "fullName", "password", "intValue", "collectionValue", "mapValue", "boolValue");
+ 
+     private ObjectMapper mapper;
+     private JsonIgnoreFields jsonIgnoreFields;
+@@ -49,7 +49,8 @@ public class JsonIgnoreFieldsTest {
+                 .setPassword("1234567")
+                 .setId(100)
+                 .setCollectionValue(new ArrayList<>(Arrays.asList("Hello", "World")))
+-                .setMapValue(values);
++                .setMapValue(values)
++                .setBoolValue(true);
+ 
+         return userMock;
+     }
+@@ -60,7 +61,7 @@ public class JsonIgnoreFieldsTest {
+     }
+ 
+     @JsonIgnoreSetting(className = UserMock.class, fields = {"id"})
+-    @JsonIgnoreSetting(className = UserMock.class, fields = {"email", "fullName", "password", "intValue", "collectionValue", "mapValue"})
++    @JsonIgnoreSetting(className = UserMock.class, fields = {"email", "fullName", "password", "intValue", "collectionValue", "mapValue", "boolValue"})
+     private void multipleAnnotation() {
+ 
+     }
+diff --git a/src/test/java/mock/UserMock.java b/src/test/java/mock/UserMock.java
+index cba7da010..c33cd1b72 100644
+--- a/src/test/java/mock/UserMock.java
++++ b/src/test/java/mock/UserMock.java
+@@ -13,6 +13,7 @@ public class UserMock implements Serializable {
+     private int intValue;
+     private Collection<String> collectionValue;
+     private Map<String, String> mapValue;
++    private boolean boolValue;
+ 
+     public UserMock() {
+     }
+@@ -79,4 +80,13 @@ public class UserMock implements Serializable {
+         this.mapValue = mapValue;
+         return this;
+     }
++
++    public boolean getBoolValue() {
++        return boolValue;
++    }
++
++    public UserMock setBoolValue(boolean boolValue) {
++        this.boolValue = boolValue;
++        return this;
++    }
+ }

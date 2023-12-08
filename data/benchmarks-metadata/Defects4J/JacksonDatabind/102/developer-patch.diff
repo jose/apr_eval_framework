@@ -1,0 +1,12 @@
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:12:12.256721182 +0000
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:12:14.736986608 +0000
+@@ -64,9 +64,6 @@
+     {
+         // Note! Should not skip if `property` null since that'd skip check
+         // for config overrides, in case of root value
+-        if (property == null) {
+-            return this;
+-        }
+         JsonFormat.Value format = findFormatOverrides(serializers, property, handledType());
+         if (format == null) {
+             return this;

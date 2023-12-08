@@ -1,0 +1,26 @@
+--- src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2023-12-05 19:42:09.367905435 +0000
++++ src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2023-12-05 19:42:13.076198671 +0000
+@@ -167,13 +167,22 @@
+                 outEdges.get(0).getValue() == Branch.UNCOND);
+             Node fallThrough = computeFollowing(n);
+             Node nextCfgNode = outEdges.get(0).getDestination().getValue();
+-            if (nextCfgNode == fallThrough) {
++            if (nextCfgNode == fallThrough && !inFinally(n.getParent(), n)) {
+               removeNode(n);
+             }
+           }
+       }
+     }
+ 
++    private boolean inFinally(Node parent, Node child) {
++      if (parent == null || parent.isFunction()) {
++        return false;
++      } else if (NodeUtil.isTryFinallyNode(parent, child)) {
++        return true;
++      } else {
++        return inFinally(parent.getParent(), parent);
++      }
++    }
+ 
+     private Node computeFollowing(Node n) {
+       Node next = ControlFlowAnalysis.computeFollowNode(n);

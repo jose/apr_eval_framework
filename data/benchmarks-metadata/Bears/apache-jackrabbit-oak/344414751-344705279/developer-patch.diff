@@ -1,0 +1,84 @@
+diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/DocumentNodeStore.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/DocumentNodeStore.java
+index 9812fa80d..55247b725 100644
+--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/DocumentNodeStore.java
++++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/DocumentNodeStore.java
+@@ -669,7 +669,13 @@ public final class DocumentNodeStore
+             }
+         } else {
+             // branch commit
+-            c.applyToCache(c.getBaseRevision(), isBranch);
++            try {
++                c.applyToCache(c.getBaseRevision(), isBranch);
++            } finally {
++                if (isDisableBranches()) {
++                    backgroundOperationLock.readLock().unlock();
++                }
++            }
+         }
+     }
+ 
+@@ -680,6 +686,17 @@ public final class DocumentNodeStore
+             } finally {
+                 backgroundOperationLock.readLock().unlock();
+             }
++        } else {
++            try {
++                Branch b = branches.getBranch(c.getBaseRevision());
++                if (b != null) {
++                    b.removeCommit(c.getRevision().asBranchRevision());
++                }
++            } finally {
++                if (isDisableBranches()) {
++                    backgroundOperationLock.readLock().unlock();
++                }
++            }
+         }
+     }
+ 
+@@ -1982,7 +1999,16 @@ public final class DocumentNodeStore
+                 "base must be a branch revision: " + base);
+ 
+         checkOpen();
+-        return new Commit(this, newRevision(), base, branch);
++        Commit c = new Commit(this, newRevision(), base, branch);
++        if (isDisableBranches()) {
++            // Regular branch commits do not need to acquire the background
++            // operation lock because the head is not updated and no pending
++            // lastRev updates are done on trunk. When branches are disabled,
++            // a branch commit becomes a pseudo trunk commit and the lock
++            // must be acquired.
++            backgroundOperationLock.readLock().lock();
++        }
++        return c;
+     }
+ 
+     /**
+diff --git a/oak-core/src/test/java/org/apache/jackrabbit/oak/plugins/document/DisableBranchesTest.java b/oak-core/src/test/java/org/apache/jackrabbit/oak/plugins/document/DisableBranchesTest.java
+index b35d073a6..99c35ff0b 100644
+--- a/oak-core/src/test/java/org/apache/jackrabbit/oak/plugins/document/DisableBranchesTest.java
++++ b/oak-core/src/test/java/org/apache/jackrabbit/oak/plugins/document/DisableBranchesTest.java
+@@ -31,7 +31,6 @@ import org.apache.jackrabbit.oak.spi.state.NodeState;
+ import org.apache.jackrabbit.oak.spi.state.NodeStore;
+ import org.junit.After;
+ import org.junit.Before;
+-import org.junit.Ignore;
+ import org.junit.Rule;
+ import org.junit.Test;
+ 
+@@ -66,7 +65,6 @@ public class DisableBranchesTest {
+         logCustomizer.finished();
+     }
+ 
+-    @Ignore("OAK-6392")
+     @Test
+     public void backgroundWrite() throws Exception {
+         final int NUM_UPDATES = DocumentRootBuilder.UPDATE_LIMIT * 3 / 2;
+@@ -108,7 +106,7 @@ public class DisableBranchesTest {
+         // background thread must always update _lastRev from an entire
+         // branch commit and never partially
+         assertTrue(updates.iterator().hasNext()); // at least one
+-        assertThat(updates, everyItem(is(NUM_UPDATES + 1)));
++        assertThat(updates, everyItem(is(NUM_UPDATES * 2 + 1)));
+     }
+ 
+     private Iterable<Integer> getUpdates() {

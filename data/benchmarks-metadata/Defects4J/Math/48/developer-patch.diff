@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:13:27.971911733 +0000
++++ src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:13:33.560138912 +0000
+@@ -186,6 +186,9 @@
+                 case REGULA_FALSI:
+                     // Detect early that algorithm is stuck, instead of waiting
+                     // for the maximum number of iterations to be exceeded.
++                    if (x == x1) {
++                        throw new ConvergenceException();
++                    }
+                     break;
+                 default:
+                     // Should never happen.

@@ -1,0 +1,21 @@
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:13:47.668219168 +0000
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:13:54.475456743 +0000
+@@ -666,13 +666,13 @@
+         String myComment = getComment();
+         String otherComment = other.getComment();
+         if (myComment == null) {
+-            if (otherComment != null) {
+-                return false;
+-            }
+-        } else if (!myComment.equals(otherComment)) {
+-            return false;
++            myComment = "";
++        }
++        if (otherComment == null) {
++            otherComment = "";
+         }
+         return getTime() == other.getTime()
++            && myComment.equals(otherComment)
+             && getInternalAttributes() == other.getInternalAttributes()
+             && getPlatform() == other.getPlatform()
+             && getExternalAttributes() == other.getExternalAttributes()

@@ -1,0 +1,11 @@
+--- src/java/org/apache/commons/collections/CollectionUtils.java	2023-12-05 20:07:16.356998991 +0000
++++ src/java/org/apache/commons/collections/CollectionUtils.java	2023-12-05 20:07:18.728716125 +0000
+@@ -1118,7 +1118,7 @@
+      * @since Commons Collections 3.3 (method existed in 3.2 but was completely broken)
+      */
+     public static Collection removeAll(Collection collection, Collection remove) {
+-        return ListUtils.retainAll(collection, remove);
++        return ListUtils.removeAll(collection, remove);
+     }
+ 
+     //-----------------------------------------------------------------------

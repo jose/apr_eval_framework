@@ -1,0 +1,49 @@
+diff --git a/src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializers.java b/src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializers.java
+index 2462f2eba..369e65963 100644
+--- a/src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializers.java
++++ b/src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializers.java
+@@ -207,6 +207,13 @@ public class StdKeySerializers
+         protected JsonSerializer<Object> _findAndAddDynamic(PropertySerializerMap map,
+                 Class<?> type, SerializerProvider provider) throws JsonMappingException
+         {
++            // 27-Jun-2017, tatu: [databind#1679] Need to avoid StackOverflowError...
++            if (type == Object.class) {
++                // basically just need to call `toString()`, easiest way:
++                JsonSerializer<Object> ser = new Default(Default.TYPE_TO_STRING, type);
++                _dynamicSerializers = map.newWith(type, ser);
++                return ser;
++            }
+             PropertySerializerMap.SerializerAndMapResult result =
+                     // null -> for now we won't keep ref or pass BeanProperty; could change
+                     map.findAndAddKeySerializer(type, provider, null);
+diff --git a/src/test/java/com/fasterxml/jackson/databind/ser/KeySerializers1679Test.java b/src/test/java/com/fasterxml/jackson/databind/ser/KeySerializers1679Test.java
+new file mode 100644
+index 000000000..ea7e60000
+--- /dev/null
++++ b/src/test/java/com/fasterxml/jackson/databind/ser/KeySerializers1679Test.java
+@@ -0,0 +1,25 @@
++package com.fasterxml.jackson.databind.ser;
++
++import java.util.*;
++
++import com.fasterxml.jackson.databind.*;
++
++public class KeySerializers1679Test extends BaseMapTest
++{
++    /*
++    /**********************************************************
++    /* Unit tests
++    /**********************************************************
++     */
++
++    private final ObjectMapper MAPPER = new ObjectMapper();
++
++    // [databind#1679]
++    public void testRecursion1679() throws Exception
++    {
++        Map<Object, Object> objectMap = new HashMap<Object, Object>();
++        objectMap.put(new Object(), "foo");
++        String json = MAPPER.writeValueAsString(objectMap);
++        assertNotNull(json);
++    }
++}

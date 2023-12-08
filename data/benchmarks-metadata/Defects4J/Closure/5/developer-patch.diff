@@ -1,0 +1,12 @@
+--- src/com/google/javascript/jscomp/InlineObjectLiterals.java	2023-12-05 19:22:45.009937647 +0000
++++ src/com/google/javascript/jscomp/InlineObjectLiterals.java	2023-12-05 19:22:48.979162178 +0000
+@@ -173,6 +173,9 @@
+ 
+           // Deleting a property has different semantics from deleting
+           // a variable, so deleted properties should not be inlined.
++          if (gramps.isDelProp()) {
++            return false;
++          }
+ 
+           // NOTE(nicksantos): This pass's object-splitting algorithm has
+           // a blind spot. It assumes that if a property isn't defined on an

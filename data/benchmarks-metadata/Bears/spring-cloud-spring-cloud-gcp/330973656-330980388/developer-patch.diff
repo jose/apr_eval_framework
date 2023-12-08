@@ -1,0 +1,63 @@
+diff --git a/spring-cloud-gcp-storage/src/main/java/org/springframework/cloud/gcp/storage/GoogleStorageResourceObject.java b/spring-cloud-gcp-storage/src/main/java/org/springframework/cloud/gcp/storage/GoogleStorageResourceObject.java
+index b17b3f598..b0c77d7b2 100644
+--- a/spring-cloud-gcp-storage/src/main/java/org/springframework/cloud/gcp/storage/GoogleStorageResourceObject.java
++++ b/spring-cloud-gcp-storage/src/main/java/org/springframework/cloud/gcp/storage/GoogleStorageResourceObject.java
+@@ -107,7 +107,7 @@ public class GoogleStorageResourceObject implements WritableResource {
+ 
+ 	private BlobId getBlobId() throws IOException {
+ 		URI uri = getURI();
+-		return BlobId.of(uri.getHost(),
++		return BlobId.of(uri.getAuthority(),
+ 				uri.getPath().substring(1, uri.getPath().length()));
+ 	}
+ 
+diff --git a/spring-cloud-gcp-storage/src/test/java/org/springframework/cloud/gcp/storage/GoogleStorageTests.java b/spring-cloud-gcp-storage/src/test/java/org/springframework/cloud/gcp/storage/GoogleStorageTests.java
+index d7ba99e5c..6dccb6338 100644
+--- a/spring-cloud-gcp-storage/src/test/java/org/springframework/cloud/gcp/storage/GoogleStorageTests.java
++++ b/spring-cloud-gcp-storage/src/test/java/org/springframework/cloud/gcp/storage/GoogleStorageTests.java
+@@ -62,6 +62,9 @@ public class GoogleStorageTests {
+ 	@Value("gs://test-spring/images/spring.png")
+ 	private Resource remoteResource;
+ 
++	@Value("gs://test_spring/images/spring.png")
++	private Resource remoteResourceWithUnderscore;
++
+ 	@Value("gs://test-spring")
+ 	private Resource bucketResource;
+ 
+@@ -91,6 +94,11 @@ public class GoogleStorageTests {
+ 		Assert.assertEquals(4096L, this.remoteResource.contentLength());
+ 	}
+ 
++	@Test
++	public void testValidObjectWithUnderscore() throws Exception {
++		Assert.assertTrue(this.remoteResourceWithUnderscore.exists());
++	}
++
+ 	@Test
+ 	public void testValidBucket() throws IOException {
+ 		Assert.assertEquals("test-spring", this.bucketResource.getDescription());
+@@ -105,6 +113,7 @@ public class GoogleStorageTests {
+ 		Assert.assertEquals(this.bucketResource.getURI().toString(),
+ 				this.bucketResourceTrailingSlash.getURI().toString());
+ 
++
+ 		String relative = this.bucketResource.createRelative("aaa/bbb").getURI()
+ 				.toString();
+ 		Assert.assertEquals("gs://test-spring/aaa/bbb", relative);
+@@ -300,6 +309,7 @@ public class GoogleStorageTests {
+ 		public static Storage mockStorage() throws Exception {
+ 			Storage storage = mock(Storage.class);
+ 			BlobId validBlob = BlobId.of("test-spring", "images/spring.png");
++			BlobId validBlobWithUnderscore = BlobId.of("test_spring", "images/spring.png");
+ 			Bucket mockedBucket = mock(Bucket.class);
+ 			Blob mockedBlob = mock(Blob.class);
+ 			WriteChannel writeChannel = mock(WriteChannel.class);
+@@ -307,6 +317,7 @@ public class GoogleStorageTests {
+ 			when(mockedBucket.exists()).thenReturn(true);
+ 			when(mockedBlob.getSize()).thenReturn(4096L);
+ 			when(storage.get(eq(validBlob))).thenReturn(mockedBlob);
++			when(storage.get(eq(validBlobWithUnderscore))).thenReturn(mockedBlob);
+ 			when(storage.get("test-spring")).thenReturn(mockedBucket);
+ 			when(mockedBucket.getName()).thenReturn("test-spring");
+ 			when(mockedBlob.writer()).thenReturn(writeChannel);

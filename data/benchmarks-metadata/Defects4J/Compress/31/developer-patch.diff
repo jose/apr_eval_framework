@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:54:28.007507440 +0000
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:54:32.233085950 +0000
+@@ -132,9 +132,6 @@
+ 
+         for ( ;start < end; start++) {
+             final byte currentByte = buffer[start];
+-            if (currentByte == 0) {
+-                break;
+-            }
+             // CheckStyle:MagicNumber OFF
+             if (currentByte < '0' || currentByte > '7'){
+                 throw new IllegalArgumentException(

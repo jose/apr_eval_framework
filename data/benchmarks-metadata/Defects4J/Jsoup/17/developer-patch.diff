@@ -1,0 +1,11 @@
+--- src/main/java/org/jsoup/parser/TreeBuilderState.java	2023-12-05 21:15:02.480945567 +0000
++++ src/main/java/org/jsoup/parser/TreeBuilderState.java	2023-12-05 21:15:04.501139165 +0000
+@@ -1448,7 +1448,7 @@
+         }
+     };
+ 
+-    private static String nullString = String.valueOf(0x0000);
++    private static String nullString = String.valueOf('\u0000');
+ 
+     abstract boolean process(Token t, TreeBuilder tb);
+ 

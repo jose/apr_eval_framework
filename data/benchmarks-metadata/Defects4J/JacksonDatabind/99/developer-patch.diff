@@ -1,0 +1,10 @@
+--- src/main/java/com/fasterxml/jackson/databind/type/ReferenceType.java	2023-12-05 21:11:53.481201142 +0000
++++ src/main/java/com/fasterxml/jackson/databind/type/ReferenceType.java	2023-12-05 21:11:56.411035659 +0000
+@@ -166,6 +166,7 @@
+         sb.append(_class.getName());
+         sb.append('<');
+         sb.append(_referencedType.toCanonical());
++        sb.append('>');
+         return sb.toString();
+     }
+ 

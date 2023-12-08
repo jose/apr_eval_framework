@@ -1,0 +1,11 @@
+--- src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2023-12-05 20:09:59.081598436 +0000
++++ src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2023-12-05 20:10:01.581436419 +0000
+@@ -274,7 +274,7 @@
+      * only stable for the same process).
+      * @return the instance with recalculated hash code
+      */
+-    private Object readResolve() {
++    protected Object readResolve() {
+         calculateHashCode(keys);
+         return this;
+     }

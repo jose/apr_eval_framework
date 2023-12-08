@@ -1,0 +1,11 @@
+--- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:16.857448583 +0000
++++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:17.786483185 +0000
+@@ -222,7 +222,7 @@
+      * </p>
+      */
+     public Base64() {
+-        this(false);
++        this(0);
+     }
+ 
+     /**

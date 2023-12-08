@@ -1,0 +1,12 @@
+--- src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:17:33.147620518 +0000
++++ src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:17:35.164018759 +0000
+@@ -442,8 +442,8 @@
+             Node in = children[i];
+             reparentChild(in);
+             childNodes.add(index, in);
++            reindexChildren(index);
+         }
+-        reindexChildren(index);
+     }
+ 
+     protected void ensureChildNodes() {

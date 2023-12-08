@@ -1,0 +1,17 @@
+--- java_programs/GCD.java	2023-12-05 16:52:00.396553705 +0000
++++ correct_java_programs/GCD.java	2023-12-05 16:52:00.380004860 +0000
+@@ -1,4 +1,4 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
+ 
+ /*
+@@ -16,7 +16,7 @@
+         if (b == 0) {
+             return a;
+         } else {
+-            return gcd(a % b, b);
++            return gcd(b, a%b);
+         }
+     }
+ }

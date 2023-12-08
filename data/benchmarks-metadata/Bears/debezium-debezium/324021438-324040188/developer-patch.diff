@@ -1,0 +1,32 @@
+diff --git a/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java b/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
+index 8b2f946d5..ad70f2285 100644
+--- a/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
++++ b/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
+@@ -43,8 +43,11 @@ public static DateTimeFormat get() {
+     public static class ISODateTimeFormat implements DateTimeFormat {
+         private static final Logger LOGGER = LoggerFactory.getLogger(ISODateTimeFormat.class);
+ 
+-        private static final String TS_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+-        private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern(TS_FORMAT_PATTERN);
++        private static final String TS_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss[.S]";
++        private static final DateTimeFormatter TS_FORMAT = new DateTimeFormatterBuilder()
++                .appendPattern("yyyy-MM-dd HH:mm:ss")
++                .appendFraction(ChronoField.MICRO_OF_SECOND, 0, 6, true)
++                .toFormatter();
+ 
+         private static final String TS_TZ_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss[.S]X";
+         private static final DateTimeFormatter TS_TZ_FORMAT = new DateTimeFormatterBuilder()
+diff --git a/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java b/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
+index c0d7442c1..e36b59958 100644
+--- a/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
++++ b/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
+@@ -18,6 +18,9 @@ public class ISODateTimeFormatTest {
+     @Test
+     public void testTimestamp() {
+         Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30")).isEqualTo(1478267490_000_000_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123")).isEqualTo(1478267490_123_000_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123000")).isEqualTo(1478267490_123_000_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123456")).isEqualTo(1478267490_123_456_000l);
+     }
+ 
+     @Test

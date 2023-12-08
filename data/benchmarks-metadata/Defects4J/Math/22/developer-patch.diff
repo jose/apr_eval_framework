@@ -1,0 +1,22 @@
+--- src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2023-12-05 17:08:23.618339748 +0000
++++ src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2023-12-05 17:08:28.527412079 +0000
+@@ -272,7 +272,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportLowerBoundInclusive() {
+-        return true;
++        return false;
+     }
+ 
+     /** {@inheritDoc} */
+--- src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2023-12-05 17:08:23.618626193 +0000
++++ src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2023-12-05 17:08:28.528269428 +0000
+@@ -181,7 +181,7 @@
+ 
+     /** {@inheritDoc} */
+     public boolean isSupportUpperBoundInclusive() {
+-        return false;
++        return true;
+     }
+ 
+     /**

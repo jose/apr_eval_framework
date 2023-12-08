@@ -1,0 +1,13 @@
+--- src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2023-12-05 21:13:27.184907814 +0000
++++ src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2023-12-05 21:13:28.799130938 +0000
+@@ -666,9 +666,8 @@
+             }
+             break;
+         case XmlTokenStream.XML_ATTRIBUTE_VALUE:
+-            _currText = _xmlTokens.getText();
+             _currToken = JsonToken.VALUE_STRING;
+-            break;
++            return (_currText = _xmlTokens.getText());
+         case XmlTokenStream.XML_TEXT:
+             _currText = _xmlTokens.getText();
+             if (_mayBeLeaf) {

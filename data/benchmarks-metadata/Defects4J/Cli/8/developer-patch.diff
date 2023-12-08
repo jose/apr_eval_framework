@@ -1,0 +1,11 @@
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:24.929213833 +0000
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:27.044077787 +0000
+@@ -809,7 +809,7 @@
+         while (true)
+         {
+             text = padding + text.substring(pos).trim();
+-            pos = findWrapPos(text, width, nextLineTabStop);
++            pos = findWrapPos(text, width, 0);
+ 
+             if (pos == -1)
+             {

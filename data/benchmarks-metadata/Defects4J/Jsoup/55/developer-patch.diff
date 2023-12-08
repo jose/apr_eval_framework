@@ -1,0 +1,10 @@
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:18:01.701607167 +0000
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:18:03.765979656 +0000
+@@ -880,6 +880,7 @@
+                     break;
+                 default:
+                     t.error(this);
++                    r.unconsume();
+                     t.transition(BeforeAttributeName);
+             }
+         }

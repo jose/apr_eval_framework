@@ -1,0 +1,88 @@
+diff --git a/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java b/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
+index ad70f2285..42ec6a7be 100644
+--- a/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
++++ b/debezium-connector-postgres/src/main/java/io/debezium/connector/postgresql/connection/wal2json/DateTimeFormat.java
+@@ -14,6 +14,7 @@
+ import java.time.format.DateTimeFormatter;
+ import java.time.format.DateTimeFormatterBuilder;
+ import java.time.format.DateTimeParseException;
++import java.time.format.TextStyle;
+ import java.time.temporal.ChronoField;
+ import java.util.function.Supplier;
+ 
+@@ -47,23 +48,35 @@ public static class ISODateTimeFormat implements DateTimeFormat {
+         private static final DateTimeFormatter TS_FORMAT = new DateTimeFormatterBuilder()
+                 .appendPattern("yyyy-MM-dd HH:mm:ss")
+                 .appendFraction(ChronoField.MICRO_OF_SECOND, 0, 6, true)
++                .optionalStart()
++                .appendLiteral(" ")
++                .appendText(ChronoField.ERA, TextStyle.SHORT)
++                .optionalEnd()
+                 .toFormatter();
+ 
+         private static final String TS_TZ_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss[.S]X";
+         private static final DateTimeFormatter TS_TZ_FORMAT = new DateTimeFormatterBuilder()
+                 .appendPattern("yyyy-MM-dd HH:mm:ss")
+                 .appendFraction(ChronoField.MICRO_OF_SECOND, 0, 6, true)
+-                .appendOffset("+HH", "")
++                .appendOffset("+HH:mm", "")
++                .optionalStart()
++                .appendLiteral(" ")
++                .appendText(ChronoField.ERA, TextStyle.SHORT)
++                .optionalEnd()
+                 .toFormatter();
+ 
+         private static final String SYSTEM_TS_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss.SSSSSSX";
+         private static final DateTimeFormatter SYSTEM_TS_FORMAT = new DateTimeFormatterBuilder()
+                 .appendPattern("yyyy-MM-dd HH:mm:ss")
+                 .appendFraction(ChronoField.MICRO_OF_SECOND, 0, 6, true)
+-                .appendOffset("+HH", "Z")
++                .appendOffset("+HH:mm", "Z")
++                .optionalStart()
++                .appendLiteral(" ")
++                .appendText(ChronoField.ERA, TextStyle.SHORT)
++                .optionalEnd()
+                 .toFormatter();
+ 
+-        private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
++        private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd[ GG]";
+         private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
+ 
+         private static final String TIME_FORMAT_PATTERN = "HH:mm:ss";
+diff --git a/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java b/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
+index e36b59958..0d4e33bd1 100644
+--- a/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
++++ b/debezium-connector-postgres/src/test/java/io/debezium/connector/postgresql/connection/wal2json/ISODateTimeFormatTest.java
+@@ -21,6 +21,8 @@ public void testTimestamp() {
+         Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123")).isEqualTo(1478267490_123_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123000")).isEqualTo(1478267490_123_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123456")).isEqualTo(1478267490_123_456_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestamp("2016-11-04 13:51:30.123456")).isEqualTo(1478267490_123_456_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestamp("0002-12-01 17:00:00 BC")).isEqualTo(-6829604178_871_345_152l);
+     }
+ 
+     @Test
+@@ -29,11 +31,14 @@ public void testTimestampWithTimeZone() {
+         Assertions.assertThat(DateTimeFormat.get().timestampWithTimeZone("2016-11-04 13:51:30.123+02")).isEqualTo(1478260290_123_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().timestampWithTimeZone("2016-11-04 13:51:30.123000+02")).isEqualTo(1478260290_123_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().timestampWithTimeZone("2016-11-04 13:51:30.123789+02")).isEqualTo(1478260290_123_789_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestampWithTimeZone("2016-11-04 13:51:30.123789+02:30")).isEqualTo(1478258490_123_789_000l);
++        Assertions.assertThat(DateTimeFormat.get().timestampWithTimeZone("2016-11-04 13:51:30.123789+02:30 BC")).isEqualTo(3399351806_090_650_312l);
+     }
+ 
+     @Test
+     public void testDate() {
+         Assertions.assertThat(DateTimeFormat.get().date("2016-11-04")).isEqualTo(LocalDate.of(2016, 11, 4));
++        Assertions.assertThat(DateTimeFormat.get().date("2016-11-04 BC")).isEqualTo(LocalDate.of(-2015, 11, 4));
+     }
+ 
+     @Test
+@@ -52,6 +57,8 @@ public void testSystemTimestamp() {
+         Assertions.assertThat(DateTimeFormat.get().systemTimestamp("2017-10-17 13:51:30.000Z")).isEqualTo(1508248290_000_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().systemTimestamp("2017-10-17 13:51:30.456Z")).isEqualTo(1508248290_456_000_000l);
+         Assertions.assertThat(DateTimeFormat.get().systemTimestamp("2017-10-17 13:51:30.345123Z")).isEqualTo(1508248290_345_123_000l);
++        Assertions.assertThat(DateTimeFormat.get().systemTimestamp("2018-03-22 12:30:56.824452+05:30")).isEqualTo(1521702056_824_452_000l);
++        Assertions.assertThat(DateTimeFormat.get().systemTimestamp("2018-03-22 12:30:56.824452+05")).isEqualTo(1521703856_824_452_000l);
+     }
+ 
+ }

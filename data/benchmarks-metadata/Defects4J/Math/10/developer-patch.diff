@@ -1,0 +1,10 @@
+--- src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2023-12-05 17:06:07.534416382 +0000
++++ src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2023-12-05 17:06:12.137544231 +0000
+@@ -1416,6 +1416,7 @@
+         }
+ 
+         // fix value to take special cases (+0/+0, +0/-0, -0/+0, -0/-0, +/-infinity) correctly
++        result[resultOffset] = FastMath.atan2(y[yOffset], x[xOffset]);
+ 
+     }
+ 

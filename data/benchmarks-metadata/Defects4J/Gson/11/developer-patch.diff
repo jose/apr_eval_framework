@@ -1,0 +1,10 @@
+--- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:57.261769752 +0000
++++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:59.503781247 +0000
+@@ -368,6 +368,7 @@
+         in.nextNull();
+         return null;
+       case NUMBER:
++      case STRING:
+         return new LazilyParsedNumber(in.nextString());
+       default:
+         throw new JsonSyntaxException("Expecting number, got: " + jsonToken);

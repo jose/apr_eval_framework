@@ -1,0 +1,18 @@
+--- java_programs/IS_VALID_PARENTHESIZATION.java	2023-12-05 16:52:00.397400120 +0000
++++ correct_java_programs/IS_VALID_PARENTHESIZATION.java	2023-12-05 16:52:00.380567082 +0000
+@@ -1,5 +1,6 @@
+-package java_programs;
++package correct_java_programs;
+ import java.util.*;
++
+ /*
+  * To change this template, choose Tools | Templates
+  * and open the template in the editor.
+@@ -21,6 +22,6 @@
+                 if (depth < 0) { return false; }
+             }
+         }
+-        return true;
++        return depth==0;
+     }
+ }

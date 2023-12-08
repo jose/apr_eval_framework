@@ -1,0 +1,73 @@
+diff --git a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+index a04d95323..b245a2c74 100644
+--- a/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
++++ b/src/main/java/spoon/support/compiler/jdt/ReferenceBuilder.java
+@@ -913,7 +913,8 @@ public class ReferenceBuilder {
+ 		} else if (declaring instanceof CtTypeReference) {
+ 			ref.setDeclaringType((CtTypeReference) declaring);
+ 		} else if (declaring == null) {
+-			ref.setPackage(jdtTreeBuilder.getFactory().Package().topLevel());
++			// in that case we consider the package should be the same as the current one. Fix #1293
++			ref.setPackage(jdtTreeBuilder.getContextBuilder().compilationUnitSpoon.getDeclaredPackage().getReference());
+ 		} else {
+ 			throw new AssertionError("unexpected declaring type: " + declaring.getClass() + " of " + declaring);
+ 		}
+diff --git a/src/test/java/spoon/test/ctClass/CtClassTest.java b/src/test/java/spoon/test/ctClass/CtClassTest.java
+index 9b563b909..4e085df61 100644
+--- a/src/test/java/spoon/test/ctClass/CtClassTest.java
++++ b/src/test/java/spoon/test/ctClass/CtClassTest.java
+@@ -1,8 +1,10 @@
+ package spoon.test.ctClass;
+ 
++import static org.hamcrest.core.Is.is;
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertNull;
++import static org.junit.Assert.assertThat;
+ import static spoon.testing.utils.ModelUtils.build;
+ import static spoon.testing.utils.ModelUtils.buildClass;
+ import static spoon.testing.utils.ModelUtils.canBeBuilt;
+@@ -16,6 +18,7 @@ import spoon.reflect.code.CtBlock;
+ import spoon.reflect.code.CtConstructorCall;
+ import spoon.reflect.declaration.CtClass;
+ import spoon.reflect.declaration.CtConstructor;
++import spoon.reflect.declaration.CtField;
+ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.declaration.ModifierKind;
+ import spoon.reflect.factory.Factory;
+@@ -133,6 +136,23 @@ public class CtClassTest {
+ 
+ 		factory.getEnvironment().setAutoImports(false);
+ 		factory.Code().createCodeSnippetStatement(aPozole.toString()).compile();
++	}
++
++	@Test
++	public void testSpoonShouldInferImplicitPackageInNoClasspath() throws Exception {
++    	// contract: in noClasspath, when a type is used and no import is specified, then Spoon
++		// should infer that this type is in the same package as the current class.
++		final Launcher launcher2 = new Launcher();
++		launcher2.addInputResource("./src/test/resources/noclasspath/issue1293/com/cristal/ircica/applicationcolis/userinterface/fragments/TransporteurFragment.java");
++		launcher2.getEnvironment().setNoClasspath(true);
++		launcher2.buildModel();
++
++		final CtClass<Object> aClass2 = launcher2.getFactory().Class().get("com.cristal.ircica.applicationcolis.userinterface.fragments.TransporteurFragment");
++		final String type2 = aClass2.getSuperclass().getQualifiedName();
++
++		CtField field = aClass2.getField("transporteurRadioGroup");
++		assertThat(field.getType().getQualifiedName(), is("android.widget.RadioGroup"));
+ 
++		assertThat(type2, is("com.cristal.ircica.applicationcolis.userinterface.fragments.CompletableFragment"));
+ 	}
+ }
+diff --git a/src/test/java/spoon/test/filters/CUFilterTest.java b/src/test/java/spoon/test/filters/CUFilterTest.java
+index ca467552a..ffc14d060 100644
+--- a/src/test/java/spoon/test/filters/CUFilterTest.java
++++ b/src/test/java/spoon/test/filters/CUFilterTest.java
+@@ -65,6 +65,6 @@ public class CUFilterTest {
+                 .getMethod("createB").getBody().getStatement(0);
+         final CtConstructorCall ctConstructorCall =
+                 (CtConstructorCall)ctReturn.getReturnedExpression();
+-        assertEquals("B", ctConstructorCall.getType().getQualifiedName());
++        assertEquals("spoon.test.same.B", ctConstructorCall.getType().getQualifiedName());
+     }
+ }

@@ -1,0 +1,306 @@
+diff --git a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+index 2781fcda4..2749c9795 100644
+--- a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
++++ b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+@@ -1796,12 +1796,14 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 	@Override
+ 	public void calculate(CompilationUnit sourceCompilationUnit, List<CtType<?>> types) {
+ 		this.sourceCompilationUnit = sourceCompilationUnit;
+-		// reset the import scanner between each compilationunit
++
++		// reset the importsContext to avoid errors with multiple CU
+ 		if (env.isAutoImports()) {
+ 			this.importsContext = new ImportScannerImpl();
+ 		} else {
+ 			this.importsContext = new MinimalImportScanner();
+ 		}
++
+ 		Set<CtReference> imports = new HashSet<>();
+ 		for (CtType<?> t : types) {
+ 			imports.addAll(computeImports(t));
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index 614a6f93e..68e4f28a1 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -20,7 +20,6 @@ import spoon.reflect.code.CtBlock;
+ import spoon.reflect.code.CtCatchVariable;
+ import spoon.reflect.code.CtFieldAccess;
+ import spoon.reflect.code.CtFieldRead;
+-import spoon.reflect.code.CtFieldWrite;
+ import spoon.reflect.code.CtInvocation;
+ import spoon.reflect.code.CtLiteral;
+ import spoon.reflect.declaration.CtAnnotationType;
+@@ -80,7 +79,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	@Override
+ 	public <T> void visitCtFieldRead(CtFieldRead<T> fieldRead) {
+ 		enter(fieldRead);
+-		scan(fieldRead.getVariable());
+ 		scan(fieldRead.getAnnotations());
+ 		scan(fieldRead.getTypeCasts());
+ 		scan(fieldRead.getVariable());
+@@ -88,17 +86,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 		exit(fieldRead);
+ 	}
+ 
+-	@Override
+-	public <T> void visitCtFieldWrite(CtFieldWrite<T> fieldWrite) {
+-		enter(fieldWrite);
+-		scan(fieldWrite.getVariable());
+-		scan(fieldWrite.getAnnotations());
+-		scan(fieldWrite.getTypeCasts());
+-		scan(fieldWrite.getVariable());
+-		scan(fieldWrite.getTarget());
+-		exit(fieldWrite);
+-	}
+-
+ 	@Override
+ 	public <T> void visitCtFieldReference(CtFieldReference<T> reference) {
+ 		enter(reference);
+@@ -124,17 +111,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 		exit(reference);
+ 	}
+ 
+-	@Override
+-	public <T> void visitCtInvocation(CtInvocation<T> invocation) {
+-		enter(invocation);
+-		scan(invocation.getAnnotations());
+-		scan(invocation.getTypeCasts());
+-		scan(invocation.getTarget());
+-		scan(invocation.getExecutable());
+-		scan(invocation.getArguments());
+-		exit(invocation);
+-	}
+-
+ 	@Override
+ 	public <T> void visitCtTypeReference(CtTypeReference<T> reference) {
+ 		if (!(reference instanceof CtArrayTypeReference)) {
+@@ -207,9 +183,6 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 
+ 	@Override
+ 	public Collection<CtReference> computeAllImports(CtType<?> simpleType) {
+-		classImports.clear();
+-		fieldImports.clear();
+-		methodImports.clear();
+ 		//look for top declaring type of that simpleType
+ 		targetType = simpleType.getReference().getTopLevelType();
+ 		addClassImport(simpleType.getReference());
+@@ -224,11 +197,7 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 
+ 	@Override
+ 	public Collection<CtTypeReference<?>> computeImports(CtElement element) {
+-		classImports.clear();
+-		fieldImports.clear();
+-		methodImports.clear();
+ 		//look for top declaring type of that simpleType
+-
+ 		if (element instanceof CtType) {
+ 			CtType simpleType = (CtType) element;
+ 			targetType = simpleType.getReference().getTopLevelType();
+@@ -404,11 +373,11 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	 */
+ 	private boolean declaringTypeIsLocalOrImported(CtTypeReference declaringType) {
+ 		if (declaringType != null) {
+-			if (isImportedInClassImports(declaringType) || classNamePresentInJavaLang(declaringType)) {
++			if (!isTypeInCollision(declaringType, false) && addClassImport(declaringType)) {
+ 				return true;
+ 			}
+ 
+-			if (!isTypeInCollision(declaringType, false) && addClassImport(declaringType)) {
++			if (isImportedInClassImports(declaringType) || classNamePresentInJavaLang(declaringType)) {
+ 				return true;
+ 			}
+ 
+diff --git a/src/test/java/spoon/test/imports/ImportTest.java b/src/test/java/spoon/test/imports/ImportTest.java
+index 9f0b0a00a..e2e506ed9 100644
+--- a/src/test/java/spoon/test/imports/ImportTest.java
++++ b/src/test/java/spoon/test/imports/ImportTest.java
+@@ -1,5 +1,6 @@
+ package spoon.test.imports;
+ 
++import org.apache.commons.io.IOUtils;
+ import org.junit.Test;
+ import spoon.Launcher;
+ import spoon.SpoonException;
+@@ -42,6 +43,10 @@ import spoon.test.imports.testclasses.Tacos;
+ import spoon.test.imports.testclasses.internal.ChildClass;
+ import spoon.testing.utils.ModelUtils;
+ 
++import java.io.File;
++import java.io.FileNotFoundException;
++import java.io.FileReader;
++import java.io.IOException;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collection;
+@@ -50,14 +55,16 @@ import java.util.List;
+ import java.util.Set;
+ import java.util.stream.Collectors;
+ 
++import static org.hamcrest.CoreMatchers.containsString;
++import static org.hamcrest.CoreMatchers.is;
+ import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertNotNull;
+ import static org.junit.Assert.assertNull;
+ import static org.junit.Assert.assertSame;
++import static org.junit.Assert.assertThat;
+ import static org.junit.Assert.assertTrue;
+-import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.fail;
+-import static spoon.testing.utils.ModelUtils.buildClass;
+ import static spoon.testing.utils.ModelUtils.canBeBuilt;
+ 
+ public class ImportTest {
+@@ -240,14 +247,16 @@ public class ImportTest {
+ 		final CtClass<ImportTest> anotherClass = launcher.getFactory().Class().get(ClientClass.class);
+ 		final CtClass<ImportTest> classWithInvocation = launcher.getFactory().Class().get(ClassWithInvocation.class);
+ 
+-		final ImportScanner importScanner = new ImportScannerImpl();
++		ImportScanner importScanner = new ImportScannerImpl();
+ 		final Collection<CtTypeReference<?>> imports = importScanner.computeImports(aClass);
+ 		assertEquals(2, imports.size());
++		importScanner = new ImportScannerImpl();
+ 		final Collection<CtTypeReference<?>> imports1 = importScanner.computeImports(anotherClass);
+ 		//ClientClass needs 2 imports: ChildClass, PublicInterface2
+ 		assertEquals(2, imports1.size());
+ 		//check that printer did not used the package protected class like "SuperClass.InnerClassProtected"
+ 		assertTrue(anotherClass.toString().indexOf("InnerClass extends ChildClass.InnerClassProtected")>0);
++		importScanner = new ImportScannerImpl();
+ 		final Collection<CtTypeReference<?>> imports2 = importScanner.computeImports(classWithInvocation);
+ 		// java.lang imports are also computed
+ 		assertEquals("Spoon ignores the arguments of CtInvocations", 3, imports2.size());
+@@ -934,11 +943,66 @@ public class ImportTest {
+ 	public void testJavaLangIsConsideredAsImportedButNotForSubPackages() {
+ 		final Launcher launcher = new Launcher();
+ 		launcher.getEnvironment().setAutoImports(true);
+-		String outputDir = "./target/spooned-javalang";
++		String outputDir = "./target/spooned-javalang-sub";
+ 		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses/Reflection.java");
+ 		launcher.setSourceOutputDirectory(outputDir);
+ 		launcher.run();
+ 
+ 		canBeBuilt(outputDir, 7);
+ 	}
++
++	@Test
++	public void testmportInCu() throws  Exception{
++		// contract: auto-import works for compilation units with multiple classes
++		String[] options = {"--output-type", "compilationunits",
++				"--output", "target/testmportInCu", "--with-imports"};
++
++		String path = "spoon/test/prettyprinter/testclasses/A.java";
++
++		final Launcher launcher = new Launcher();
++		launcher.setArgs(options);
++		launcher.addInputResource("./src/test/java/"+path);
++		launcher.run();
++
++		File output = new File("target/testmportInCu/"+path);
++		String code = IOUtils.toString(new FileReader(output));
++
++		// the ArrayList is imported and used in short mode
++		assertTrue(code.contains("import java.util.ArrayList"));
++
++		// no fully qualified usage
++		assertFalse(code.contains("new java.util.ArrayList"));
++
++		// sanity check: the actual code
++		assertTrue(code.contains("ArrayList<String> list = new ArrayList<>()"));
++
++		// cleaning
++		output.delete();
++	}
++
++	@Test
++	public void testMultipleCU() throws IOException {
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setAutoImports(true);
++		String outputDir = "./target/spooned-multiplecu";
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses/multiplecu/");
++		launcher.setSourceOutputDirectory(outputDir);
++		launcher.run();
++
++		canBeBuilt(outputDir, 7);
++
++		String pathA = "spoon/test/imports/testclasses/multiplecu/A.java";
++		String pathB = "spoon/test/imports/testclasses/multiplecu/B.java";
++
++		File outputA = new File(outputDir+"/"+pathA);
++		String codeA = IOUtils.toString(new FileReader(outputA));
++
++		assertThat(codeA, containsString("import java.util.List;"));
++
++		File outputB = new File(outputDir+"/"+pathB);
++		String codeB = IOUtils.toString(new FileReader(outputB));
++
++		assertThat(codeB, containsString("import java.awt.List;"));
++	}
++
+ }
+diff --git a/src/test/java/spoon/test/imports/testclasses/multiplecu/A.java b/src/test/java/spoon/test/imports/testclasses/multiplecu/A.java
+new file mode 100644
+index 000000000..ea1c35054
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses/multiplecu/A.java
+@@ -0,0 +1,10 @@
++package spoon.test.imports.testclasses.multiplecu;
++
++import java.util.List;
++
++/**
++ * Created by urli on 29/05/2017.
++ */
++public class A {
++    private List list;
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses/multiplecu/B.java b/src/test/java/spoon/test/imports/testclasses/multiplecu/B.java
+new file mode 100644
+index 000000000..ef4a75f06
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses/multiplecu/B.java
+@@ -0,0 +1,10 @@
++package spoon.test.imports.testclasses.multiplecu;
++
++import java.awt.List;
++
++/**
++ * Created by urli on 29/05/2017.
++ */
++public class B {
++    private List list;
++}
+diff --git a/src/test/java/spoon/test/prettyprinter/PrinterTest.java b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+index 4df396e2f..e48a53b7a 100644
+--- a/src/test/java/spoon/test/prettyprinter/PrinterTest.java
++++ b/src/test/java/spoon/test/prettyprinter/PrinterTest.java
+@@ -39,8 +39,8 @@ public class PrinterTest {
+ 	@Test
+ 	public void testChangeAutoImportModeWorks() throws Exception {
+ 		Launcher spoon = new Launcher();
+-		PrettyPrinter printer = spoon.createPrettyPrinter();
+ 		spoon.getEnvironment().setAutoImports(false);
++		PrettyPrinter printer = spoon.createPrettyPrinter();
+ 		spoon.addInputResource("./src/test/java/spoon/test/prettyprinter/testclasses/AClass.java");
+ 		spoon.buildModel();
+ 
+@@ -52,7 +52,10 @@ public class PrinterTest {
+ 
+ 		assertTrue("The result should not contain imports: "+result, !result.contains("import java.util.List;"));
+ 
++		// recreating an auto-immport  printer
+ 		spoon.getEnvironment().setAutoImports(true);
++		printer = spoon.createPrettyPrinter();
++
+ 		printer.calculate(element.getPosition().getCompilationUnit(), toPrint);
+ 		result = printer.getResult();
+ 		assertTrue("The result should now contain imports: "+result, result.contains("import java.util.List;"));
+@@ -79,8 +82,8 @@ public class PrinterTest {
+ 	@Test
+ 	public void testAutoimportModeDontImportUselessStatic() {
+ 		Launcher spoon = new Launcher();
+-		PrettyPrinter printer = spoon.createPrettyPrinter();
+ 		spoon.getEnvironment().setAutoImports(true);
++		PrettyPrinter printer = spoon.createPrettyPrinter();
+ 		spoon.addInputResource("./src/test/java/spoon/test/prettyprinter/testclasses/ImportStatic.java");
+ 		spoon.buildModel();
+ 

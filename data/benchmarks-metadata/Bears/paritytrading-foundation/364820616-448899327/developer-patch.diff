@@ -1,0 +1,43 @@
+diff --git a/src/main/java/com/paritytrading/foundation/ByteArrays.java b/src/main/java/com/paritytrading/foundation/ByteArrays.java
+index be137e0a2..9aa1b3b93 100644
+--- a/src/main/java/com/paritytrading/foundation/ByteArrays.java
++++ b/src/main/java/com/paritytrading/foundation/ByteArrays.java
+@@ -90,7 +90,7 @@ public class ByteArrays {
+         int  i = 0;
+ 
+         for (; i < Math.min(a.length, size); i++)
+-            l = (l << 8) | a[i];
++            l = (l << 8) | a[i] & 0xFF;
+ 
+         for (; i < size; i++)
+             l = (l << 8) | pad;
+diff --git a/src/test/java/com/paritytrading/foundation/ByteArraysTest.java b/src/test/java/com/paritytrading/foundation/ByteArraysTest.java
+index f5d59e611..7458a8ad0 100644
+--- a/src/test/java/com/paritytrading/foundation/ByteArraysTest.java
++++ b/src/test/java/com/paritytrading/foundation/ByteArraysTest.java
+@@ -111,4 +111,25 @@ public class ByteArraysTest {
+         assertArrayEquals(new byte[] { 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00 }, a);
+     }
+ 
++    @Test
++    public void shortRoundtrip() {
++        short s = 0x01FF;
++
++        assertEquals(s, ByteArrays.packShort(ByteArrays.unpackShort(s), (byte)0x00));
++    }
++
++    @Test
++    public void intRoundtrip() {
++        int i = 0x017F81FF;
++
++        assertEquals(i, ByteArrays.packInt(ByteArrays.unpackInt(i), (byte)0x00));
++    }
++
++    @Test
++    public void longRoundtrip() {
++        long l = 0x01407F81C0FFL;
++
++        assertEquals(l, ByteArrays.packLong(ByteArrays.unpackLong(l), (byte)0x00));
++    }
++
+ }

@@ -1,0 +1,20 @@
+--- src/org/mockito/internal/invocation/Invocation.java	2023-12-05 17:30:30.741282027 +0000
++++ src/org/mockito/internal/invocation/Invocation.java	2023-12-05 17:30:35.822198029 +0000
+@@ -8,6 +8,7 @@
+ 
+ import org.hamcrest.Matcher;
+ import org.mockito.exceptions.PrintableInvocation;
++import org.mockito.exceptions.Reporter;
+ import org.mockito.internal.debugging.Location;
+ import org.mockito.internal.invocation.realmethod.RealMethod;
+ import org.mockito.internal.matchers.*;
+@@ -199,6 +200,9 @@
+     }
+ 
+     public Object callRealMethod() throws Throwable {
++        if (this.getMethod().getDeclaringClass().isInterface()) {
++            new Reporter().cannotCallRealMethodOnInterface();
++        }
+         return realMethod.invoke(mock, rawArguments);
+     }
+ 

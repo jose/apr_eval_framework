@@ -1,0 +1,129 @@
+diff --git a/src/main/java/org/springframework/data/convert/ClassGeneratingEntityInstantiator.java b/src/main/java/org/springframework/data/convert/ClassGeneratingEntityInstantiator.java
+index 23efffcd6..4b19f4eae 100644
+--- a/src/main/java/org/springframework/data/convert/ClassGeneratingEntityInstantiator.java
++++ b/src/main/java/org/springframework/data/convert/ClassGeneratingEntityInstantiator.java
+@@ -154,6 +154,10 @@ public class ClassGeneratingEntityInstantiator implements EntityInstantiator {
+ 			return true;
+ 		}
+ 
++		if (!ClassUtils.isPresent(ObjectInstantiator.class.getName(), type.getClassLoader())) {
++			return true;
++		}
++
+ 		return false;
+ 	}
+ 
+diff --git a/src/main/java/org/springframework/data/mapping/model/ClassGeneratingPropertyAccessorFactory.java b/src/main/java/org/springframework/data/mapping/model/ClassGeneratingPropertyAccessorFactory.java
+index 133f09983..582047eb5 100644
+--- a/src/main/java/org/springframework/data/mapping/model/ClassGeneratingPropertyAccessorFactory.java
++++ b/src/main/java/org/springframework/data/mapping/model/ClassGeneratingPropertyAccessorFactory.java
+@@ -55,6 +55,7 @@ import org.springframework.data.util.Optionals;
+ import org.springframework.data.util.TypeInformation;
+ import org.springframework.lang.Nullable;
+ import org.springframework.util.Assert;
++import org.springframework.util.ClassUtils;
+ import org.springframework.util.ReflectionUtils;
+ 
+ /**
+@@ -139,7 +140,9 @@ public class ClassGeneratingPropertyAccessorFactory implements PersistentPropert
+ 
+ 		Class<?> type = entity.getType();
+ 		return type.getClassLoader() != null
+-				&& (type.getPackage() == null || !type.getPackage().getName().startsWith("java"));
++				&& (type.getPackage() == null || !type.getPackage().getName().startsWith("java"))
++				&& ClassUtils.isPresent(PersistentPropertyAccessor.class.getName(), type.getClassLoader())
++				&& ClassUtils.isPresent(Assert.class.getName(), type.getClassLoader());
+ 	}
+ 
+ 	private boolean hasUniquePropertyHashCodes(PersistentEntity<?, ?> entity) {
+@@ -1080,7 +1083,6 @@ public class ClassGeneratingPropertyAccessorFactory implements PersistentPropert
+ 
+ 			if (kotlinCopyMethod.shouldUsePublicCopyMethod(entity)) {
+ 
+-
+ 				// PersonWithId.copy$(value)
+ 				mv.visitVarInsn(ALOAD, 3);
+ 				mv.visitVarInsn(ALOAD, 2);
+diff --git a/src/test/java/org/springframework/data/convert/ClassGeneratingEntityInstantiatorUnitTests.java b/src/test/java/org/springframework/data/convert/ClassGeneratingEntityInstantiatorUnitTests.java
+index 1e05d5047..39a6d42c7 100644
+--- a/src/test/java/org/springframework/data/convert/ClassGeneratingEntityInstantiatorUnitTests.java
++++ b/src/test/java/org/springframework/data/convert/ClassGeneratingEntityInstantiatorUnitTests.java
+@@ -28,6 +28,8 @@ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.mockito.Mock;
+ import org.mockito.junit.MockitoJUnitRunner;
++import org.springframework.data.classloadersupport.HidingClassLoader;
++import org.springframework.data.convert.ClassGeneratingEntityInstantiator.ObjectInstantiator;
+ import org.springframework.data.convert.ClassGeneratingEntityInstantiatorUnitTests.Outer.Inner;
+ import org.springframework.data.mapping.PersistentEntity;
+ import org.springframework.data.mapping.PersistentProperty;
+@@ -356,6 +358,21 @@ public class ClassGeneratingEntityInstantiatorUnitTests<P extends PersistentProp
+ 		assertThat(this.instance.shouldUseReflectionEntityInstantiator(entity)).isTrue();
+ 	}
+ 
++	@Test // DATACMNS-1422
++	public void shouldUseReflectionIfFrameworkTypesNotVisible() throws Exception {
++
++		HidingClassLoader classLoader = HidingClassLoader.hide(ObjectInstantiator.class);
++		classLoader.excludePackage("org.springframework.data.mapping.model");
++
++		// require type from different package to meet visibility quirks
++		Class<?> entityType = classLoader
++				.loadClass("org.springframework.data.mapping.model.PersistentPropertyAccessorTests$ClassLoaderTest");
++
++		prepareMocks(entityType);
++
++		assertThat(this.instance.shouldUseReflectionEntityInstantiator(entity)).isTrue();
++	}
++
+ 	private void prepareMocks(Class<?> type) {
+ 
+ 		doReturn(type).when(entity).getType();
+diff --git a/src/test/java/org/springframework/data/mapping/model/PersistentPropertyAccessorTests.java b/src/test/java/org/springframework/data/mapping/model/PersistentPropertyAccessorTests.java
+index a98cea6a3..596d382e2 100644
+--- a/src/test/java/org/springframework/data/mapping/model/PersistentPropertyAccessorTests.java
++++ b/src/test/java/org/springframework/data/mapping/model/PersistentPropertyAccessorTests.java
+@@ -31,9 +31,11 @@ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.junit.runners.Parameterized;
+ import org.junit.runners.Parameterized.Parameters;
++import org.springframework.data.classloadersupport.HidingClassLoader;
+ import org.springframework.data.mapping.PersistentPropertyAccessor;
+ import org.springframework.data.mapping.context.SampleMappingContext;
+ import org.springframework.data.mapping.context.SamplePersistentProperty;
++import org.springframework.util.Assert;
+ 
+ /**
+  * Unit tests for {@link PersistentPropertyAccessor} through {@link BeanWrapper} and
+@@ -172,6 +174,22 @@ public class PersistentPropertyAccessorTests {
+ 		assertThatThrownBy(() -> accessor.setProperty(property, "value")).isInstanceOf(UnsupportedOperationException.class);
+ 	}
+ 
++	@Test // DATACMNS-1422
++	public void shouldUseReflectionIfFrameworkTypesNotVisible() throws Exception {
++
++		HidingClassLoader classLoader = HidingClassLoader.hide(Assert.class);
++		classLoader.excludePackage("org.springframework.data.mapping.model");
++
++		Class<?> entityType = classLoader
++				.loadClass("org.springframework.data.mapping.model.PersistentPropertyAccessorTests$ClassLoaderTest");
++
++		ClassGeneratingPropertyAccessorFactory factory = new ClassGeneratingPropertyAccessorFactory();
++		BasicPersistentEntity<Object, SamplePersistentProperty> entity = MAPPING_CONTEXT
++				.getRequiredPersistentEntity(entityType);
++
++		assertThat(factory.isSupported(entity)).isFalse();
++	}
++
+ 	private static SamplePersistentProperty getProperty(Object bean, String propertyName) {
+ 		return MAPPING_CONTEXT.getRequiredPersistentEntity(bean.getClass()).getRequiredPersistentProperty(propertyName);
+ 	}
+@@ -181,6 +199,8 @@ public class PersistentPropertyAccessorTests {
+ 		String id;
+ 	}
+ 
++	static class ClassLoaderTest {}
++
+ 	@Value
+ 
+ 	static class ValueClass {

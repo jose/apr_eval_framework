@@ -1,0 +1,552 @@
+diff --git a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+index fd7b96d41..ff5d4324a 100644
+--- a/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
++++ b/src/main/java/spoon/reflect/visitor/DefaultJavaPrettyPrinter.java
+@@ -1099,14 +1099,16 @@ public class DefaultJavaPrettyPrinter implements CtVisitor, PrettyPrinter {
+ 		} else {
+ 			// It's a method invocation
+ 			printer.snapshotLength();
+-			try (Writable _context = context.modify()) {
+-				if (invocation.getTarget() instanceof CtTypeAccess) {
+-					_context.ignoreGenerics(true);
++			if (!this.importsContext.isImported(invocation.getExecutable())) {
++				try (Writable _context = context.modify()) {
++					if (invocation.getTarget() instanceof CtTypeAccess) {
++						_context.ignoreGenerics(true);
++					}
++					scan(invocation.getTarget());
++				}
++				if (printer.hasNewContent()) {
++					printer.write(".");
+ 				}
+-				scan(invocation.getTarget());
+-			}
+-			if (printer.hasNewContent()) {
+-				printer.write(".");
+ 			}
+ 
+ 			elementPrinterHelper.writeActualTypeArguments(invocation);
+diff --git a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+index 49d65ffcd..d6ed36261 100644
+--- a/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
++++ b/src/main/java/spoon/reflect/visitor/ImportScannerImpl.java
+@@ -367,11 +367,19 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	 */
+ 	private boolean declaringTypeIsLocalOrImported(CtTypeReference declaringType) {
+ 		if (declaringType != null) {
+-			if (!isTypeInCollision(declaringType, false) && addClassImport(declaringType)) {
+-				return true;
++
++			boolean isInCollision = isTypeInCollision(declaringType, false);
++			if (!isInCollision) {
++				boolean importSuccess = addClassImport(declaringType);
++				if (importSuccess) {
++					return true;
++				}
+ 			}
+ 
+-			if (isImportedInClassImports(declaringType) || classNamePresentInJavaLang(declaringType)) {
++			boolean importedInClassImports = isImportedInClassImports(declaringType);
++			boolean inJavaLang = classNamePresentInJavaLang(declaringType);
++
++			if (importedInClassImports || inJavaLang) {
+ 				return true;
+ 			}
+ 
+@@ -386,7 +394,29 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 		return false;
+ 	}
+ 
++	/**
++	 * Test if the given executable reference is targeted a method name which is in collision with a method name of the current class
++	 * @param ref
++	 * @return
++	 */
++	private boolean isInCollisionWithLocalMethod(CtExecutableReference ref) {
++		CtType<?> typeDecl = ref.getParent(CtType.class);
++
++		String methodName = ref.getSimpleName();
++
++		for (CtMethod<?> method : typeDecl.getAllMethods()) {
++			if (method.getSimpleName().equals(methodName)) {
++				return true;
++			}
++		}
++		return false;
++	}
++
+ 	protected boolean addMethodImport(CtExecutableReference ref) {
++		// static import is not supported below java 1.5
++		if (ref.getFactory().getEnvironment().getComplianceLevel() < 5) {
++			return false;
++		}
+ 		if (this.methodImports.containsKey(ref.getSimpleName())) {
+ 			return isImportedInMethodImports(ref);
+ 		}
+@@ -396,6 +426,10 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 			return false;
+ 		}
+ 
++		if (this.isInCollisionWithLocalMethod(ref)) {
++			return false;
++		}
++
+ 		methodImports.put(ref.getSimpleName(), ref);
+ 
+ 		// if we are in the same package than target type, we also import class to avoid FQN in FQN mode.
+@@ -420,6 +454,10 @@ public class ImportScannerImpl extends CtScanner implements ImportScanner {
+ 	}
+ 
+ 	protected boolean addFieldImport(CtFieldReference ref) {
++		// static import is not supported below java 1.5
++		if (ref.getFactory().getEnvironment().getComplianceLevel() < 5) {
++			return false;
++		}
+ 		if (this.fieldImports.containsKey(ref.getSimpleName())) {
+ 			return isImportedInFieldImports(ref);
+ 		}
+diff --git a/src/test/java/spoon/test/imports/ImportScannerTest.java b/src/test/java/spoon/test/imports/ImportScannerTest.java
+index a621abdc0..d3a56c0b3 100644
+--- a/src/test/java/spoon/test/imports/ImportScannerTest.java
++++ b/src/test/java/spoon/test/imports/ImportScannerTest.java
+@@ -9,7 +9,6 @@ import spoon.reflect.declaration.CtType;
+ import spoon.reflect.factory.Factory;
+ import spoon.reflect.reference.CtFieldReference;
+ import spoon.reflect.reference.CtReference;
+-import spoon.reflect.reference.CtTypeReference;
+ import spoon.reflect.visitor.ImportScanner;
+ import spoon.reflect.visitor.ImportScannerImpl;
+ import spoon.reflect.visitor.MinimalImportScanner;
+diff --git a/src/test/java/spoon/test/imports/ImportTest.java b/src/test/java/spoon/test/imports/ImportTest.java
+index 5053ed1e2..8ede55aae 100644
+--- a/src/test/java/spoon/test/imports/ImportTest.java
++++ b/src/test/java/spoon/test/imports/ImportTest.java
+@@ -42,10 +42,12 @@ import spoon.test.imports.testclasses.Pozole;
+ import spoon.test.imports.testclasses.SubClass;
+ import spoon.test.imports.testclasses.Tacos;
+ import spoon.test.imports.testclasses.internal.ChildClass;
++import spoon.test.imports.testclasses2.apachetestsuite.staticcollision.AllLangTestSuite;
++import spoon.test.imports.testclasses2.apachetestsuite.staticjava3.AllLangTestJava3;
++import spoon.test.imports.testclasses2.apachetestsuite.staticmethod.AllLangTestSuiteStaticMethod;
+ import spoon.testing.utils.ModelUtils;
+ 
+ import java.io.File;
+-import java.io.FileNotFoundException;
+ import java.io.FileReader;
+ import java.io.IOException;
+ import java.util.ArrayList;
+@@ -57,7 +59,6 @@ import java.util.Set;
+ import java.util.stream.Collectors;
+ 
+ import static org.hamcrest.CoreMatchers.containsString;
+-import static org.hamcrest.CoreMatchers.is;
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertNotNull;
+@@ -394,6 +395,21 @@ public class ImportTest {
+ 		assertEquals("spoon.test.imports.testclasses.internal4.Constants.CONSTANT.foo", ((CtLocalVariable) assignment).getAssignment().toString());
+ 	}
+ 
++	@Test
++	public void testImportStaticAndFieldAccessWithImport() throws Exception {
++		// contract: Qualified field access and an import static with import should import the type first, and not use static import
++		final Launcher launcher = new Launcher();
++		launcher.setArgs(new String[] {"--output-type", "nooutput", "--with-imports" });
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses/internal4/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses/Tacos.java");
++		launcher.buildModel();
++
++		final CtType<Object> aTacos = launcher.getFactory().Type().get(Tacos.class);
++		final CtStatement assignment = aTacos.getMethod("m").getBody().getStatement(0);
++		assertTrue(assignment instanceof CtLocalVariable);
++		assertEquals("Constants.CONSTANT.foo", ((CtLocalVariable) assignment).getAssignment().toString());
++	}
++
+ 	@Test
+ 	public void testFullQualifiedNameImport() throws Exception {
+ 		String newLine = System.getProperty("line.separator");
+@@ -1014,4 +1030,92 @@ public class ImportTest {
+ 		assertThat(codeB, containsString("import java.awt.List;"));
+ 	}
+ 
++	@Test
++	public void testStaticMethodWithDifferentClassSameNameJava7NoCollision() {
++		// contract: when there is a collision between class names when using static method, we should create a static import for the method
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setAutoImports(true);
++		String outputDir = "./target/spooned-staticmethod";
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticmethod/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java");
++		launcher.setSourceOutputDirectory(outputDir);
++		launcher.getEnvironment().setComplianceLevel(7);
++		launcher.run();
++		PrettyPrinter prettyPrinter = launcher.createPrettyPrinter();
++
++		CtType element = launcher.getFactory().Class().get(AllLangTestSuiteStaticMethod.class);
++		List<CtType<?>> toPrint = new ArrayList<>();
++		toPrint.add(element);
++
++		prettyPrinter.calculate(element.getPosition().getCompilationUnit(), toPrint);
++		String output = prettyPrinter.getResult();
++
++		assertTrue("The file should contain a static import ", output.contains("import static spoon.test.imports.testclasses2.apachetestsuite.enums.EnumTestSuite.suite;"));
++		assertTrue("The call to the last EnumTestSuite should be in FQN", output.contains("suite.addTest(suite());"));
++
++
++		canBeBuilt(outputDir, 7);
++	}
++
++	@Test
++	public void testStaticMethodWithDifferentClassSameNameJava3NoCollision() {
++		// contract: when there is a collision between class names when using static method, we could not create a static import
++		// as it is not compliant with java < 1.5, so we should use fully qualified name of the class
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setAutoImports(true);
++		String outputDir = "./target/spooned-staticjava3";
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticjava3/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java");
++		launcher.setSourceOutputDirectory(outputDir);
++		launcher.getEnvironment().setComplianceLevel(3);
++		launcher.run();
++		PrettyPrinter prettyPrinter = launcher.createPrettyPrinter();
++
++		CtType element = launcher.getFactory().Class().get(AllLangTestJava3.class);
++		List<CtType<?>> toPrint = new ArrayList<>();
++		toPrint.add(element);
++
++		prettyPrinter.calculate(element.getPosition().getCompilationUnit(), toPrint);
++		String output = prettyPrinter.getResult();
++
++		assertFalse("The file should not contain a static import ", output.contains("import static"));
++		assertTrue("The call to the last EnumTestSuite should be in FQN", output.contains("suite.addTest(spoon.test.imports.testclasses2.apachetestsuite.enums.EnumTestSuite.suite());"));
++
++
++		canBeBuilt(outputDir, 3);
++	}
++
++	@Test
++	public void testStaticMethodWithDifferentClassSameNameCollision() {
++		// contract: when using static method, if there is a collision between class name AND between method names,
++		// we can only use the fully qualified name of the class to call the static method
++		final Launcher launcher = new Launcher();
++		launcher.getEnvironment().setAutoImports(true);
++		String outputDir = "./target/spooned-apache";
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticcollision/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/");
++		launcher.addInputResource("./src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java");
++		launcher.setSourceOutputDirectory(outputDir);
++		launcher.getEnvironment().setComplianceLevel(3);
++		launcher.run();
++		PrettyPrinter prettyPrinter = launcher.createPrettyPrinter();
++
++		CtType element = launcher.getFactory().Class().get(AllLangTestSuite.class);
++		List<CtType<?>> toPrint = new ArrayList<>();
++		toPrint.add(element);
++
++		prettyPrinter.calculate(element.getPosition().getCompilationUnit(), toPrint);
++		String output = prettyPrinter.getResult();
++
++		assertTrue("The file should not contain a static import ",!output.contains("import static spoon.test.imports.testclasses2.apachetestsuite.enum2.EnumTestSuite.suite;"));
++		assertTrue("The call to the last EnumTestSuite should be in FQN", output.contains("suite.addTest(spoon.test.imports.testclasses2.apachetestsuite.enum2.EnumTestSuite.suite());"));
++
++		canBeBuilt(outputDir, 3);
++	}
++
+ }
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java
+new file mode 100644
+index 000000000..f69259e0b
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/LangTestSuite.java
+@@ -0,0 +1,13 @@
++package spoon.test.imports.testclasses2.apachetestsuite;
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++public class LangTestSuite extends TestCase {
++    public static Test suite() {
++        return null;
++    }
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/EnumTestSuite.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/EnumTestSuite.java
+new file mode 100644
+index 000000000..ac2347e91
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enum2/EnumTestSuite.java
+@@ -0,0 +1,13 @@
++package spoon.test.imports.testclasses2.apachetestsuite.enum2;
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++public class EnumTestSuite extends TestCase {
++    public static Test suite() {
++        return null;
++    }
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/EnumTestSuite.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/EnumTestSuite.java
+new file mode 100644
+index 000000000..4e7c51bb6
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/enums/EnumTestSuite.java
+@@ -0,0 +1,13 @@
++package spoon.test.imports.testclasses2.apachetestsuite.enums;
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++public class EnumTestSuite extends TestCase {
++    public static Test suite() {
++        return null;
++    }
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticcollision/AllLangTestSuite.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticcollision/AllLangTestSuite.java
+new file mode 100644
+index 000000000..0eb880f0f
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticcollision/AllLangTestSuite.java
+@@ -0,0 +1,64 @@
++package spoon.test.imports.testclasses2.apachetestsuite.staticcollision;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements.  See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License.  You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++import junit.framework.TestSuite;
++import junit.textui.TestRunner;
++
++import spoon.test.imports.testclasses2.apachetestsuite.LangTestSuite;
++import spoon.test.imports.testclasses2.apachetestsuite.enums.EnumTestSuite;
++
++/**
++ * Test suite for [lang].
++ *
++ * @author Stephen Colebourne
++ * @version $Id$
++ */
++public class AllLangTestSuite extends TestCase {
++
++    /**
++     * Construct a new instance.
++     */
++    public AllLangTestSuite(String name) {
++        super(name);
++    }
++
++    /**
++     * Command-line interface.
++     */
++    public static void main(String[] args) {
++        TestRunner.run(suite());
++    }
++
++    /**
++     * Get the suite of tests
++     */
++    public static Test suite() {
++        TestSuite suite = new TestSuite();
++        suite.setName("Commons-Lang (all) Tests");
++        suite.addTest(LangTestSuite.suite());
++        suite.addTest(EnumTestSuite.suite());
++        suite.addTest(spoon.test.imports.testclasses2.apachetestsuite.enum2.EnumTestSuite.suite());
++        return suite;
++    }
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticjava3/AllLangTestJava3.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticjava3/AllLangTestJava3.java
+new file mode 100644
+index 000000000..1d67893e8
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticjava3/AllLangTestJava3.java
+@@ -0,0 +1,63 @@
++package spoon.test.imports.testclasses2.apachetestsuite.staticjava3;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements.  See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License.  You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++import junit.framework.TestSuite;
++import junit.textui.TestRunner;
++import spoon.test.imports.testclasses2.apachetestsuite.LangTestSuite;
++import spoon.test.imports.testclasses2.apachetestsuite.enum2.EnumTestSuite;
++
++/**
++ * Test suite for [lang].
++ *
++ * @author Stephen Colebourne
++ * @version $Id$
++ */
++public class AllLangTestJava3 extends TestCase {
++
++    /**
++     * Construct a new instance.
++     */
++    public AllLangTestJava3(String name) {
++        super(name);
++    }
++
++    /**
++     * Command-line interface.
++     */
++    public static void main(String[] args) {
++        TestRunner.run(truc());
++    }
++
++    /**
++     * Get the suite of tests
++     */
++    public static Test truc() {
++        TestSuite suite = new TestSuite();
++        suite.setName("Commons-Lang (all) Tests");
++        suite.addTest(LangTestSuite.suite());
++        suite.addTest(EnumTestSuite.suite());
++        suite.addTest(spoon.test.imports.testclasses2.apachetestsuite.enums.EnumTestSuite.suite());
++        return suite;
++    }
++}
+diff --git a/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticmethod/AllLangTestSuiteStaticMethod.java b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticmethod/AllLangTestSuiteStaticMethod.java
+new file mode 100644
+index 000000000..35759181a
+--- /dev/null
++++ b/src/test/java/spoon/test/imports/testclasses2/apachetestsuite/staticmethod/AllLangTestSuiteStaticMethod.java
+@@ -0,0 +1,64 @@
++package spoon.test.imports.testclasses2.apachetestsuite.staticmethod;
++
++/**
++ * Created by urli on 22/06/2017.
++ */
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements.  See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License.  You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++import junit.framework.Test;
++import junit.framework.TestCase;
++import junit.framework.TestSuite;
++import junit.textui.TestRunner;
++import spoon.test.imports.testclasses2.apachetestsuite.LangTestSuite;
++import spoon.test.imports.testclasses2.apachetestsuite.enum2.EnumTestSuite;
++
++import static spoon.test.imports.testclasses2.apachetestsuite.enums.EnumTestSuite.suite;
++/**
++ * Test suite for [lang].
++ *
++ * @author Stephen Colebourne
++ * @version $Id$
++ */
++public class AllLangTestSuiteStaticMethod extends TestCase {
++
++    /**
++     * Construct a new instance.
++     */
++    public AllLangTestSuiteStaticMethod(String name) {
++        super(name);
++    }
++
++    /**
++     * Command-line interface.
++     */
++    public static void main(String[] args) {
++        TestRunner.run(truc());
++    }
++
++    /**
++     * Get the suite of tests
++     */
++    public static Test truc() {
++        TestSuite suite = new TestSuite();
++        suite.setName("Commons-Lang (all) Tests");
++        suite.addTest(LangTestSuite.suite());
++        suite.addTest(EnumTestSuite.suite());
++        suite.addTest(suite());
++        return suite;
++    }
++}
+diff --git a/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java b/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
+index 2db18d8eb..978f128ba 100644
+--- a/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
++++ b/src/test/java/spoon/test/variable/AccessFullyQualifiedFieldTest.java
+@@ -81,7 +81,7 @@ public class AccessFullyQualifiedFieldTest {
+ 		String pathResource = "src/test/java/spoon/test/variable/testclasses/BurritosStaticMethod.java";
+ 		String result = this.buildResourceAndReturnResult(pathResource, output);
+ 
+-		assertTrue("The inner class should contain call using import", result.contains(" BurritosStaticMethod.toto();"));
++		assertTrue("The inner class should contain call using import", result.contains(" toto();"));
+ 		canBeBuilt(output, 7);
+ 	}
+ 
+diff --git a/src/test/java/spoon/test/variable/testclasses/BurritosStaticMethod.java b/src/test/java/spoon/test/variable/testclasses/BurritosStaticMethod.java
+index d0e4ae7a1..40674ee76 100644
+--- a/src/test/java/spoon/test/variable/testclasses/BurritosStaticMethod.java
++++ b/src/test/java/spoon/test/variable/testclasses/BurritosStaticMethod.java
+@@ -9,7 +9,7 @@ public class BurritosStaticMethod {
+ 		new Thread(new Runnable() {
+ 			@Override
+ 			public void run() {
+-				BurritosStaticMethod.toto();
++				toto();
+ 			}
+ 		});
+ 	}

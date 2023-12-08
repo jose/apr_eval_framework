@@ -1,0 +1,53 @@
+diff --git a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+index 410999522..56e9de095 100644
+--- a/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
++++ b/debezium-connector-mysql/src/main/java/io/debezium/connector/mysql/MySqlDdlParser.java
+@@ -622,7 +622,9 @@ protected void parseCreateDefinition(Marker start, TableEditor table, boolean is
+                     tokens.rewind(defnStart);
+                 }
+             }
+-            if (tokens.canConsume("CONSTRAINT", TokenStream.ANY_VALUE, "UNIQUE") || tokens.canConsume("UNIQUE")) {
++            if (tokens.canConsume("CONSTRAINT", TokenStream.ANY_VALUE, "UNIQUE")
++                    || tokens.canConsume("CONSTRAINT", "UNIQUE")
++                    || tokens.canConsume("UNIQUE")) {
+                 tokens.canConsumeAnyOf("KEY", "INDEX");
+                 try {
+                     if (!tokens.matches('(')) {
+diff --git a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+index 79f707fa6..c06b69e13 100644
+--- a/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
++++ b/debezium-connector-mysql/src/test/java/io/debezium/connector/mysql/MySqlDdlParserTest.java
+@@ -464,6 +464,33 @@ public void shouldParseAlterTableStatementAddColumns() {
+         assertThat(t3.columnWithName("col2").position()).isEqualTo(3);
+     }
+ 
++    @FixFor("DBZ-660")
++    @Test
++    public void shouldParseAlterTableStatementAddConstraintUniqueKey() {
++        String ddl = "CREATE TABLE t ( col1 VARCHAR(25) ); ";
++        parser.parse(ddl, tables);
++        assertThat(tables.size()).isEqualTo(1);
++
++        ddl = "ALTER TABLE t ADD CONSTRAINT UNIQUE KEY col_key ('col1');";
++        parser.parse(ddl, tables);
++
++        ddl = "ALTER TABLE t ADD CONSTRAINT UNIQUE KEY ('col1');";
++        parser.parse(ddl, tables);
++
++        ddl = "ALTER TABLE t ADD UNIQUE KEY col_key ('col1');";
++        parser.parse(ddl, tables);
++
++        ddl = "ALTER TABLE t ADD UNIQUE KEY ('col1');";
++        parser.parse(ddl, tables);
++
++        ddl = "ALTER TABLE t ADD CONSTRAINT 'xx' UNIQUE KEY col_key ('col1');";
++        parser.parse(ddl, tables);
++
++        ddl = "ALTER TABLE t ADD CONSTRAINT 'xx' UNIQUE KEY ('col1');";
++        parser.parse(ddl, tables);
++    }
++
++
+     @Test
+     public void shouldParseCreateTableWithEnumAndSetColumns() {
+         String ddl = "CREATE TABLE t ( c1 ENUM('a','b','c') NOT NULL, c2 SET('a','b','c') NULL);";

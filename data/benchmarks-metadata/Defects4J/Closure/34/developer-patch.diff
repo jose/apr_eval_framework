@@ -1,0 +1,33 @@
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:28:13.278270875 +0000
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:28:17.406062776 +0000
+@@ -119,9 +119,7 @@
+         cc.addOp(opstr, true);
+         addExpr(last, p, rhsContext);
+       } else {
+-        addExpr(first, p, context);
+-        cc.addOp(opstr, true);
+-        addExpr(last, p + 1, rhsContext);
++        unrollBinaryOperator(n, type, opstr, context, rhsContext, p, p + 1);
+       }
+       return;
+     }
+@@ -751,7 +749,7 @@
+     Node current = firstNonOperator;
+     do {
+       current = current.getParent();
+-      cc.listSeparator();
++      cc.addOp(opStr, true);
+       addExpr(current.getFirstChild().getNext(), rightPrecedence, rhsContext);
+     } while (current != n);
+   }
+--- src/com/google/javascript/jscomp/CodePrinter.java	2023-12-05 19:28:13.159970657 +0000
++++ src/com/google/javascript/jscomp/CodePrinter.java	2023-12-05 19:28:17.406387149 +0000
+@@ -331,7 +331,7 @@
+     @Override
+     void appendOp(String op, boolean binOp) {
+       if (binOp) {
+-        if (getLastChar() != ' ') {
++        if (getLastChar() != ' ' && op.charAt(0) != ',') {
+           append(" ");
+         }
+         append(op);

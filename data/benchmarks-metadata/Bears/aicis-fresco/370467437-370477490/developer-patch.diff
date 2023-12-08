@@ -1,0 +1,117 @@
+diff --git a/core/src/main/java/dk/alexandra/fresco/framework/value/BigIntegerOIntArithmetic.java b/core/src/main/java/dk/alexandra/fresco/framework/value/BigIntegerOIntArithmetic.java
+index f0f0e4ecd..6878f56fe 100644
+--- a/core/src/main/java/dk/alexandra/fresco/framework/value/BigIntegerOIntArithmetic.java
++++ b/core/src/main/java/dk/alexandra/fresco/framework/value/BigIntegerOIntArithmetic.java
+@@ -18,7 +18,8 @@ public class BigIntegerOIntArithmetic implements OIntArithmetic {
+ 
+   public BigIntegerOIntArithmetic(OIntFactory factory) {
+     this.factory = factory;
+-    this.twoPowersList = new ArrayList<>();
++    twoPowersList = new ArrayList<>(1);
++    twoPowersList.add(() -> new BigIntegerOInt(BigInteger.ONE));
+   }
+ 
+   @Override
+@@ -41,7 +42,7 @@ public class BigIntegerOIntArithmetic implements OIntArithmetic {
+     if (maxPower > currentLength) {
+       ArrayList<DRes<OInt>> newTwoPowersList = new ArrayList<>(maxPower);
+       newTwoPowersList.addAll(twoPowersList);
+-      BigInteger currentValue = ((BigIntegerOInt) newTwoPowersList.get(currentLength - 1))
++      BigInteger currentValue = ((BigIntegerOInt) newTwoPowersList.get(currentLength - 1).out())
+           .getValue();
+       while (maxPower > newTwoPowersList.size()) {
+         currentValue = currentValue.shiftLeft(1);
+diff --git a/core/src/test/java/dk/alexandra/fresco/lib/math/integer/binary/BinaryOperationsTests.java b/core/src/test/java/dk/alexandra/fresco/lib/math/integer/binary/BinaryOperationsTests.java
+index 61cb50140..ea0b02b43 100644
+--- a/core/src/test/java/dk/alexandra/fresco/lib/math/integer/binary/BinaryOperationsTests.java
++++ b/core/src/test/java/dk/alexandra/fresco/lib/math/integer/binary/BinaryOperationsTests.java
+@@ -6,8 +6,10 @@ import dk.alexandra.fresco.framework.TestThreadRunner.TestThread;
+ import dk.alexandra.fresco.framework.TestThreadRunner.TestThreadFactory;
+ import dk.alexandra.fresco.framework.builder.numeric.AdvancedNumeric;
+ import dk.alexandra.fresco.framework.builder.numeric.AdvancedNumeric.RightShiftResult;
++import dk.alexandra.fresco.framework.builder.numeric.NumericResourcePool;
+ import dk.alexandra.fresco.framework.builder.numeric.ProtocolBuilderNumeric;
+ import dk.alexandra.fresco.framework.sce.resources.ResourcePool;
++import dk.alexandra.fresco.framework.util.Pair;
+ import dk.alexandra.fresco.framework.value.OInt;
+ import dk.alexandra.fresco.framework.value.SInt;
+ import java.math.BigInteger;
+@@ -208,4 +210,50 @@ public class BinaryOperationsTests {
+       };
+     }
+   }
++
++  public static class TestGenerateRandomBitMask<ResourcePoolT extends NumericResourcePool>
++      extends TestThreadFactory<ResourcePoolT, ProtocolBuilderNumeric> {
++
++    @Override
++    public TestThread<ResourcePoolT, ProtocolBuilderNumeric> next() {
++
++      return new TestThread<ResourcePoolT, ProtocolBuilderNumeric>() {
++
++        private int numBits = -1;
++        private BigInteger modulus;
++
++        private BigInteger recombine(List<BigInteger> bits) {
++          BigInteger result = BigInteger.ZERO;
++          for (int i = 0; i < bits.size(); i++) {
++            result = result.add(BigInteger.ONE.shiftLeft(i).multiply(bits.get(i)).mod(modulus));
++          }
++          return result.mod(modulus);
++        }
++
++        @Override
++        public void test() {
++          Application<Pair<DRes<BigInteger>, List<DRes<BigInteger>>>, ProtocolBuilderNumeric> app =
++              root -> {
++                numBits = root.getBasicNumericContext().getMaxBitLength() - 1;
++                modulus = root.getBasicNumericContext().getModulus();
++                return root.seq(seq -> seq.advancedNumeric().randomBitMask(numBits))
++                    .seq((seq, mask) -> {
++                      DRes<BigInteger> rec = seq.numeric().open(mask.getValue());
++                      DRes<List<DRes<BigInteger>>> bits = seq.collections()
++                          .openList(mask.getBits());
++                      return () -> new Pair<>(rec, bits.out());
++                    });
++              };
++          Pair<DRes<BigInteger>, List<DRes<BigInteger>>> actual = runApplication(app);
++          BigInteger recombined = actual.getFirst().out();
++          List<BigInteger> bits = actual.getSecond().stream()
++              .map(DRes::out)
++              .collect(Collectors.toList());
++          Assert.assertEquals(numBits, bits.size());
++          Assert.assertEquals(recombine(bits), recombined);
++        }
++      };
++    }
++  }
++
+ }
+diff --git a/core/src/test/java/dk/alexandra/fresco/suite/dummy/arithmetic/TestDummyArithmeticProtocolSuite.java b/core/src/test/java/dk/alexandra/fresco/suite/dummy/arithmetic/TestDummyArithmeticProtocolSuite.java
+index 66bfb4668..49162fbee 100644
+--- a/core/src/test/java/dk/alexandra/fresco/suite/dummy/arithmetic/TestDummyArithmeticProtocolSuite.java
++++ b/core/src/test/java/dk/alexandra/fresco/suite/dummy/arithmetic/TestDummyArithmeticProtocolSuite.java
+@@ -39,6 +39,7 @@ import dk.alexandra.fresco.lib.lp.LpBuildingBlockTests;
+ import dk.alexandra.fresco.lib.math.integer.binary.BinaryOperationsTests;
+ import dk.alexandra.fresco.lib.math.integer.binary.BinaryOperationsTests.TestArithmeticAndKnownRight;
+ import dk.alexandra.fresco.lib.math.integer.binary.BinaryOperationsTests.TestArithmeticXorKnownRight;
++import dk.alexandra.fresco.lib.math.integer.binary.BinaryOperationsTests.TestGenerateRandomBitMask;
+ import dk.alexandra.fresco.lib.math.integer.division.DivisionTests;
+ import dk.alexandra.fresco.lib.math.integer.exp.ExponentiationTests;
+ import dk.alexandra.fresco.lib.math.integer.linalg.LinAlgTests;
+@@ -859,4 +860,15 @@ public class TestDummyArithmeticProtocolSuite extends AbstractDummyArithmeticTes
+     runTest(new TestLessThanLogRounds<>(modulus, maxBitLength), parameters);
+   }
+ 
++  @Test
++  public void testGenerateRandomBitMask() {
++    BigInteger modulus = ModulusFinder.findSuitableModulus(128);
++    int maxBitLength = 64;
++    TestParameters parameters = new TestParameters()
++        .numParties(2)
++        .modulus(modulus)
++        .maxBitLength(maxBitLength);
++    runTest(new TestGenerateRandomBitMask<>(), parameters);
++  }
++
+ }

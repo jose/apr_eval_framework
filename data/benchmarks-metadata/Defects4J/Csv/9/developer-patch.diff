@@ -1,0 +1,12 @@
+--- src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:57:26.158966361 +0000
++++ src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:57:28.536231265 +0000
+@@ -177,6 +177,9 @@
+      * @return the given map.
+      */
+     <M extends Map<String, String>> M putIn(final M map) {
++        if (mapping == null) {
++            return map;
++        }
+         for (final Entry<String, Integer> entry : mapping.entrySet()) {
+             final int col = entry.getValue().intValue();
+             if (col < values.length) {

@@ -1,0 +1,13 @@
+--- src/main/java/org/apache/commons/math3/util/MathArrays.java	2023-12-05 17:04:45.908085692 +0000
++++ src/main/java/org/apache/commons/math3/util/MathArrays.java	2023-12-05 17:04:50.645423584 +0000
+@@ -818,7 +818,10 @@
+             throw new DimensionMismatchException(len, b.length);
+         }
+ 
++        if (len == 1) {
+             // Revert to scalar multiplication.
++            return a[0] * b[0];
++        }
+ 
+         final double[] prodHigh = new double[len];
+         double prodLowSum = 0;

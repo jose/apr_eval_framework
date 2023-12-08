@@ -1,0 +1,26 @@
+--- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:40.146941211 +0000
++++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:43.121112574 +0000
+@@ -111,14 +111,19 @@
+             // handle long option --foo or --foo=bar
+             if (token.startsWith("--"))
+             {
+-                if (token.indexOf('=') != -1)
++                int pos = token.indexOf('=');
++                String opt = pos == -1 ? token : token.substring(0, pos); // --foo
++
++                if (!options.hasOption(opt) && stopAtNonOption)
+                 {
+-                    tokens.add(token.substring(0, token.indexOf('=')));
+-                    tokens.add(token.substring(token.indexOf('=') + 1, token.length()));
++                    process(token);
+                 }
+                 else
+                 {
+-                    tokens.add(token);
++                    tokens.add(opt);
++                    if (pos != -1) {
++                        tokens.add(token.substring(pos + 1));
++                    }
+                 }
+             }
+ 

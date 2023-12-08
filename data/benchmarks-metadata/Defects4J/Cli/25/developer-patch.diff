@@ -1,0 +1,11 @@
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:14.545489561 +0000
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:17.716874635 +0000
+@@ -822,7 +822,7 @@
+         if (nextLineTabStop >= width)
+         {
+             // stops infinite loop happening
+-            nextLineTabStop = width - 1;
++            nextLineTabStop = 1;
+         }
+ 
+         // all following lines must be padded with nextLineTabStop space 

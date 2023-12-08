@@ -1,0 +1,15 @@
+--- src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2023-12-05 20:08:28.551257194 +0000
++++ src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2023-12-05 20:08:31.990596418 +0000
+@@ -118,7 +118,11 @@
+      */
+     protected Object convertKey(Object key) {
+         if (key != null) {
+-            return key.toString().toLowerCase();
++            char[] chars = key.toString().toCharArray();
++            for (int i = chars.length - 1; i >= 0; i--) {
++                chars[i] = Character.toLowerCase(Character.toUpperCase(chars[i]));
++            }
++            return new String(chars);
+         } else {
+             return AbstractHashedMap.NULL;
+         }

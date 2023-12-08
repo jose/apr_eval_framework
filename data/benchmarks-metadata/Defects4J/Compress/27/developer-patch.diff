@@ -1,0 +1,13 @@
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:53:54.206514075 +0000
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:53:58.259167615 +0000
+@@ -130,10 +130,6 @@
+             end--;
+             trailer = buffer[end - 1];
+         }
+-        if (start == end) {
+-            throw new IllegalArgumentException(
+-                    exceptionMessage(buffer, offset, length, start, trailer));
+-        }
+ 
+         for ( ;start < end; start++) {
+             final byte currentByte = buffer[start];

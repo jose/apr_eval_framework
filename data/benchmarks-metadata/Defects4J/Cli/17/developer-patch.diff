@@ -1,0 +1,10 @@
+--- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:19.520041171 +0000
++++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:22.581223757 +0000
+@@ -300,6 +300,7 @@
+             else if (stopAtNonOption)
+             {
+                 process(token.substring(i));
++                break;
+             }
+             else
+             {

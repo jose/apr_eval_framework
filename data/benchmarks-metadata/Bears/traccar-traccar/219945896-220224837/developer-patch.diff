@@ -1,0 +1,42 @@
+diff --git a/src/org/traccar/protocol/CguardProtocolDecoder.java b/src/org/traccar/protocol/CguardProtocolDecoder.java
+index 19144017a..f1d593944 100644
+--- a/src/org/traccar/protocol/CguardProtocolDecoder.java
++++ b/src/org/traccar/protocol/CguardProtocolDecoder.java
+@@ -35,13 +35,13 @@ public class CguardProtocolDecoder extends BaseProtocolDecoder {
+     private static final Pattern PATTERN_NV = new PatternBuilder()
+             .text("NV:")
+             .number("(dd)(dd)(dd) ")             // date (yymmdd)
+-            .number("(dd)(dd)(dd):")             // time (hhmmss)
+-            .number("(-?d+.d+):")                // longitude
+-            .number("(-?d+.d+):")                // latitude
+-            .number("(d+.?d*):")                 // speed
+-            .number("(?:NAN|(d+.?d*)):")         // accuracy
+-            .number("(?:NAN|(d+.?d*)):")         // course
+-            .number("(?:NAN|(d+.?d*))")          // altitude
++            .number("(dd)(dd)(dd)")              // time (hhmmss)
++            .number(":(-?d+.d+)")                // longitude
++            .number(":(-?d+.d+)")                // latitude
++            .number(":(d+.?d*)")                 // speed
++            .number(":(?:NAN|(d+.?d*))")         // accuracy
++            .number(":(?:NAN|(d+.?d*))")         // course
++            .number(":(?:NAN|(d+.?d*))").optional() // altitude
+             .compile();
+ 
+     private static final Pattern PATTERN_BC = new PatternBuilder()
+diff --git a/test/org/traccar/protocol/CguardProtocolDecoderTest.java b/test/org/traccar/protocol/CguardProtocolDecoderTest.java
+index ff9ecb9be..3a3aa2332 100644
+--- a/test/org/traccar/protocol/CguardProtocolDecoderTest.java
++++ b/test/org/traccar/protocol/CguardProtocolDecoderTest.java
+@@ -13,6 +13,12 @@ public class CguardProtocolDecoderTest extends ProtocolTest {
+         verifyNothing(decoder, text(
+                 "IDRO:354868050655283"));
+ 
++        verifyPosition(decoder, text(
++                "NV:170409 031456:56.808553:60.595476:0:NAN:0"));
++
++        verifyAttributes(decoder, text(
++                "BC:170409 031456:CSQ1:64:NSQ1:17:PWR1:0"));
++
+         verifyPosition(decoder, text(
+                 "NV:161007 122043:55.812730:37.733689:3.62:NAN:244.05:143.4"));
+ 

@@ -1,0 +1,13 @@
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:19:27.820741810 +0000
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:19:31.667857428 +0000
+@@ -132,8 +132,9 @@
+         }
+         // May have additional NULs or spaces
+         trailer = buffer[end - 1];
+-        if (trailer == 0 || trailer == ' '){
++        while (start < end - 1 && (trailer == 0 || trailer == ' ')) {
+             end--;
++            trailer = buffer[end - 1];
+         }
+ 
+         for ( ;start < end; start++) {

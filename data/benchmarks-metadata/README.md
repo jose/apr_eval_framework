@@ -3,7 +3,7 @@
 This directory contains the official metadata of each benchmark / project / bug
 extracted from the official benchmarks repositories.
 
-`get_metadata.sh` script collects metadata of all Bears, Bugs.jar, and Defects4J
+`collect_metadata.sh` script collects metadata of all Bears, Bugs.jar, and Defects4J
 bugs. (Note: no metadata is available for IntroClassJava and QuixBugs). For each
 bug, the `get_metadata.sh` script generate the following metadata:
 

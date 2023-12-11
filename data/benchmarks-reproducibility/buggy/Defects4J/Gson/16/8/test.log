@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - com.google.gson.internal.bind.RecursiveTypesResolveTest::testRecursiveTypeVariablesResolve12
+  - com.google.gson.internal.bind.RecursiveTypesResolveTest::testRecursiveTypeVariablesResolve1

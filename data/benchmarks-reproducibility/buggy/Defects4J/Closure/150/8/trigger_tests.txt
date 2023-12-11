@@ -1,0 +1,2 @@
+--- com.google.javascript.jscomp.TypedScopeCreatorTest::testCollectedFunctionStubLocal
+--- com.google.javascript.jscomp.TypedScopeCreatorTest::testNamespacedFunctionStubLocal

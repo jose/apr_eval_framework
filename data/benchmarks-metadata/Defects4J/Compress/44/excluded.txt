@@ -1,0 +1,5 @@
+--- org.apache.commons.compress.AbstractTestCase
+--- org.apache.commons.compress.archivers.TestArchiveStreamProvider
+--- org.apache.commons.compress.compressors.CompressorStreamFactoryRoundtripTest
+--- org.apache.commons.compress.compressors.lz77support.AbstractLZ77CompressorInputStreamTest
+--- org.apache.commons.compress.compressors.TestCompressorStreamProvider

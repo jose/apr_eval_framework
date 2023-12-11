@@ -1,0 +1,7 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 4
+  - org.jsoup.select.SelectorTest::notAll
+  - org.jsoup.select.SelectorTest::testPseudoHas
+  - org.jsoup.select.SelectorTest::notClass
+  - org.jsoup.select.SelectorTest::notParas

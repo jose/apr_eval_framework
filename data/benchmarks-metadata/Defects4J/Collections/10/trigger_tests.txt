@@ -1,0 +1,2 @@
+--- org.apache.commons.collections.map.TestMultiValueMap::testEmptyMapCompatibility
+--- org.apache.commons.collections.map.TestMultiValueMap::testFullMapCompatibility

@@ -1,0 +1,83 @@
+PID: 2197218
+bicycle.cs.washington.edu
+Job started at Sat Dec  9 12:37:32 AM PST 2023
+Running checkout, compile, and test under Java-8 on Defects4J::Csv-1. Excluding broken tests? 0. Running on the buggy version? 0.
+compile_and_test.py script started at Sat Dec  9 12:37:32 AM PST 2023
+No handlers could be found for logger "filelock"
+Checking out de1838ea to /tmp/Defects4J_Csv_1_java-8....................... OK
+Init local repository...................................................... OK
+Tag post-fix revision...................................................... OK
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+Diff de1838ea:0833f45b..................................................... OK
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+Check out program version: Csv-1f.......................................... OK
+Checkout Defects4J_Csv_1
+Compile Defects4J_Csv_1
+Run tests on Defects4J_Csv_1
+All tests:
+testSerialization(org.apache.commons.csv.CSVFormatTest)
+testValidation(org.apache.commons.csv.CSVFormatTest)
+testFormat(org.apache.commons.csv.CSVFormatTest)
+testMutators(org.apache.commons.csv.CSVFormatTest)
+testImmutalibity(org.apache.commons.csv.CSVFormatTest)
+testNextToken1(org.apache.commons.csv.CSVLexerTest)
+testNextToken2(org.apache.commons.csv.CSVLexerTest)
+testNextToken3(org.apache.commons.csv.CSVLexerTest)
+testNextToken4(org.apache.commons.csv.CSVLexerTest)
+testNextToken5(org.apache.commons.csv.CSVLexerTest)
+testNextToken6(org.apache.commons.csv.CSVLexerTest)
+testDelimiterIsWhitespace(org.apache.commons.csv.CSVLexerTest)
+testDefaultFormat(org.apache.commons.csv.CSVParserTest)
+testGetLineNumberWithCR(org.apache.commons.csv.CSVParserTest)
+testGetLineNumberWithLF(org.apache.commons.csv.CSVParserTest)
+testForEach(org.apache.commons.csv.CSVParserTest)
+testGetLineNumberWithCRLF(org.apache.commons.csv.CSVParserTest)
+testCarriageReturnLineFeedEndings(org.apache.commons.csv.CSVParserTest)
+testEmptyFile(org.apache.commons.csv.CSVParserTest)
+testCarriageReturnEndings(org.apache.commons.csv.CSVParserTest)
+testGetLine(org.apache.commons.csv.CSVParserTest)
+testProvidedHeader(org.apache.commons.csv.CSVParserTest)
+testBackslashEscaping2(org.apache.commons.csv.CSVParserTest)
+testExcelFormat1(org.apache.commons.csv.CSVParserTest)
+testExcelFormat2(org.apache.commons.csv.CSVParserTest)
+testEndOfFileBehaviourExcel(org.apache.commons.csv.CSVParserTest)
+testBackslashEscaping(org.apache.commons.csv.CSVParserTest)
+testLineFeedEndings(org.apache.commons.csv.CSVParserTest)
+testEmptyLineBehaviourCSV(org.apache.commons.csv.CSVParserTest)
+testIgnoreEmptyLines(org.apache.commons.csv.CSVParserTest)
+testEndOfFileBehaviorCSV(org.apache.commons.csv.CSVParserTest)
+testEmptyLineBehaviourExcel(org.apache.commons.csv.CSVParserTest)
+testHeader(org.apache.commons.csv.CSVParserTest)
+testGetRecords(org.apache.commons.csv.CSVParserTest)
+testIterator(org.apache.commons.csv.CSVParserTest)
+testPrinter1(org.apache.commons.csv.CSVPrinterTest)
+testPrinter2(org.apache.commons.csv.CSVPrinterTest)
+testPrinter3(org.apache.commons.csv.CSVPrinterTest)
+testPrinter4(org.apache.commons.csv.CSVPrinterTest)
+testPrinter5(org.apache.commons.csv.CSVPrinterTest)
+testPrinter6(org.apache.commons.csv.CSVPrinterTest)
+testPrinter7(org.apache.commons.csv.CSVPrinterTest)
+testSingleLineComment(org.apache.commons.csv.CSVPrinterTest)
+testMultiLineComment(org.apache.commons.csv.CSVPrinterTest)
+testPrintNullValues(org.apache.commons.csv.CSVPrinterTest)
+testRandom(org.apache.commons.csv.CSVPrinterTest)
+testExcelPrinter1(org.apache.commons.csv.CSVPrinterTest)
+testExcelPrinter2(org.apache.commons.csv.CSVPrinterTest)
+testDisabledComment(org.apache.commons.csv.CSVPrinterTest)
+testEmptyInput(org.apache.commons.csv.ExtendedBufferedReaderTest)
+testReadChar(org.apache.commons.csv.ExtendedBufferedReaderTest)
+testReadLine(org.apache.commons.csv.ExtendedBufferedReaderTest)
+testReadLookahead1(org.apache.commons.csv.ExtendedBufferedReaderTest)
+testReadLookahead2(org.apache.commons.csv.ExtendedBufferedReaderTest)
+
+Failing tests:
+
+/scratch/jose/repair-them-all/apr_eval_framework/data/benchmarks-reproducibility/checkout_and_compile_and_metadata_and_test.py script finished at Sat Dec  9 12:38:36 AM PST 2023
+Job finished at Sat Dec  9 12:38:36 AM PST 2023
+DONE!

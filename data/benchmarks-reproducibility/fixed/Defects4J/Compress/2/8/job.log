@@ -1,0 +1,114 @@
+PID: 2602109
+bicycle.cs.washington.edu
+Job started at Sat Dec  9 12:44:26 AM PST 2023
+Running checkout, compile, and test under Java-8 on Defects4J::Compress-2. Excluding broken tests? 0. Running on the buggy version? 0.
+compile_and_test.py script started at Sat Dec  9 12:44:26 AM PST 2023
+No handlers could be found for logger "filelock"
+Checking out d09177b9 to /tmp/Defects4J_Compress_2_java-8.................. OK
+Init local repository...................................................... OK
+Tag post-fix revision...................................................... OK
+Copy generated Ant build file.............................................. OK
+Run post-checkout hook..................................................... OK
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+Diff d09177b9:1cde8827..................................................... OK
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+Check out program version: Compress-2f..................................... OK
+Checkout Defects4J_Compress_2
+Compile Defects4J_Compress_2
+Run tests on Defects4J_Compress_2
+All tests:
+testDetection(org.apache.commons.compress.DetectArchiverTestCase)
+testEmptyJarArchive(org.apache.commons.compress.DetectArchiverTestCase)
+testEmptyZipArchive(org.apache.commons.compress.DetectArchiverTestCase)
+testEmptyCpioArchive(org.apache.commons.compress.DetectArchiverTestCase)
+testDetection(org.apache.commons.compress.DetectCompressorTestCase)
+testArDelete(org.apache.commons.compress.archivers.ArTestCase)
+testArUnarchive(org.apache.commons.compress.archivers.ArTestCase)
+testArArchiveCreation(org.apache.commons.compress.archivers.ArTestCase)
+testCpioUnarchive(org.apache.commons.compress.archivers.CpioTestCase)
+testCpioArchiveCreation(org.apache.commons.compress.archivers.CpioTestCase)
+testJarUnarchive(org.apache.commons.compress.archivers.JarTestCase)
+testJarArchiveCreation(org.apache.commons.compress.archivers.JarTestCase)
+testJarUnarchiveAll(org.apache.commons.compress.archivers.JarTestCase)
+testTarUnarchive(org.apache.commons.compress.archivers.TarTestCase)
+testTarArchiveLongNameCreation(org.apache.commons.compress.archivers.TarTestCase)
+testTarArchiveCreation(org.apache.commons.compress.archivers.TarTestCase)
+testZipUnarchive(org.apache.commons.compress.archivers.ZipTestCase)
+testZipArchiveCreation(org.apache.commons.compress.archivers.ZipTestCase)
+testCpioUnarchive(org.apache.commons.compress.archivers.cpio.CpioArchiveInputStreamTest)
+testJarMarker(org.apache.commons.compress.archivers.jar.JarArchiveOutputStreamTest)
+testReading(org.apache.commons.compress.archivers.memory.MemoryArchiveTestCase)
+testTarFileWithFSRoot(org.apache.commons.compress.archivers.tar.TarArchiveEntryTest)
+testFileSystemRoot(org.apache.commons.compress.archivers.tar.TarArchiveEntryTest)
+testClone(org.apache.commons.compress.archivers.zip.AsiExtraFieldTest)
+testModes(org.apache.commons.compress.archivers.zip.AsiExtraFieldTest)
+testContent(org.apache.commons.compress.archivers.zip.AsiExtraFieldTest)
+testReparse(org.apache.commons.compress.archivers.zip.AsiExtraFieldTest)
+testMerge(org.apache.commons.compress.archivers.zip.ExtraFieldUtilsTest)
+testParse(org.apache.commons.compress.archivers.zip.ExtraFieldUtilsTest)
+testNioCp1252Encoding(org.apache.commons.compress.archivers.zip.TestZipEncodings)
+testSimpleCp437Encoding(org.apache.commons.compress.archivers.zip.TestZipEncodings)
+testSimpleCp850Encoding(org.apache.commons.compress.archivers.zip.TestZipEncodings)
+testZipFileReadsUnicodeFields(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testCP437FileRoundtripImplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testUtf8FileRoundtripImplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testRead7ZipArchiveForStream(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testCP437FileRoundtripExplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testRead7ZipArchive(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testUtf8FileRoundtripExplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testASCIIFileRoundtripImplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testReadWinZipArchiveForStream(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testUtf8FileRoundtripNoEFSImplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testZipArchiveInputStreamReadsUnicodeFields(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testASCIIFileRoundtripExplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testReadWinZipArchive(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testUtf8FileRoundtripNoEFSExplicitUnicodeExtra(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testUtf8Interoperability(org.apache.commons.compress.archivers.zip.UTF8ZipFilesTest)
+testExtraFieldMerging(org.apache.commons.compress.archivers.zip.ZipArchiveEntryTest)
+testExtraFields(org.apache.commons.compress.archivers.zip.ZipArchiveEntryTest)
+testUnixMode(org.apache.commons.compress.archivers.zip.ZipArchiveEntryTest)
+testAddAsFirstExtraField(org.apache.commons.compress.archivers.zip.ZipArchiveEntryTest)
+testToBytes(org.apache.commons.compress.archivers.zip.ZipLongTest)
+testClone(org.apache.commons.compress.archivers.zip.ZipLongTest)
+testSign(org.apache.commons.compress.archivers.zip.ZipLongTest)
+testFromBytes(org.apache.commons.compress.archivers.zip.ZipLongTest)
+testEquals(org.apache.commons.compress.archivers.zip.ZipLongTest)
+testToBytes(org.apache.commons.compress.archivers.zip.ZipShortTest)
+testClone(org.apache.commons.compress.archivers.zip.ZipShortTest)
+testSign(org.apache.commons.compress.archivers.zip.ZipShortTest)
+testFromBytes(org.apache.commons.compress.archivers.zip.ZipShortTest)
+testEquals(org.apache.commons.compress.archivers.zip.ZipShortTest)
+testZipLong(org.apache.commons.compress.archivers.zip.ZipUtilTest)
+testMinTime(org.apache.commons.compress.archivers.zip.ZipUtilTest)
+testAdjustToLong(org.apache.commons.compress.archivers.zip.ZipUtilTest)
+testAddDeleteToOneFileArchive(org.apache.commons.compress.changes.ChangeSetTestCase)
+testAddToEmptyArchive(org.apache.commons.compress.changes.ChangeSetTestCase)
+testRenameAndDelete(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteAddToOneFileArchive(org.apache.commons.compress.changes.ChangeSetTestCase)
+testAddMoveDelete(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteAddDelete(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteDir(org.apache.commons.compress.changes.ChangeSetTestCase)
+testAddDeleteAdd(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFile(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromJar(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromTar(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromZip(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeletePlusAdd(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromAndAddToJar(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromAndAddToTar(org.apache.commons.compress.changes.ChangeSetTestCase)
+testDeleteFromAndAddToZip(org.apache.commons.compress.changes.ChangeSetTestCase)
+testBzip2Unarchive(org.apache.commons.compress.compressors.BZip2TestCase)
+testBzipCreation(org.apache.commons.compress.compressors.BZip2TestCase)
+testGzipUnarchive(org.apache.commons.compress.compressors.GZipTestCase)
+testGzipCreation(org.apache.commons.compress.compressors.GZipTestCase)
+
+Failing tests:
+
+/scratch/jose/repair-them-all/apr_eval_framework/data/benchmarks-reproducibility/checkout_and_compile_and_metadata_and_test.py script finished at Sat Dec  9 12:45:14 AM PST 2023
+Job finished at Sat Dec  9 12:45:14 AM PST 2023
+DONE!

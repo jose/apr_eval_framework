@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - com.google.javascript.jscomp.NormalizeTest::testDuplicateVarInExterns
+  - com.google.javascript.jscomp.NormalizeTest::testMakeLocalNamesUnique

@@ -1,0 +1,230 @@
+Running ant (compile)...................................................... FAIL
+Executed command:  cd /tmp/Defects4J_Collections_19_java-8 && /scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/major/bin/ant -f /scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/framework/projects/defects4j.build.xml -Dd4j.home=/scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j -Dd4j.dir.projects=/scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/framework/projects -Dbasedir=/tmp/Defects4J_Collections_19_java-8 -Dbuild.compiler=javac1.7  compile 2>&1
+Picked up JAVA_TOOL_OPTIONS: -XX:CICompilerCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -Djdk.net.URLClassPath.disableClassPathURLCheck=true 
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=1G; support was removed in 8.0
+Picked up _JAVA_OPTIONS: -Djdk.net.URLClassPath.disableClassPathURLCheck=true
+Buildfile: /scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/framework/projects/defects4j.build.xml
+  [taskdef] Could not load definitions from resource emma_ant.properties. It could not be found.
+
+init:
+     [echo] -------- commons-collections 4.0-SNAPSHOT --------
+
+prepare:
+    [mkdir] Created dir: /tmp/Defects4J_Collections_19_java-8/build
+
+compile:
+    [mkdir] Created dir: /tmp/Defects4J_Collections_19_java-8/build/classes
+    [javac] Compiling 303 source files to /tmp/Defects4J_Collections_19_java-8/build/classes
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/ArrayList.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/EmptyStackException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/List.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Collection.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Iterable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Object.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/RandomAccess.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Cloneable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/Serializable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/AbstractList.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/AbstractCollection.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Iterator.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Set.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Comparator.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Map.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Map$Entry.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/RuntimeException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Exception.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Throwable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/String.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/NoSuchElementException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Class.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/Array.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Enumeration.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/HashMap.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/HashSet.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/ListIterator.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Integer.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Comparable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Boolean.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/StringTokenizer.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/File.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/FileInputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/IOException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/InputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/InputStreamReader.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/LineNumberReader.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/OutputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintWriter.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/Reader.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/UnsupportedEncodingException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Hashtable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Locale.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Properties.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Vector.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Dictionary.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Byte.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Short.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Long.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Float.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Double.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/BufferedReader.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Readable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/Closeable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AutoCloseable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/SortedMap.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/InvocationTargetException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/Method.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/org/w3c/dom/Node.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/org/w3c/dom/NodeList.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Collections.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/text/NumberFormat.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/text/ParseException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/ResourceBundle.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/TreeMap.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Number.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/NullPointerException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/ObjectInputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/ObjectOutputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ClassNotFoundException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/SortedSet.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/TreeSet.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Enum.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/ConcurrentModificationException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/SuppressWarnings.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/AbstractSet.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/IllegalArgumentException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/UnsupportedOperationException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/StringWriter.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Arrays.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/BitSet.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/IndexOutOfBoundsException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/Constructor.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/ByteArrayInputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/io/ByteArrayOutputStream.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/IllegalStateException.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/text/MessageFormat.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ref/WeakReference.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/AbstractMap.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ref/Reference.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ref/ReferenceQueue.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ref/SoftReference.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/concurrent/TimeUnit.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Runnable.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] warning: /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Character.class): major version 52 is newer than 51, the highest major version supported by this compiler.
+    [javac]   It is recommended that the compiler be upgraded.
+    [javac] /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/ArrayList.class): warning: Cannot find annotation method 'value()' in type 'Profile+Annotation': class file for jdk.Profile+Annotation not found
+    [javac] /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/EmptyStackException.class): warning: Cannot find annotation method 'value()' in type 'Profile+Annotation'
+    [javac] /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/List.class): warning: Cannot find annotation method 'value()' in type 'Profile+Annotation'
+    [javac] /scratch/jose/repair-them-all/apr_eval_framework/jdks/jdk1.8.0_181/lib/ct.sym(META-INF/sym/rt.jar/java/util/Collection.class): warning: Cannot find annotation method 'value()' in type 'Profile+Annotation'
+    [javac] /tmp/Defects4J_Collections_19_java-8/src/main/java/org/apache/commons/collections/MultiMap.java:64: error: name clash: remove(K,V) in MultiMap and remove(Object,Object) in Map have the same erasure, yet neither overrides the other
+    [javac]     public V remove(K key, V item);
+    [javac]              ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in interface MultiMap
+    [javac]     V extends Object declared in interface MultiMap
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 1 error
+    [javac] 100 warnings
+
+BUILD FAILED
+/tmp/Defects4J_Collections_19_java-8/build.xml:155: Compile failed; see the compiler error output for details.
+
+Total time: 3 seconds
+Cannot compile sources! at /scratch/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/framework/bin/d4j/d4j-compile line 82.
+Compilation failed in require at /homes/gws/jose/repair-them-all/apr_eval_framework/benchmarks/defects4j/framework/bin/defects4j line 195.

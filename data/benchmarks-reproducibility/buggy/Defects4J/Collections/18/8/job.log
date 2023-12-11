@@ -1,0 +1,31 @@
+PID: 3180230
+bicycle.cs.washington.edu
+Job started at Sat Dec  9 01:25:59 AM PST 2023
+Running checkout, compile, and test under Java-8 on Defects4J::Collections-18. Excluding broken tests? 0. Running on the buggy version? 1.
+compile_and_test.py script started at Sat Dec  9 01:25:59 AM PST 2023
+No handlers could be found for logger "filelock"
+Checking out b10fa43d to /tmp/Defects4J_Collections_18_java-8.............. OK
+Init local repository...................................................... OK
+Tag post-fix revision...................................................... OK
+Run post-checkout hook..................................................... OK
+Excluding broken/flaky tests............................................... OK
+Excluding broken/flaky tests............................................... OK
+Initialize fixed program version........................................... OK
+Apply patch................................................................ OK
+Initialize buggy program version........................................... OK
+Diff b10fa43d:38bb9b4a..................................................... OK
+Apply patch................................................................ OK
+Tag pre-fix revision....................................................... OK
+Check out program version: Collections-18b................................. OK
+compile has failed!
+Traceback (most recent call last):
+  File "/scratch/jose/repair-them-all/apr_eval_framework/data/benchmarks-reproducibility/checkout_and_compile_and_metadata_and_test.py", line 121, in <module>
+    die()
+  File "/scratch/jose/repair-them-all/apr_eval_framework/data/benchmarks-reproducibility/checkout_and_compile_and_metadata_and_test.py", line 95, in die
+    utils.die(msg=msg, checkout_dir=CHECKOUT_DIR)
+  File "/homes/gws/jose/repair-them-all/apr_eval_framework/script/utils.py", line 35, in die
+    sys.exit(1)
+SystemExit: 1
+Checkout Defects4J_Collections_18
+Compile Defects4J_Collections_18
+/scratch/jose/repair-them-all/apr_eval_framework/data/benchmarks-reproducibility/checkout_and_compile_and_metadata_and_test.py has failed!

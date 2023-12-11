@@ -1,0 +1,4 @@
+--- com.fasterxml.jackson.core.failing.TestJsonParserSymbols
+--- com.fasterxml.jackson.test.BaseTest
+--- perf.ConcurrencyReadTest
+--- perf.ManualCharAccessTest

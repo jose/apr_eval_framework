@@ -1,0 +1,15 @@
+--- com.fasterxml.jackson.databind.BaseMapTest
+--- com.fasterxml.jackson.failing.TestBackRefsWithPolymorphic
+--- com.fasterxml.jackson.failing.TestExternalTypeId
+--- com.fasterxml.jackson.failing.TestInnerClass
+--- com.fasterxml.jackson.failing.TestIssueGH113
+--- com.fasterxml.jackson.failing.TestJavaType
+--- com.fasterxml.jackson.failing.TestMapJsonValueKey
+--- com.fasterxml.jackson.failing.TestNameConflicts
+--- com.fasterxml.jackson.failing.TestObjectIdSerialization
+--- com.fasterxml.jackson.failing.TestPOJOAsArray
+--- com.fasterxml.jackson.failing.TestSerializationFiltering
+--- com.fasterxml.jackson.failing.TestTreeWithType
+--- com.fasterxml.jackson.failing.TestTypeAliases
+--- com.fasterxml.jackson.failing.TestUnwrappedWithPrefix
+--- com.fasterxml.jackson.test.BaseTest

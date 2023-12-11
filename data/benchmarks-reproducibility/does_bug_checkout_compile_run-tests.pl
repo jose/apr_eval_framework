@@ -29,7 +29,7 @@ my $STATUS_CSV_FILE = $ARGV[0];
 
 my $status_data = `tail -n1 $STATUS_CSV_FILE`;
 # benchmark,project,bug,java_version,exclude_broken_tests,buggy_version,checkout,compile,metadata,test,num_all_tests,num_failing_tests
-$status_data =~ /(true|false),(true|false),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA)$/ or die("data row of $STATUS_CSV_FILE is incorrectly formatted!");
+$status_data =~ /(0|1),(0|1),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA),(\d+|NA)$/ or die("data row of $STATUS_CSV_FILE is incorrectly formatted!");
 my $checkout          = $3;
 my $compile           = $4;
 my $metadata          = $5;

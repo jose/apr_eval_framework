@@ -1,0 +1,7 @@
+--- org.apache.commons.cli2.CLITestCase
+--- org.apache.commons.cli2.CommandLineTestCase
+--- org.apache.commons.cli2.option.ArgumentTestCase
+--- org.apache.commons.cli2.option.GroupTestCase
+--- org.apache.commons.cli2.option.OptionTestCase
+--- org.apache.commons.cli2.option.ParentTestCase
+--- org.apache.commons.cli2.WriteableCommandLineTestCase

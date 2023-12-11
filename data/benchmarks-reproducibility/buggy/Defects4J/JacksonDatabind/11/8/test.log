@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - com.fasterxml.jackson.databind.type.TestJavaType::testLocalType728
+  - com.fasterxml.jackson.databind.type.TestLocalType609::testLocalPartialType609

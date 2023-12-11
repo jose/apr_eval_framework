@@ -48,8 +48,8 @@ project     = args.project
 bug         = args.bug
 jvm         = int(args.jvm)
 output_dir  = os.path.abspath(args.output_dir)
-exclude     = args.exclude_broken
-buggy       = args.buggy_version
+exclude     = int(args.exclude_broken)
+buggy       = int(args.buggy_version)
 
 if not os.path.isdir(output_dir):
     os.makedirs(output_dir)

@@ -90,7 +90,91 @@ while read -r line; do
     for exp in "**/.*Package.*\.java"; do
       find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
     done
+  elif [ "$pid" == "Cli" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    for exp in "**/.*Abstract.*Test\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
   elif [ "$pid" == "Closure" ]; then
+    # no test class is, by default, excluded
+    rm -rf "$work_dir" # Clean up
+    popd > /dev/null 2>&1
+    continue
+  elif [ "$pid" == "Codec" ]; then
+    # <exclude name='**/*PerformanceTest.java' />
+    # <exclude name='**/*PhoneticEngineTest.java' />
+    for exp in "**/.*PerformanceTest\.java" "**/.*PhoneticEngineTest\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "Collections" ]; then
+    # <exclude name='**/*$*' />
+    # <exclude name='**/Abstract*.java' />
+    # <exclude name='**/BulkTest.java' />
+    # <exclude name='**/TestAbstract*' />
+    # <exclude name='**/TestAll*.java' />
+    # <exclude name='**/TestAnyAllOnePredicate.java' />
+    # <exclude name='**/TestArrayList.java' />
+    # <exclude name='**/TestCompositePredicate.java' />
+    # <exclude name='**/TestHashMap.java' />
+    # <exclude name='**/TestLinkedList.java' />
+    # <exclude name='**/TestTreeMap.java' />
+    # <exclude name='**/TestTypedCollection.java' />
+    # <exclude name='**/TestUtils.java' />
+    for exp in "**/.*\$.*" \
+                "**/Abstract.*\.java" \
+                "**/BulkTest\.java" \
+                "**/TestAbstract.*" \
+                "**/TestAll.*\.java" \
+                "**/TestAnyAllOnePredicate\.java" \
+                "**/TestArrayList\.java" \
+                "**/TestCompositePredicate\.java" \
+                "**/TestHashMap\.java" \
+                "**/TestLinkedList\.java" \
+                "**/TestTreeMap\.java" \
+                "**/TestTypedCollection\.java" \
+                "**/TestUtils\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "Compress" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    for exp in "**/.*Abstract.*Test\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "Csv" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    # <exclude name='**/perf/PerformanceTest.java' />
+    for exp in "**/.*Abstract.*Test\.java" "**/perf/PerformanceTest\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "Gson" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    for exp in "**/.*Abstract.*Test\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "JacksonCore" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    # <exclude name='**/failing/*.java' />
+    # <exclude name='**/failing/**/*.java' />
+    # <exclude name='failing/*.java' />
+    for exp in "**/.*Abstract.*Test\.java" "**/failing/.*\.java" "**/failing/**/.*\.java" "failing/.*\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "JacksonDatabind" ]; then
+    # <exclude name='com/fasterxml/jackson/failing/*.java' />
+    for exp in "com/fasterxml/jackson/failing/.*\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "JacksonXml" ]; then
+    # <exclude name='com/fasterxml/jackson/dataformat/xml/failing/*.java' />
+    for exp in "com/fasterxml/jackson/dataformat/xml/failing/.*\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "Jsoup" ]; then
+    # <exclude name='**/*Abstract*Test.java' />
+    for exp in "**/.*Abstract.*Test\.java"; do
+      find . -type f -name "*.java" -printf '%P\n' | grep "$exp" | sed "s|\.java$||g" | sed "s|/|.|g" | sed 's|^|--- |g' >> "$excluded_file"
+    done
+  elif [ "$pid" == "JxPath" ]; then
     # no test class is, by default, excluded
     rm -rf "$work_dir" # Clean up
     popd > /dev/null 2>&1

@@ -1,2 +1,2 @@
 benchmark,project,bug,java_version,exclude_broken_tests,buggy_version,checkout,compile,metadata,test,num_all_tests,num_failing_tests
-Bears,aicis-fresco,370467437-370477490,8,0,false,1,1,1,1,454,0
+Bears,aicis-fresco,370467437-370477490,8,0,0,1,1,1,1,454,0

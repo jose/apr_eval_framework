@@ -1,2 +1,2 @@
 benchmark,project,bug,java_version,exclude_broken_tests,buggy_version,checkout,compile,metadata,test,num_all_tests,num_failing_tests
-Bears,2018swecapstone-h2ms,363210218-363627522,7,0,false,1,0,NA,NA,NA,NA
+Bears,2018swecapstone-h2ms,363210218-363627522,7,0,0,1,0,NA,NA,NA,NA

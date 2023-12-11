@@ -118,7 +118,7 @@ for version in "$BUGGY_STR" "$FIXED_STR"; do
 
   status=$(perl "$SCRIPT_DIR/does_bug_checkout_compile_run-tests.pl" "$status_csv_file" 2>&1 > /dev/null)
   if [ "$?" -ne 0 ]; then
-    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$NOT_REPRODUCIBLE_STR,$status"
+    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$status,$NOT_REPRODUCIBLE_STR"
     exit 0
   fi
 done
@@ -134,11 +134,11 @@ done
 if [ "$BENCHMARK" == "IntroClassJava" ] || [ "$BENCHMARK" == "QuixBugs" ]; then
   num_trigger_tests=$(cat "$failing_tests_file_on_buggy" | wc -l)
   if [ "$num_trigger_tests" -eq "0" ]; then
-    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$NOT_REPRODUCIBLE_STR,No failing tests"
+    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,No failing tests,$NOT_REPRODUCIBLE_STR"
     exit 0
   else
     cat "$failing_tests_file_on_buggy" > "$trigger_tests_file"
-    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$REPRODUCIBLE_STR,Same trigger tests and 0 non-trigger tests"
+    echo "$BENCHMARK,$PROJECT,$BUG,$JVM,Same trigger tests and 0 non-trigger tests,$REPRODUCIBLE_STR"
     exit 0
   fi
 fi
@@ -154,7 +154,7 @@ fi
 
 broken_tests_status=$(perl "$SCRIPT_DIR/get_broken_tests.pl" "$benchmarks_trigger_tests_file" "$failing_tests_file_on_buggy" "$broken_tests_file" 2>&1 > /dev/null)
 if [ "$?" -ne 0 ]; then
-  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$NOT_REPRODUCIBLE_STR,$broken_tests_status"
+  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$broken_tests_status,$NOT_REPRODUCIBLE_STR"
   exit 0
 fi
 
@@ -185,7 +185,7 @@ fi
 
 trigger_status=$(perl "$SCRIPT_DIR/get_trigger_tests.pl" "$failing_tests_file_on_buggy" "$failing_tests_file_on_fixed" "$broken_tests_file" "$trigger_tests_file" 2>&1 > /dev/null)
 if [ "$?" -ne 0 ]; then
-  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$NOT_REPRODUCIBLE_STR,$trigger_status"
+  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$trigger_status,$NOT_REPRODUCIBLE_STR"
   exit 0
 fi
 
@@ -195,9 +195,9 @@ fi
 
 check_trigger_status=$(perl "$SCRIPT_DIR/check_trigger_tests.pl" "$failing_tests_file_on_buggy" "$benchmarks_trigger_tests_file" "$trigger_tests_file" 2>&1 > /dev/null)
 if [ "$?" -ne 0 ]; then
-  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$NOT_REPRODUCIBLE_STR,$check_trigger_status"
+  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$check_trigger_status,$NOT_REPRODUCIBLE_STR"
 else
-  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$REPRODUCIBLE_STR,$check_trigger_status"
+  echo "$BENCHMARK,$PROJECT,$BUG,$JVM,$check_trigger_status,$REPRODUCIBLE_STR"
 fi
 
 exit 0

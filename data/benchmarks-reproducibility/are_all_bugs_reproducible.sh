@@ -31,7 +31,7 @@ USAGE="Usage: ${BASH_SOURCE[0]}"
 BUGGY_STR="buggy"
 FIXED_STR="fixed"
 
-echo "benchmark,project,bug,java_version,reproducible,comment"
+echo "benchmark,project,bug,java_version,comment,reproducible"
 for jvm in "7" "8"; do
   while read -r bug; do
     benchmark=$(echo "$bug" | cut -f1 -d',')

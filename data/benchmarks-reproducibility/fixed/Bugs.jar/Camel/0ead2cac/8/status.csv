@@ -1,2 +1,2 @@
 benchmark,project,bug,java_version,exclude_broken_tests,buggy_version,checkout,compile,metadata,test,num_all_tests,num_failing_tests
-Bugs.jar,Camel,0ead2cac,8,false,false,1,1,1,1,5488,4
+Bugs.jar,Camel,0ead2cac,8,0,false,1,1,1,1,5488,4

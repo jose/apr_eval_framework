@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - org.apache.commons.compress.utils.BitInputStreamTest::littleEndianWithOverflow
+  - org.apache.commons.compress.utils.BitInputStreamTest::bigEndianWithOverflow

@@ -1,0 +1,7 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 4
+  - org.jsoup.nodes.NodeTest::handlesAbsPrefixOnHasAttr
+  - org.jsoup.nodes.NodeTest::handlesAbsPrefix
+  - org.jsoup.select.ElementsTest::absAttr
+  - org.jsoup.select.ElementsTest::hasAbsAttr

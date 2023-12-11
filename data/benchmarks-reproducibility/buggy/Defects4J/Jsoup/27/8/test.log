@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - org.jsoup.helper.DataUtilTest::testCharset
+  - org.jsoup.helper.DataUtilTest::testQuotedCharset

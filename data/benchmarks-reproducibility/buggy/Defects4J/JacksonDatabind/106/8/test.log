@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - com.fasterxml.jackson.databind.node.TestTreeTraversingParser::testNumberOverflowLong
+  - com.fasterxml.jackson.databind.node.TestTreeTraversingParser::testNumberOverflowInt

@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - org.apache.commons.compress.utils.IOUtilsTest::skipUsingRead
+  - org.apache.commons.compress.utils.IOUtilsTest::skipUsingSkipAndRead

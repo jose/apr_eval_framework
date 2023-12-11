@@ -1,0 +1,5 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 2
+  - org.jsoup.nodes.DocumentTypeTest::constructorValidationOkWithBlankName
+  - org.jsoup.parser.HtmlParserTest::handlesInvalidDoctypes

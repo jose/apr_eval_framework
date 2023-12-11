@@ -1,0 +1,6 @@
+Running ant (compile.tests)................................................ OK
+Running ant (run.dev.tests)................................................ OK
+Failing tests: 3
+  - com.google.javascript.jscomp.NormalizeTest::testNormalizeFunctionDeclarations
+  - com.google.javascript.jscomp.NormalizeTest::testRemoveDuplicateVarDeclarations3
+  - com.google.javascript.jscomp.NormalizeTest::testMoveFunctions2

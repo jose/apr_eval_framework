@@ -95,6 +95,8 @@ benchmarks_trigger_tests_file="$SCRIPT_DIR/../benchmarks-metadata/$BENCHMARK/$PR
 REPRODUCIBLE_STR="1"
 NOT_REPRODUCIBLE_STR="0"
 
+[ -d "$SCRIPT_DIR/$BUGGY_STR/$BENCHMARK/$PROJECT/$BUG/$JVM" ] || exit 0
+
 # ------------------------------------------------------------------------- Main
 
 #

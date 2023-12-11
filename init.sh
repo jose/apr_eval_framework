@@ -73,10 +73,20 @@ which time > /dev/null
 which mvn > /dev/null
 [[ $? -eq 1 ]] && echo "[Error] maven not installed" && exit 1 ;
 
-if ! perl -MDBI -e 1 2>/dev/null;then echo "[Error] Perl DBI not installed (perl -MCPAN -e 'install DBI')" && exit 1 ; fi 
+perl -MCPAN -Mlocal::lib -e 'CPAN::install(DBI)' || exit 1;
+perl -MCPAN -Mlocal::lib -e 'CPAN::install(Proc::Simple)' || exit 1;
+perl -MCPAN -Mlocal::lib -e 'CPAN::install(Array::Utils)' || exit 1;
+
+# Setup Python
+./init-python.sh || exit 1
+# Set Python version
+source "env/bin/activate" || exit 1
 
 # Get Java-7 and Java-8
 ./init-java.sh
+# Set Java-8 for the remaining of the script
+export JAVA_HOME="jdks/jdk1.8.0_181"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 git submodule init;
 git submodule update;
@@ -90,8 +100,16 @@ cd ../../
 # Get maven .m2 per benchmark/project
 ./init-mvn.sh
 
+# Z3
 cd libs/z3
 python scripts/mk_make.py --java
 cd build
 make
 cd ../../
+
+# Compile utility project
+cd data/benchmarks-metadata/util/collect_test_classes/
+mvn clean package
+
+echo "DONE!"
+exit 0

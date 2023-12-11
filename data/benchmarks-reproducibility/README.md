@@ -79,11 +79,12 @@ project/bug. For Defects4J, it uses the provided `test` interface which
 internally launches an Ant build. Bugs that fail to run the project's test cases
 are excluded.
 
-4. Collect the outcome of all test cases executed in (3). To perform these first
-four steps, execute the following command:
+4. Collect the outcome of all test cases executed in (3).
+
+To perform these first four steps, execute the following command:
 
 ```bash
-export RTA_FRAMEWORK_DIR="......./repair_them_all_framework"
+export RTA_FRAMEWORK_DIR="../../repair_them_all_framework"
 export PYTHONPATH="$RTA_FRAMEWORK_DIR/script/:$PYTHONPATH"
 
 ./checkout_and_compile_and_metadata_and_test.py \
@@ -91,9 +92,9 @@ export PYTHONPATH="$RTA_FRAMEWORK_DIR/script/:$PYTHONPATH"
   --project "<project id>" \
   --bug "<bug id>" \
   --jvm "8" \
-  --exclude_broken "false" \
-  --buggy_version "false" \
-  --output_dir "fixed"
+  --exclude_broken "0" \
+  --buggy_version "0" \
+  --output_dir "fixed/<benchmark id>/<project id>/<bug id>/8"
 ```
 
 5. Checkout the buggy version.
@@ -104,11 +105,12 @@ excluded.
 7. Run the project's test cases in the buggy version under Java 8. Bugs that
 fail to run the project's test cases are excluded.
 
-8. Collect the outcome of all test cases executed in (7). To perform these last
-four steps, execute the following command:
+8. Collect the outcome of all test cases executed in (7).
+
+To perform these last four steps, execute the following command:
 
 ```bash
-export RTA_FRAMEWORK_DIR="......./repair_them_all_framework"
+export RTA_FRAMEWORK_DIR="../../repair_them_all_framework"
 export PYTHONPATH="$RTA_FRAMEWORK_DIR/script/:$PYTHONPATH"
 
 ./checkout_and_compile_and_metadata_and_test.py \
@@ -116,9 +118,9 @@ export PYTHONPATH="$RTA_FRAMEWORK_DIR/script/:$PYTHONPATH"
   --project "<project id>" \
   --bug "<bug id>" \
   --jvm "8" \
-  --exclude_broken "false" \
-  --buggy_version "true" \
-  --output_dir "buggy"
+  --exclude_broken "0" \
+  --buggy_version "1" \
+  --output_dir "buggy/<benchmark id>/<project id>/<bug id>/8"
 ```
 
 The execution of this script generates the following data
@@ -254,7 +256,7 @@ To check reproducibility of a bug, run the `is_bug_reproducible.sh` script as:
 
 The script writes to the STDOUT the following information
 ```
-benchmark,project,bug,java_version,status
+benchmark,project,bug,java_version,reproducible,comment
 ```
 
 where
@@ -271,7 +273,9 @@ where
 4. java_version: java version used to compile the bug and run its test cases
   * numerical: 7 for Java-7 or 8 for Java-8
 
-5. status: reproducibility outcome
+5. reproducible: reproducibility outcome
+
+6. comment: reason
   * factor
   * 'Checkout procedure has failed' --- if the checkout procedure of the
   fixed the buggy version failed.

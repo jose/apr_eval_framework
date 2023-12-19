@@ -11,8 +11,8 @@
 #   --bug <bug>
 #   --jvm <jvm>
 #   --output_dir <path>
-#   --exclude_broken <true/false>
-#   --buggy_version <true/false>
+#   --exclude_broken <true (1) | false(0)>
+#   --buggy_version <true (1) | false(0)>
 #
 # Requirements:
 #   export PYTHONPATH=$RTA_FRAMEWORK_DIR/script:$PYTHONPATH

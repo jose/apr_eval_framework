@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
 #
-# This script collects metadata of all Bears, Bugs.jar, and Defects4J bugs.
+# This script collects metadata of all Bears, Bugs.jar, Defects4J, and QuixBugs bugs.
 #
 # Usage:
 # ./get_metadata.sh
@@ -45,6 +45,7 @@ cd "$benchmark" || die "Failed to switch to '$benchmark'!"
   ./get_metadata.sh || die "Failed to run get_metadata.sh on $benchmark!"
   ./get_trigger_tests.sh || die "Failed to run get_trigger_tests.sh on $benchmark!"
   ./get_excluded_test_classes.sh || die "Failed to run get_excluded_test_classes.sh on $benchmark!"
+  ./get_bugfix_patches.sh || die "Failed to run get_bugfix_patches.sh on $benchmark!"
 popd > /dev/null 2>&1
 
 benchmark="Defects4J"
@@ -52,6 +53,7 @@ pushd . > /dev/null 2>&1
 cd "$benchmark" || die "Failed to switch to '$benchmark'!"
   ./get_excluded_test_classes.sh || die "Failed to run get_excluded_test_classes.sh on $benchmark!"
   ./get_trigger_tests.sh || die "Failed to run get_trigger_tests.sh on $benchmark!"
+  ./get_bugfix_patches.sh || die "Failed to run get_bugfix_patches.sh on $benchmark!"
 popd > /dev/null 2>&1
 
 # As some Bugs.jar's bugs depend on the metadata of some Defects4J's bugs,
@@ -63,7 +65,21 @@ cd "$benchmark" || die "Failed to switch to '$benchmark'!"
   ./get_trigger_tests.sh || die "Failed to run get_trigger_tests.sh on $benchmark!"
   ./get_common_bugs_d4j_and_bugs_dot_jar.sh > "common_bugs_d4j_and_bugs_dot_jar.csv" || die "Failed to run get_common_bugs_d4j_and_bugs_dot_jar.sh on $benchmark!"
   ./get_excluded_test_classes.sh || die "Failed to run get_excluded_test_classes.sh on $benchmark!"
+
+  # Note 1: the bugfixes of defects on Bugs.jar are automatically collected by
+  # the Bugs.jar/get_metadata.sh script, as that info is already available in the
+  # benchmark.  Thus, there is no call to any get_bugfix_patches.sh script.
 popd > /dev/null 2>&1
+
+benchmark="QuixBugs"
+pushd . > /dev/null 2>&1
+cd "$benchmark" || die "Failed to switch to '$benchmark'!"
+  ./get_bugfix_patches.sh || die "Failed to run get_bugfix_patches.sh on $benchmark!"
+popd > /dev/null 2>&1
+
+# Note 2: as discussed in [here](https://github.com/Spirals-Team/IntroClassJava/issues/6))
+# there is no fix version of each defect on IntroClassJava, and therefore it is
+# not possible to compute the bugfix patch.
 
 echo "DONE!"
 exit 0

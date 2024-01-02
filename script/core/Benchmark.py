@@ -221,11 +221,11 @@ mvn -Dmaven.repo.local=%s/.m2 com.github.tdurieux:project-config-maven-plugin:1.
                     # Remove test classes that are excluded by the defect's build system
                     self.rm_excluded_tests(other_benchmark, other_project, other_defect, src_test_dir)
 
-        # Bears :: Jackrabbit-Oak :: 7a84b3a8
-        # Bears :: Jackrabbit-Oak :: 3270e761
-        # Bears :: Jackrabbit-Oak :: f63d745a
-        # Bears :: Jackrabbit-Oak :: f0fbacab
-        # Bears :: Jackrabbit-Oak :: 8ed779dc
+        # Bugs.jar :: Jackrabbit-Oak :: 7a84b3a8
+        # Bugs.jar :: Jackrabbit-Oak :: 3270e761
+        # Bugs.jar :: Jackrabbit-Oak :: f63d745a
+        # Bugs.jar :: Jackrabbit-Oak :: f0fbacab
+        # Bugs.jar :: Jackrabbit-Oak :: 8ed779dc
         if bug.project == "Jackrabbit-Oak":
             # The `rm_broken_tests.pl` script is not able to remove a test suite
             # that is in the jar file of a dependency of the following bugs

@@ -6,9 +6,13 @@ REPAIR_THEM_ALL_FRAMEWORK_DIR=`pwd`
 # http://* mirrors by default.
 # More info in here https://maven.apache.org/docs/3.8.1/release-notes.html#cve-2021-26291
 #
-# This is required to successfully run `mvn` on some Wickets defects, e.g.,
+# And hack the user's ~/.m2/settings.xml file to address the "Return code is: 501 , ReasonPhrase:HTTPS Required"
+# error.
+# More info in here https://stackoverflow.com/questions/59763531/maven-dependencies-are-failing-with-a-501-error
+#
+# Both hacks are required to successfully run `mvn` on some Wickets defects, e.g.,
 # 0eb596df.
-
+#
 wget https://archive.apache.org/dist/maven/binaries/apache-maven-3.2.2-bin.zip
 if [ ! -s "apache-maven-3.2.2-bin.zip" ]; then
   echo "Failed to get apache-maven-3.2.2-bin.zip!"
@@ -20,6 +24,13 @@ if [ ! -d "apache-maven-3.2.2" ]; then
   exit 1
 fi
 export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.2.2/bin:$PATH/"
+#
+# Hack the user's ~/.m2/settings.xml file
+if [ -s ~/.m2/settings.xml ]; then
+  cp -v ~/.m2/settings.xml ~/.m2/settings.xml.bak # Backup user's file
+fi
+mkdir ~/.m2
+cp -v "$REPAIR_THEM_ALL_FRAMEWORK_DIR/m2_settings.xml" ~/.m2/settings.xml
 
 # Remove any existing data and create required directories
 mvn_deps_dir="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+  <mirrors>
+    <!--
+      Hack to address the `Return code is: 501 , ReasonPhrase:HTTPS Required` error.
+      https://stackoverflow.com/questions/59763531/maven-dependencies-are-failing-with-a-501-error
+
+      This hack is required to successfully run `mvn` on some Wickets defects, e.g.,
+      0eb596df.
+    -->
+    <mirror>
+      <id>maven-mirror</id>
+      <name>Maven Mirror</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+</settings>

@@ -5,7 +5,7 @@ import subprocess
 import json
 from sets import Set
 
-from config import REPAIR_ROOT, JAVA8_HOME, BENCHMARK_METADATA_DIR, TEST_TIMEOUT
+from config import REPAIR_ROOT, JAVA8_HOME, MAVEN_BIN, BENCHMARK_METADATA_DIR, TEST_TIMEOUT
 from core.Benchmark import Benchmark
 from core.Bug import Bug
 from core.utils import add_benchmark
@@ -142,9 +142,9 @@ class BugDotJar(Benchmark):
             java_home_dir = JAVA8_HOME
 
         export_cmd = "export JAVA_HOME=\"%s\"; \
-                      export PATH=\"$JAVA_HOME/bin:$PATH\"; \
+                      export PATH=\"$JAVA_HOME/bin:%s:$PATH\"; \
                       export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true; \
-                      export MAVEN_OPTS=\"-Xmx4g -Xms1g -XX:MaxPermSize=512m\"" % (java_home_dir)
+                      export MAVEN_OPTS=\"-Xmx4g -Xms1g -XX:MaxPermSize=512m\"" % (java_home_dir, MAVEN_BIN)
 
         failing_module_dir = self.failing_module(bug)
         failing_module_full_path = os.path.abspath(os.path.join(working_directory, failing_module_dir))
@@ -196,12 +196,12 @@ class BugDotJar(Benchmark):
         work_dir = os.path.join(working_directory, self.failing_module(bug))
         cmd = """
         export JAVA_HOME="%s";
-        export PATH="$JAVA_HOME/bin:$PATH";
+        export PATH="$JAVA_HOME/bin:%s:$PATH";
         export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true;
         export MAVEN_OPTS="-Xmx4g -Xms1g -XX:MaxPermSize=512m";
         cd %s;
         timeout -s KILL %s mvn test -DskipTests -DskipUTs=true -DskipITs=true -Dmaven.repo.local=%s/.m2 --fail-never %s;
-        """ % (java_home_dir, work_dir, TEST_TIMEOUT, working_directory, MVN_FLAGS)
+        """ % (java_home_dir, MAVEN_BIN, work_dir, TEST_TIMEOUT, working_directory, MVN_FLAGS)
         log_file = file(os.path.join(working_directory, "repair_them_all.init_test.log"), 'w')
         return run_cmd(cmd, log_file, log_file)
 
@@ -211,11 +211,11 @@ class BugDotJar(Benchmark):
         work_dir = os.path.join(working_directory, self.failing_module(bug))
         cmd = """cd %s; 
         export JAVA_HOME="%s";
-        export PATH="$JAVA_HOME/bin:$PATH";
+        export PATH="$JAVA_HOME/bin:%s:$PATH";
         export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true;
         export MAVEN_OPTS="-Xmx4g -Xms1g -XX:MaxPermSize=512m";
         timeout -s KILL %s mvn test -DskipUTs=true -DskipITs=true -Dmaven.repo.local=%s/.m2 --fail-at-end %s;
-        """ % (work_dir, java_home_dir, TEST_TIMEOUT, working_directory, MVN_FLAGS)
+        """ % (work_dir, java_home_dir, MAVEN_BIN, TEST_TIMEOUT, working_directory, MVN_FLAGS)
         log_file = file(os.path.join(working_directory, "repair_them_all.run_test.log"), 'w')
         return run_cmd(cmd, log_file, log_file)
 

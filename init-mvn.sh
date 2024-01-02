@@ -2,6 +2,25 @@
 
 REPAIR_THEM_ALL_FRAMEWORK_DIR=`pwd`
 
+# Get Apache-Maven <= 3.6, as any version higher than 3.6 disables all insecure
+# http://* mirrors by default.
+# More info in here https://maven.apache.org/docs/3.8.1/release-notes.html#cve-2021-26291
+#
+# This is required to successfully run `mvn` on some Wickets defects, e.g.,
+# 0eb596df.
+
+wget https://archive.apache.org/dist/maven/binaries/apache-maven-3.2.2-bin.zip
+if [ ! -s "apache-maven-3.2.2-bin.zip" ]; then
+  echo "Failed to get apache-maven-3.2.2-bin.zip!"
+  exit 1
+fi
+unzip apache-maven-3.2.2-bin.zip
+if [ ! -d "apache-maven-3.2.2" ]; then
+  echo "Failed to unzip apache-maven-3.2.2-bin.zip!"
+  exit 1
+fi
+export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.2.2/bin:$PATH/"
+
 # Remove any existing data and create required directories
 mvn_deps_dir="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps"
 rm -rf "$mvn_deps_dir"; mkdir -p "$mvn_deps_dir"

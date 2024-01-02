@@ -5,7 +5,7 @@ import sys
 import subprocess
 from shutil import copyfile
 
-from config import JAVA_VERSION, JAVA8_HOME, D4J_HOME, BENCHMARK_METADATA_DIR, BENCHMARKS_REPRODUCIBILITY_DIR
+from config import JAVA_VERSION, JAVA8_HOME, MAVEN_BIN, D4J_HOME, BENCHMARK_METADATA_DIR, BENCHMARKS_REPRODUCIBILITY_DIR
 
 class Benchmark(object):
     """Benchmark"""
@@ -33,9 +33,9 @@ class Benchmark(object):
         work_dir = os.path.join(bug.working_directory, failing_module)
         cmd = """cd %s;
 export JAVA_HOME="%s";
-export PATH="$JAVA_HOME/bin:$PATH";
+export PATH="$JAVA_HOME/bin:%s:$PATH";
 mvn -Dmaven.repo.local=%s/.m2 com.github.tdurieux:project-config-maven-plugin:1.0-SNAPSHOT:info -q > project-config-maven-plugin.json;
-""" % (work_dir, JAVA8_HOME, bug.working_directory)
+""" % (work_dir, JAVA8_HOME, MAVEN_BIN, bug.working_directory)
 
         json_file = os.path.join(work_dir, "project-config-maven-plugin.json")
 

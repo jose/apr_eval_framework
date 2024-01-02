@@ -70,9 +70,6 @@ which gradle > /dev/null
 which time > /dev/null
 [[ $? -eq 1 ]] && echo "[Error] time not installed" && exit 1 ;
 
-which mvn > /dev/null
-[[ $? -eq 1 ]] && echo "[Error] maven not installed" && exit 1 ;
-
 perl -MCPAN -Mlocal::lib -e 'CPAN::install(DBI)' || exit 1;
 perl -MCPAN -Mlocal::lib -e 'CPAN::install(Proc::Simple)' || exit 1;
 perl -MCPAN -Mlocal::lib -e 'CPAN::install(Array::Utils)' || exit 1;

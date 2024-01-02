@@ -63,6 +63,98 @@ mvn -Dmaven.repo.local=%s/.m2 com.github.tdurieux:project-config-maven-plugin:1.
     def checkout(self, bug, working_directory, rm_tests=True, buggy_version=True):
         pass
 
+    def rm_failing_tests(self, benchmark_name, project_name, bug_id, src_test_dir):
+        # Remove tests that fail on the fixed version.  The `failing_tests.txt`
+        # lives in data/benchmarks-reproducibility/fixed/<benchmark>/<project>/<defect>/<java version either 7 or 8>/failing_tests.txt
+        # e.g.,
+        # data/benchmarks-reproducibility/fixed/Defects4J/Lang/13/8/failing_tests.txt
+        #
+        # The `failing_tests.txt` file follows the following format:
+        # --- <test class name>::<test method name>
+        # e.g.,
+        # --- org.foo.TestFoo::testBar
+        #
+        failing_tests_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fixed", benchmark_name, project_name, bug_id, JAVA_VERSION, "failing_tests.txt")
+        if os.path.isfile(failing_tests_file):
+            sys.stdout.write("Removing the test methods listed in " + failing_tests_file + "\n")
+            cmd = "%s/framework/util/rm_broken_tests.pl %s %s;" %(D4J_HOME, failing_tests_file, src_test_dir)
+            subprocess.check_output(cmd, shell=True)
+            # The `rm_broken_tests.pl` script does remove broken test classes,
+            # thus we remove them in here.  This is going to be applied to the
+            # following bugs:
+            #   Bugs.jar :: Logging-Log4J2 :: ca59ece6 (under Java-7)
+            cmd = "cat %s | grep -v \"::\" | sort -u | sed 's/^--- //g' | tr '.' '/' | sed 's/$/.java/g' | while read -r file; do if [ -f \"%s/$file\" ]; then rm -f -v \"%s/$file\"; fi; done" %(failing_tests_file, src_test_dir, src_test_dir)
+            subprocess.check_output(cmd, shell=True)
+
+            # Bears :: shapesecurity-shift-java :: 455763022-456154969 (under Java-8)
+            if project_name == "shapesecurity-shift-java" and bug_id == "455763022-456154969":
+                cmd = "cat %s | grep \"::initializationError\" | cut -f1 -d':' | sort -u | sed 's/^--- //g' | tr '.' '/' | sed 's/$/.java/g' | while read -r file; do if [ -f \"%s/$file\" ]; then rm -f -v \"%s/$file\"; fi; done" %(failing_tests_file, src_test_dir, src_test_dir)
+                subprocess.check_output(cmd, shell=True)
+                # and remove a test suite that depends on the removed ones
+                os.remove("%s/com/shapesecurity/shift/es2017/test262/parser/XFailHelper.java" %(src_test_dir))
+        else:
+            sys.stdout.write(failing_tests_file + " does not exist. Thus, no test method is going to excluded\n")
+
+    def rm_broken_tests(self, benchmark_name, project_name, bug_id, src_test_dir):
+        # Remove test cases that have been considered flaky or broken, i.e., that
+        # fail on either the fixed or buggy version but are not truly fault revealing
+        # tests.  The `broken_tests.txt` file lives in
+        # data/benchmarks-reproducibility/fixed/<benchmark>/<project>/<defect>/<java version either 7 or 8>/broken_tests.txt
+        # e.g.,
+        # data/benchmarks-reproducibility/fixed/Defects4J/Lang/13/8/broken_tests.txt
+        #
+        # The `broken_tests.txt` file follows the following format:
+        # --- <test class name>::<test method name>
+        # e.g.,
+        # --- org.foo.TestFoo::testBar
+        #
+        broken_tests_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fixed", benchmark_name, project_name, bug_id, JAVA_VERSION, "broken_tests.txt")
+        if os.path.isfile(broken_tests_file):
+            sys.stdout.write("Removing the test methods listed in " + broken_tests_file + "\n")
+            cmd = "%s/framework/util/rm_broken_tests.pl %s %s;" %(D4J_HOME, broken_tests_file, src_test_dir)
+            subprocess.check_output(cmd, shell=True)
+        else:
+            sys.stdout.write(broken_tests_file + " does not exist. Thus, no test method is going to excluded\n")
+
+    def rm_excluded_tests(self, benchmark_name, project_name, bug_id, src_test_dir):
+        # Remove test classes that are excluded by the defect's build system.
+        # The `excluded.txt` file lives in
+        # data/benchmarks-metadata/<benchmark>/<project>/<defect>/excluded.txt
+        # e.g.,
+        # data/benchmarks-metadata/Defects4J/Lang/42/excluded.txt
+        #
+        # The `excluded.txt` file follows the following format:
+        # --- <test class name>
+        # e.g.,
+        # --- org.foo.TestFoo
+        #
+        excluded_test_classes_file = os.path.join(BENCHMARK_METADATA_DIR, benchmark_name, project_name, bug_id, "excluded.txt")
+        if os.path.isfile(excluded_test_classes_file):
+            sys.stdout.write("Removing the test classes listed in " + excluded_test_classes_file + "\n")
+
+            pattern = re.compile(r'^--- (.*)') # test class pattern, e.g., --- org.foo.TestFoo
+            with open(excluded_test_classes_file) as fin:
+                for line in fin:
+                    line = line.rstrip() # remove '\n' at end of line
+                    test_class_name = pattern.search(line).group(1)
+                    sys.stdout.write("Attempt to remove test class '" + test_class_name + "'\n")
+                    java_file = os.path.join(src_test_dir, test_class_name.replace('.', '/') + ".java")
+                    if not os.path.isfile(java_file):
+                        sys.stdout.write("Test class '" + test_class_name + "' has not been removed because the " + java_file + " does not exist\n")
+                        continue
+
+                    # Replace an existing class with a dummy one to avoid compilation issues and non-triggering test cases
+                    replace_java_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fix_broken_tests", benchmark_name, project_name, bug_id, test_class_name.replace('.', '/') + ".java")
+                    if os.path.isfile(replace_java_file):
+                        sys.stdout.write("Replacing '" + java_file + "' with '" + replace_java_file + "'\n")
+                        copyfile(replace_java_file, java_file)
+                    else:
+                        # Last resource, remove it
+                        os.remove(java_file)
+                        sys.stdout.write("Test class '" + test_class_name + "' has been removed\n")
+        else:
+            sys.stdout.write(excluded_test_classes_file + " does not exist. Thus, no test class is going to excluded\n")
+
     #
     # Remove known failing and flaky test methods as well as test classes excluded
     # in the build file.
@@ -76,53 +168,20 @@ mvn -Dmaven.repo.local=%s/.m2 com.github.tdurieux:project-config-maven-plugin:1.
             sys.stderr.write("The source directory '" + src_test_dir + "' does not exist!\n")
             return 1
 
-        # File that lists all broken test methods (one per line)
-        # --- <test class name>::<test method name>
-        # (e.g., --- org.foo.TestFoo::testBar)
+        # Remove failing test methods
+        self.rm_failing_tests(str(self.name), str(bug.project), str(bug.bug_id), src_test_dir)
+        # Remove broken test methods
+        self.rm_broken_tests(str(self.name), str(bug.project), str(bug.bug_id), src_test_dir)
+        # Remove test classes that are excluded by the defect's build system
+        self.rm_excluded_tests(str(self.name), str(bug.project), str(bug.bug_id), src_test_dir)
 
-        # data/benchmarks-reproducibility/fixed/Defects4J/Lang/13/[7/8]/failing_tests.txt
-        failing_tests_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fixed", str(self.name), str(bug.project), str(bug.bug_id), JAVA_VERSION, "failing_tests.txt")
-        if os.path.isfile(failing_tests_file):
-            sys.stdout.write("Removing the tests listed in " + failing_tests_file + "\n")
-            cmd = "%s/framework/util/rm_broken_tests.pl %s %s;" %(D4J_HOME, failing_tests_file, src_test_dir)
-            subprocess.check_output(cmd, shell=True)
-            # The `rm_broken_tests.pl` script does remove broken test classes,
-            # thus we remove them in here.  This is going to be applied to the
-            # following bugs:
-            #   Bugs.jar :: Accumulo :: 0cf2ff72
-            #   Bugs.jar :: Accumulo :: 0cf2ff72
-            #   Bugs.jar :: Logging-Log4J2 :: ca59ece6
-            cmd = "cat %s | grep -v \"::\" | sort -u | sed 's/^--- //g' | tr '.' '/' | sed 's/$/.java/g' | while read -r file; do if [ -f \"%s/$file\" ]; then rm -f -v \"%s/$file\"; fi; done" %(failing_tests_file, src_test_dir, src_test_dir)
-            subprocess.check_output(cmd, shell=True)
-
-            # Bears :: shapesecurity-shift-java :: 455763022-456154969
-            if bug.project == "shapesecurity-shift-java" and str(bug.bug_id) == "455763022-456154969":
-                cmd = "cat %s | grep \"::initializationError\" | cut -f1 -d':' | sort -u | sed 's/^--- //g' | tr '.' '/' | sed 's/$/.java/g' | while read -r file; do if [ -f \"%s/$file\" ]; then rm -f -v \"%s/$file\"; fi; done" %(failing_tests_file, src_test_dir, src_test_dir)
-                subprocess.check_output(cmd, shell=True)
-                # and remove a test suite that depends on the removed ones
-                os.remove("%s/com/shapesecurity/shift/es2017/test262/parser/XFailHelper.java" %(src_test_dir))
-        else:
-            sys.stdout.write(failing_tests_file + " does not exist. Thus, no test method is going to excluded\n")
-
-        # remove test cases that have been considered flaky or broken
-        broken_tests_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fixed", str(self.name), str(bug.project), str(bug.bug_id), JAVA_VERSION, "broken_tests.txt")
-        if os.path.isfile(broken_tests_file):
-            sys.stdout.write("Removing the tests listed in " + broken_tests_file + "\n")
-            cmd = "%s/framework/util/rm_broken_tests.pl %s %s;" %(D4J_HOME, broken_tests_file, src_test_dir)
-            subprocess.check_output(cmd, shell=True)
-        else:
-            sys.stdout.write(broken_tests_file + " does not exist. Thus, no test method is going to excluded\n")
-
-        # File that lists all excluded test classes (one per line)
-        # --- <test class name>
-        # (e.g., --- org.foo.TestFoo)
-        # e.g., data/benchmarks-metadata/Defects4J/Math/84/excluded.txt
-        # --- org.apache.commons.math.random.AbstractRandomGeneratorTest
-        # --- org.apache.commons.math.random.CorrelatedRandomVectorGeneratorTest
-        # --- org.apache.commons.math.random.EmpiricalDistributionTest
-        # ...
         #
-        # Common bugs in Bugs.jar and Defects4J
+        # Corner cases
+        #
+
+        # Common bugs in Bugs.jar and Defects4J.  Remove the set of failing tests,
+        # broken tests, and excluded test classes defined in both benchmarks as an
+        # attempt to have a similar project structure.
         common_bugs_in_bugs_jar_and_d4j = os.path.join(BENCHMARK_METADATA_DIR, "Bugs.jar", "common_bugs_d4j_and_bugs_dot_jar.csv")
         # e.g.,
         # bugs_dot_jar_project_name,bugs_dot_jar_bug_id,bugs_dot_jar_repair_them_all_id,d4j_project_name,d4j_bug_id,d4j_repair_them_all_id
@@ -131,68 +190,42 @@ mvn -Dmaven.repo.local=%s/.m2 com.github.tdurieux:project-config-maven-plugin:1.
         # Commons-Math,38983e82,Commons-Math-38983e82,Math,82,Math-82
         # ...
         if os.path.isfile(common_bugs_in_bugs_jar_and_d4j):
-            bugs_jar_pid = None
-            bugs_jar_bid = None
-            d4j_pid      = None
-            d4j_bid      = None
+            other_benchmark = None
+            other_project   = None
+            other_defect    = None
+            common_pattern  = None
+            if str(self.name) == 'Defects4J':
+                other_benchmark = 'Bugs.jar'
+                common_pattern = r"^(.*),(.*),.*," + str(bug.project) + "," + str(bug.bug_id) + ",.*$"
+            elif str(self.name) == 'Bugs.jar':
+                other_benchmark = 'Defects4J'
+                common_pattern = r"^" + str(bug.project) + "," + str(bug.bug_id) + ",.*,(.*),(.*),.*$"
 
-            bugs_jar_pattern = r"^" + str(bug.project) + "," + str(bug.bug_id) + ",.*,(.*),(.*),.*$"
-            d4j_pattern      = r"^(.*),(.*),.*," + str(bug.project) + "," + str(bug.bug_id) + ",.*$"
+            if common_pattern != None:
+                # Find the common bug
+                with open(common_bugs_in_bugs_jar_and_d4j) as fin:
+                    for line in fin:
+                        line = line.rstrip() # remove '\n'
+                        if re.match(common_pattern, line):
+                            search = re.search(common_pattern, line)
+                            other_project = search.group(1)
+                            other_defect  = search.group(2)
+                            break # the common bug has been found, no need to continue
 
-            with open(common_bugs_in_bugs_jar_and_d4j) as fin:
-                for line in fin:
-                    line = line.rstrip() # remove '\n'
-                    if re.match(bugs_jar_pattern, line):
-                        bugs_jar_pid = str(bug.project)
-                        bugs_jar_bid = str(bug.bug_id)
-                        search = re.search(bugs_jar_pattern, line)
-                        d4j_pid = search.group(1)
-                        d4j_bid = search.group(2)
-                        break
-                    elif re.match(d4j_pattern, line):
-                        d4j_pid = str(bug.project)
-                        d4j_bid = str(bug.bug_id)
-                        search = re.search(d4j_pattern, line)
-                        bugs_jar_pid = search.group(1)
-                        bugs_jar_bid = search.group(2)
-                        break
+                if other_benchmark != None and other_project != None and other_defect != None:
+                    sys.stdout.write("The bug " + str(self.name) + " :: " + str(bug.project) + " :: " + str(bug.bug_id) + " :: " + " matched " + other_benchmark + " :: " + other_project + " :: " + other_defect + "\n")
+                    # Remove failing test methods
+                    self.rm_failing_tests(other_benchmark, other_project, other_defect, src_test_dir)
+                    # Remove broken test methods
+                    self.rm_broken_tests(other_benchmark, other_project, other_defect, src_test_dir)
+                    # Remove test classes that are excluded by the defect's build system
+                    self.rm_excluded_tests(other_benchmark, other_project, other_defect, src_test_dir)
 
-            if bugs_jar_pid != None and bugs_jar_bid != None and d4j_pid != None and d4j_bid != None:
-                for excluded_test_classes_file in [os.path.join(BENCHMARK_METADATA_DIR, "Bugs.jar", bugs_jar_pid, bugs_jar_bid, "excluded.txt"), os.path.join(BENCHMARK_METADATA_DIR, "Defects4J", d4j_pid, d4j_bid, "excluded.txt")]:
-                    if os.path.isfile(excluded_test_classes_file):
-                        pattern = re.compile(r'^--- (.*)') # test class pattern, e.g., --- org.foo.TestFoo
-                        with open(excluded_test_classes_file) as fin:
-                            for line in fin:
-                                line = line.rstrip() # remove '\n' at end of line
-                                test_class_name = pattern.search(line).group(1)
-                                sys.stdout.write("Attempt to remove test class '" + test_class_name + "'\n")
-                                java_file = os.path.join(src_test_dir, test_class_name.replace('.', '/') + ".java")
-                                if not os.path.isfile(java_file):
-                                    sys.stdout.write("Test class '" + test_class_name + "' has not been removed because the " + java_file + " does not exist\n")
-                                    continue
-
-                                # Replace an existing class with a dummy one to avoid compilation issues
-                                # and non-triggering test cases
-                                replace_java_file = os.path.join(BENCHMARKS_REPRODUCIBILITY_DIR, "fix_broken_tests", "Bugs.jar", bugs_jar_pid, bugs_jar_bid, test_class_name.replace('.', '/') + ".java")
-                                if os.path.isfile(replace_java_file):
-                                    sys.stdout.write("Replacing '" + java_file + "' with '" + replace_java_file + "'\n")
-                                    copyfile(replace_java_file, java_file)
-                                    continue
-
-                                # Last resource, remove it
-                                os.remove(java_file)
-                                sys.stdout.write("Test class '" + test_class_name + "' has been removed\n")
-
-                if str(bug.project) == "Commons-Math":
-                    CMAESOptimizerTest = os.path.join(src_test_dir, "org.apache.commons.math.optimization.direct.CMAESOptimizerTest".replace('.', '/') + ".java")
-                    if os.path.isfile(CMAESOptimizerTest):
-                        cmd = "echo \"--- org.apache.commons.math.optimization.direct.CMAESOptimizerTest::testMaximize\" > /tmp/$$-BugsJar-Commons-Math.txt; %s/framework/util/rm_broken_tests.pl /tmp/$$-BugsJar-Commons-Math.txt %s; rm -f /tmp/$$-BugsJar-Commons-Math.txt;" %(D4J_HOME, src_test_dir)
-                        subprocess.check_output(cmd, shell=True)
-
-        #
-        # Corner cases
-        #
-
+        # Bears :: Jackrabbit-Oak :: 7a84b3a8
+        # Bears :: Jackrabbit-Oak :: 3270e761
+        # Bears :: Jackrabbit-Oak :: f63d745a
+        # Bears :: Jackrabbit-Oak :: f0fbacab
+        # Bears :: Jackrabbit-Oak :: 8ed779dc
         if bug.project == "Jackrabbit-Oak":
             # The `rm_broken_tests.pl` script is not able to remove a test suite
             # that is in the jar file of a dependency of the following bugs

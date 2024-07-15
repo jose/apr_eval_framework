@@ -50,7 +50,7 @@ pyenv install -v "$major.$minor.$micro"
 # Switch to the version just installed
 pyenv local "$major.$minor.$micro" || die "[ERROR] Python $major.$minor.$micro is not available to pyenv!"
 
-python_version=$(python --version 2>/dev/null)
+python_version=$(python --version 2>&1)
 if [ "$python_version" != "Python $major.$minor.$micro" ]; then
   die "[ERROR] System is still using '$python_version' instead of $major.$minor.$micro!"
 fi

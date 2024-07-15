@@ -102,7 +102,7 @@ cd libs/z3
 python scripts/mk_make.py --java
 cd build
 make
-cd ../../
+cd ../../../
 
 # Compile utility project
 cd data/benchmarks-metadata/util/collect_test_classes/

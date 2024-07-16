@@ -85,7 +85,7 @@ source "env/bin/activate" || exit 1
 # Get Java-7 and Java-8
 ./init-java.sh
 # Set Java-8 for the remaining of the script
-export JAVA_HOME="jdks/jdk1.8.0_181"
+export JAVA_HOME="$(pwd)/jdks/jdk1.8.0_181"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 git submodule init;

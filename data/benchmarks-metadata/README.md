@@ -5,7 +5,7 @@ extracted from the official benchmarks repositories.
 
 `collect_metadata.sh` script collects metadata of all Bears, Bugs.jar, and Defects4J
 bugs. (Note: no metadata is available for IntroClassJava and QuixBugs). For each
-bug, the `get_metadata.sh` script generate the following metadata:
+bug, the `collect_metadata.sh` script generate the following metadata:
 
 * `trigger_tests.txt`: file that lists all test cases (one per row) that are
 expected to fail for the buggy version. Format:

@@ -4,7 +4,7 @@
 # This script collects metadata of all Bears, Bugs.jar, Defects4J, and QuixBugs bugs.
 #
 # Usage:
-# ./get_metadata.sh
+# ./collect_metadata.sh
 #
 # ------------------------------------------------------------------------------
 

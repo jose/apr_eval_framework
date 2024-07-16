@@ -43,12 +43,7 @@ mvn_deps_zip="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps.zip"
 # Try to get a cached version of all maven dependencies
 GDRIVE_FILE_ID="1sa6qqiIp_xTqKsyQjHHFP3DkARNRZb91"
 GDRIVE_FILE_URL="https://drive.google.com/uc?export=download&id=$GDRIVE_FILE_ID"
-wget --load-cookies /tmp/cookies.txt \
-  "https://drive.google.com/uc?export=download&confirm=$(wget --quiet \
-    --save-cookies /tmp/cookies.txt \
-    --keep-session-cookies \
-    --no-check-certificate "$GDRIVE_FILE_URL" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$GDRIVE_FILE_ID" -O "$mvn_deps_zip"
-rm -f /tmp/cookies.txt
+gdown "$GDRIVE_FILE_URL" -O "$mvn_deps_zip"
 
 #
 # If there a zip file with all maven dependencies, extract it and set the symlinks

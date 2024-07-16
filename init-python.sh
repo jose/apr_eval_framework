@@ -74,6 +74,8 @@ source "$SCRIPT_DIR/env/bin/activate"           || die "[ERROR] Failed to activa
 pip install --upgrade pip setuptools wheel      || die "[ERROR] Failed to upgrade 'pip', 'setuptools', and 'wheel'!"
 # Install filelock
 pip install filelock                            || die "[ERROR] Failed to install 'filelock'!"
+# Install gdown
+pip install gdown                               || die "[ERROR] Failed to install 'gdown'!"
 # Deactivate virtual environment
 deactivate                                      || die "[ERROR] Failed to deactivate virtual environment!"
 # Revert to system Python version

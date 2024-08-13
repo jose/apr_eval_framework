@@ -81,7 +81,7 @@ for my $line(@test_log_lines) {
   if ($test_method_name eq "") {
     push @trigger_tests, "$test_class_name";
   } else {
-    push @trigger_tests, "$test_class_name::$test_method_name";
+    push @trigger_tests, "${test_class_name}::${test_method_name}";
   }
 }
 
@@ -89,9 +89,9 @@ for my $failing_test_class (@{$failing_test_classes}) {
   open(my $fh, "<$TEST_LOG_FILE") or die("Cannot read $TEST_LOG_FILE");
   while (my $line = <$fh>) {
     if ($line =~ /^Failed tests:\s*(.*)\($failing_test_class\)/) {
-      push @trigger_tests, "$failing_test_class::$1";
+      push @trigger_tests, "${failing_test_class}::$1";
     } elsif ($line =~ /^\s*(.*)\($failing_test_class\)/) {
-      push @trigger_tests, "$failing_test_class::$1";
+      push @trigger_tests, "${failing_test_class}::$1";
     }
   }
 }

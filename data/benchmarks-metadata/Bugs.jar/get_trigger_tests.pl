@@ -110,7 +110,11 @@ for my $failing_test_class (@{$failing_test_classes}) {
   for my $line(@test_log_lines) {
     if ($line =~ /^Failed tests:\s*(.*)\($failing_test_class\)/) {
       push @trigger_tests, "${failing_test_class}::$1";
+    } elsif ($line =~ /^\s*(.*)\[([^\]]*)\]\($failing_test_class\)/) {
+      # Parameterized test method
+      push @trigger_tests, "${failing_test_class}::$1";
     } elsif ($line =~ /^\s*(.*)\($failing_test_class\)/) {
+      # No-parameterized test method
       push @trigger_tests, "${failing_test_class}::$1";
     } elsif ($line =~ /^Running\s*$failing_test_class$/) {
       # Fix for

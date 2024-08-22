@@ -51,7 +51,7 @@ my $failing_test_classes = $data->{failing_tests};
 scalar(@{$failing_test_classes}) > 0 or die("There are not any failing test class in $JSON_FILE!");
 
 #
-# Parse test log file
+# Parse test log file and collect all test cases that failed
 #
 
 my @test_log_lines = `egrep -a "<<< ERROR|<<< FAILURE" $TEST_LOG_FILE | grep -v "Tests run:"`;
@@ -85,7 +85,27 @@ for my $line(@test_log_lines) {
   }
 }
 
+#
+# Additionally, for each failing test class reported in the <Bugs.jar json file>
+# collect all its failing test cases, if they have not been already collected in
+# the previous step.
+#
+
 for my $failing_test_class (@{$failing_test_classes}) {
+  if ($failing_test_class eq "") {
+    # Skip empty entries, e.g.,
+    # https://github.com/jose/apr_eval_framework/blob/master/data/benchmarks-metadata/Bugs.jar/Logging-Log4J2/3b2e880e/3b2e880e.json#L9
+    next;
+  }
+  if (grep(/.*\/Camel\/7b1253db\/7b1253db.json$/, $JSON_FILE) and $failing_test_class eq "CamelReceivedTimestamp") {
+    # Skip invalid entries, e.g.,
+    # https://github.com/jose/apr_eval_framework/blob/master/data/benchmarks-metadata/Bugs.jar/Camel/7b1253db/7b1253db.json#L11
+    next;
+  }
+  if (grep(/^$failing_test_class$/, @trigger_tests) or grep(/^${failing_test_class}::.*$/, @trigger_tests)) {
+    # Skip it, if it has been reported
+    next;
+  }
   open(my $fh, "<$TEST_LOG_FILE") or die("Cannot read $TEST_LOG_FILE");
   while (my $line = <$fh>) {
     if ($line =~ /^Failed tests:\s*(.*)\($failing_test_class\)/) {

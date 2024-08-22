@@ -91,6 +91,7 @@ for my $line(@test_log_lines) {
 # the previous step.
 #
 
+@test_log_lines = `tac $TEST_LOG_FILE`;
 for my $failing_test_class (@{$failing_test_classes}) {
   if ($failing_test_class eq "") {
     # Skip empty entries, e.g.,
@@ -106,12 +107,26 @@ for my $failing_test_class (@{$failing_test_classes}) {
     # Skip it, if it has been reported
     next;
   }
-  open(my $fh, "<$TEST_LOG_FILE") or die("Cannot read $TEST_LOG_FILE");
-  while (my $line = <$fh>) {
+  for my $line(@test_log_lines) {
     if ($line =~ /^Failed tests:\s*(.*)\($failing_test_class\)/) {
       push @trigger_tests, "${failing_test_class}::$1";
     } elsif ($line =~ /^\s*(.*)\($failing_test_class\)/) {
       push @trigger_tests, "${failing_test_class}::$1";
+    } elsif ($line =~ /^Running\s*$failing_test_class$/) {
+      # Fix for
+      # Logging-Log4J2/2afe3dff
+      # Logging-Log4J2/3b12e13d
+      # Logging-Log4J2/7f391872
+      # Logging-Log4J2/88641f49
+      # Logging-Log4J2/c79a743b
+      # Logging-Log4J2/d8af1c93
+      #
+      # but before reporting a failing test class, check if no test case of it
+      # has been reported.  if so, ignore the failing test class.
+      if (grep(/^$failing_test_class$/, @trigger_tests) or grep(/^${failing_test_class}::.*$/, @trigger_tests)) {
+        next;
+      }
+      push @trigger_tests, "$failing_test_class";
     }
   }
 }
@@ -119,9 +134,9 @@ for my $failing_test_class (@{$failing_test_classes}) {
 # Sanity check, is there any failing test cases?
 scalar(@trigger_tests) > 0 or die("No failing test cases has been identified in $TEST_LOG_FILE!");
 
-# Print list of trigger tests to the output file
+# Print a sorted list of trigger tests to the output file
 open(my $fh, ">$TRIGGER_TESTS_FILE") or die("Could not open $TRIGGER_TESTS_FILE to write the list of trigger tests!");
-for my $trigger_test (uniq @trigger_tests) {
+for my $trigger_test (sort(uniq(@trigger_tests))) {
   print $fh "--- $trigger_test\n";
 }
 close($fh);

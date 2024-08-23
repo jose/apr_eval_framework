@@ -34,6 +34,8 @@ while read -r line; do
   bid=$(echo "$line" | cut -f3 -d',')
   echo "project: $pid :: bug: $bid"
 
+  rm -f "$SCRIPT_DIR/$pid/$bid/trigger_tests.txt"
+  touch "$SCRIPT_DIR/$pid/$bid/trigger_tests.txt"
   ./get_trigger_tests.pl "$SCRIPT_DIR/$pid/$bid/$bid.json" "$SCRIPT_DIR/$pid/$bid/test-results.txt" "$SCRIPT_DIR/$pid/$bid/trigger_tests.txt"
 done < <(grep "Bugs.jar," "$BUGS_FILE")
 

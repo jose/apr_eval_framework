@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:18:11.277339797 +0000
-+++ src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:18:13.231391098 +0000
+--- src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:13:16.182404933 -0700
++++ src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:13:17.732467883 -0700
 @@ -122,7 +122,7 @@
          for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext(); ) {
              String attrKey = it.next();

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/Lexer.java	2023-12-05 20:56:54.586255628 +0000
-+++ src/main/java/org/apache/commons/csv/Lexer.java	2023-12-05 20:56:56.762370570 +0000
+--- src/main/java/org/apache/commons/csv/Lexer.java	2024-07-18 03:56:01.387891228 -0700
++++ src/main/java/org/apache/commons/csv/Lexer.java	2024-07-18 03:56:03.346971348 -0700
 @@ -108,8 +108,11 @@
              throw new IOException("EOF whilst processing escape sequence");
          default:

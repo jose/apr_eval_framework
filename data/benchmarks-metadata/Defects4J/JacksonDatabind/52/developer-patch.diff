@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java	2023-12-05 21:06:59.455444141 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java	2023-12-05 21:07:01.998668415 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java	2024-07-18 04:04:16.039298362 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java	2024-07-18 04:04:18.030380304 -0700
 @@ -609,7 +609,7 @@
          if (extTypes != null) {
              // 21-Jun-2016, tatu: related to [databind#999], may need to link type ids too,
@@ -9,8 +9,8 @@
              // we consider this non-standard, to offline handling
              _nonStandardCreation = true;
          }
---- src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2023-12-05 21:06:59.456016247 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2023-12-05 21:07:01.999037150 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2024-07-18 04:04:16.039298362 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2024-07-18 04:04:18.030380304 -0700
 @@ -307,7 +307,21 @@
           *
           * @since 2.8

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/CollectionType.java	2023-12-05 21:05:34.937746444 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/CollectionType.java	2023-12-05 21:05:37.547672197 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/CollectionType.java	2024-07-18 04:03:07.952496282 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/CollectionType.java	2024-07-18 04:03:09.947578389 -0700
 @@ -1,5 +1,6 @@
  package com.fasterxml.jackson.databind.type;
  
@@ -23,8 +23,8 @@
                  // !!! TODO: Wrong, does have supertypes, but:
                  _bogusSuperClass(rawType), null, elemT,
                  null, null, false);
---- src/main/java/com/fasterxml/jackson/databind/type/MapType.java	2023-12-05 21:05:34.938269879 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/MapType.java	2023-12-05 21:05:37.548271713 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/MapType.java	2024-07-18 04:03:07.953496324 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/MapType.java	2024-07-18 04:03:09.947578389 -0700
 @@ -1,5 +1,6 @@
  package com.fasterxml.jackson.databind.type;
  
@@ -49,8 +49,8 @@
                  keyT, valueT, null, null, false);
      }
  
---- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:05:34.939222371 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:05:37.549088593 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:07.953496324 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:09.947578389 -0700
 @@ -113,8 +113,9 @@
          if (cls.isArray()) {
              throw new IllegalArgumentException("Can not construct SimpleType for an array (class: "+cls.getName()+")");

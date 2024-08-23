@@ -1,5 +1,5 @@
---- source/org/jfree/chart/plot/MultiplePiePlot.java	2023-12-05 17:34:20.231570682 +0000
-+++ source/org/jfree/chart/plot/MultiplePiePlot.java	2023-12-05 17:34:27.267094405 +0000
+--- source/org/jfree/chart/plot/MultiplePiePlot.java	2024-07-18 03:04:30.319653597 -0700
++++ source/org/jfree/chart/plot/MultiplePiePlot.java	2024-07-18 03:04:34.384810119 -0700
 @@ -142,7 +142,7 @@
       */
      public MultiplePiePlot(CategoryDataset dataset) {

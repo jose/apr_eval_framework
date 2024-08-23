@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2023-12-05 19:33:19.019597433 +0000
-+++ src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2023-12-05 19:33:22.956750035 +0000
+--- src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2024-07-18 03:33:07.449292724 -0700
++++ src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2024-07-18 03:33:10.789429523 -0700
 @@ -315,7 +315,7 @@
        Node n = assign.getFirstChild();
        if (n != null && NodeUtil.isVarOrSimpleAssignLhs(n, assign)

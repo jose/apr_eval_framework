@@ -1,6 +1,6 @@
 Only in src/main/java/org/jsoup/nodes: PseudoTextElement.java
---- src/main/java/org/jsoup/select/Evaluator.java	2023-12-05 21:19:27.522672507 +0000
-+++ src/main/java/org/jsoup/select/Evaluator.java	2023-12-05 21:19:30.544471905 +0000
+--- src/main/java/org/jsoup/select/Evaluator.java	2024-07-18 04:14:21.673071904 -0700
++++ src/main/java/org/jsoup/select/Evaluator.java	2024-07-18 04:14:24.325179964 -0700
 @@ -6,6 +6,8 @@
  import org.jsoup.nodes.DocumentType;
  import org.jsoup.nodes.Element;
@@ -37,8 +37,8 @@ Only in src/main/java/org/jsoup/nodes: PseudoTextElement.java
 +        }
 +    }
  }
---- src/main/java/org/jsoup/select/QueryParser.java	2023-12-05 21:19:27.523006965 +0000
-+++ src/main/java/org/jsoup/select/QueryParser.java	2023-12-05 21:19:30.544791244 +0000
+--- src/main/java/org/jsoup/select/QueryParser.java	2024-07-18 04:14:21.673071904 -0700
++++ src/main/java/org/jsoup/select/QueryParser.java	2024-07-18 04:14:24.326180005 -0700
 @@ -200,6 +200,8 @@
          	evals.add(new Evaluator.IsEmpty());
          else if (tq.matchChomp(":root"))

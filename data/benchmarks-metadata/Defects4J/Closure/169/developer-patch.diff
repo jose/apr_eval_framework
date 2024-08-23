@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/ArrowType.java	2023-12-05 20:05:01.848339905 +0000
-+++ src/com/google/javascript/rhino/jstype/ArrowType.java	2023-12-05 20:05:05.993385522 +0000
+--- src/com/google/javascript/rhino/jstype/ArrowType.java	2024-07-18 03:46:11.958928136 -0700
++++ src/com/google/javascript/rhino/jstype/ArrowType.java	2024-07-18 03:46:15.512071667 -0700
 @@ -174,7 +174,7 @@
     * @return True if our parameter spec is equal to {@code that}'s parameter
     *     spec.
@@ -35,8 +35,8 @@
  
    @Override
 Only in src/com/google/javascript/rhino/jstype: EquivalenceMethod.java
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:05:01.848525406 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:05:05.994417395 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:46:11.958928136 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:46:15.512071667 -0700
 @@ -789,7 +789,7 @@
    private FunctionType tryMergeFunctionPiecewise(
        FunctionType other, boolean leastSuper) {
@@ -76,8 +76,8 @@ Only in src/com/google/javascript/rhino/jstype: EquivalenceMethod.java
    }
  
    /**
---- src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:05:01.993580637 +0000
-+++ src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:05:05.994999075 +0000
+--- src/com/google/javascript/rhino/jstype/JSType.java	2024-07-18 03:46:12.048931771 -0700
++++ src/com/google/javascript/rhino/jstype/JSType.java	2024-07-18 03:46:15.513071707 -0700
 @@ -489,7 +489,7 @@
     * Checks if two types are equivalent.
     */
@@ -190,8 +190,8 @@ Only in src/com/google/javascript/rhino/jstype: EquivalenceMethod.java
      }
  
      // Relies on the fact that for the base {@link JSType}, only one
---- src/com/google/javascript/rhino/jstype/RecordType.java	2023-12-05 20:05:01.993957388 +0000
-+++ src/com/google/javascript/rhino/jstype/RecordType.java	2023-12-05 20:05:05.995500086 +0000
+--- src/com/google/javascript/rhino/jstype/RecordType.java	2024-07-18 03:46:12.048931771 -0700
++++ src/com/google/javascript/rhino/jstype/RecordType.java	2024-07-18 03:46:15.513071707 -0700
 @@ -115,7 +115,7 @@
    }
  
@@ -236,8 +236,8 @@ Only in src/com/google/javascript/rhino/jstype: EquivalenceMethod.java
          }
        }
      }
---- src/com/google/javascript/rhino/jstype/UnionType.java	2023-12-05 20:05:01.994301834 +0000
-+++ src/com/google/javascript/rhino/jstype/UnionType.java	2023-12-05 20:05:05.995908691 +0000
+--- src/com/google/javascript/rhino/jstype/UnionType.java	2024-07-18 03:46:12.049931812 -0700
++++ src/com/google/javascript/rhino/jstype/UnionType.java	2024-07-18 03:46:15.513071707 -0700
 @@ -331,22 +331,22 @@
     * and all alternates are equal.
     */

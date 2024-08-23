@@ -1,21 +1,5 @@
---- src/java/org/apache/commons/cli2/WriteableCommandLine.java	2023-12-05 19:19:47.034305550 +0000
-+++ src/java/org/apache/commons/cli2/WriteableCommandLine.java	2023-12-05 19:19:50.142175479 +0000
-@@ -99,6 +99,7 @@
-      *
-      * @return the current option
-      */
-+    Option getCurrentOption();
- 
-     /**
-      * Sets the current option. This method is called by concrete option
-@@ -107,4 +108,5 @@
-      *
-      * @param currentOption the new current option
-      */
-+    void setCurrentOption(Option currentOption);
- }
---- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:19:47.034663335 +0000
-+++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:19:50.142844711 +0000
+--- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:22:13.459552696 -0700
++++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:22:16.082659162 -0700
 @@ -48,6 +48,8 @@
      private final Map defaultSwitches = new HashMap();
      private final List normalised;
@@ -78,8 +62,8 @@
      }
  
      public String toString() {
---- src/java/org/apache/commons/cli2/option/GroupImpl.java	2023-12-05 19:19:47.035054947 +0000
-+++ src/java/org/apache/commons/cli2/option/GroupImpl.java	2023-12-05 19:19:50.143452720 +0000
+--- src/java/org/apache/commons/cli2/option/GroupImpl.java	2024-07-18 03:22:13.459552696 -0700
++++ src/java/org/apache/commons/cli2/option/GroupImpl.java	2024-07-18 03:22:16.082659162 -0700
 @@ -510,7 +510,13 @@
       */
      private boolean looksLikeOption(final WriteableCommandLine commandLine,
@@ -94,3 +78,19 @@
      }
  }
  
+--- src/java/org/apache/commons/cli2/WriteableCommandLine.java	2024-07-18 03:22:13.458552655 -0700
++++ src/java/org/apache/commons/cli2/WriteableCommandLine.java	2024-07-18 03:22:16.081659121 -0700
+@@ -99,6 +99,7 @@
+      *
+      * @return the current option
+      */
++    Option getCurrentOption();
+ 
+     /**
+      * Sets the current option. This method is called by concrete option
+@@ -107,4 +108,5 @@
+      *
+      * @param currentOption the new current option
+      */
++    void setCurrentOption(Option currentOption);
+ }

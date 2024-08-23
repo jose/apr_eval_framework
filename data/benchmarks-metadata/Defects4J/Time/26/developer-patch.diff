@@ -1,23 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:14:11.165488662 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:14:16.138639439 +0000
-@@ -933,6 +933,15 @@
-      * @throws IllegalArgumentException if the zone has no equivalent local time
-      * @since 2.0
-      */
-+    public long convertLocalToUTC(long instantLocal, boolean strict, long originalInstantUTC) {
-+        int offsetOriginal = getOffset(originalInstantUTC);
-+        long instantUTC = instantLocal - offsetOriginal;
-+        int offsetLocalFromOriginal = getOffset(instantUTC);
-+        if (offsetLocalFromOriginal == offsetOriginal) {
-+            return instantUTC;
-+        }
-+        return convertLocalToUTC(instantLocal, strict);
-+    }
- 
-     /**
-      * Converts a local instant to a standard UTC instant with the same
---- src/main/java/org/joda/time/chrono/ZonedChronology.java	2023-12-05 18:14:11.183718634 +0000
-+++ src/main/java/org/joda/time/chrono/ZonedChronology.java	2023-12-05 18:14:16.157088280 +0000
+--- src/main/java/org/joda/time/chrono/ZonedChronology.java	2024-07-18 03:10:26.735856960 -0700
++++ src/main/java/org/joda/time/chrono/ZonedChronology.java	2024-07-18 03:10:30.992029572 -0700
 @@ -433,7 +433,7 @@
              } else {
                 long localInstant = iZone.convertUTCToLocal(instant);
@@ -80,8 +62,26 @@
              }
          }
  
---- src/main/java/org/joda/time/field/LenientDateTimeField.java	2023-12-05 18:14:11.189739236 +0000
-+++ src/main/java/org/joda/time/field/LenientDateTimeField.java	2023-12-05 18:14:16.162572233 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:10:26.726856595 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:10:30.983029207 -0700
+@@ -933,6 +933,15 @@
+      * @throws IllegalArgumentException if the zone has no equivalent local time
+      * @since 2.0
+      */
++    public long convertLocalToUTC(long instantLocal, boolean strict, long originalInstantUTC) {
++        int offsetOriginal = getOffset(originalInstantUTC);
++        long instantUTC = instantLocal - offsetOriginal;
++        int offsetLocalFromOriginal = getOffset(instantUTC);
++        if (offsetLocalFromOriginal == offsetOriginal) {
++            return instantUTC;
++        }
++        return convertLocalToUTC(instantLocal, strict);
++    }
+ 
+     /**
+      * Converts a local instant to a standard UTC instant with the same
+--- src/main/java/org/joda/time/field/LenientDateTimeField.java	2024-07-18 03:10:26.737857041 -0700
++++ src/main/java/org/joda/time/field/LenientDateTimeField.java	2024-07-18 03:10:30.994029653 -0700
 @@ -72,6 +72,6 @@
          long localInstant = iBase.getZone().convertUTCToLocal(instant);
          long difference = FieldUtils.safeSubtract(value, get(instant));

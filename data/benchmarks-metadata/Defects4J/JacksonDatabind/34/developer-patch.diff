@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2023-12-05 21:05:10.597327581 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2023-12-05 21:05:13.347639200 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2024-07-18 04:02:48.697703860 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2024-07-18 04:02:50.682785555 -0700
 @@ -78,7 +78,7 @@
          } else {
              Class<?> h = handledType();

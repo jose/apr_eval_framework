@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/time/DateUtils.java	2023-12-05 18:54:37.439845546 +0000
-+++ src/main/java/org/apache/commons/lang3/time/DateUtils.java	2023-12-05 18:54:43.874051795 +0000
+--- src/main/java/org/apache/commons/lang3/time/DateUtils.java	2024-07-18 03:13:44.256946279 -0700
++++ src/main/java/org/apache/commons/lang3/time/DateUtils.java	2024-07-18 03:13:48.282111159 -0700
 @@ -262,7 +262,7 @@
          return (cal1.get(Calendar.MILLISECOND) == cal2.get(Calendar.MILLISECOND) &&
                  cal1.get(Calendar.SECOND) == cal2.get(Calendar.SECOND) &&

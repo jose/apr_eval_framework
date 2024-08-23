@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:33.704244805 +0000
-+++ src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:36.700103213 +0000
+--- src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:16:12.630585771 -0700
++++ src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:16:15.274693447 -0700
 @@ -85,8 +85,9 @@
       @param val the new attribute value; must not be null
       */

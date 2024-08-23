@@ -1,5 +1,5 @@
---- source/org/jfree/data/xy/XYSeries.java	2023-12-05 17:32:21.958239030 +0000
-+++ source/org/jfree/data/xy/XYSeries.java	2023-12-05 17:32:28.992345842 +0000
+--- source/org/jfree/data/xy/XYSeries.java	2024-07-18 03:03:25.750007276 -0700
++++ source/org/jfree/data/xy/XYSeries.java	2024-07-18 03:03:29.735166192 -0700
 @@ -541,11 +541,15 @@
          if (x == null) {
              throw new IllegalArgumentException("Null 'x' argument.");

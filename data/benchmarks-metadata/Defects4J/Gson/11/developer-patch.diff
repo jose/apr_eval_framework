@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:57.261769752 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:59.503781247 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:51.686452606 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:53.335519578 -0700
 @@ -368,6 +368,7 @@
          in.nextNull();
          return null;

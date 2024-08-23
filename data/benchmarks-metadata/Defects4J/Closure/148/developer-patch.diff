@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 20:01:48.616787641 +0000
-+++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 20:01:53.060769384 +0000
+--- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:43:26.574260070 -0700
++++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:43:30.216406352 -0700
 @@ -179,6 +179,9 @@
        case Token.ARRAYLIT:
          typeNameString = "object";
@@ -10,8 +10,8 @@
        case Token.NAME:
          // We assume here that programs don't change the value of the
          // keyword undefined to something other than the value undefined.
---- src/com/google/javascript/jscomp/SourceMap.java	2023-12-05 20:01:48.776582191 +0000
-+++ src/com/google/javascript/jscomp/SourceMap.java	2023-12-05 20:01:53.061401636 +0000
+--- src/com/google/javascript/jscomp/SourceMap.java	2024-07-18 03:43:26.679264288 -0700
++++ src/com/google/javascript/jscomp/SourceMap.java	2024-07-18 03:43:30.216406352 -0700
 @@ -38,6 +38,7 @@
   */
  public class SourceMap {

@@ -1,2 +1,2 @@
---- spoon.test.filters.CUFilterTest::testSingleExcludeWithoutFilter
 --- spoon.test.ctClass.CtClassTest::testSpoonShouldInferImplicitPackageInNoClasspath
+--- spoon.test.filters.CUFilterTest::testSingleExcludeWithoutFilter

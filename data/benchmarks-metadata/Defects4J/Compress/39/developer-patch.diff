@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/utils/ArchiveUtils.java	2023-12-05 20:55:32.648556115 +0000
-+++ src/main/java/org/apache/commons/compress/utils/ArchiveUtils.java	2023-12-05 20:55:36.203680696 +0000
+--- src/main/java/org/apache/commons/compress/utils/ArchiveUtils.java	2024-07-18 03:54:48.362908917 -0700
++++ src/main/java/org/apache/commons/compress/utils/ArchiveUtils.java	2024-07-18 03:54:51.452034617 -0700
 @@ -28,6 +28,7 @@
   */
  public class ArchiveUtils {

@@ -1,5 +1,17 @@
---- src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:21.108724225 +0000
-+++ src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:25.865562127 +0000
+--- src/main/java/org/joda/time/field/UnsupportedDurationField.java	2024-07-18 03:06:47.285045024 -0700
++++ src/main/java/org/joda/time/field/UnsupportedDurationField.java	2024-07-18 03:06:51.228201451 -0700
+@@ -224,9 +224,6 @@
+      * @return zero always
+      */
+     public int compareTo(DurationField durationField) {
+-        if (durationField.isSupported()) {
+-            return 1;
+-        }
+         return 0;
+     }
+ 
+--- src/main/java/org/joda/time/Partial.java	2024-07-18 03:06:47.285045024 -0700
++++ src/main/java/org/joda/time/Partial.java	2024-07-18 03:06:51.227201411 -0700
 @@ -214,11 +214,20 @@
              DateTimeFieldType loopType = types[i];
              DurationField loopUnitField = loopType.getDurationType().getField(iChronology);
@@ -22,15 +34,3 @@
                      if (types[i - 1].getRangeDurationType() == null) {
                          if (loopType.getRangeDurationType() == null) {
                              throw new IllegalArgumentException("Types array must not contain duplicate: " +
---- src/main/java/org/joda/time/field/UnsupportedDurationField.java	2023-12-05 17:38:21.109010069 +0000
-+++ src/main/java/org/joda/time/field/UnsupportedDurationField.java	2023-12-05 17:38:25.865872285 +0000
-@@ -224,9 +224,6 @@
-      * @return zero always
-      */
-     public int compareTo(DurationField durationField) {
--        if (durationField.isSupported()) {
--            return 1;
--        }
-         return 0;
-     }
- 

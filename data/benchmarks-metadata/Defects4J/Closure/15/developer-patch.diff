@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2023-12-05 19:24:19.667476558 +0000
-+++ src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2023-12-05 19:24:23.833699081 +0000
+--- src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2024-07-18 03:26:06.655075137 -0700
++++ src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2024-07-18 03:26:10.399228442 -0700
 @@ -99,6 +99,9 @@
            return true;
          }

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:33:36.812615337 +0000
-+++ src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:33:40.819011271 +0000
+--- src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:33:22.602913353 -0700
++++ src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:33:26.202060759 -0700
 @@ -1577,6 +1577,13 @@
  
        // Functions with explcit 'this' types must be called in a GETPROP

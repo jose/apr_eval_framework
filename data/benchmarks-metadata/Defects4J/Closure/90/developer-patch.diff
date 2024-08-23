@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 19:36:45.870793713 +0000
-+++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 19:36:49.781224814 +0000
+--- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:36:04.348397406 -0700
++++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:36:07.519526011 -0700
 @@ -181,7 +181,7 @@
        // create interfaces JSType, ObjectType, FunctionType etc and have
        // separate implementation instead of the class hierarchy, so that
@@ -9,8 +9,8 @@
                typeRegistry.getNativeType(OBJECT_TYPE))) {
          reportWarning(THIS_TYPE_NON_OBJECT, type.toString());
          return false;
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:36:45.871285407 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:36:49.781817405 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:36:04.348397406 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:36:07.520526051 -0700
 @@ -877,6 +877,9 @@
      // mean "nullable Foo". For certain tags (like @extends) we de-nullify
      // the name for them.

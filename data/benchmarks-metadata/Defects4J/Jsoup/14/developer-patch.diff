@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:14:48.865005764 +0000
-+++ src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:14:50.801334390 +0000
+--- src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:10:23.443387022 -0700
++++ src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:10:25.023450995 -0700
 @@ -194,6 +194,9 @@
          return tagPending.tagName.equals(lastStartTag.tagName);
      }
@@ -10,8 +10,8 @@
  
      boolean isTrackErrors() {
          return trackErrors;
---- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:14:48.865490298 +0000
-+++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:14:50.801756649 +0000
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:10:23.444387062 -0700
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:10:25.024451035 -0700
 @@ -215,8 +215,13 @@
              if (r.matches('/')) {
                  t.createTempBuffer();

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:05:28.817722611 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:05:31.445547223 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:03.045294329 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:05.015375407 -0700
 @@ -132,7 +132,7 @@
          }
          */

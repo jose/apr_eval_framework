@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/stat/descriptive/SummaryStatistics.java	2023-12-05 17:12:28.059010219 +0000
-+++ src/main/java/org/apache/commons/math/stat/descriptive/SummaryStatistics.java	2023-12-05 17:12:33.761706699 +0000
+--- src/main/java/org/apache/commons/math/stat/descriptive/SummaryStatistics.java	2024-07-18 02:47:51.027998352 -0700
++++ src/main/java/org/apache/commons/math/stat/descriptive/SummaryStatistics.java	2024-07-18 02:47:55.201166132 -0700
 @@ -155,13 +155,13 @@
          secondMoment.increment(value);
          // If mean, variance or geomean have been overridden,

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java	2023-12-05 17:15:02.418397038 +0000
-+++ src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java	2023-12-05 17:15:08.196260241 +0000
+--- src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java	2024-07-18 02:49:52.872967030 -0700
++++ src/main/java/org/apache/commons/math/util/MultidimensionalCounter.java	2024-07-18 02:49:56.943130023 -0700
 @@ -234,13 +234,7 @@
              indices[i] = idx;
          }

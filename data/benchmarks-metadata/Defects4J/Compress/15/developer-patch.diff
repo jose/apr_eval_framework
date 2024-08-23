@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:13:47.668219168 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:13:54.475456743 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:52:00.347063860 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:52:03.427189293 -0700
 @@ -666,13 +666,13 @@
          String myComment = getComment();
          String otherComment = other.getComment();

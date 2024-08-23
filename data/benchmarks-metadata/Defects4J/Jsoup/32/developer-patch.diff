@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:16:13.219671686 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:16:15.785610555 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:11:34.749278598 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:11:36.322342715 -0700
 @@ -1135,7 +1135,7 @@
      @Override
      public Element clone() {

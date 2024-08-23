@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:55:20.782581515 +0000
-+++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:55:27.269414599 +0000
+--- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:14:11.256052230 -0700
++++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:14:15.212213634 -0700
 @@ -1410,7 +1410,7 @@
              if (chars[i] == 'l'
                  || chars[i] == 'L') {

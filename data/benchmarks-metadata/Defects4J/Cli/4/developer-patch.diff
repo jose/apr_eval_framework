@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:18:00.653548837 +0000
-+++ src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:18:03.698499098 +0000
+--- src/java/org/apache/commons/cli/Parser.java	2024-07-18 03:20:42.281852137 -0700
++++ src/java/org/apache/commons/cli/Parser.java	2024-07-18 03:20:44.862956891 -0700
 @@ -295,7 +295,9 @@
          if (requiredOptions.size() > 0)
          {

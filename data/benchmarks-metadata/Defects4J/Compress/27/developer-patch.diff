@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:53:54.206514075 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:53:58.259167615 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:53:24.316485073 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:53:27.419611647 -0700
 @@ -130,10 +130,6 @@
              end--;
              trailer = buffer[end - 1];

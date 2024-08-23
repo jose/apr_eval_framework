@@ -1,5 +1,5 @@
---- source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java	2023-12-05 17:33:46.373517198 +0000
-+++ source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java	2023-12-05 17:33:54.180722074 +0000
+--- source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java	2024-07-18 03:04:11.888898430 -0700
++++ source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java	2024-07-18 03:04:15.969066096 -0700
 @@ -62,7 +62,7 @@
       * @return The formatted HTML area tag attribute(s).
       */

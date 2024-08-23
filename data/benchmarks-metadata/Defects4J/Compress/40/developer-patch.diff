@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/utils/BitInputStream.java	2023-12-05 20:55:40.769963585 +0000
-+++ src/main/java/org/apache/commons/compress/utils/BitInputStream.java	2023-12-05 20:55:44.460127718 +0000
+--- src/main/java/org/apache/commons/compress/utils/BitInputStream.java	2024-07-18 03:54:55.399195232 -0700
++++ src/main/java/org/apache/commons/compress/utils/BitInputStream.java	2024-07-18 03:54:58.405317556 -0700
 @@ -82,7 +82,7 @@
          if (count < 0 || count > MAXIMUM_CACHE_SIZE) {
              throw new IllegalArgumentException("count must not be negative or greater than " + MAXIMUM_CACHE_SIZE);

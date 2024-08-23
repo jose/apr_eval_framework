@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/stat/Frequency.java	2023-12-05 17:18:18.196392721 +0000
-+++ src/main/java/org/apache/commons/math/stat/Frequency.java	2023-12-05 17:18:22.595180745 +0000
+--- src/main/java/org/apache/commons/math/stat/Frequency.java	2024-07-18 02:52:23.416460791 -0700
++++ src/main/java/org/apache/commons/math/stat/Frequency.java	2024-07-18 02:52:26.398587740 -0700
 @@ -300,7 +300,7 @@
       */
      @Deprecated

@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:15:40.355133702 +0000
-+++ src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:15:42.366813888 +0000
+--- src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:11:06.793142144 -0700
++++ src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:11:08.351205226 -0700
 @@ -215,7 +215,7 @@
      private static final String[] formatAsInlineTags = {
              "title", "a", "p", "h1", "h2", "h3", "h4", "h5", "h6", "pre", "address", "li", "th", "td", "script", "style"

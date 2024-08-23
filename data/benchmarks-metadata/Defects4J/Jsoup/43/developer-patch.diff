@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:17:05.009803134 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:17:07.210692049 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:12:20.206131398 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:12:21.859198776 -0700
 @@ -571,7 +571,7 @@
  
          for (int i = 0; i < elements.size(); i++) {

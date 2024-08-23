@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 19:38:04.787030096 +0000
-+++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 19:38:08.855768121 +0000
+--- src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:37:10.644086016 -0700
++++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:37:14.426239401 -0700
 @@ -89,6 +89,7 @@
        JSDocInfo jsDoc = getFunctionJsDocInfo(n);
        if (jsDoc != null &&

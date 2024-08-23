@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/base/ParserMinimalBase.java	2023-12-05 21:00:16.447265218 +0000
-+++ src/main/java/com/fasterxml/jackson/core/base/ParserMinimalBase.java	2023-12-05 21:00:18.501430193 +0000
+--- src/main/java/com/fasterxml/jackson/core/base/ParserMinimalBase.java	2024-07-18 03:58:56.890123180 -0700
++++ src/main/java/com/fasterxml/jackson/core/base/ParserMinimalBase.java	2024-07-18 03:58:58.536191152 -0700
 @@ -389,6 +389,9 @@
          if (_currToken == JsonToken.VALUE_STRING) {
              return getText();
@@ -20,8 +20,8 @@
          if (_currToken == null || _currToken == JsonToken.VALUE_NULL || !_currToken.isScalarValue()) {
              return defaultValue;
          }
---- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:00:16.344092531 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:00:18.502639163 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:58:56.836120950 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:58:58.538191235 -0700
 @@ -250,6 +250,9 @@
              }
              return _textBuffer.contentsAsString();
@@ -42,8 +42,8 @@
          return super.getValueAsString(defValue);
      }
  
---- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:00:16.344246484 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:00:18.503144540 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:58:56.836120950 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:58:58.538191235 -0700
 @@ -302,6 +302,9 @@
              }
              return _textBuffer.contentsAsString();

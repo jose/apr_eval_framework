@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/ResolvedRecursiveType.java	2023-12-05 21:10:20.468162563 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/ResolvedRecursiveType.java	2023-12-05 21:10:23.000218131 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/ResolvedRecursiveType.java	2024-07-18 04:06:50.803663235 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/ResolvedRecursiveType.java	2024-07-18 04:06:52.768744036 -0700
 @@ -26,6 +26,13 @@
          _referencedType = ref;
      }

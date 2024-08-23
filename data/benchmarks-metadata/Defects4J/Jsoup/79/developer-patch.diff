@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/LeafNode.java	2023-12-05 21:20:23.249821647 +0000
-+++ src/main/java/org/jsoup/nodes/LeafNode.java	2023-12-05 21:20:26.721126804 +0000
+--- src/main/java/org/jsoup/nodes/LeafNode.java	2024-07-18 04:15:11.272088997 -0700
++++ src/main/java/org/jsoup/nodes/LeafNode.java	2024-07-18 04:15:13.884195173 -0700
 @@ -2,9 +2,11 @@
  
  import org.jsoup.helper.Validate;

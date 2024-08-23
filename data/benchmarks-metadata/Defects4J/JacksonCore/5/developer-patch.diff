@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/JsonPointer.java	2023-12-05 20:59:56.832655201 +0000
-+++ src/main/java/com/fasterxml/jackson/core/JsonPointer.java	2023-12-05 20:59:58.995941719 +0000
+--- src/main/java/com/fasterxml/jackson/core/JsonPointer.java	2024-07-18 03:58:40.690454234 -0700
++++ src/main/java/com/fasterxml/jackson/core/JsonPointer.java	2024-07-18 03:58:42.329521917 -0700
 @@ -190,7 +190,7 @@
              return -1;
          }

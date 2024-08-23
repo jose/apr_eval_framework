@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2023-12-05 20:08:28.551257194 +0000
-+++ src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2023-12-05 20:08:31.990596418 +0000
+--- src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2024-07-18 03:48:56.779595623 -0700
++++ src/java/org/apache/commons/collections/map/CaseInsensitiveMap.java	2024-07-18 03:48:59.619710682 -0700
 @@ -118,7 +118,11 @@
       */
      protected Object convertKey(Object key) {

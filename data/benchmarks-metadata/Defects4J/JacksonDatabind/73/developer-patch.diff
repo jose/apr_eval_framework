@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java	2023-12-05 21:09:09.645293932 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java	2023-12-05 21:09:12.710912351 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java	2024-07-18 04:05:57.205459400 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java	2024-07-18 04:05:59.253543613 -0700
 @@ -4,6 +4,7 @@
  import java.util.*;
  
@@ -20,8 +20,8 @@
          }
      }
  
---- src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java	2023-12-05 21:09:09.428861266 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java	2023-12-05 21:09:12.711326720 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java	2024-07-18 04:05:57.131456357 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java	2024-07-18 04:05:59.253543613 -0700
 @@ -641,7 +641,7 @@
       * @param inferMutators Whether mutators can be "pulled in" by visible
       *    accessors or not. 

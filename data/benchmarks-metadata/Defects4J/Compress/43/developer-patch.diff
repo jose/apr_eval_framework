@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2023-12-05 20:56:05.042908070 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2023-12-05 20:56:08.708464249 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2024-07-18 03:55:16.452053516 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2024-07-18 03:55:19.515178786 -0700
 @@ -1031,7 +1031,7 @@
  
          final long localHeaderStart = streamCompressor.getTotalBytesWritten();

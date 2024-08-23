@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:13:57.999772462 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:13:59.909588486 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:09:39.955609804 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:09:41.518673874 -0700
 @@ -267,7 +267,7 @@
      public Element append(String html) {
          Validate.notNull(html);
@@ -27,8 +27,8 @@
          Elements wrapChildren = wrapBody.children();
          Element wrap = wrapChildren.first();
          if (wrap == null) // nothing to wrap with; noop
---- src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:13:58.000115048 +0000
-+++ src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:13:59.909921845 +0000
+--- src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:39.956609845 -0700
++++ src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:41.518673874 -0700
 @@ -23,6 +23,7 @@
      private final TokenQueue tq;
      private final Document doc;
@@ -74,8 +74,8 @@
                  return true;
              }
          }
---- src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:13:58.000440734 +0000
-+++ src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:13:59.910206578 +0000
+--- src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:09:39.956609845 -0700
++++ src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:09:41.518673874 -0700
 @@ -25,6 +25,7 @@
      private boolean empty = false; // can hold nothing; e.g. img
      private boolean preserveWhitespace = false; // for pre, textarea, script etc

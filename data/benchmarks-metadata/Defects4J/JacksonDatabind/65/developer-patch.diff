@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2023-12-05 21:08:19.492540302 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2023-12-05 21:08:22.304068350 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2024-07-18 04:05:18.706876428 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java	2024-07-18 04:05:20.748960395 -0700
 @@ -125,7 +125,8 @@
                  return result;
              }
@@ -10,8 +10,8 @@
          }
          if (_keyClass.isEnum() && ctxt.getConfig().isEnabled(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL)) {
              return null;
---- src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2023-12-05 21:08:19.616533266 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2023-12-05 21:08:22.304465493 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2024-07-18 04:05:18.767878936 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java	2024-07-18 04:05:20.748960395 -0700
 @@ -522,7 +522,7 @@
          // So, of all single-arg static methods:
          for (AnnotatedMethod am : _classInfo.getStaticMethods()) {

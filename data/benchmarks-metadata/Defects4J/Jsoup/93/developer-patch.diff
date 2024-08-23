@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:22:01.575376894 +0000
-+++ src/main/java/org/jsoup/nodes/FormElement.java	2023-12-05 21:22:04.616670872 +0000
+--- src/main/java/org/jsoup/nodes/FormElement.java	2024-07-18 04:16:37.707606984 -0700
++++ src/main/java/org/jsoup/nodes/FormElement.java	2024-07-18 04:16:40.382715922 -0700
 @@ -86,6 +86,7 @@
              if (name.length() == 0) continue;
              String type = el.attr("type");

@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/format/DateTimeFormatter.java	2023-12-05 17:39:20.253244520 +0000
-+++ src/main/java/org/joda/time/format/DateTimeFormatter.java	2023-12-05 17:39:24.817289489 +0000
+--- src/main/java/org/joda/time/format/DateTimeFormatter.java	2024-07-18 03:07:38.684084040 -0700
++++ src/main/java/org/joda/time/format/DateTimeFormatter.java	2024-07-18 03:07:42.483234756 -0700
 @@ -705,9 +705,9 @@
          
          long instantMillis = instant.getMillis();

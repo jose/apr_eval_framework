@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ControlFlowAnalysis.java	2023-12-05 19:38:41.694129831 +0000
-+++ src/com/google/javascript/jscomp/ControlFlowAnalysis.java	2023-12-05 19:38:45.736631713 +0000
+--- src/com/google/javascript/jscomp/ControlFlowAnalysis.java	2024-07-18 03:37:42.514379184 -0700
++++ src/com/google/javascript/jscomp/ControlFlowAnalysis.java	2024-07-18 03:37:45.948519152 -0700
 @@ -891,6 +891,7 @@
        case Token.ASSIGN:
        case Token.INC:
@@ -8,8 +8,8 @@
          return true;
        case Token.FUNCTION:
          return false;
---- src/com/google/javascript/jscomp/DisambiguateProperties.java	2023-12-05 19:38:41.694740714 +0000
-+++ src/com/google/javascript/jscomp/DisambiguateProperties.java	2023-12-05 19:38:45.737363789 +0000
+--- src/com/google/javascript/jscomp/DisambiguateProperties.java	2024-07-18 03:37:42.515379225 -0700
++++ src/com/google/javascript/jscomp/DisambiguateProperties.java	2024-07-18 03:37:45.948519152 -0700
 @@ -760,9 +760,16 @@
        }
        // If the property does not exist on the referenced type but the original

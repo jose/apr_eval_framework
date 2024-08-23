@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/geometry/Vector3D.java	2023-12-05 17:14:50.808404391 +0000
-+++ src/main/java/org/apache/commons/math/geometry/Vector3D.java	2023-12-05 17:14:55.789701261 +0000
+--- src/main/java/org/apache/commons/math/geometry/Vector3D.java	2024-07-18 02:49:43.701599754 -0700
++++ src/main/java/org/apache/commons/math/geometry/Vector3D.java	2024-07-18 02:49:47.717760585 -0700
 @@ -456,9 +456,21 @@
     */
    public static Vector3D crossProduct(final Vector3D v1, final Vector3D v2) {

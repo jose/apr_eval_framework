@@ -1,5 +1,5 @@
---- source/org/jfree/chart/plot/PiePlot.java	2023-12-05 17:35:09.111104213 +0000
-+++ source/org/jfree/chart/plot/PiePlot.java	2023-12-05 17:35:16.271545653 +0000
+--- source/org/jfree/chart/plot/PiePlot.java	2024-07-18 03:04:57.696707705 -0700
++++ source/org/jfree/chart/plot/PiePlot.java	2024-07-18 03:05:01.633859299 -0700
 @@ -1375,6 +1375,9 @@
       * @return The percent.
       */

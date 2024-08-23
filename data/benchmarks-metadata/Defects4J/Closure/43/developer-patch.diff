@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:29:35.018550514 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:29:38.965809251 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:29:53.732363055 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:29:57.480516045 -0700
 @@ -417,6 +417,7 @@
       * For more information, see
       * http://code.google.com/p/closure-compiler/issues/detail?id=314

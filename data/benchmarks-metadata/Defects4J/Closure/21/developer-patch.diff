@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CheckSideEffects.java	2023-12-05 19:25:16.503162171 +0000
-+++ src/com/google/javascript/jscomp/CheckSideEffects.java	2023-12-05 19:25:20.854467933 +0000
+--- src/com/google/javascript/jscomp/CheckSideEffects.java	2024-07-18 03:26:54.575037229 -0700
++++ src/com/google/javascript/jscomp/CheckSideEffects.java	2024-07-18 03:26:58.361192255 -0700
 @@ -98,7 +98,7 @@
      // Do not try to remove a block or an expr result. We already handle
      // these cases when we visit the child, and the peephole passes will

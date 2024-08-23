@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CollapseProperties.java	2023-12-05 19:42:34.800985214 +0000
-+++ src/com/google/javascript/jscomp/CollapseProperties.java	2023-12-05 19:42:38.809884253 +0000
+--- src/com/google/javascript/jscomp/CollapseProperties.java	2024-07-18 03:41:05.368613136 -0700
++++ src/com/google/javascript/jscomp/CollapseProperties.java	2024-07-18 03:41:08.580742026 -0700
 @@ -169,7 +169,7 @@
          continue;
        }

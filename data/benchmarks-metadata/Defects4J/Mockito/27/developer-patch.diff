@@ -1,5 +1,5 @@
---- src/org/mockito/internal/util/MockUtil.java	2023-12-05 17:28:52.991534235 +0000
-+++ src/org/mockito/internal/util/MockUtil.java	2023-12-05 17:28:57.997681506 +0000
+--- src/org/mockito/internal/util/MockUtil.java	2024-07-18 03:00:57.423101837 -0700
++++ src/org/mockito/internal/util/MockUtil.java	2024-07-18 03:01:01.481283301 -0700
 @@ -61,8 +61,7 @@
  
      public <T> void resetMock(T mock) {

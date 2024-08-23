@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:21:54.598639199 +0000
-+++ src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:21:57.664090328 +0000
+--- src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:16:31.354348259 -0700
++++ src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:16:34.128461230 -0700
 @@ -3,6 +3,7 @@
  import org.jsoup.SerializationException;
  import org.jsoup.helper.Validate;
@@ -57,8 +57,8 @@
  
      private static class Dataset extends AbstractMap<String, String> {
          private final Attributes attributes;
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:21:54.599065857 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:21:57.664341618 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:16:31.354348259 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:16:34.128461230 -0700
 @@ -196,6 +196,12 @@
  
      Element insert(final Token.StartTag startTag) {
@@ -72,8 +72,8 @@
  
          // handle empty unknown tags
          // when the spec expects an empty tag, will directly hit insertEmpty, so won't generate this fake end tag.
---- src/main/java/org/jsoup/parser/ParseSettings.java	2023-12-05 21:21:54.599370514 +0000
-+++ src/main/java/org/jsoup/parser/ParseSettings.java	2023-12-05 21:21:57.664573460 +0000
+--- src/main/java/org/jsoup/parser/ParseSettings.java	2024-07-18 04:16:31.354348259 -0700
++++ src/main/java/org/jsoup/parser/ParseSettings.java	2024-07-18 04:16:34.128461230 -0700
 @@ -35,6 +35,9 @@
      /**
       * Returns true if preserving attribute case.
@@ -84,8 +84,8 @@
  
      /**
       * Define parse settings.
---- src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:21:54.599717870 +0000
-+++ src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:21:57.664768475 +0000
+--- src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:16:31.354348259 -0700
++++ src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:16:34.128461230 -0700
 @@ -113,7 +113,7 @@
                      else
                          value = null;
@@ -95,8 +95,8 @@
                  }
              }
              pendingAttributeName = null;
---- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:21:54.600226340 +0000
-+++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:21:57.665334327 +0000
+--- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:16:31.354348259 -0700
++++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:16:34.128461230 -0700
 @@ -75,6 +75,7 @@
      Element insert(Token.StartTag startTag) {
          Tag tag = Tag.valueOf(startTag.name(), settings);

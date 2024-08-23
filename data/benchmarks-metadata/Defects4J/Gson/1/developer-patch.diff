@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/TypeInfoFactory.java	2023-12-05 20:58:07.662045012 +0000
-+++ gson/src/main/java/com/google/gson/TypeInfoFactory.java	2023-12-05 20:58:09.744660813 +0000
+--- gson/src/main/java/com/google/gson/TypeInfoFactory.java	2024-07-18 03:57:10.907796496 -0700
++++ gson/src/main/java/com/google/gson/TypeInfoFactory.java	2024-07-18 03:57:12.538862737 -0700
 @@ -90,8 +90,16 @@
          int indexOfActualTypeArgument = getIndex(classTypeVariables, fieldTypeVariable);
          Type[] actualTypeArguments = objParameterizedType.getActualTypeArguments();

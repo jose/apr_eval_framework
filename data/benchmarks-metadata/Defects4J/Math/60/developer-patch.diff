@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2023-12-05 17:15:49.428227555 +0000
-+++ src/main/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2023-12-05 17:15:53.375515769 +0000
+--- src/main/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2024-07-18 02:50:28.667413535 -0700
++++ src/main/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2024-07-18 02:50:31.635547671 -0700
 @@ -123,18 +123,11 @@
       */
      public double cumulativeProbability(double x) throws MathException {

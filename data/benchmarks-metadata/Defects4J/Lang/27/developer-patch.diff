@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:56:03.815106103 +0000
-+++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:56:10.435088828 +0000
+--- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:14:37.937139071 -0700
++++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:14:41.962302988 -0700
 @@ -476,7 +476,7 @@
          if (decPos > -1) {
  

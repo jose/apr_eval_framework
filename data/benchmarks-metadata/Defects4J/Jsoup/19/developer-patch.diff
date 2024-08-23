@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/safety/Whitelist.java	2023-12-05 21:15:11.822712283 +0000
-+++ src/main/java/org/jsoup/safety/Whitelist.java	2023-12-05 21:15:13.785184137 +0000
+--- src/main/java/org/jsoup/safety/Whitelist.java	2024-07-18 04:10:43.082182148 -0700
++++ src/main/java/org/jsoup/safety/Whitelist.java	2024-07-18 04:10:44.642245310 -0700
 @@ -339,6 +339,8 @@
          // try to resolve relative urls to abs, and optionally update the attribute so output html has abs.
          // rels without a baseuri get removed

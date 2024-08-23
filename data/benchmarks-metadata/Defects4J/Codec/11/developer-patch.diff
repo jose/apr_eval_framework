@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java	2023-12-05 20:06:35.972519376 +0000
-+++ src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java	2023-12-05 20:06:37.042345079 +0000
+--- src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java	2024-07-18 03:47:29.139045863 -0700
++++ src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java	2024-07-18 03:47:29.797072444 -0700
 @@ -67,9 +67,12 @@
  
      private static final byte SPACE = 32;

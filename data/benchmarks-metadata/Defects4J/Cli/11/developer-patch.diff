@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:38.790856410 +0000
-+++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:40.817798456 +0000
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:21:14.513160257 -0700
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:21:16.077223736 -0700
 @@ -629,7 +629,7 @@
          }
  

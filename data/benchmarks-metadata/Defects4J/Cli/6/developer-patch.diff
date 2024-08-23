@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:13.201272146 +0000
-+++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:18:15.309361342 +0000
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:20:53.117291898 -0700
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:20:54.689355701 -0700
 @@ -442,8 +442,10 @@
          // temp variable
          Option option;

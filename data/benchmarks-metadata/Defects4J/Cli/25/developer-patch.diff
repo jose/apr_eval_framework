@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:14.545489561 +0000
-+++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:17.716874635 +0000
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:22:37.270519134 -0700
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:22:39.898625803 -0700
 @@ -822,7 +822,7 @@
          if (nextLineTabStop >= width)
          {

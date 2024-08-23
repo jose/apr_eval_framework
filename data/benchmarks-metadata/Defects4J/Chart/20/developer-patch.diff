@@ -1,5 +1,5 @@
---- source/org/jfree/chart/plot/ValueMarker.java	2023-12-05 17:36:31.286406783 +0000
-+++ source/org/jfree/chart/plot/ValueMarker.java	2023-12-05 17:36:38.187838905 +0000
+--- source/org/jfree/chart/plot/ValueMarker.java	2024-07-18 03:05:42.919463288 -0700
++++ source/org/jfree/chart/plot/ValueMarker.java	2024-07-18 03:05:47.080630467 -0700
 @@ -92,7 +92,7 @@
       */
      public ValueMarker(double value, Paint paint, Stroke stroke, 

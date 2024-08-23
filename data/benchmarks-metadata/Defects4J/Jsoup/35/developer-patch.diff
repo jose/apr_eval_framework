@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:16:27.968088465 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:16:29.989579389 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:11:47.274789132 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:11:48.845853168 -0700
 @@ -723,6 +723,7 @@
                              }
  

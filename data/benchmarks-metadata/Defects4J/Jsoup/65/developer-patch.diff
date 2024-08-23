@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:18:49.444723806 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:18:51.539730793 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:48.062702449 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:49.682768458 -0700
 @@ -357,11 +357,11 @@
      }
  
@@ -14,8 +14,8 @@
      }
  
      private void clearStackToContext(String... nodeNames) {
---- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:18:49.444866520 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:18:51.540374440 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:13:48.062702449 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:13:49.682768458 -0700
 @@ -1033,7 +1033,9 @@
                  case StartTag:
                      Token.StartTag startTag = t.asStartTag();

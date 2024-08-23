@@ -1,9 +1,9 @@
---- org.apache.wicket.markup.html.form.TestFormHasError
 --- org.apache.wicket.markup.html.form.border.TestHomePage
 --- org.apache.wicket.markup.html.form.border.TestHomePage_2134
 --- org.apache.wicket.markup.html.form.panelBorder.TestHomePage
 --- org.apache.wicket.markup.html.form.panelBorder.TestHomePage_2134
 --- org.apache.wicket.markup.html.form.submitlink.TestHomePage
+--- org.apache.wicket.markup.html.form.TestFormHasError
 --- org.apache.wicket.markup.html.markupId.TestHomePage
 --- org.apache.wicket.markup.html.page.TestHomePage
 --- org.apache.wicket.markup.parser.TestHomePage

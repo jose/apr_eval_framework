@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/dataformat/xml/ser/XmlSerializerProvider.java	2023-12-05 21:13:31.102509994 +0000
-+++ src/main/java/com/fasterxml/jackson/dataformat/xml/ser/XmlSerializerProvider.java	2023-12-05 21:13:32.743479610 +0000
+--- src/main/java/com/fasterxml/jackson/dataformat/xml/ser/XmlSerializerProvider.java	2024-07-18 04:09:18.801742722 -0700
++++ src/main/java/com/fasterxml/jackson/dataformat/xml/ser/XmlSerializerProvider.java	2024-07-18 04:09:19.481770596 -0700
 @@ -201,8 +201,12 @@
      {
          // 14-Nov-2016, tatu: As per [dataformat-xml#213], we may have explicitly

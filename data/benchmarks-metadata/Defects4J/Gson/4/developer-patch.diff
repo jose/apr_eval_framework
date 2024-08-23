@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:22.424695458 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:24.513484446 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:57:23.225296737 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:57:24.867363424 -0700
 @@ -571,9 +571,6 @@
        checkLenient();
        return peeked = PEEKED_SINGLE_QUOTED;
@@ -20,8 +20,8 @@
  
      int result = peekKeyword();
      if (result != PEEKED_NONE) {
---- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:22.425074688 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:24.513786956 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:57:23.225296737 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:57:24.867363424 -0700
 @@ -322,7 +322,7 @@
     * bracket.
     */

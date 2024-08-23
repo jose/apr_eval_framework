@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:20:45.817398903 +0000
-+++ src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:20:50.728254740 +0000
+--- src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:54:18.135589262 -0700
++++ src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:54:22.153774445 -0700
 @@ -326,19 +326,18 @@
          Integer basicRow =
              getBasicRow(getNumObjectiveFunctions() + getOriginalNumDecisionVariables());

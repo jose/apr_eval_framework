@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/Period.java	2023-12-05 17:39:00.717803590 +0000
-+++ src/main/java/org/joda/time/Period.java	2023-12-05 17:39:05.015282644 +0000
+--- src/main/java/org/joda/time/Period.java	2024-07-18 03:07:21.547404223 -0700
++++ src/main/java/org/joda/time/Period.java	2024-07-18 03:07:25.440558666 -0700
 @@ -1625,13 +1625,19 @@
          int years = getYears();
          int months = getMonths();

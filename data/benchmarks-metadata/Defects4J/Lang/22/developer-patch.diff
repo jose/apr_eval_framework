@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/Fraction.java	2023-12-05 18:54:51.789715077 +0000
-+++ src/main/java/org/apache/commons/lang3/math/Fraction.java	2023-12-05 18:54:58.338464919 +0000
+--- src/main/java/org/apache/commons/lang3/math/Fraction.java	2024-07-18 03:13:53.319317496 -0700
++++ src/main/java/org/apache/commons/lang3/math/Fraction.java	2024-07-18 03:13:57.293480288 -0700
 @@ -580,8 +580,14 @@
       */
      private static int greatestCommonDivisor(int u, int v) {

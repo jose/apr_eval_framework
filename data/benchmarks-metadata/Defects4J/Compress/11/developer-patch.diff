@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:11:37.483959095 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:11:41.013729416 +0000
+--- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:51:32.314921700 -0700
++++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:51:35.381046647 -0700
 @@ -237,6 +237,7 @@
                  return new TarArchiveInputStream(in);
              }

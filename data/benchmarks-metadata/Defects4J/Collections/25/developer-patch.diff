@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections4/IteratorUtils.java	2023-12-05 20:09:52.479995190 +0000
-+++ src/main/java/org/apache/commons/collections4/IteratorUtils.java	2023-12-05 20:09:55.847894934 +0000
+--- src/main/java/org/apache/commons/collections4/IteratorUtils.java	2024-07-18 03:50:04.366338106 -0700
++++ src/main/java/org/apache/commons/collections4/IteratorUtils.java	2024-07-18 03:50:07.233454919 -0700
 @@ -602,7 +602,9 @@
      public static <E> Iterator<E> collatedIterator(final Comparator<? super E> comparator,
                                                     final Iterator<? extends E> iterator1,

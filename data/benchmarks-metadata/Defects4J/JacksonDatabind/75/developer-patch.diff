@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java	2023-12-05 21:09:22.693635596 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java	2023-12-05 21:09:25.349635585 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java	2024-07-18 04:06:07.038863729 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/EnumSerializer.java	2024-07-18 04:06:09.013944940 -0700
 @@ -83,7 +83,7 @@
           *   handle toString() case dynamically (for example)
           */

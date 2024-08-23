@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/DevirtualizePrototypeMethods.java	2023-12-05 19:43:19.516213915 +0000
-+++ src/com/google/javascript/jscomp/DevirtualizePrototypeMethods.java	2023-12-05 19:43:23.766892555 +0000
+--- src/com/google/javascript/jscomp/DevirtualizePrototypeMethods.java	2024-07-18 03:41:43.923147998 -0700
++++ src/com/google/javascript/jscomp/DevirtualizePrototypeMethods.java	2024-07-18 03:41:47.584293644 -0700
 @@ -359,6 +359,7 @@
      for (Node child : node.children()) {
        if (NodeUtil.isThis(child)) {
@@ -8,8 +8,8 @@
          node.replaceChild(child, newName);
        } else {
          replaceReferencesToThis(child, name);
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:43:19.517696956 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:43:23.768651029 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:41:43.924148038 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:41:47.585293684 -0700
 @@ -409,6 +409,10 @@
      return super.hasProperty(name) || "prototype".equals(name);
    }

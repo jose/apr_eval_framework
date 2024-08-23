@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2023-12-05 17:40:19.276706843 +0000
-+++ src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2023-12-05 17:40:23.576863934 +0000
+--- src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2024-07-18 03:08:30.304145769 -0700
++++ src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2024-07-18 03:08:34.119298270 -0700
 @@ -1095,7 +1095,7 @@
              if (iFieldType >= SECONDS_MILLIS) {
                  // valueLong contains the seconds and millis fields

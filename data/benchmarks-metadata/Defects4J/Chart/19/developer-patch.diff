@@ -1,5 +1,5 @@
---- source/org/jfree/chart/plot/CategoryPlot.java	2023-12-05 17:36:15.182816562 +0000
-+++ source/org/jfree/chart/plot/CategoryPlot.java	2023-12-05 17:36:22.132307067 +0000
+--- source/org/jfree/chart/plot/CategoryPlot.java	2024-07-18 03:05:33.689093536 -0700
++++ source/org/jfree/chart/plot/CategoryPlot.java	2024-07-18 03:05:37.860260030 -0700
 @@ -695,6 +695,9 @@
       * @since 1.0.3
       */

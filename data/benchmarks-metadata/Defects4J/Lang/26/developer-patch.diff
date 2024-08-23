@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:55:49.356824130 +0000
-+++ src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:55:55.923288578 +0000
+--- src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:14:29.053777308 -0700
++++ src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:14:33.070940900 -0700
 @@ -817,7 +817,7 @@
       * @return the formatted string
       */

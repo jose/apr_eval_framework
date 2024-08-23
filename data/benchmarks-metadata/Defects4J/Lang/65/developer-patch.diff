@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/time/DateUtils.java	2023-12-05 19:17:29.179028074 +0000
-+++ src/java/org/apache/commons/lang/time/DateUtils.java	2023-12-05 19:17:35.618502721 +0000
+--- src/java/org/apache/commons/lang/time/DateUtils.java	2024-07-18 03:20:16.796821038 -0700
++++ src/java/org/apache/commons/lang/time/DateUtils.java	2024-07-18 03:20:20.732980255 -0700
 @@ -621,6 +621,9 @@
              throw new ArithmeticException("Calendar value too large for accurate calculations");
          }

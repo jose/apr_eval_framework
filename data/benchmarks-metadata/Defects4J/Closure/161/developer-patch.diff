@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 20:03:45.877332524 +0000
-+++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 20:03:50.054572788 +0000
+--- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:45:07.198312099 -0700
++++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:45:10.547447388 -0700
 @@ -1280,6 +1280,9 @@
      // If GETPROP/GETELEM is used as assignment target the array literal is
      // acting as a temporary we can't fold it here:

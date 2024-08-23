@@ -1,2 +1,2 @@
---- org.apache.wicket.markup.html.internal.InlineEnclosureTest::inlineEnclosureWithWicketMessageVisible
 --- org.apache.wicket.markup.html.internal.InlineEnclosureTest::inlineEnclosureWithWicketMessageInvisible
+--- org.apache.wicket.markup.html.internal.InlineEnclosureTest::inlineEnclosureWithWicketMessageVisible

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:04:52.475741052 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:04:56.765206246 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:04.191614372 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:07.523748975 -0700
 @@ -1993,7 +1993,7 @@
          data.get(t.getScopeRoot()).recordNonEmptyReturn();
        }

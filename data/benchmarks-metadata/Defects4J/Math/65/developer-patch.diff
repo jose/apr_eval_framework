@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2023-12-05 17:16:36.880597515 +0000
-+++ src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2023-12-05 17:16:40.706402992 +0000
+--- src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2024-07-18 02:51:04.394028097 -0700
++++ src/main/java/org/apache/commons/math/optimization/general/AbstractLeastSquaresOptimizer.java	2024-07-18 02:51:07.371162643 -0700
 @@ -237,12 +237,7 @@
       * @return RMS value
       */

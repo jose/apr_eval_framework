@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/std/CollectionDeserializer.java	2023-12-05 21:08:01.249060844 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/CollectionDeserializer.java	2023-12-05 21:08:03.730001308 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/CollectionDeserializer.java	2024-07-18 04:05:04.069274561 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/CollectionDeserializer.java	2024-07-18 04:05:06.055356224 -0700
 @@ -181,6 +181,14 @@
                              +") returned true for 'canCreateUsingDelegate()', but null for 'getDelegateType()'");
                  }

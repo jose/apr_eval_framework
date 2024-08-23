@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2023-12-05 17:08:23.618339748 +0000
-+++ src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2023-12-05 17:08:28.527412079 +0000
+--- src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2024-07-18 02:44:32.940406796 -0700
++++ src/main/java/org/apache/commons/math3/distribution/FDistribution.java	2024-07-18 02:44:37.128568317 -0700
 @@ -272,7 +272,7 @@
  
      /** {@inheritDoc} */
@@ -9,8 +9,8 @@
      }
  
      /** {@inheritDoc} */
---- src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2023-12-05 17:08:23.618626193 +0000
-+++ src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2023-12-05 17:08:28.528269428 +0000
+--- src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2024-07-18 02:44:32.941406835 -0700
++++ src/main/java/org/apache/commons/math3/distribution/UniformRealDistribution.java	2024-07-18 02:44:37.128568317 -0700
 @@ -181,7 +181,7 @@
  
      /** {@inheritDoc} */

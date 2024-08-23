@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:19:55.491574449 +0000
-+++ src/main/java/org/jsoup/nodes/Attributes.java	2023-12-05 21:19:58.557403643 +0000
+--- src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:14:46.150067853 -0700
++++ src/main/java/org/jsoup/nodes/Attributes.java	2024-07-18 04:14:48.794175330 -0700
 @@ -316,8 +316,7 @@
              accum.append(' ').append(key);
  

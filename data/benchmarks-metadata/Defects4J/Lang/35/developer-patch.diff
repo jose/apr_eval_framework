@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/ArrayUtils.java	2023-12-05 18:58:00.382349640 +0000
-+++ src/main/java/org/apache/commons/lang3/ArrayUtils.java	2023-12-05 18:58:06.841899251 +0000
+--- src/main/java/org/apache/commons/lang3/ArrayUtils.java	2024-07-18 03:15:49.515053956 -0700
++++ src/main/java/org/apache/commons/lang3/ArrayUtils.java	2024-07-18 03:15:53.454214371 -0700
 @@ -3292,7 +3292,7 @@
          } else if (element != null) {
              type = element.getClass();

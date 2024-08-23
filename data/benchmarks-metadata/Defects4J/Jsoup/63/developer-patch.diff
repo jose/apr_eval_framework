@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:18:40.028913558 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:18:42.036141169 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:40.137379531 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:41.727444319 -0700
 @@ -224,12 +224,11 @@
          insertNode(el);
          if (startTag.isSelfClosing()) {
@@ -16,8 +16,8 @@
          }
          return el;
      }
---- src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:18:40.030034608 +0000
-+++ src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:18:42.037099739 +0000
+--- src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:13:40.137379531 -0700
++++ src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:13:41.728444360 -0700
 @@ -33,7 +33,6 @@
      Token.Doctype doctypePending = new Token.Doctype(); // doctype building up
      Token.Comment commentPending = new Token.Comment(); // comment building up

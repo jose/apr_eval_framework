@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/math/NumberUtils.java	2023-12-05 19:15:47.447731139 +0000
-+++ src/java/org/apache/commons/lang/math/NumberUtils.java	2023-12-05 19:15:53.894578292 +0000
+--- src/java/org/apache/commons/lang/math/NumberUtils.java	2024-07-18 03:19:14.671317805 -0700
++++ src/java/org/apache/commons/lang/math/NumberUtils.java	2024-07-18 03:19:18.641476547 -0700
 @@ -451,8 +451,7 @@
                  case 'L' :
                      if (dec == null

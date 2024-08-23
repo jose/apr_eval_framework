@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:18:01.701607167 +0000
-+++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:18:03.765979656 +0000
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:13:08.148078651 -0700
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:13:09.773144646 -0700
 @@ -880,6 +880,7 @@
                      break;
                  default:

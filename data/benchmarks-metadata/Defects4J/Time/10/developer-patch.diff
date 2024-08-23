@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java	2023-12-05 17:39:49.927163300 +0000
-+++ src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java	2023-12-05 17:39:54.381196819 +0000
+--- src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java	2024-07-18 03:08:04.548116231 -0700
++++ src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java	2024-07-18 03:08:08.451272250 -0700
 @@ -49,6 +49,7 @@
      /** Serialization version. */
      private static final long serialVersionUID = 9386874258972L;

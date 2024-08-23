@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:23:13.547381060 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:23:15.619797232 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:29.396669170 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:31.024734010 -0700
 @@ -686,14 +686,14 @@
                  if (aNode.getNodeType() == Node.ELEMENT_NODE) {
                      Attr attr = ((Element) aNode).getAttributeNode(qname);

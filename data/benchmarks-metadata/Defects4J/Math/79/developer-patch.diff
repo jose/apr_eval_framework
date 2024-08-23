@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:19:01.399653578 +0000
-+++ src/main/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:19:06.460452198 +0000
+--- src/main/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:52:55.004838782 -0700
++++ src/main/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:52:59.082019347 -0700
 @@ -1621,9 +1621,9 @@
       * @return the L<sub>2</sub> distance between the two points
       */

@@ -1,5 +1,5 @@
---- src/org/mockito/internal/matchers/Equality.java	2023-12-05 17:27:56.719484716 +0000
-+++ src/org/mockito/internal/matchers/Equality.java	2023-12-05 17:28:01.850140740 +0000
+--- src/org/mockito/internal/matchers/Equality.java	2024-07-18 03:00:09.471357504 -0700
++++ src/org/mockito/internal/matchers/Equality.java	2024-07-18 03:00:13.568338140 -0700
 @@ -10,7 +10,9 @@
  public class Equality {
  

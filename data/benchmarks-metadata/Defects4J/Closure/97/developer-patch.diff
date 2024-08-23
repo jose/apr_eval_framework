@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:37:46.698060246 +0000
-+++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:37:50.767937567 +0000
+--- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:36:55.346465624 -0700
++++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:36:58.508593864 -0700
 @@ -695,7 +695,8 @@
            // JavaScript handles zero shifts on signed numbers differently than
            // Java as an Java int can not represent the unsigned 32-bit number

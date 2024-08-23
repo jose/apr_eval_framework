@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:17:19.143131579 +0000
-+++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:17:21.167825082 +0000
+--- src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:12:32.144616512 -0700
++++ src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:12:33.801683807 -0700
 @@ -115,7 +115,7 @@
                          if (escapeMode != EscapeMode.xhtml)
                              accum.append("&nbsp;");

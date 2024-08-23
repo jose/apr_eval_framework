@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/time/FastDateFormat.java	2023-12-05 19:01:39.558367219 +0000
-+++ src/java/org/apache/commons/lang/time/FastDateFormat.java	2023-12-05 19:01:46.386949902 +0000
+--- src/java/org/apache/commons/lang/time/FastDateFormat.java	2024-07-18 03:18:03.778483247 -0700
++++ src/java/org/apache/commons/lang/time/FastDateFormat.java	2024-07-18 03:18:07.717640749 -0700
 @@ -282,16 +282,14 @@
              key = new Pair(key, timeZone);
          }

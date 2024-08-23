@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2023-12-05 21:11:59.810636232 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2023-12-05 21:12:02.431925726 +0000
+--- src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2024-07-18 04:08:08.924872970 -0700
++++ src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2024-07-18 04:08:10.949956165 -0700
 @@ -360,16 +360,10 @@
          if (n != null) {
              // [databind#2096]: although `binaryValue()` works for real binary node

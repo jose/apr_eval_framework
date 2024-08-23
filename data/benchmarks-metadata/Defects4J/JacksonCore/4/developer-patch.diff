@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2023-12-05 20:59:52.059926037 +0000
-+++ src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2023-12-05 20:59:54.116040185 +0000
+--- src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2024-07-18 03:58:36.767292231 -0700
++++ src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2024-07-18 03:58:38.320356363 -0700
 @@ -582,8 +582,11 @@
          final char[] curr = _currentSegment;
          // Let's grow by 50% by default

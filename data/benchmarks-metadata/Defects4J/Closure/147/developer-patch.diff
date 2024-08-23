@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 20:01:39.301064217 +0000
-+++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 20:01:43.603674536 +0000
+--- src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:43:18.792947544 -0700
++++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:43:22.483095755 -0700
 @@ -105,7 +105,8 @@
        if (!(pType == Token.BLOCK ||
              pType == Token.SCRIPT ||
@@ -10,8 +10,8 @@
          return false;
        }
      }
---- src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2023-12-05 20:01:39.302377094 +0000
-+++ src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2023-12-05 20:01:43.606023966 +0000
+--- src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2024-07-18 03:43:18.792947544 -0700
++++ src/com/google/javascript/jscomp/RuntimeTypeCheck.java	2024-07-18 03:43:22.484095795 -0700
 @@ -244,6 +244,11 @@
  
        // To satisfy normalization constraints, the type checking must be

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2023-12-05 20:01:58.081956009 +0000
-+++ src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2023-12-05 20:02:02.140912016 +0000
+--- src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2024-07-18 03:43:34.447576291 -0700
++++ src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2024-07-18 03:43:37.737708434 -0700
 @@ -156,6 +156,7 @@
      options.setCodingConvention(config.codingConvention);
      options.setSummaryDetailLevel(config.summaryDetailLevel);
@@ -37,8 +37,8 @@
  
    protected List<JSSourceFile> createExterns() throws FlagUsageException,
        IOException {
---- src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:01:58.083151279 +0000
-+++ src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:02:02.142314556 +0000
+--- src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:43:34.448576331 -0700
++++ src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:43:37.738708474 -0700
 @@ -468,7 +468,6 @@
      }
  
@@ -47,8 +47,8 @@
      return options;
    }
  
---- src/com/google/javascript/jscomp/Compiler.java	2023-12-05 20:01:58.083653433 +0000
-+++ src/com/google/javascript/jscomp/Compiler.java	2023-12-05 20:02:02.142960072 +0000
+--- src/com/google/javascript/jscomp/Compiler.java	2024-07-18 03:43:34.448576331 -0700
++++ src/com/google/javascript/jscomp/Compiler.java	2024-07-18 03:43:37.739708515 -0700
 @@ -1359,7 +1359,8 @@
      builder.setSourceMap(sourceMap);
      builder.setSourceMapDetailLevel(options.sourceMapDetailLevel);
@@ -59,8 +59,8 @@
      builder.setOutputCharset(charset);
  
      return builder.build();
---- src/com/google/javascript/jscomp/CompilerOptions.java	2023-12-05 20:01:58.084057051 +0000
-+++ src/com/google/javascript/jscomp/CompilerOptions.java	2023-12-05 20:02:02.143495175 +0000
+--- src/com/google/javascript/jscomp/CompilerOptions.java	2024-07-18 03:43:34.449576371 -0700
++++ src/com/google/javascript/jscomp/CompilerOptions.java	2024-07-18 03:43:37.739708515 -0700
 @@ -585,7 +585,7 @@
     * Charset to use when generating code.  If null, then output ASCII.
     * This needs to be a string because CompilerOptions is serializable.

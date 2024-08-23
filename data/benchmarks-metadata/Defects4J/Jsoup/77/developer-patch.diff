@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:20:09.071003996 +0000
-+++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:20:12.336631054 +0000
+--- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:14:58.308562064 -0700
++++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:15:01.017672182 -0700
 @@ -114,7 +114,7 @@
       * @param endTag tag to close
       */

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:36.529247191 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:40.083620395 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:53:59.378915242 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:54:02.474041490 -0700
 @@ -498,11 +498,11 @@
              } else if ("linkpath".equals(key)){
                  currEntry.setLinkName(val);

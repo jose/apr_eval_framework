@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java	2023-12-05 20:58:42.335340288 +0000
-+++ gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java	2023-12-05 20:58:44.393565465 +0000
+--- gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java	2024-07-18 03:57:39.449955655 -0700
++++ gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java	2024-07-18 03:57:41.068021369 -0700
 @@ -20,6 +20,7 @@
  import java.io.ObjectStreamClass;
  import java.lang.reflect.Field;

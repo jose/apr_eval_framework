@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.java	2023-12-05 20:10:27.418563887 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.java	2023-12-05 20:10:30.964566785 +0000
+--- src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.java	2024-07-18 03:50:32.841498258 -0700
++++ src/main/java/org/apache/commons/compress/archivers/ar/ArArchiveInputStream.java	2024-07-18 03:50:35.631611934 -0700
 @@ -39,10 +39,12 @@
       * If getNextEnxtry has been called, the entry metadata is stored in
       * currentEntry.

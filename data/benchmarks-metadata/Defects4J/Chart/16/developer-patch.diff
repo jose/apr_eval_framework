@@ -1,5 +1,5 @@
---- source/org/jfree/data/category/DefaultIntervalCategoryDataset.java	2023-12-05 17:35:26.265449796 +0000
-+++ source/org/jfree/data/category/DefaultIntervalCategoryDataset.java	2023-12-05 17:35:33.020164845 +0000
+--- source/org/jfree/data/category/DefaultIntervalCategoryDataset.java	2024-07-18 03:05:06.611050939 -0700
++++ source/org/jfree/data/category/DefaultIntervalCategoryDataset.java	2024-07-18 03:05:10.595204343 -0700
 @@ -204,8 +204,8 @@
  
              }

@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/HttpConnection.java	2023-12-05 21:21:40.576126712 +0000
-+++ src/main/java/org/jsoup/helper/HttpConnection.java	2023-12-05 21:21:43.630955576 +0000
+--- src/main/java/org/jsoup/helper/HttpConnection.java	2024-07-18 04:16:18.849839038 -0700
++++ src/main/java/org/jsoup/helper/HttpConnection.java	2024-07-18 04:16:21.441944597 -0700
 @@ -421,6 +421,8 @@
                      return false;
                  }

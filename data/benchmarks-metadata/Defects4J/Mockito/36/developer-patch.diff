@@ -1,5 +1,5 @@
---- src/org/mockito/internal/invocation/Invocation.java	2023-12-05 17:30:30.741282027 +0000
-+++ src/org/mockito/internal/invocation/Invocation.java	2023-12-05 17:30:35.822198029 +0000
+--- src/org/mockito/internal/invocation/Invocation.java	2024-07-18 03:02:19.475389326 -0700
++++ src/org/mockito/internal/invocation/Invocation.java	2024-07-18 03:02:23.499547373 -0700
 @@ -8,6 +8,7 @@
  
  import org.hamcrest.Matcher;

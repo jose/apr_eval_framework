@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/impl/JavaUtilCollectionsDeserializers.java	2023-12-05 21:13:01.345966560 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/impl/JavaUtilCollectionsDeserializers.java	2023-12-05 21:13:03.992313717 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/JavaUtilCollectionsDeserializers.java	2024-07-18 04:08:58.277900501 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/JavaUtilCollectionsDeserializers.java	2024-07-18 04:09:00.296983449 -0700
 @@ -44,6 +44,7 @@
      /* 02-Mar-2019, tatu: for [databind#2265], need to consider possible alternate type...
       *    which we essentially coerce into the other one

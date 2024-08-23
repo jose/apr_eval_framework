@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:15.481097031 +0000
-+++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:18.225390127 +0000
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:48:46.770190118 -0700
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:48:48.597264137 -0700
 @@ -820,7 +820,8 @@
      public void combine(ExtendedProperties props) {
          for (Iterator it = props.getKeys(); it.hasNext();) {

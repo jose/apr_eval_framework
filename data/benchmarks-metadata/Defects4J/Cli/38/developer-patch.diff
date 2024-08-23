@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:45.128418944 +0000
-+++ src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:48.239105301 +0000
+--- src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:55.808724571 -0700
++++ src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:58.383829785 -0700
 @@ -307,8 +307,12 @@
          // remove leading "-" and "=value"
          int pos = token.indexOf("=");

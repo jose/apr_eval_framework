@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/async/NonBlockingJsonParser.java	2023-12-05 21:01:41.339851447 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/async/NonBlockingJsonParser.java	2023-12-05 21:01:43.537101840 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/async/NonBlockingJsonParser.java	2024-07-18 04:00:06.886013580 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/async/NonBlockingJsonParser.java	2024-07-18 04:00:08.609084732 -0700
 @@ -105,6 +105,7 @@
          _currInputRowStart = start - (_inputEnd - _currInputRowStart);
  

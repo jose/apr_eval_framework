@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:53:12.207123543 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:53:27.709531141 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:53:10.421918324 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:53:13.413040329 -0700
 @@ -181,6 +181,7 @@
          this.allowStoredEntriesWithDataDescriptor =
              allowStoredEntriesWithDataDescriptor;

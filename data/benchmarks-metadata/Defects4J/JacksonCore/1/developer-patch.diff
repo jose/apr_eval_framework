@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/io/NumberInput.java	2023-12-05 20:59:37.482649581 +0000
-+++ src/main/java/com/fasterxml/jackson/core/io/NumberInput.java	2023-12-05 20:59:39.507671216 +0000
+--- src/main/java/com/fasterxml/jackson/core/io/NumberInput.java	2024-07-18 03:58:24.512786194 -0700
++++ src/main/java/com/fasterxml/jackson/core/io/NumberInput.java	2024-07-18 03:58:26.136853258 -0700
 @@ -292,7 +292,11 @@
  
      public static BigDecimal parseBigDecimal(String numStr) throws NumberFormatException
@@ -27,8 +27,8 @@
 +        return new NumberFormatException("Value \""+str+"\" can not be represented as BigDecimal");
 +    }
  }
---- src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2023-12-05 20:59:37.483271197 +0000
-+++ src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2023-12-05 20:59:39.508265571 +0000
+--- src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2024-07-18 03:58:24.512786194 -0700
++++ src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java	2024-07-18 03:58:26.137853299 -0700
 @@ -387,11 +387,11 @@
              return NumberInput.parseBigDecimal(_resultArray);
          }

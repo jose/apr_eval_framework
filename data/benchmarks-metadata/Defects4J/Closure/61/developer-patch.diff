@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:32:22.152309922 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:32:26.467260398 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:32:18.893303954 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:32:22.540453363 -0700
 @@ -955,6 +955,12 @@
        }
  

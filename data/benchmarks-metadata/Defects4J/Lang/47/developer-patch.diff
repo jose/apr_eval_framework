@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:00:56.110687398 +0000
-+++ src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:01:02.847035637 +0000
+--- src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:17:37.086416003 -0700
++++ src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:17:41.089576064 -0700
 @@ -1183,6 +1183,9 @@
          if (width > 0) {
              ensureCapacity(size + width);

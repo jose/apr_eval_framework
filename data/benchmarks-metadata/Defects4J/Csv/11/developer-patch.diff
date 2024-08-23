@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:57:36.536698538 +0000
-+++ src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:57:38.775811006 +0000
+--- src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:56:41.297580231 -0700
++++ src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:56:43.414671344 -0700
 @@ -381,7 +381,7 @@
                  for (int i = 0; i < headerRecord.length; i++) {
                      final String header = headerRecord[i];

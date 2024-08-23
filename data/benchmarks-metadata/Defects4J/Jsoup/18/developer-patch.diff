@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:15:07.230526355 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:15:09.144094790 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:10:39.137022420 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:10:40.702085784 -0700
 @@ -15,6 +15,7 @@
  
      CharacterReader(String input) {

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/OptionBuilder.java	2023-12-05 19:20:21.452041826 +0000
-+++ src/java/org/apache/commons/cli/OptionBuilder.java	2023-12-05 19:20:24.524366511 +0000
+--- src/java/org/apache/commons/cli/OptionBuilder.java	2024-07-18 03:22:43.293763605 -0700
++++ src/java/org/apache/commons/cli/OptionBuilder.java	2024-07-18 03:22:45.852867476 -0700
 @@ -345,8 +345,10 @@
       */
      public static Option create(String opt) throws IllegalArgumentException

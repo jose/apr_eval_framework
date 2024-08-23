@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:34:21.633187809 +0000
-+++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:34:25.683737843 +0000
+--- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:34:01.439501870 -0700
++++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:34:04.611631529 -0700
 @@ -904,8 +904,8 @@
            && right.getString().equals("undefined"))
            || (Token.VOID == right.getType()

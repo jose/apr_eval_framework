@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/answers/AnswersValidator.java	2023-12-05 17:30:41.827579601 +0000
-+++ src/org/mockito/internal/stubbing/answers/AnswersValidator.java	2023-12-05 17:30:46.848255408 +0000
+--- src/org/mockito/internal/stubbing/answers/AnswersValidator.java	2024-07-18 03:02:28.589748519 -0700
++++ src/org/mockito/internal/stubbing/answers/AnswersValidator.java	2024-07-18 03:02:32.605907223 -0700
 @@ -25,8 +25,16 @@
              validateDoNothing((DoesNothing) answer, invocation);
          }

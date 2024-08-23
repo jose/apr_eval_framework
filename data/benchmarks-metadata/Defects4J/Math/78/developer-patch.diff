@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/ode/events/EventState.java	2023-12-05 17:18:49.738337375 +0000
-+++ src/main/java/org/apache/commons/math/ode/events/EventState.java	2023-12-05 17:18:54.830014906 +0000
+--- src/main/java/org/apache/commons/math/ode/events/EventState.java	2024-07-18 02:52:45.894435312 -0700
++++ src/main/java/org/apache/commons/math/ode/events/EventState.java	2024-07-18 02:52:49.888612201 -0700
 @@ -188,6 +188,7 @@
                  if (g0Positive ^ (gb >= 0)) {
                      // there is a sign change: an event is expected during this step

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:56:20.983636780 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:56:24.731282735 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:55:30.402624043 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:55:33.406746901 -0700
 @@ -484,8 +484,9 @@
  
          if (length < 9) {

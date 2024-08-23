@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/time/FastDateFormat.java	2023-12-05 19:11:56.993481627 +0000
-+++ src/java/org/apache/commons/lang/time/FastDateFormat.java	2023-12-05 19:12:07.527189431 +0000
+--- src/java/org/apache/commons/lang/time/FastDateFormat.java	2024-07-18 03:18:56.969610025 -0700
++++ src/java/org/apache/commons/lang/time/FastDateFormat.java	2024-07-18 03:19:00.883766528 -0700
 @@ -137,11 +137,11 @@
      /**
       * The parsed rules.

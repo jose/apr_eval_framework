@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/JSTypeRegistry.java	2023-12-05 20:04:23.657879070 +0000
-+++ src/com/google/javascript/rhino/jstype/JSTypeRegistry.java	2023-12-05 20:04:27.822683170 +0000
+--- src/com/google/javascript/rhino/jstype/JSTypeRegistry.java	2024-07-18 03:45:39.494616723 -0700
++++ src/com/google/javascript/rhino/jstype/JSTypeRegistry.java	2024-07-18 03:45:43.236767889 -0700
 @@ -695,6 +695,10 @@
          if (!greatestSubtype.isEmptyType()) {
            // We've found a type with this property. Now we just have to make
@@ -11,8 +11,8 @@
  
            return true;
          }
---- src/com/google/javascript/rhino/jstype/ObjectType.java	2023-12-05 20:04:23.658277167 +0000
-+++ src/com/google/javascript/rhino/jstype/ObjectType.java	2023-12-05 20:04:27.823045020 +0000
+--- src/com/google/javascript/rhino/jstype/ObjectType.java	2024-07-18 03:45:39.494616723 -0700
++++ src/com/google/javascript/rhino/jstype/ObjectType.java	2024-07-18 03:45:43.236767889 -0700
 @@ -287,6 +287,10 @@
     * don't actually exist in the user's program. They're just used for
     * bookkeeping in the type system.
@@ -24,8 +24,37 @@
  
    /**
     * Defines a property whose type is inferred.
---- src/com/google/javascript/rhino/jstype/RecordType.java	2023-12-05 20:04:23.658639427 +0000
-+++ src/com/google/javascript/rhino/jstype/RecordType.java	2023-12-05 20:04:27.823386693 +0000
+--- src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java	2024-07-18 03:45:39.495616763 -0700
++++ src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java	2024-07-18 03:45:43.236767889 -0700
+@@ -51,6 +51,7 @@
+  */
+ public class RecordTypeBuilder {
+   private boolean isEmpty = true;
++  private boolean isDeclared = true;
+   private final JSTypeRegistry registry;
+   private final HashMap<String, RecordProperty> properties = Maps.newHashMap();
+ 
+@@ -59,6 +60,9 @@
+   }
+ 
+   /** See the comments on RecordType about synthetic types. */
++  void setSynthesized(boolean synthesized) {
++    isDeclared = !synthesized;
++  }
+ 
+   /**
+    * Adds a property with the given name and type to the record type.
+@@ -89,7 +93,7 @@
+     }
+ 
+     return new RecordType(
+-        registry, Collections.unmodifiableMap(properties));
++        registry, Collections.unmodifiableMap(properties), isDeclared);
+   }
+ 
+   static class RecordProperty {
+--- src/com/google/javascript/rhino/jstype/RecordType.java	2024-07-18 03:45:39.494616723 -0700
++++ src/com/google/javascript/rhino/jstype/RecordType.java	2024-07-18 03:45:43.236767889 -0700
 @@ -65,8 +65,12 @@
    private static final long serialVersionUID = 1L;
  
@@ -84,32 +113,3 @@
  
        // The greatest subtype consists of those *unique* properties of both
        // record types. If any property conflicts, then the NO_TYPE type
---- src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java	2023-12-05 20:04:23.658927153 +0000
-+++ src/com/google/javascript/rhino/jstype/RecordTypeBuilder.java	2023-12-05 20:04:27.823706053 +0000
-@@ -51,6 +51,7 @@
-  */
- public class RecordTypeBuilder {
-   private boolean isEmpty = true;
-+  private boolean isDeclared = true;
-   private final JSTypeRegistry registry;
-   private final HashMap<String, RecordProperty> properties = Maps.newHashMap();
- 
-@@ -59,6 +60,9 @@
-   }
- 
-   /** See the comments on RecordType about synthetic types. */
-+  void setSynthesized(boolean synthesized) {
-+    isDeclared = !synthesized;
-+  }
- 
-   /**
-    * Adds a property with the given name and type to the record type.
-@@ -89,7 +93,7 @@
-     }
- 
-     return new RecordType(
--        registry, Collections.unmodifiableMap(properties));
-+        registry, Collections.unmodifiableMap(properties), isDeclared);
-   }
- 
-   static class RecordProperty {

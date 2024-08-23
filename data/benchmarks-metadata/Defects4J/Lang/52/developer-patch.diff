@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:03:38.660572874 +0000
-+++ src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:03:45.879181217 +0000
+--- src/java/org/apache/commons/lang/StringEscapeUtils.java	2024-07-18 03:18:21.477190905 -0700
++++ src/java/org/apache/commons/lang/StringEscapeUtils.java	2024-07-18 03:18:25.427348846 -0700
 @@ -233,6 +233,10 @@
                          out.write('\\');
                          out.write('\\');

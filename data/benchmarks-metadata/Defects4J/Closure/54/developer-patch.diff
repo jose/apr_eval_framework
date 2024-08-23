@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:31:16.884280076 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:31:20.957736351 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:31:22.375988761 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:31:25.711125304 -0700
 @@ -1410,7 +1410,13 @@
            // then they are responsible for making sure that the object literal's
            // implicit prototype is set up appropriately. We just obey
@@ -15,8 +15,8 @@
              // If the programmer has declared that F inherits from Super,
              // and they assign F.prototype to some arbitrary expression,
              // there's not much we can do. We just ignore the expression,
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:31:16.884791449 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 19:31:20.958551951 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:31:22.375988761 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:31:25.711125304 -0700
 @@ -338,7 +338,6 @@
      //
      // In the second case, we just use the anonymous object as the prototype.

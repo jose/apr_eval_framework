@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:20:34.486822587 +0000
-+++ src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:20:39.414459318 +0000
+--- src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:54:08.952166036 -0700
++++ src/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:54:12.971351262 -0700
 @@ -272,12 +272,10 @@
      private Integer getBasicRow(final int col) {
          Integer row = null;

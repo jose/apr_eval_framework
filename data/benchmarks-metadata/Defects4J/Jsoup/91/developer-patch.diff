@@ -1,17 +1,5 @@
---- src/main/java/org/jsoup/UncheckedIOException.java	2023-12-05 21:21:47.533470216 +0000
-+++ src/main/java/org/jsoup/UncheckedIOException.java	2023-12-05 21:21:50.655732169 +0000
-@@ -7,6 +7,9 @@
-         super(cause);
-     }
- 
-+    public UncheckedIOException(String message) {
-+        super(new IOException(message));
-+    }
- 
-     public IOException ioException() {
-         return (IOException) getCause();
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:21:47.534093412 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:21:50.656302199 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:16:25.020090308 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:16:27.768202220 -0700
 @@ -34,6 +34,9 @@
          charBuf = new char[sz > maxBufferLen ? maxBufferLen : sz];
          bufferUp();
@@ -45,3 +33,15 @@
  
      @Override
      public String toString() {
+--- src/main/java/org/jsoup/UncheckedIOException.java	2024-07-18 04:16:25.019090267 -0700
++++ src/main/java/org/jsoup/UncheckedIOException.java	2024-07-18 04:16:27.767202179 -0700
+@@ -7,6 +7,9 @@
+         super(cause);
+     }
+ 
++    public UncheckedIOException(String message) {
++        super(new IOException(message));
++    }
+ 
+     public IOException ioException() {
+         return (IOException) getCause();

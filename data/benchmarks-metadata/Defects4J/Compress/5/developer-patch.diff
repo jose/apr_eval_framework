@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:10:50.529649504 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:10:54.048384387 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:50:52.248288962 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:50:55.150407224 -0700
 @@ -236,8 +236,12 @@
              } catch (DataFormatException e) {
                  throw new ZipException(e.getMessage());

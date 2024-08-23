@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:11:06.367378550 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:11:09.783019436 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:51:05.231818048 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:51:08.111935415 -0700
 @@ -95,10 +95,11 @@
          int          end = offset + length;
  

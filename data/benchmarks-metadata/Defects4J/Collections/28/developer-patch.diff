@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java	2023-12-05 20:10:12.684198530 +0000
-+++ src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java	2023-12-05 20:10:15.072575284 +0000
+--- src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java	2024-07-18 03:50:20.878010836 -0700
++++ src/main/java/org/apache/commons/collections4/trie/AbstractPatriciaTrie.java	2024-07-18 03:50:22.644082789 -0700
 @@ -2259,6 +2259,16 @@
              return new RangeEntryMap(fromKey, fromInclusive, toKey, toInclusive);
          }

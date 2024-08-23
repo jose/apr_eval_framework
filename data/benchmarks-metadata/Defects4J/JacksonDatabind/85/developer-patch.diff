@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:10:26.676058386 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:10:29.395289395 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2024-07-18 04:06:55.568859170 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2024-07-18 04:06:57.384933842 -0700
 @@ -64,34 +64,61 @@
  
          // 08-Jun-2017, tatu: With [databind#1648], this gets bit tricky..

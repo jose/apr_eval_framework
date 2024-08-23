@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:44.710120006 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:47.837290265 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:29.511830397 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:32.141937304 -0700
 @@ -168,7 +168,10 @@
              }
              Charset charset = Charset.forName(charsetName);

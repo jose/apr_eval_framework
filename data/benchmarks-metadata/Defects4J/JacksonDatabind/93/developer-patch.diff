@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2023-12-05 21:11:17.030798935 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2023-12-05 21:11:19.634024532 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2024-07-18 04:07:34.410455044 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2024-07-18 04:07:36.388536308 -0700
 @@ -80,8 +80,8 @@
              // 18-Dec-2017, tatu: As per [databind#1855], need bit more sophisticated handling
              //    for some Spring framework types

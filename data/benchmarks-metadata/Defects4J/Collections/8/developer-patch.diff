@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/buffer/UnboundedFifoBuffer.java	2023-12-05 20:07:47.513915091 +0000
-+++ src/java/org/apache/commons/collections/buffer/UnboundedFifoBuffer.java	2023-12-05 20:07:50.096928091 +0000
+--- src/java/org/apache/commons/collections/buffer/UnboundedFifoBuffer.java	2024-07-18 03:48:24.945305943 -0700
++++ src/java/org/apache/commons/collections/buffer/UnboundedFifoBuffer.java	2024-07-18 03:48:26.809381461 -0700
 @@ -115,6 +115,7 @@
      private void writeObject(ObjectOutputStream out) throws IOException {
          out.defaultWriteObject();

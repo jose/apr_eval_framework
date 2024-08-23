@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:19:27.820741810 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2023-12-05 20:19:31.667857428 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:52:14.365634747 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarUtils.java	2024-07-18 03:52:17.372757209 -0700
 @@ -132,8 +132,9 @@
          }
          // May have additional NULs or spaces

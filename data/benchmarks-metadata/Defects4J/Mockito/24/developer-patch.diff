@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.java	2023-12-05 17:28:18.852780495 +0000
-+++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.java	2023-12-05 17:28:23.986646024 +0000
+--- src/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.java	2024-07-18 03:00:29.216840572 -0700
++++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.java	2024-07-18 03:00:33.426028788 -0700
 @@ -73,7 +73,7 @@
              //see issue 184.
              //mocks by default should return 0 if references are the same, otherwise some other value because they are not the same. Hence we return 1 (anything but 0 is good).

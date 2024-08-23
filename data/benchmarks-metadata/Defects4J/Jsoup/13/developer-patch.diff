@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:44.189103956 +0000
-+++ src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:46.112839955 +0000
+--- src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:19.490226967 -0700
++++ src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:21.046289969 -0700
 @@ -104,6 +104,11 @@
      public boolean hasAttr(String attributeKey) {
          Validate.notNull(attributeKey);

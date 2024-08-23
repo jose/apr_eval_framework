@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2023-12-05 17:08:46.720482072 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2023-12-05 17:08:51.731527201 +0000
+--- src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2024-07-18 02:44:53.675206455 -0700
++++ src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2024-07-18 02:44:57.699361652 -0700
 @@ -227,7 +227,7 @@
  
                  if (checker != null) {

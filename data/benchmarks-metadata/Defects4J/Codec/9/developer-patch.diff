@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:30.290923924 +0000
-+++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:31.359626852 +0000
+--- src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:25.279889970 -0700
++++ src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:25.902915138 -0700
 @@ -824,7 +824,7 @@
              return binaryData;
          }

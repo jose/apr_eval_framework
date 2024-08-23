@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/JsonGeneratorImpl.java	2023-12-05 21:00:36.577359395 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/JsonGeneratorImpl.java	2023-12-05 21:00:38.672941828 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/JsonGeneratorImpl.java	2024-07-18 03:59:13.342802574 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/JsonGeneratorImpl.java	2024-07-18 03:59:14.995870836 -0700
 @@ -124,6 +124,14 @@
          return this;
      }

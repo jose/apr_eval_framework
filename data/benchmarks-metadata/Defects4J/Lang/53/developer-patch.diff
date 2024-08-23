@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/time/DateUtils.java	2023-12-05 19:04:36.626271277 +0000
-+++ src/java/org/apache/commons/lang/time/DateUtils.java	2023-12-05 19:05:13.600955049 +0000
+--- src/java/org/apache/commons/lang/time/DateUtils.java	2024-07-18 03:18:30.359546053 -0700
++++ src/java/org/apache/commons/lang/time/DateUtils.java	2024-07-18 03:18:34.359705995 -0700
 @@ -640,18 +640,18 @@
          int millisecs = val.get(Calendar.MILLISECOND);
          if (!round || millisecs < 500) {

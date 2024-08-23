@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Document.java	2023-12-05 21:13:45.609734257 +0000
-+++ src/main/java/org/jsoup/nodes/Document.java	2023-12-05 21:13:48.624373568 +0000
+--- src/main/java/org/jsoup/nodes/Document.java	2024-07-18 04:09:28.941158330 -0700
++++ src/main/java/org/jsoup/nodes/Document.java	2024-07-18 04:09:31.517263924 -0700
 @@ -122,8 +122,8 @@
  
          for (Node node: toMove) {

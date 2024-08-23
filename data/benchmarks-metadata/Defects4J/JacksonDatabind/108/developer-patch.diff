@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:12:49.010761521 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:12:51.645273101 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:08:48.382493977 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:08:50.353574954 -0700
 @@ -1166,7 +1166,7 @@
      @SuppressWarnings("unchecked")
      @Override

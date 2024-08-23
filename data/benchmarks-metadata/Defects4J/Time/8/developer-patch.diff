@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:39:30.383919990 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:39:34.796126472 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:07:47.315427392 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:07:51.269585450 -0700
 @@ -276,14 +276,17 @@
          if (hoursOffset < -23 || hoursOffset > 23) {
              throw new IllegalArgumentException("Hours out of range: " + hoursOffset);

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:30.886113103 +0000
-+++ src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:37.556541774 +0000
+--- src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:41.136378580 -0700
++++ src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:45.055537109 -0700
 @@ -1773,7 +1773,7 @@
              return -1;
          }

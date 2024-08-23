@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/fraction/BigFraction.java	2023-12-05 17:04:24.310179940 +0000
-+++ src/main/java/org/apache/commons/math3/fraction/BigFraction.java	2023-12-05 17:04:28.892120588 +0000
+--- src/main/java/org/apache/commons/math3/fraction/BigFraction.java	2024-07-18 02:41:17.171717922 -0700
++++ src/main/java/org/apache/commons/math3/fraction/BigFraction.java	2024-07-18 02:41:21.263879300 -0700
 @@ -303,6 +303,9 @@
              if ((p2 > overflow) || (q2 > overflow)) {
                  // in maxDenominator mode, if the last fraction was very close to the actual value
@@ -10,8 +10,8 @@
                  throw new FractionConversionException(value, p2, q2);
              }
  
---- src/main/java/org/apache/commons/math3/fraction/Fraction.java	2023-12-05 17:04:24.310702702 +0000
-+++ src/main/java/org/apache/commons/math3/fraction/Fraction.java	2023-12-05 17:04:28.892544714 +0000
+--- src/main/java/org/apache/commons/math3/fraction/Fraction.java	2024-07-18 02:41:17.171717922 -0700
++++ src/main/java/org/apache/commons/math3/fraction/Fraction.java	2024-07-18 02:41:21.263879300 -0700
 @@ -212,6 +212,9 @@
              if ((FastMath.abs(p2) > overflow) || (FastMath.abs(q2) > overflow)) {
                  // in maxDenominator mode, if the last fraction was very close to the actual value

@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:12.570018119 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:14.618262846 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:15.009963095 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:16.643029416 -0700
 @@ -830,8 +830,20 @@
          if (!clazz.isAssignableFrom(requestedType)) {
            return null;

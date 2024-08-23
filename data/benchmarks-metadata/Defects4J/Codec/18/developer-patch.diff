@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:06:59.248110100 +0000
-+++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:07:01.459157187 +0000
+--- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:47.919805955 -0700
++++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:49.586873491 -0700
 @@ -78,7 +78,7 @@
          if (cs1 instanceof String && cs2 instanceof String) {
              return cs1.equals(cs2);

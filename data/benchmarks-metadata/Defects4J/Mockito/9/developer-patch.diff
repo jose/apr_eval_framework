@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/answers/CallsRealMethods.java	2023-12-05 17:25:32.759316701 +0000
-+++ src/org/mockito/internal/stubbing/answers/CallsRealMethods.java	2023-12-05 17:25:37.868355136 +0000
+--- src/org/mockito/internal/stubbing/answers/CallsRealMethods.java	2024-07-18 02:58:08.786001403 -0700
++++ src/org/mockito/internal/stubbing/answers/CallsRealMethods.java	2024-07-18 02:58:13.068190973 -0700
 @@ -5,7 +5,9 @@
  package org.mockito.internal.stubbing.answers;
  

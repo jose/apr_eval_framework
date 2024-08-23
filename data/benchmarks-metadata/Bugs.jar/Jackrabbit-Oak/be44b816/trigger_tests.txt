@@ -1,3 +1,1 @@
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::testOak1096[2]
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::testOak1096[0]
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::testOak1096[1]
+--- org.apache.jackrabbit.oak.jcr.query.QueryTest::testOak1096

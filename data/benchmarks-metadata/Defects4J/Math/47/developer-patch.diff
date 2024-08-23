@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:15.482338048 +0000
-+++ src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:20.651722711 +0000
+--- src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:48:28.764530229 -0700
++++ src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:48:32.845699009 -0700
 @@ -79,6 +79,7 @@
      /** Record whether this complex number is infinite. */
      private final transient boolean isInfinite;

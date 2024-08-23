@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/std/JsonNodeDeserializer.java	2023-12-05 21:04:32.627354281 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/JsonNodeDeserializer.java	2023-12-05 21:04:35.184011569 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/JsonNodeDeserializer.java	2024-07-18 04:02:19.660504187 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/JsonNodeDeserializer.java	2024-07-18 04:02:21.546582208 -0700
 @@ -94,14 +94,13 @@
          @Override
          public ObjectNode deserialize(JsonParser p, DeserializationContext ctxt) throws IOException

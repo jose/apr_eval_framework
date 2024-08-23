@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:19:41.546176427 +0000
-+++ src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:19:44.598479876 +0000
+--- src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:14:33.912570429 -0700
++++ src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:14:36.565678271 -0700
 @@ -19,6 +19,7 @@
  import javax.xml.transform.stream.StreamResult;
  import java.io.StringWriter;

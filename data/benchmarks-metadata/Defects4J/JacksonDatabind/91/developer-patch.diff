@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:11:04.664892290 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2023-12-05 21:11:07.343925956 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2024-07-18 04:07:24.852062363 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/DeserializerCache.java	2024-07-18 04:07:26.899146462 -0700
 @@ -538,8 +538,16 @@
              // First: value types may have both value and type handlers
              JavaType ct = t.getContentType();

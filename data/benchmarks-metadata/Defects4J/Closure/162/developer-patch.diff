@@ -1,17 +1,5 @@
---- src/com/google/javascript/jscomp/Scope.java	2023-12-05 20:03:55.261633822 +0000
-+++ src/com/google/javascript/jscomp/Scope.java	2023-12-05 20:03:59.498498534 +0000
-@@ -565,6 +565,9 @@
-   /**
-    * Return an iterable over all of the variables declared in this scope.
-    */
-+  Iterable<Var> getVarIterable() {
-+    return vars.values();
-+  }
- 
-   @Override
-   public Iterable<Var> getReferences(Var var) {
---- src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 20:03:55.262078731 +0000
-+++ src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 20:03:59.498790071 +0000
+--- src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:45:15.209635720 -0700
++++ src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:45:18.517769354 -0700
 @@ -223,6 +223,7 @@
        if (n != null && isCallToScopeMethod(n)) {
          transformation = transformationHandler.logAliasTransformation(
@@ -117,3 +105,15 @@
          }
  
          JSDocInfo info = n.getJSDocInfo();
+--- src/com/google/javascript/jscomp/Scope.java	2024-07-18 03:45:15.209635720 -0700
++++ src/com/google/javascript/jscomp/Scope.java	2024-07-18 03:45:18.517769354 -0700
+@@ -565,6 +565,9 @@
+   /**
+    * Return an iterable over all of the variables declared in this scope.
+    */
++  Iterable<Var> getVarIterable() {
++    return vars.values();
++  }
+ 
+   @Override
+   public Iterable<Var> getReferences(Var var) {

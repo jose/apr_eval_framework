@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java	2023-12-05 17:06:18.270928104 +0000
-+++ src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java	2023-12-05 17:06:23.216367725 +0000
+--- src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java	2024-07-18 02:42:50.416395120 -0700
++++ src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java	2024-07-18 02:42:54.513556696 -0700
 @@ -180,7 +180,7 @@
              throw new DimensionMismatchException(vals.length, dim);
          }

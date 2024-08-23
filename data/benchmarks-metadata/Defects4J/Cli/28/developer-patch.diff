@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:35.233768264 +0000
-+++ src/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:38.491706725 +0000
+--- src/java/org/apache/commons/cli/Parser.java	2024-07-18 03:22:55.249250251 -0700
++++ src/java/org/apache/commons/cli/Parser.java	2024-07-18 03:22:57.891358202 -0700
 @@ -287,7 +287,7 @@
                  {
                      // if the value is not yes, true or 1 then don't add the

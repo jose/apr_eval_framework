@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/select/CombiningEvaluator.java	2023-12-05 21:15:21.137453870 +0000
-+++ src/main/java/org/jsoup/select/CombiningEvaluator.java	2023-12-05 21:15:23.074715668 +0000
+--- src/main/java/org/jsoup/select/CombiningEvaluator.java	2024-07-18 04:10:50.984502092 -0700
++++ src/main/java/org/jsoup/select/CombiningEvaluator.java	2024-07-18 04:10:52.549565458 -0700
 @@ -61,6 +61,9 @@
                  this.evaluators.addAll(evaluators);
          }
@@ -10,8 +10,8 @@
  
          public void add(Evaluator e) {
              evaluators.add(e);
---- src/main/java/org/jsoup/select/QueryParser.java	2023-12-05 21:15:21.137748633 +0000
-+++ src/main/java/org/jsoup/select/QueryParser.java	2023-12-05 21:15:23.074937389 +0000
+--- src/main/java/org/jsoup/select/QueryParser.java	2024-07-18 04:10:50.984502092 -0700
++++ src/main/java/org/jsoup/select/QueryParser.java	2024-07-18 04:10:52.550565498 -0700
 @@ -55,15 +55,7 @@
              // hierarchy and extras
              boolean seenWhite = tq.consumeWhitespace();

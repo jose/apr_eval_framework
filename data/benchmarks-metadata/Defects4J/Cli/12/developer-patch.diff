@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/GnuParser.java	2023-12-05 19:18:44.545409112 +0000
-+++ src/java/org/apache/commons/cli/GnuParser.java	2023-12-05 19:18:47.514774406 +0000
+--- src/java/org/apache/commons/cli/GnuParser.java	2024-07-18 03:21:19.455360839 -0700
++++ src/java/org/apache/commons/cli/GnuParser.java	2024-07-18 03:21:22.030465350 -0700
 @@ -78,9 +78,14 @@
                  }
                  else

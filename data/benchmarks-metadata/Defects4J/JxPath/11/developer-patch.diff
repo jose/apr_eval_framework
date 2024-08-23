@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMAttributeIterator.java	2023-12-05 21:22:35.313336384 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMAttributeIterator.java	2023-12-05 21:22:36.409529927 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMAttributeIterator.java	2024-07-18 04:17:01.969576835 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMAttributeIterator.java	2024-07-18 04:17:02.651603998 -0700
 @@ -19,6 +19,7 @@
  import java.util.ArrayList;
  import java.util.List;
@@ -19,8 +19,8 @@
          }
  
          if (testNS != null) {
---- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMAttributeIterator.java	2023-12-05 21:22:35.416196280 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMAttributeIterator.java	2023-12-05 21:22:36.409858939 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMAttributeIterator.java	2024-07-18 04:17:02.038579583 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMAttributeIterator.java	2024-07-18 04:17:02.651603998 -0700
 @@ -20,6 +20,7 @@
  import java.util.Collections;
  import java.util.List;

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:44:25.619748277 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:44:29.602861955 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:42:32.089071751 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:42:35.484208112 -0700
 @@ -599,8 +599,11 @@
        case Token.GETELEM:
          return true;
@@ -12,8 +12,8 @@
      }
  
      for (Node c = n.getFirstChild(); c != null; c = c.getNext()) {
---- src/com/google/javascript/jscomp/PureFunctionIdentifier.java	2023-12-05 19:44:25.620274075 +0000
-+++ src/com/google/javascript/jscomp/PureFunctionIdentifier.java	2023-12-05 19:44:29.603269727 +0000
+--- src/com/google/javascript/jscomp/PureFunctionIdentifier.java	2024-07-18 03:42:32.089071751 -0700
++++ src/com/google/javascript/jscomp/PureFunctionIdentifier.java	2024-07-18 03:42:35.484208112 -0700
 @@ -174,11 +174,9 @@
     */
    private static Collection<Definition> getCallableDefinitions(

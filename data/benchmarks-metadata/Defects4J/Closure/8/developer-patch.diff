@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CollapseVariableDeclarations.java	2023-12-05 19:23:12.900436654 +0000
-+++ src/com/google/javascript/jscomp/CollapseVariableDeclarations.java	2023-12-05 19:23:16.934365505 +0000
+--- src/com/google/javascript/jscomp/CollapseVariableDeclarations.java	2024-07-18 03:25:10.606781367 -0700
++++ src/com/google/javascript/jscomp/CollapseVariableDeclarations.java	2024-07-18 03:25:14.317933241 -0700
 @@ -201,10 +201,14 @@
        Var var = s.getVar(lhs.getString());
        return var != null

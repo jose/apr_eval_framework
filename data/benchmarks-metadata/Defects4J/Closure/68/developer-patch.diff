@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:33:28.035879897 +0000
-+++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:33:31.895566436 +0000
+--- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:33:15.240611825 -0700
++++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:33:18.436742724 -0700
 @@ -865,9 +865,9 @@
                          }
                          break;

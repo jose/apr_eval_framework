@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java	2023-12-05 17:19:36.316325438 +0000
-+++ src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java	2023-12-05 17:19:41.286577271 +0000
+--- src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java	2024-07-18 02:53:22.681064472 -0700
++++ src/main/java/org/apache/commons/math/optimization/linear/SimplexSolver.java	2024-07-18 02:53:26.699242425 -0700
 @@ -79,7 +79,7 @@
          for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {
              final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);

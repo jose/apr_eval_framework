@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/DeserializationConfig.java	2023-12-05 21:06:35.068397023 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/DeserializationConfig.java	2023-12-05 21:06:37.662097616 +0000
+--- src/main/java/com/fasterxml/jackson/databind/DeserializationConfig.java	2024-07-18 04:03:56.831507875 -0700
++++ src/main/java/com/fasterxml/jackson/databind/DeserializationConfig.java	2024-07-18 04:03:58.888592533 -0700
 @@ -777,6 +777,12 @@
          if (!isEnabled(MapperFeature.AUTO_DETECT_CREATORS)) {
              vchecker = vchecker.withCreatorVisibility(Visibility.NONE);
@@ -13,8 +13,8 @@
          if (!isEnabled(MapperFeature.AUTO_DETECT_FIELDS)) {
              vchecker = vchecker.withFieldVisibility(Visibility.NONE);
          }
---- src/main/java/com/fasterxml/jackson/databind/SerializationConfig.java	2023-12-05 21:06:35.187561923 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/SerializationConfig.java	2023-12-05 21:06:37.662470867 +0000
+--- src/main/java/com/fasterxml/jackson/databind/SerializationConfig.java	2024-07-18 04:03:56.897510591 -0700
++++ src/main/java/com/fasterxml/jackson/databind/SerializationConfig.java	2024-07-18 04:03:58.888592533 -0700
 @@ -862,6 +862,12 @@
      {
          VisibilityChecker<?> vchecker = super.getDefaultVisibilityChecker();

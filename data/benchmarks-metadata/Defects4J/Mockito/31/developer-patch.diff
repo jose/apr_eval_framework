@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java	2023-12-05 17:29:36.670333569 +0000
-+++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java	2023-12-05 17:29:41.418316386 +0000
+--- src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java	2024-07-18 03:01:33.524610287 -0700
++++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java	2024-07-18 03:01:37.483763569 -0700
 @@ -6,6 +6,7 @@
  
  import java.io.Serializable;

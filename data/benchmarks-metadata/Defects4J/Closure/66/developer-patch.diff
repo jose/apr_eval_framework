@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:33:09.851028368 +0000
-+++ src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:33:14.024026497 +0000
+--- src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:32:59.505967398 -0700
++++ src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:33:03.145116443 -0700
 @@ -513,7 +513,9 @@
          // Object literal keys are handled with OBJECTLIT
          if (!NodeUtil.isObjectLitKey(n, n.getParent())) {

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:57:26.158966361 +0000
-+++ src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:57:28.536231265 +0000
+--- src/main/java/org/apache/commons/csv/CSVRecord.java	2024-07-18 03:56:31.308150318 -0700
++++ src/main/java/org/apache/commons/csv/CSVRecord.java	2024-07-18 03:56:33.338237686 -0700
 @@ -177,6 +177,9 @@
       * @return the given map.
       */

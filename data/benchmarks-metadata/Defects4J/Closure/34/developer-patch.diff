@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:28:13.278270875 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:28:17.406062776 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:28:41.537414521 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:28:45.356570595 -0700
 @@ -119,9 +119,7 @@
          cc.addOp(opstr, true);
          addExpr(last, p, rhsContext);
@@ -20,8 +20,8 @@
        addExpr(current.getFirstChild().getNext(), rightPrecedence, rhsContext);
      } while (current != n);
    }
---- src/com/google/javascript/jscomp/CodePrinter.java	2023-12-05 19:28:13.159970657 +0000
-+++ src/com/google/javascript/jscomp/CodePrinter.java	2023-12-05 19:28:17.406387149 +0000
+--- src/com/google/javascript/jscomp/CodePrinter.java	2024-07-18 03:28:41.460411374 -0700
++++ src/com/google/javascript/jscomp/CodePrinter.java	2024-07-18 03:28:45.357570636 -0700
 @@ -331,7 +331,7 @@
      @Override
      void appendOp(String op, boolean binOp) {

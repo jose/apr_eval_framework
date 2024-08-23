@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2023-12-05 20:58:32.402247641 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2023-12-05 20:58:34.480456120 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2024-07-18 03:57:31.340626317 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java	2024-07-18 03:57:32.971692558 -0700
 @@ -64,7 +64,9 @@
        throw new IllegalArgumentException(
            "@JsonAdapter value must be TypeAdapter or TypeAdapterFactory reference.");

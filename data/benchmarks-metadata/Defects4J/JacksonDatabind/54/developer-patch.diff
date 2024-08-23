@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:07:11.675568418 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:07:14.294564628 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2024-07-18 04:04:25.725697001 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2024-07-18 04:04:27.675777256 -0700
 @@ -131,7 +131,7 @@
              // always suppress nulls
              suppressNulls = true;

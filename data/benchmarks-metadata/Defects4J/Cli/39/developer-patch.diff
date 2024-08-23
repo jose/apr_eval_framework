@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:21:52.048268317 +0000
-+++ src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:21:55.060951031 +0000
+--- src/main/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:24:01.802969483 -0700
++++ src/main/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:24:04.368074287 -0700
 @@ -89,7 +89,7 @@
          }
          else if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz)

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/codec/language/Caverphone.java	2023-12-05 20:06:08.888352062 +0000
-+++ src/java/org/apache/commons/codec/language/Caverphone.java	2023-12-05 20:06:09.965188808 +0000
+--- src/java/org/apache/commons/codec/language/Caverphone.java	2024-07-18 03:47:09.901268743 -0700
++++ src/java/org/apache/commons/codec/language/Caverphone.java	2024-07-18 03:47:10.541294597 -0700
 @@ -56,7 +56,7 @@
          }
  
@@ -9,8 +9,8 @@
  
          // 2. Remove anything not A-Z
          txt = txt.replaceAll("[^a-z]", "");
---- src/java/org/apache/commons/codec/language/Metaphone.java	2023-12-05 20:06:08.996805332 +0000
-+++ src/java/org/apache/commons/codec/language/Metaphone.java	2023-12-05 20:06:09.965912479 +0000
+--- src/java/org/apache/commons/codec/language/Metaphone.java	2024-07-18 03:47:09.977271813 -0700
++++ src/java/org/apache/commons/codec/language/Metaphone.java	2024-07-18 03:47:10.542294637 -0700
 @@ -85,7 +85,7 @@
          }
          // single character is itself
@@ -20,8 +20,8 @@
          }
        
          char[] inwd = txt.toUpperCase(java.util.Locale.ENGLISH).toCharArray() ;
---- src/java/org/apache/commons/codec/language/SoundexUtils.java	2023-12-05 20:06:08.997190732 +0000
-+++ src/java/org/apache/commons/codec/language/SoundexUtils.java	2023-12-05 20:06:09.966217080 +0000
+--- src/java/org/apache/commons/codec/language/SoundexUtils.java	2024-07-18 03:47:09.977271813 -0700
++++ src/java/org/apache/commons/codec/language/SoundexUtils.java	2024-07-18 03:47:10.542294637 -0700
 @@ -50,7 +50,7 @@
              }
          }

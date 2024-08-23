@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:19:20.703218916 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:19:23.713673053 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:14:15.494820170 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:14:18.167929086 -0700
 @@ -1088,10 +1088,13 @@
          // looks only at this element and five levels up, to prevent recursion & needless stack searches
          if (node != null && node instanceof Element) {

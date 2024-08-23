@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:36.309242468 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:38.527804868 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 04:00:02.761843277 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 04:00:04.440912612 -0700
 @@ -1960,7 +1960,7 @@
              }
              char c = _inputBuffer[_inputPtr];

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/std/JdkDeserializers.java	2023-12-05 21:12:30.557875201 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/JdkDeserializers.java	2023-12-05 21:12:33.287489930 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/JdkDeserializers.java	2024-07-18 04:08:33.884898383 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/JdkDeserializers.java	2024-07-18 04:08:35.947983139 -0700
 @@ -19,7 +19,8 @@
                  UUID.class,
                  AtomicBoolean.class,

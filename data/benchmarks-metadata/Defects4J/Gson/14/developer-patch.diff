@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:12.292232869 +0000
-+++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:14.458868578 +0000
+--- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:04.003952847 -0700
++++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:05.657019981 -0700
 @@ -76,7 +76,11 @@
     */
    public static WildcardType subtypeOf(Type bound) {

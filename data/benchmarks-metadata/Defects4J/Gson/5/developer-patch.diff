@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java	2023-12-05 20:58:27.417742894 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java	2023-12-05 20:58:29.531539759 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java	2024-07-18 03:57:27.297462115 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java	2024-07-18 03:57:28.935528641 -0700
 @@ -211,6 +211,7 @@
                  String timezoneOffset = date.substring(offset);
  

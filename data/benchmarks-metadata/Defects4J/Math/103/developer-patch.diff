@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2023-12-05 17:23:23.680076668 +0000
-+++ src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2023-12-05 17:23:27.629135067 +0000
+--- src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2024-07-18 02:56:23.025229620 -0700
++++ src/java/org/apache/commons/math/distribution/NormalDistributionImpl.java	2024-07-18 02:56:25.903359563 -0700
 @@ -106,8 +106,18 @@
       * convergence exception is caught and 0 or 1 is returned.
       */

@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/MutableDateTime.java	2023-12-05 17:38:41.027772960 +0000
-+++ src/main/java/org/joda/time/MutableDateTime.java	2023-12-05 17:38:45.393275266 +0000
+--- src/main/java/org/joda/time/MutableDateTime.java	2024-07-18 03:07:04.515728571 -0700
++++ src/main/java/org/joda/time/MutableDateTime.java	2024-07-18 03:07:08.356880950 -0700
 @@ -636,7 +636,9 @@
          if (type == null) {
              throw new IllegalArgumentException("Field must not be null");

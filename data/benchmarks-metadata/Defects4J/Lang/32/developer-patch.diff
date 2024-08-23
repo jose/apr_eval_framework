@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java	2023-12-05 18:57:16.787411937 +0000
-+++ src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java	2023-12-05 18:57:23.381494913 +0000
+--- src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java	2024-07-18 03:15:22.668960697 -0700
++++ src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java	2024-07-18 03:15:26.603120908 -0700
 @@ -101,12 +101,7 @@
       * 
       * @since 2.3

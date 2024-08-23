@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:03.248484191 +0000
-+++ src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:06.447587500 +0000
+--- src/main/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:23:19.878256534 -0700
++++ src/main/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:23:22.439361175 -0700
 @@ -934,11 +934,7 @@
          
          // if we didn't find one, simply chop at startPos+width

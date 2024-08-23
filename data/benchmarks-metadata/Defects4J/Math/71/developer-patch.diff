@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:17:38.957122513 +0000
-+++ src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:17:44.120265850 +0000
+--- src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2024-07-18 02:51:54.014209130 -0700
++++ src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2024-07-18 02:51:58.037380397 -0700
 @@ -297,6 +297,10 @@
                    // it is so small (much probably exactly 0 due to limited accuracy)
                    // that the code above would fail handling it.
@@ -11,8 +11,8 @@
                    loop     = false;
                } else {
                    // reject the step to match exactly the next switch time
---- src/main/java/org/apache/commons/math/ode/nonstiff/RungeKuttaIntegrator.java	2023-12-05 17:17:38.957457172 +0000
-+++ src/main/java/org/apache/commons/math/ode/nonstiff/RungeKuttaIntegrator.java	2023-12-05 17:17:44.120508169 +0000
+--- src/main/java/org/apache/commons/math/ode/nonstiff/RungeKuttaIntegrator.java	2024-07-18 02:51:54.014209130 -0700
++++ src/main/java/org/apache/commons/math/ode/nonstiff/RungeKuttaIntegrator.java	2024-07-18 02:51:58.038380440 -0700
 @@ -177,6 +177,9 @@
                  // it is so small (much probably exactly 0 due to limited accuracy)
                  // that the code above would fail handling it.

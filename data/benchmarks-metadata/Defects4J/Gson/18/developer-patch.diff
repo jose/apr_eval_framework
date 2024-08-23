@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:32.362738251 +0000
-+++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:34.415765271 +0000
+--- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:20.409619113 -0700
++++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:22.052685841 -0700
 @@ -275,7 +275,10 @@
     * @param supertype a superclass of, or interface implemented by, this.
     */

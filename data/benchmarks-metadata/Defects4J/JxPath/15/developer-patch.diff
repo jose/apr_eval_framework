@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/axes/UnionContext.java	2023-12-05 21:22:47.616366178 +0000
-+++ src/java/org/apache/commons/jxpath/ri/axes/UnionContext.java	2023-12-05 21:22:48.648723666 +0000
+--- src/java/org/apache/commons/jxpath/ri/axes/UnionContext.java	2024-07-18 04:17:10.202904742 -0700
++++ src/java/org/apache/commons/jxpath/ri/axes/UnionContext.java	2024-07-18 04:17:10.844930312 -0700
 @@ -17,8 +17,10 @@
  package org.apache.commons.jxpath.ri.axes;
  

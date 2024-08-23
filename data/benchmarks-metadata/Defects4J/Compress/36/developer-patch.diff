@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2023-12-05 20:55:08.606483087 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2023-12-05 20:55:12.151177092 +0000
+--- src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2024-07-18 03:54:27.330053065 -0700
++++ src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZFile.java	2024-07-18 03:54:30.463180558 -0700
 @@ -899,6 +899,9 @@
      }
      

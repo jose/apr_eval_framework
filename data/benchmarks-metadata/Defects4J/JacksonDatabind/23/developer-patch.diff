@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2023-12-05 21:04:02.324586696 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2023-12-05 21:04:04.791289291 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2024-07-18 04:01:55.473503642 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2024-07-18 04:01:57.354581457 -0700
 @@ -51,6 +51,7 @@
      protected abstract static class Base<T> extends StdScalarSerializer<T>
          implements ContextualSerializer

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java	2023-12-05 18:53:40.723030286 +0000
-+++ src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java	2023-12-05 18:53:47.115550392 +0000
+--- src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java	2024-07-18 03:13:08.782493151 -0700
++++ src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java	2024-07-18 03:13:12.684652994 -0700
 @@ -80,26 +80,20 @@
              return;
          }

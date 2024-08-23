@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/JsonWriteContext.java	2023-12-05 21:00:06.551173236 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/JsonWriteContext.java	2023-12-05 21:00:08.670473138 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/JsonWriteContext.java	2024-07-18 03:58:48.750787076 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/JsonWriteContext.java	2024-07-18 03:58:50.372854057 -0700
 @@ -166,6 +166,9 @@
      public int writeValue() {
          // Most likely, object:

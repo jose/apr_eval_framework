@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:09:04.878738395 +0000
-+++ src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:09:08.546498054 +0000
+--- src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:25.147744884 -0700
++++ src/main/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:28.025861483 -0700
 @@ -232,9 +232,12 @@
              // the object is already in the uniq list
              // (and it hasn't been swapped with itself)

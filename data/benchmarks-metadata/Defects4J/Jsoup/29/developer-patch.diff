@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Document.java	2023-12-05 21:15:59.032413955 +0000
-+++ src/main/java/org/jsoup/nodes/Document.java	2023-12-05 21:16:00.954663104 +0000
+--- src/main/java/org/jsoup/nodes/Document.java	2024-07-18 04:11:22.650785466 -0700
++++ src/main/java/org/jsoup/nodes/Document.java	2024-07-18 04:11:24.231849910 -0700
 @@ -1,5 +1,6 @@
  package org.jsoup.nodes;
  

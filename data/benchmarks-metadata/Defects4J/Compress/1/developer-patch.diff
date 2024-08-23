@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:10:19.592873938 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:10:23.141854035 +0000
+--- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:50:26.311232198 -0700
++++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:50:29.145347667 -0700
 @@ -343,6 +343,7 @@
       */
      public void close() throws IOException {

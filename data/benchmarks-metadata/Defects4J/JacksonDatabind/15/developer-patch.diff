@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/JavaType.java	2023-12-05 21:03:14.043569256 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/JavaType.java	2023-12-05 21:03:16.604985795 +0000
+--- src/main/java/com/fasterxml/jackson/databind/JavaType.java	2024-07-18 04:01:17.294924307 -0700
++++ src/main/java/com/fasterxml/jackson/databind/JavaType.java	2024-07-18 04:01:19.309007622 -0700
 @@ -299,6 +299,7 @@
       *
       * @since 2.5
@@ -8,8 +8,8 @@
  
      /**
       * Accessor for checking whether handlers for dealing with values of
---- src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2023-12-05 21:03:14.044520809 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2023-12-05 21:03:16.605636626 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2024-07-18 04:01:17.294924307 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2024-07-18 04:01:19.309007622 -0700
 @@ -160,7 +160,7 @@
              ser = findSerializerFromAnnotation(prov, beanDesc.getClassInfo());
          }
@@ -19,8 +19,8 @@
              ser = _createSerializer2(prov, delegateType, beanDesc, true);
          }
          return new StdDelegatingSerializer(conv, delegateType, ser);
---- src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2023-12-05 21:03:14.045200087 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2023-12-05 21:03:16.606475071 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2024-07-18 04:01:17.294924307 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2024-07-18 04:01:19.310007664 -0700
 @@ -367,7 +367,8 @@
                      Converter<Object,Object> conv = provider.converterInstance(prop.getMember(), convDef);
                      JavaType delegateType = conv.getOutputType(provider.getTypeFactory());
@@ -31,8 +31,8 @@
                      return new StdDelegatingSerializer(conv, delegateType, ser);
                  }
              }
---- src/main/java/com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.java	2023-12-05 21:03:14.045807723 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.java	2023-12-05 21:03:16.606757541 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.java	2024-07-18 04:01:17.294924307 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.java	2024-07-18 04:01:19.310007664 -0700
 @@ -118,13 +118,17 @@
              /* 02-Apr-2015, tatu: For "dynamic case", where type is only specified as
               *    java.lang.Object (or missing generic), [databind#731]
@@ -121,8 +121,8 @@
 +        return serializers.findValueSerializer(value.getClass());
 +    }
  }
---- src/main/java/com/fasterxml/jackson/databind/ser/std/StdSerializer.java	2023-12-05 21:03:14.046279766 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdSerializer.java	2023-12-05 21:03:16.607014328 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/StdSerializer.java	2024-07-18 04:01:17.295924348 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdSerializer.java	2024-07-18 04:01:19.310007664 -0700
 @@ -259,7 +259,7 @@
                      Converter<Object,Object> conv = provider.converterInstance(prop.getMember(), convDef);
                      JavaType delegateType = conv.getOutputType(provider.getTypeFactory());

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:11:15.696856117 +0000
-+++ src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:11:20.855860447 +0000
+--- src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:46:54.819797286 -0700
++++ src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:46:58.895947719 -0700
 @@ -1015,9 +1015,15 @@
       * @since 1.2
       */

@@ -1,2 +1,2 @@
---- org.apache.wicket.request.resource.ByteArrayResourceTest::contentType
 --- org.apache.wicket.markup.html.PackageResourceTest::contentType
+--- org.apache.wicket.request.resource.ByteArrayResourceTest::contentType

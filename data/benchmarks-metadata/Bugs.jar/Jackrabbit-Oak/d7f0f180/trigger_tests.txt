@@ -1,3 +1,1 @@
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::getValuesOnMvp[2]
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::getValuesOnMvp[0]
---- org.apache.jackrabbit.oak.jcr.query.QueryTest::getValuesOnMvp[1]
+--- org.apache.jackrabbit.oak.jcr.query.QueryTest::getValuesOnMvp

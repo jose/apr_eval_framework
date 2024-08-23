@@ -1,2 +1,2 @@
---- org.apache.wicket.stateless.StatelessFormUrlTest::submitLinkInputNameNotEncodedIntoFormAction
 --- org.apache.wicket.stateless.StatelessFormUrlTest::formComponentNameNotEncodedIntoFormAction
+--- org.apache.wicket.stateless.StatelessFormUrlTest::submitLinkInputNameNotEncodedIntoFormAction

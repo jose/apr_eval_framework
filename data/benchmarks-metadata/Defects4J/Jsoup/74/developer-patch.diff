@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/StringUtil.java	2023-12-05 21:19:48.578073193 +0000
-+++ src/main/java/org/jsoup/helper/StringUtil.java	2023-12-05 21:19:51.642335207 +0000
+--- src/main/java/org/jsoup/helper/StringUtil.java	2024-07-18 04:14:40.022818795 -0700
++++ src/main/java/org/jsoup/helper/StringUtil.java	2024-07-18 04:14:42.678926760 -0700
 @@ -128,7 +128,10 @@
          // 160 is &nbsp; (non-breaking space). Not in the spec but expected.
      }

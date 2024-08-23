@@ -1,5 +1,5 @@
---- src/org/mockito/internal/creation/MockSettingsImpl.java	2023-12-05 17:26:59.819170609 +0000
-+++ src/org/mockito/internal/creation/MockSettingsImpl.java	2023-12-05 17:27:04.845041234 +0000
+--- src/org/mockito/internal/creation/MockSettingsImpl.java	2024-07-18 02:59:22.563271352 -0700
++++ src/org/mockito/internal/creation/MockSettingsImpl.java	2024-07-18 02:59:26.520447351 -0700
 @@ -17,9 +17,11 @@
      private Object spiedInstance;
      private Answer<Object> defaultAnswer;
@@ -22,8 +22,8 @@
      }
  
      public void initiateMockName(Class classToMock) {
---- src/org/mockito/internal/util/MockUtil.java	2023-12-05 17:26:59.820752582 +0000
-+++ src/org/mockito/internal/util/MockUtil.java	2023-12-05 17:27:04.846645620 +0000
+--- src/org/mockito/internal/util/MockUtil.java	2024-07-18 02:59:22.563271352 -0700
++++ src/org/mockito/internal/util/MockUtil.java	2024-07-18 02:59:26.521447396 -0700
 @@ -16,6 +16,7 @@
  import org.mockito.internal.creation.jmock.ClassImposterizer;
  import org.mockito.internal.util.reflection.LenientCopyTool;

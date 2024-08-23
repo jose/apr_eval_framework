@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2023-12-05 21:13:19.451105588 +0000
-+++ src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2023-12-05 21:13:21.088899611 +0000
+--- src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2024-07-18 04:09:11.831457015 -0700
++++ src/main/java/com/fasterxml/jackson/dataformat/xml/deser/FromXmlParser.java	2024-07-18 04:09:12.541486119 -0700
 @@ -509,8 +509,13 @@
              // Simple, except that if this is a leaf, need to suppress end:
              if (_mayBeLeaf) {

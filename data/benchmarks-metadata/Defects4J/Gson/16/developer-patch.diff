@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:22.557522506 +0000
-+++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2023-12-05 20:59:24.624993253 +0000
+--- gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:12.317290466 -0700
++++ gson/src/main/java/com/google/gson/internal/$Gson$Types.java	2024-07-18 03:58:13.964357357 -0700
 @@ -339,7 +339,12 @@
      while (true) {
        if (toResolve instanceof TypeVariable) {

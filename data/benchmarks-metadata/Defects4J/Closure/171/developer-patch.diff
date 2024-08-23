@@ -1,5 +1,17 @@
---- src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 20:05:19.645604673 +0000
-+++ src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 20:05:23.459749826 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:27.486555380 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:30.650683196 -0700
+@@ -1666,6 +1666,9 @@
+       }
+ 
+       // Prototype sets are always declared.
++      if (qName != null && qName.endsWith(".prototype")) {
++        return false;
++      }
+ 
+       boolean inferred = true;
+       if (info != null) {
+--- src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:46:27.485555339 -0700
++++ src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:46:30.650683196 -0700
 @@ -728,12 +728,7 @@
      // See CodingConvention#getObjectLiteralCase and goog.object.reflect.
      // Ignore these types of literals.
@@ -14,15 +26,3 @@
        return scope;
      }
  
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:19.646242413 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:23.460528033 +0000
-@@ -1666,6 +1666,9 @@
-       }
- 
-       // Prototype sets are always declared.
-+      if (qName != null && qName.endsWith(".prototype")) {
-+        return false;
-+      }
- 
-       boolean inferred = true;
-       if (info != null) {

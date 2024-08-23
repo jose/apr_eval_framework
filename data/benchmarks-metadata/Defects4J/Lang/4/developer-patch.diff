@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java	2023-12-05 18:50:28.953463139 +0000
-+++ src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java	2023-12-05 18:50:35.614358882 +0000
+--- src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java	2024-07-18 03:11:11.938693181 -0700
++++ src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java	2024-07-18 03:11:15.842852397 -0700
 @@ -28,7 +28,7 @@
   */
  public class LookupTranslator extends CharSequenceTranslator {

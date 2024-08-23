@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 19:40:43.916005689 +0000
-+++ src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 19:40:47.764658258 +0000
+--- src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:39:27.406654377 -0700
++++ src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:39:30.555782729 -0700
 @@ -722,8 +722,20 @@
     *     to an Object type, if possible.
     */

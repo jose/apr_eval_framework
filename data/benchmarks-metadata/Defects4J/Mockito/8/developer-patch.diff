@@ -1,5 +1,5 @@
---- src/org/mockito/internal/util/reflection/GenericMetadataSupport.java	2023-12-05 17:25:20.844820904 +0000
-+++ src/org/mockito/internal/util/reflection/GenericMetadataSupport.java	2023-12-05 17:25:25.982163395 +0000
+--- src/org/mockito/internal/util/reflection/GenericMetadataSupport.java	2024-07-18 02:57:59.235578608 -0700
++++ src/org/mockito/internal/util/reflection/GenericMetadataSupport.java	2024-07-18 02:58:03.542769286 -0700
 @@ -76,7 +76,7 @@
  
              if (actualTypeArgument instanceof WildcardType) {

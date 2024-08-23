@@ -1,5 +1,5 @@
---- source/org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java	2023-12-05 17:31:12.655102577 +0000
-+++ source/org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java	2023-12-05 17:31:20.365655248 +0000
+--- source/org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java	2024-07-18 03:02:47.446493665 -0700
++++ source/org/jfree/chart/renderer/category/AbstractCategoryItemRenderer.java	2024-07-18 03:02:51.791665370 -0700
 @@ -1794,7 +1794,7 @@
          }
          int index = this.plot.getIndexOf(this);

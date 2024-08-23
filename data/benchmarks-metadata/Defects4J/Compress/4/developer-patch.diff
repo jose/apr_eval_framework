@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:10:42.787945237 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:10:46.453763516 +0000
+--- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:50:45.774025164 -0700
++++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:50:48.651142383 -0700
 @@ -333,7 +333,6 @@
       */
      public void close() throws IOException {
@@ -8,8 +8,8 @@
              out.close();
              this.closed = true;
          }
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:10:42.916366083 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:10:46.454404924 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:50:45.832027527 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:50:48.651142383 -0700
 @@ -123,7 +123,6 @@
       */
      public void close() throws IOException {
@@ -18,8 +18,8 @@
              buffer.close();
              out.close();
              closed = true;
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2023-12-05 20:10:42.916777546 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2023-12-05 20:10:46.455435080 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2024-07-18 03:50:45.832027527 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveOutputStream.java	2024-07-18 03:50:48.653142464 -0700
 @@ -527,7 +527,6 @@
       * @exception  IOException  if an I/O error occurs.
       */
@@ -28,8 +28,8 @@
          if (raf != null) {
              raf.close();
          }
---- src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java	2023-12-05 20:10:42.917123457 +0000
-+++ src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java	2023-12-05 20:10:46.455751649 +0000
+--- src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java	2024-07-18 03:50:45.832027527 -0700
++++ src/main/java/org/apache/commons/compress/changes/ChangeSetPerformer.java	2024-07-18 03:50:48.653142464 -0700
 @@ -125,6 +125,7 @@
                  results.addedFromChangeSet(change.getEntry().getName());
              }

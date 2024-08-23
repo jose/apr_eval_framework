@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:21:19.478636296 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:21:22.549206429 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:16:00.352085748 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:16:03.021194445 -0700
 @@ -137,6 +137,9 @@
       * of the tag case preserving setting of the parser.
       * @return
@@ -10,8 +10,8 @@
  
      /**
       * Change the tag of this element. For example, convert a {@code <span>} to a {@code <div>} with
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:21:19.479042901 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:21:22.549617580 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:16:00.352085748 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:16:03.022194486 -0700
 @@ -312,7 +312,7 @@
      Element getFromStack(String elName) {
          for (int pos = stack.size() -1; pos >= 0; pos--) {
@@ -131,8 +131,8 @@
                  return next;
          }
          return null;
---- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:21:19.479675335 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:21:22.550279111 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:16:00.353085789 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:16:03.023194527 -0700
 @@ -312,11 +312,11 @@
                          ArrayList<Element> stack = tb.getStack();
                          for (int i = stack.size() - 1; i > 0; i--) {
@@ -451,8 +451,8 @@
                      tb.error(this);
                      return true;
                  }
---- src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:21:19.480516097 +0000
-+++ src/main/java/org/jsoup/parser/Tag.java	2023-12-05 21:21:22.550743052 +0000
+--- src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:16:00.353085789 -0700
++++ src/main/java/org/jsoup/parser/Tag.java	2024-07-18 04:16:03.023194527 -0700
 @@ -1,6 +1,7 @@
  package org.jsoup.parser;
  

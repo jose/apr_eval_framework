@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2023-12-05 20:59:02.356220476 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2023-12-05 20:59:04.421814272 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2024-07-18 03:57:55.822620584 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java	2024-07-18 03:57:57.393684388 -0700
 @@ -259,9 +259,13 @@
        pathNames[stackSize - 2] = "null";
      } else {

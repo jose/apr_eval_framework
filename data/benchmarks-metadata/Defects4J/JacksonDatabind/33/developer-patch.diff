@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:05:04.663462896 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:05:07.291728713 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:02:43.955508697 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:02:45.928589898 -0700
 @@ -745,7 +745,10 @@
                   */
              } else if (_hasAnnotation(a, JsonSerialize.class)

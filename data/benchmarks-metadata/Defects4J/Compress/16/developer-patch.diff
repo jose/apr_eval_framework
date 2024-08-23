@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:14:13.993860556 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:14:26.869379128 +0000
+--- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:52:07.390350687 -0700
++++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:52:10.422474167 -0700
 @@ -241,8 +241,9 @@
                  try {
                      TarArchiveInputStream tais = new TarArchiveInputStream(new ByteArrayInputStream(tarheader));

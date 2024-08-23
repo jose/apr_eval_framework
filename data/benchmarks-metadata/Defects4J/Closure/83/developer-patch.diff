@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 19:35:42.603713331 +0000
-+++ src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 19:35:46.599784949 +0000
+--- src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:35:10.418237273 -0700
++++ src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:35:13.569357289 -0700
 @@ -331,7 +331,10 @@
  
        @Override

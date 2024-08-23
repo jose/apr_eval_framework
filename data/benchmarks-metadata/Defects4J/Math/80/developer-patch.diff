@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2023-12-05 17:19:12.979083619 +0000
-+++ src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2023-12-05 17:19:18.196775426 +0000
+--- src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2024-07-18 02:53:04.312250977 -0700
++++ src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2024-07-18 02:53:08.437433668 -0700
 @@ -1132,7 +1132,7 @@
      private boolean flipIfWarranted(final int n, final int step) {
          if (1.5 * work[pingPong] < work[4 * (n - 1) + pingPong]) {

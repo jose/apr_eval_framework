@@ -1,2 +1,2 @@
---- org.apache.wicket.response.filter.ResponseFilterTest::testFilterAddCommentFilter
 --- org.apache.wicket.response.filter.ResponseFilterTest::testAddCommentFilterInAjaxResponse
+--- org.apache.wicket.response.filter.ResponseFilterTest::testFilterAddCommentFilter

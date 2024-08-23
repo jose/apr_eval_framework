@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/utils/IOUtils.java	2023-12-05 20:53:42.752195810 +0000
-+++ src/main/java/org/apache/commons/compress/utils/IOUtils.java	2023-12-05 20:53:48.267038616 +0000
+--- src/main/java/org/apache/commons/compress/utils/IOUtils.java	2024-07-18 03:53:17.432204268 -0700
++++ src/main/java/org/apache/commons/compress/utils/IOUtils.java	2024-07-18 03:53:20.453327497 -0700
 @@ -101,6 +101,17 @@
              numToSkip -= skipped;
          }

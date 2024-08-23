@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/util/JsonParserSequence.java	2023-12-05 21:00:51.599243744 +0000
-+++ src/main/java/com/fasterxml/jackson/core/util/JsonParserSequence.java	2023-12-05 21:00:53.650594334 +0000
+--- src/main/java/com/fasterxml/jackson/core/util/JsonParserSequence.java	2024-07-18 03:59:25.575307702 -0700
++++ src/main/java/com/fasterxml/jackson/core/util/JsonParserSequence.java	2024-07-18 03:59:27.209375179 -0700
 @@ -32,6 +32,7 @@
       *
       * @since 2.8

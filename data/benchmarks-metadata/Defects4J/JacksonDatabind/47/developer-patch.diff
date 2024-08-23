@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/AnnotationIntrospector.java	2023-12-05 21:06:29.229882622 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/AnnotationIntrospector.java	2023-12-05 21:06:31.713874555 +0000
+--- src/main/java/com/fasterxml/jackson/databind/AnnotationIntrospector.java	2024-07-18 04:03:52.065311724 -0700
++++ src/main/java/com/fasterxml/jackson/databind/AnnotationIntrospector.java	2024-07-18 04:03:54.017392061 -0700
 @@ -813,10 +813,19 @@
                  //    static typing this way
                  type = type.withStaticTyping();

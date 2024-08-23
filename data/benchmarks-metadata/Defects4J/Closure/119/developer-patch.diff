@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:41:00.817790007 +0000
-+++ src/com/google/javascript/jscomp/GlobalNamespace.java	2023-12-05 19:41:04.743458104 +0000
+--- src/com/google/javascript/jscomp/GlobalNamespace.java	2024-07-18 03:39:42.505269764 -0700
++++ src/com/google/javascript/jscomp/GlobalNamespace.java	2024-07-18 03:39:45.797403945 -0700
 @@ -363,6 +363,7 @@
                  isSet = true;
                  type = Name.Type.FUNCTION;

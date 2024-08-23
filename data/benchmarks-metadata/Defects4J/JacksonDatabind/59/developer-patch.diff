@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/JavaType.java	2023-12-05 21:07:42.166832410 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/JavaType.java	2023-12-05 21:07:45.004754804 +0000
+--- src/main/java/com/fasterxml/jackson/databind/JavaType.java	2024-07-18 04:04:49.489674997 -0700
++++ src/main/java/com/fasterxml/jackson/databind/JavaType.java	2024-07-18 04:04:51.372752495 -0700
 @@ -137,6 +137,18 @@
       *
       * @since 2.8.4
@@ -19,8 +19,8 @@
  
      /**
       * Mutant factory method that may be called on structured types
---- src/main/java/com/fasterxml/jackson/databind/type/CollectionLikeType.java	2023-12-05 21:07:42.167416952 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/CollectionLikeType.java	2023-12-05 21:07:45.005449965 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/CollectionLikeType.java	2024-07-18 04:04:49.489674997 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/CollectionLikeType.java	2024-07-18 04:04:51.372752495 -0700
 @@ -133,6 +133,18 @@
                  _valueHandler, _typeHandler, _asStatic);
      }
@@ -40,8 +40,8 @@
      
      @Override
      public CollectionLikeType withStaticTyping() {
---- src/main/java/com/fasterxml/jackson/databind/type/MapLikeType.java	2023-12-05 21:07:42.167735188 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/MapLikeType.java	2023-12-05 21:07:45.005927010 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/MapLikeType.java	2024-07-18 04:04:49.489674997 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/MapLikeType.java	2024-07-18 04:04:51.372752495 -0700
 @@ -145,7 +145,28 @@
                  _valueHandler, _typeHandler, _asStatic);
      }
@@ -71,8 +71,8 @@
  
      @Override
      public MapLikeType withStaticTyping() {
---- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:07:42.168235691 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:07:45.006534447 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:04:49.490675038 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:04:51.373752536 -0700
 @@ -425,6 +425,7 @@
  
          // 25-Sep-2016, tatu: As per [databind#1384] also need to ensure handlers get

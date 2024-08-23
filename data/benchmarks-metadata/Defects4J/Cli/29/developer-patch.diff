@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/Util.java	2023-12-05 19:20:42.385178306 +0000
-+++ src/java/org/apache/commons/cli/Util.java	2023-12-05 19:20:45.466479379 +0000
+--- src/java/org/apache/commons/cli/Util.java	2024-07-18 03:23:01.900522006 -0700
++++ src/java/org/apache/commons/cli/Util.java	2024-07-18 03:23:04.458626525 -0700
 @@ -62,14 +62,10 @@
       */
      static String stripLeadingAndTrailingQuotes(String str)

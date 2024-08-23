@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/stat/clustering/KMeansPlusPlusClusterer.java	2023-12-05 17:15:15.355439925 +0000
-+++ src/main/java/org/apache/commons/math/stat/clustering/KMeansPlusPlusClusterer.java	2023-12-05 17:15:20.713110311 +0000
+--- src/main/java/org/apache/commons/math/stat/clustering/KMeansPlusPlusClusterer.java	2024-07-18 02:50:02.118337269 -0700
++++ src/main/java/org/apache/commons/math/stat/clustering/KMeansPlusPlusClusterer.java	2024-07-18 02:50:06.271503586 -0700
 @@ -172,7 +172,7 @@
          while (resultSet.size() < k) {
              // For each data point x, compute D(x), the distance between x and

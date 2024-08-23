@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializer.java	2023-12-05 21:12:05.877968137 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializer.java	2023-12-05 21:12:08.579358578 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializer.java	2024-07-18 04:08:13.923078309 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializer.java	2024-07-18 04:08:15.938161092 -0700
 @@ -768,12 +768,16 @@
                      // if so, need to copy all remaining tokens into buffer
                      while (t == JsonToken.FIELD_NAME) {

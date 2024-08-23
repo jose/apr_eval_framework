@@ -1,5 +1,5 @@
---- source/org/jfree/chart/util/ShapeUtilities.java	2023-12-05 17:34:03.159436314 +0000
-+++ source/org/jfree/chart/util/ShapeUtilities.java	2023-12-05 17:34:10.478502368 +0000
+--- source/org/jfree/chart/util/ShapeUtilities.java	2024-07-18 03:04:21.118277694 -0700
++++ source/org/jfree/chart/util/ShapeUtilities.java	2024-07-18 03:04:25.277448608 -0700
 @@ -272,7 +272,7 @@
              return false;
          }

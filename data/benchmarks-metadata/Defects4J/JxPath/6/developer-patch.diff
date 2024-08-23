@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2023-12-05 21:22:21.092765665 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2023-12-05 21:22:22.204518943 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2024-07-18 04:16:51.745169629 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2024-07-18 04:16:52.349193685 -0700
 @@ -54,11 +54,19 @@
  //            (l == null ? "null" : l.getClass().getName()) + " " +
  //            (r == null ? "null" : r.getClass().getName()));

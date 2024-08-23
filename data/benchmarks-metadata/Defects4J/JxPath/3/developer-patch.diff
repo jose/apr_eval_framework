@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/beans/NullPropertyPointer.java	2023-12-05 21:22:12.379743498 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/beans/NullPropertyPointer.java	2023-12-05 21:22:13.552213583 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/beans/NullPropertyPointer.java	2024-07-18 04:16:45.783932212 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/beans/NullPropertyPointer.java	2024-07-18 04:16:46.297952683 -0700
 @@ -16,6 +16,8 @@
   */
  package org.apache.commons.jxpath.ri.model.beans;

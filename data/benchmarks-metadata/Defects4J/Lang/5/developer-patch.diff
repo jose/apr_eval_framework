@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/LocaleUtils.java	2023-12-05 18:50:43.932655958 +0000
-+++ src/main/java/org/apache/commons/lang3/LocaleUtils.java	2023-12-05 18:50:50.596752459 +0000
+--- src/main/java/org/apache/commons/lang3/LocaleUtils.java	2024-07-18 03:11:20.742052192 -0700
++++ src/main/java/org/apache/commons/lang3/LocaleUtils.java	2024-07-18 03:11:24.662212060 -0700
 @@ -94,6 +94,26 @@
              throw new IllegalArgumentException("Invalid locale format: " + str);
          }

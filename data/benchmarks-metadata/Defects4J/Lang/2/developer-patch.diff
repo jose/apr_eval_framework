@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/LocaleUtils.java	2023-12-05 18:49:51.174468572 +0000
-+++ src/main/java/org/apache/commons/lang3/LocaleUtils.java	2023-12-05 18:50:05.172491314 +0000
+--- src/main/java/org/apache/commons/lang3/LocaleUtils.java	2024-07-18 03:10:54.198970749 -0700
++++ src/main/java/org/apache/commons/lang3/LocaleUtils.java	2024-07-18 03:10:58.177132087 -0700
 @@ -89,6 +89,9 @@
          if (str == null) {
              return null;

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:01:21.371664762 +0000
-+++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:01:23.470260368 +0000
+--- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:50.388332327 -0700
++++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:52.048400878 -0700
 @@ -414,7 +414,7 @@
                  }
                  _itemFilter = f;

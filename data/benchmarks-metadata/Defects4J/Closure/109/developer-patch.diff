@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:39:35.115905392 +0000
-+++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:39:38.875345820 +0000
+--- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:38:27.820225757 -0700
++++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:38:31.393371391 -0700
 @@ -1905,7 +1905,11 @@
     * For expressions on the right hand side of a this: or new:
     */

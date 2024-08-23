@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:05:36.957942174 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:05:40.708230800 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:46:42.536163316 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:46:45.741292789 -0700
 @@ -127,12 +127,7 @@
        // the IN_FOR_INIT_CLAUSE one.
        Context rhsContext = getContextForNoInOperator(context);
@@ -14,8 +14,8 @@
          // Assignments are the only right-associative binary operators
          addExpr(first, p, context);
          cc.addOp(opstr, true);
---- src/com/google/javascript/jscomp/PeepholeSubstituteAlternateSyntax.java	2023-12-05 20:05:36.958549662 +0000
-+++ src/com/google/javascript/jscomp/PeepholeSubstituteAlternateSyntax.java	2023-12-05 20:05:40.708540704 +0000
+--- src/com/google/javascript/jscomp/PeepholeSubstituteAlternateSyntax.java	2024-07-18 03:46:42.536163316 -0700
++++ src/com/google/javascript/jscomp/PeepholeSubstituteAlternateSyntax.java	2024-07-18 03:46:45.742292830 -0700
 @@ -99,12 +99,40 @@
        case Token.ARRAYLIT:
          return tryMinimizeArrayLiteral(node);

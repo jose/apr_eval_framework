@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java	2023-12-05 18:55:35.093214350 +0000
-+++ src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java	2023-12-05 18:55:41.592093360 +0000
+--- src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java	2024-07-18 03:14:20.114413267 -0700
++++ src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java	2024-07-18 03:14:24.133576941 -0700
 @@ -71,33 +71,33 @@
          {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
          {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2023-12-05 17:08:34.771438066 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2023-12-05 17:08:40.086922041 +0000
+--- src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2024-07-18 02:44:44.453850823 -0700
++++ src/main/java/org/apache/commons/math3/optimization/univariate/BrentOptimizer.java	2024-07-18 02:44:48.481006134 -0700
 @@ -148,6 +148,7 @@
          UnivariatePointValuePair current
              = new UnivariatePointValuePair(x, isMinim ? fx : -fx);

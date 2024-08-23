@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/AnnotatedClass.java	2023-12-05 21:02:11.709420390 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/AnnotatedClass.java	2023-12-05 21:02:14.316891235 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/AnnotatedClass.java	2024-07-18 04:00:30.195976139 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/AnnotatedClass.java	2024-07-18 04:00:32.145056624 -0700
 @@ -655,7 +655,12 @@
                       */
                  } else {

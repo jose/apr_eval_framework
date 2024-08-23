@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java	2023-12-05 20:35:59.879049237 +0000
-+++ src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java	2023-12-05 20:36:03.841791022 +0000
+--- src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java	2024-07-18 03:52:49.372060341 -0700
++++ src/main/java/org/apache/commons/compress/compressors/bzip2/BZip2CompressorInputStream.java	2024-07-18 03:52:52.403183778 -0700
 @@ -64,7 +64,6 @@
      private InputStream in;
      private final boolean decompressConcatenated;

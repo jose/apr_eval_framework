@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:03:38.272382651 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:03:40.712939316 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:01:36.610723342 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:01:38.406797641 -0700
 @@ -1018,6 +1018,9 @@
      private JavaType _mapType(Class<?> rawClass)
      {

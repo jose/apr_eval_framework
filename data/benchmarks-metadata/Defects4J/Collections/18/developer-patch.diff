@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2023-12-05 20:08:56.800594251 +0000
-+++ src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2023-12-05 20:09:00.397610275 +0000
+--- src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2024-07-18 03:49:18.499475546 -0700
++++ src/main/java/org/apache/commons/collections/set/ListOrderedSet.java	2024-07-18 03:49:21.365591660 -0700
 @@ -226,20 +226,26 @@
  
      @Override

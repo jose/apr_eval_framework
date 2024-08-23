@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2023-12-05 17:28:07.859482142 +0000
-+++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2023-12-05 17:28:12.813538089 +0000
+--- src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2024-07-18 03:00:18.686369692 -0700
++++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2024-07-18 03:00:22.854556077 -0700
 @@ -41,14 +41,16 @@
      
      private static final long serialVersionUID = -7105341425736035847L;

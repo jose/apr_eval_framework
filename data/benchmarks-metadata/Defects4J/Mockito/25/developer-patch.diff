@@ -1,5 +1,5 @@
---- src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2023-12-05 17:28:30.180444789 +0000
-+++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2023-12-05 17:28:35.139154817 +0000
+--- src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2024-07-18 03:00:38.590259711 -0700
++++ src/org/mockito/internal/stubbing/defaultanswers/ReturnsDeepStubs.java	2024-07-18 03:00:42.643440952 -0700
 @@ -4,6 +4,7 @@
   */
  package org.mockito.internal.stubbing.defaultanswers;

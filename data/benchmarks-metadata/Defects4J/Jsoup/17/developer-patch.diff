@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/TreeBuilderState.java	2023-12-05 21:15:02.480945567 +0000
-+++ src/main/java/org/jsoup/parser/TreeBuilderState.java	2023-12-05 21:15:04.501139165 +0000
+--- src/main/java/org/jsoup/parser/TreeBuilderState.java	2024-07-18 04:10:35.158861353 -0700
++++ src/main/java/org/jsoup/parser/TreeBuilderState.java	2024-07-18 04:10:36.770926622 -0700
 @@ -1448,7 +1448,7 @@
          }
      };

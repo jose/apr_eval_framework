@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/InlineVariables.java	2023-12-05 20:02:51.789658210 +0000
-+++ src/com/google/javascript/jscomp/InlineVariables.java	2023-12-05 20:02:55.707642212 +0000
+--- src/com/google/javascript/jscomp/InlineVariables.java	2024-07-18 03:44:20.452424008 -0700
++++ src/com/google/javascript/jscomp/InlineVariables.java	2024-07-18 03:44:23.717555671 -0700
 @@ -196,6 +196,8 @@
      private void doInlinesForScope(NodeTraversal t,
          Map<Var, ReferenceCollection> referenceMap) {
@@ -65,8 +65,8 @@
            !staleVars.contains(v) && referenceInfo.isWellDefined() &&
            referenceInfo.isAssignedOnceInLifetime()) {
          List<Reference> refs = referenceInfo.references;
---- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 20:02:51.659715844 +0000
-+++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 20:02:55.708074307 +0000
+--- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:44:20.386421357 -0700
++++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:44:23.717555671 -0700
 @@ -120,7 +120,12 @@
     */
    public void visit(NodeTraversal t, Node n, Node parent) {
@@ -81,8 +81,8 @@
        if (v != null && varFilter.apply(v)) {
          addReference(t, v,
              new Reference(n, parent, t, blockStack.peek()));
---- src/com/google/javascript/jscomp/Scope.java	2023-12-05 20:02:51.790011926 +0000
-+++ src/com/google/javascript/jscomp/Scope.java	2023-12-05 20:02:55.708440400 +0000
+--- src/com/google/javascript/jscomp/Scope.java	2024-07-18 03:44:20.452424008 -0700
++++ src/com/google/javascript/jscomp/Scope.java	2024-07-18 03:44:23.718555711 -0700
 @@ -60,6 +60,7 @@
    /** Whether this is a bottom scope for the purposes of type inference. */
    private final boolean isBottom;

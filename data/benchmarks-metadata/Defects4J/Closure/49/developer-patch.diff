@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2023-12-05 19:30:30.128495116 +0000
-+++ src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2023-12-05 19:30:34.207029424 +0000
+--- src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2024-07-18 03:30:41.695323272 -0700
++++ src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2024-07-18 03:30:45.502479139 -0700
 @@ -88,14 +88,6 @@
        renamer = nameStack.peek().forChildScope();
      }

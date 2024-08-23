@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/DefaultDateTypeAdapter.java	2023-12-05 20:59:27.491567350 +0000
-+++ gson/src/main/java/com/google/gson/DefaultDateTypeAdapter.java	2023-12-05 20:59:29.534610979 +0000
+--- gson/src/main/java/com/google/gson/DefaultDateTypeAdapter.java	2024-07-18 03:58:16.355454465 -0700
++++ gson/src/main/java/com/google/gson/DefaultDateTypeAdapter.java	2024-07-18 03:58:18.003521397 -0700
 @@ -96,8 +96,9 @@
  
    @Override

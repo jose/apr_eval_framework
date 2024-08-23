@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 19:28:22.640619997 +0000
-+++ src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 19:28:26.774419025 +0000
+--- src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:28:49.595743836 -0700
++++ src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:28:53.419900115 -0700
 @@ -1118,21 +1118,8 @@
  
      ObjectType constraintObj =

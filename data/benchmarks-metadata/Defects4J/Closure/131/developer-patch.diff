@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/TokenStream.java	2023-12-05 19:42:43.701667666 +0000
-+++ src/com/google/javascript/rhino/TokenStream.java	2023-12-05 19:42:47.494440202 +0000
+--- src/com/google/javascript/rhino/TokenStream.java	2024-07-18 03:41:12.705906131 -0700
++++ src/com/google/javascript/rhino/TokenStream.java	2024-07-18 03:41:15.985036580 -0700
 @@ -191,12 +191,13 @@
        int length = s.length();
  

@@ -1,2 +1,2 @@
---- org.apache.wicket.protocol.http.HeaderBufferingWebResponseTest::resetAfterWrittenContent
 --- org.apache.wicket.protocol.http.HeaderBufferingWebResponseTest::additionalHeaderAfterWrittenContent
+--- org.apache.wicket.protocol.http.HeaderBufferingWebResponseTest::resetAfterWrittenContent

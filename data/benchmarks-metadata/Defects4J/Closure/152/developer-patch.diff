@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:02:24.979549248 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:02:28.987485336 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:43:57.483501495 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:44:00.780633920 -0700
 @@ -868,7 +868,10 @@
      // Warning about typeOfThis if it doesn't resolve to an ObjectType
      // is handled further upstream.

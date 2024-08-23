@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:03:50.228490208 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:03:52.700186751 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:01:46.016112416 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:01:47.945192217 -0700
 @@ -1,6 +1,7 @@
  package com.fasterxml.jackson.databind.introspect;
  

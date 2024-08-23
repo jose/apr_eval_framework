@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:59:07.211603015 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:59:09.391945201 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:57:59.835783568 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:58:01.471850012 -0700
 @@ -728,7 +728,7 @@
      }
  

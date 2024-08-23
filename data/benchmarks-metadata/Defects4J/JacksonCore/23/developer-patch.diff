@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/util/DefaultPrettyPrinter.java	2023-12-05 21:01:26.427926122 +0000
-+++ src/main/java/com/fasterxml/jackson/core/util/DefaultPrettyPrinter.java	2023-12-05 21:01:28.544202061 +0000
+--- src/main/java/com/fasterxml/jackson/core/util/DefaultPrettyPrinter.java	2024-07-18 03:59:54.538503703 -0700
++++ src/main/java/com/fasterxml/jackson/core/util/DefaultPrettyPrinter.java	2024-07-18 03:59:56.186571758 -0700
 @@ -252,6 +252,10 @@
  
      @Override

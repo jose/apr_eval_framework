@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/format/DateTimeParserBucket.java	2023-12-05 18:13:49.122467903 +0000
-+++ src/main/java/org/joda/time/format/DateTimeParserBucket.java	2023-12-05 18:13:54.178651482 +0000
+--- src/main/java/org/joda/time/format/DateTimeParserBucket.java	2024-07-18 03:10:05.715004440 -0700
++++ src/main/java/org/joda/time/format/DateTimeParserBucket.java	2024-07-18 03:10:09.851172186 -0700
 @@ -352,6 +352,11 @@
              for (int i = 0; i < count; i++) {
                  millis = savedFields[i].set(millis, resetFields);

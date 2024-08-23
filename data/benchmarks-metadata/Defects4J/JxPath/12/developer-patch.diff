@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:38.409241479 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:39.477106834 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:04.055659917 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:04.663684132 -0700
 @@ -105,7 +105,8 @@
                  || testName.getName()
                          .equals(DOMNodePointer.getLocalName(node))) {

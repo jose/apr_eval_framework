@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:03.694472404 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:07.586668513 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:53:31.349771955 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:53:34.390896000 -0700
 @@ -580,11 +580,14 @@
          numToRead = Math.min(numToRead, available());
          

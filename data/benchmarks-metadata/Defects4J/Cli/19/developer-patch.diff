@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:33.189657186 +0000
-+++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:36.434506857 +0000
+--- src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:22:01.464065820 -0700
++++ src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:22:04.095172613 -0700
 @@ -229,13 +229,13 @@
          if (options.hasOption(token))
          {

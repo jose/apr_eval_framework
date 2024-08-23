@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:16:41.915267110 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:16:43.843674641 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:11:59.296279124 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:12:00.865343077 -0700
 @@ -452,7 +452,10 @@
                          tb.insertEmpty(startTag);
                          tb.framesetOk(false);

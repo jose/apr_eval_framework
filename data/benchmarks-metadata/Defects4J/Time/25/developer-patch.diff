@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:14:00.294836282 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:14:05.249452681 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:10:17.230471461 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:10:21.592648373 -0700
 @@ -896,6 +896,15 @@
                      return offsetLocal;
                  }

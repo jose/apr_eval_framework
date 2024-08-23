@@ -1,5 +1,5 @@
---- src/org/mockito/internal/configuration/SpyAnnotationEngine.java	2023-12-05 17:29:47.253781057 +0000
-+++ src/org/mockito/internal/configuration/SpyAnnotationEngine.java	2023-12-05 17:29:52.162067657 +0000
+--- src/org/mockito/internal/configuration/SpyAnnotationEngine.java	2024-07-18 03:01:42.446955724 -0700
++++ src/org/mockito/internal/configuration/SpyAnnotationEngine.java	2024-07-18 03:01:46.466111333 -0700
 @@ -16,6 +16,7 @@
  import org.mockito.exceptions.base.MockitoException;
  import org.mockito.internal.util.MockUtil;

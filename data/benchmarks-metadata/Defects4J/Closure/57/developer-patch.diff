@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ClosureCodingConvention.java	2023-12-05 19:31:44.884024480 +0000
-+++ src/com/google/javascript/jscomp/ClosureCodingConvention.java	2023-12-05 19:31:48.886767318 +0000
+--- src/com/google/javascript/jscomp/ClosureCodingConvention.java	2024-07-18 03:31:46.523977907 -0700
++++ src/com/google/javascript/jscomp/ClosureCodingConvention.java	2024-07-18 03:31:50.333133953 -0700
 @@ -194,7 +194,7 @@
          String qualifiedName = callee.getQualifiedName();
          if (functionName.equals(qualifiedName)) {

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:19:05.429538679 +0000
-+++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:19:08.547935573 +0000
+--- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:21:37.495092987 -0700
++++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:21:40.082197987 -0700
 @@ -114,17 +114,26 @@
          List valueList = (List) values.get(option);
  

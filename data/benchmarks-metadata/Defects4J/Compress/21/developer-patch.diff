@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java	2023-12-05 20:24:47.601307959 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java	2023-12-05 20:35:54.938228985 +0000
+--- src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java	2024-07-18 03:52:42.316773024 -0700
++++ src/main/java/org/apache/commons/compress/archivers/sevenz/SevenZOutputFile.java	2024-07-18 03:52:45.422899517 -0700
 @@ -636,14 +636,13 @@
          int shift = 7;
          for (int i = 0; i < length; i++) {

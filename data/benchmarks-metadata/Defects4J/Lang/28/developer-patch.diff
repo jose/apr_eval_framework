@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2023-12-05 18:56:18.246977381 +0000
-+++ src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2023-12-05 18:56:24.724069279 +0000
+--- src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2024-07-18 03:14:46.982507426 -0700
++++ src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2024-07-18 03:14:50.934668372 -0700
 @@ -60,7 +60,13 @@
                  return 0;
              }

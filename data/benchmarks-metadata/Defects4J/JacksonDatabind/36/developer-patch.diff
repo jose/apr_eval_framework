@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:05:22.817154829 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:05:25.430123533 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:02:58.197094803 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:03:00.188176745 -0700
 @@ -247,7 +247,15 @@
       * and not via underlying {@link Calendar} instance like base class
       * does.

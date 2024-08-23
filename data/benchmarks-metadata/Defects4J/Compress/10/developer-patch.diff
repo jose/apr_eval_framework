@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java	2023-12-05 20:11:29.626936073 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java	2023-12-05 20:11:33.260676476 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java	2024-07-18 03:51:25.240633419 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipFile.java	2024-07-18 03:51:28.359760525 -0700
 @@ -805,8 +805,11 @@
          // the hashcode - see COMPRESS-164
          // Map needs to be reconstructed in order to keep central

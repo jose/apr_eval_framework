@@ -1,5 +1,5 @@
---- src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:30:08.783010782 +0000
-+++ src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:30:13.846119777 +0000
+--- src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 03:02:01.447691362 -0700
++++ src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 03:02:05.511848710 -0700
 @@ -103,7 +103,7 @@
      public void captureArgumentsFrom(Invocation i) {
          int k = 0;

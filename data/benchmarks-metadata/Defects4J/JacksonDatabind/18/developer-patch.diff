@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/MappingIterator.java	2023-12-05 21:03:32.216447474 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/MappingIterator.java	2023-12-05 21:03:34.802349040 +0000
+--- src/main/java/com/fasterxml/jackson/databind/MappingIterator.java	2024-07-18 04:01:31.865527048 -0700
++++ src/main/java/com/fasterxml/jackson/databind/MappingIterator.java	2024-07-18 04:01:33.809607468 -0700
 @@ -25,20 +25,24 @@
      /**
       * State in which iterator is closed

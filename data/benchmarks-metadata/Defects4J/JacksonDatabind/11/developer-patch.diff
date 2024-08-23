@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:02:50.227471326 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:02:52.796300614 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:00:58.409143058 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:01:00.311221741 -0700
 @@ -892,14 +892,14 @@
          // 19-Mar-2015: Without context, all we can check are bounds.
          if (context == null) {

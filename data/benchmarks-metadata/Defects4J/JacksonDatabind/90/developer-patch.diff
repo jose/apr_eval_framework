@@ -1,16 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/ValueInstantiator.java	2023-12-05 21:10:58.494366871 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/ValueInstantiator.java	2023-12-05 21:11:01.046293679 +0000
-@@ -69,7 +69,7 @@
-      */
-     public boolean canInstantiate() {
-         return canCreateUsingDefault()
--                || canCreateUsingDelegate() 
-+                || canCreateUsingDelegate() || canCreateUsingArrayDelegate()
-                 || canCreateFromObjectWith() || canCreateFromString()
-                 || canCreateFromInt() || canCreateFromLong()
-                 || canCreateFromDouble() || canCreateFromBoolean();
---- src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2023-12-05 21:10:58.494744366 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2023-12-05 21:11:01.046653623 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2024-07-18 04:07:19.867857601 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java	2024-07-18 04:07:21.922942028 -0700
 @@ -229,6 +229,14 @@
          return (_withArgsCreator != null);
      }
@@ -26,3 +15,14 @@
  
      @Override
      public JavaType getDelegateType(DeserializationConfig config) {
+--- src/main/java/com/fasterxml/jackson/databind/deser/ValueInstantiator.java	2024-07-18 04:07:19.867857601 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/ValueInstantiator.java	2024-07-18 04:07:21.922942028 -0700
+@@ -69,7 +69,7 @@
+      */
+     public boolean canInstantiate() {
+         return canCreateUsingDefault()
+-                || canCreateUsingDelegate() 
++                || canCreateUsingDelegate() || canCreateUsingArrayDelegate()
+                 || canCreateFromObjectWith() || canCreateFromString()
+                 || canCreateFromInt() || canCreateFromLong()
+                 || canCreateFromDouble() || canCreateFromBoolean();

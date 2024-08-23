@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2023-12-05 21:04:38.697907050 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2023-12-05 21:04:41.257897234 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2024-07-18 04:02:24.349698165 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java	2024-07-18 04:02:26.320779703 -0700
 @@ -225,6 +225,9 @@
          JsonParser p2 = _tokens[index].asParser(p);
          JsonToken t = p2.nextToken();

@@ -1,2 +1,2 @@
---- com.alibaba.com.caucho.hessian.io.LocaleSerializerTest::hessian2
 --- com.alibaba.com.caucho.hessian.io.LocaleSerializerTest::hessian1
+--- com.alibaba.com.caucho.hessian.io.LocaleSerializerTest::hessian2

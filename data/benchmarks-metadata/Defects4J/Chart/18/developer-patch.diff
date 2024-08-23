@@ -1,27 +1,5 @@
---- source/org/jfree/data/DefaultKeyedValues.java	2023-12-05 17:35:59.303421974 +0000
-+++ source/org/jfree/data/DefaultKeyedValues.java	2023-12-05 17:36:06.227245504 +0000
-@@ -315,9 +315,7 @@
-     public void removeValue(int index) {
-         this.keys.remove(index);
-         this.values.remove(index);
--        if (index < this.keys.size()) {
-         rebuildIndex();
--        }
-     }
- 
-     /**
-@@ -332,7 +330,8 @@
-     public void removeValue(Comparable key) {
-         int index = getIndex(key);
-         if (index < 0) {
--			return;
-+            throw new UnknownKeyException("The key (" + key 
-+                    + ") is not recognised.");
-         }
-         removeValue(index);
-     }
---- source/org/jfree/data/DefaultKeyedValues2D.java	2023-12-05 17:35:59.303895286 +0000
-+++ source/org/jfree/data/DefaultKeyedValues2D.java	2023-12-05 17:36:06.227686362 +0000
+--- source/org/jfree/data/DefaultKeyedValues2D.java	2024-07-18 03:05:24.511740176 -0700
++++ source/org/jfree/data/DefaultKeyedValues2D.java	2024-07-18 03:05:28.514894311 -0700
 @@ -452,10 +452,19 @@
       * @see #removeRow(Comparable)
       */
@@ -41,4 +19,26 @@
 +            }
          }
          this.columnKeys.remove(columnKey);
+     }
+--- source/org/jfree/data/DefaultKeyedValues.java	2024-07-18 03:05:24.510740138 -0700
++++ source/org/jfree/data/DefaultKeyedValues.java	2024-07-18 03:05:28.514894311 -0700
+@@ -315,9 +315,7 @@
+     public void removeValue(int index) {
+         this.keys.remove(index);
+         this.values.remove(index);
+-        if (index < this.keys.size()) {
+         rebuildIndex();
+-        }
+     }
+ 
+     /**
+@@ -332,7 +330,8 @@
+     public void removeValue(Comparable key) {
+         int index = getIndex(key);
+         if (index < 0) {
+-			return;
++            throw new UnknownKeyException("The key (" + key 
++                    + ") is not recognised.");
+         }
+         removeValue(index);
      }

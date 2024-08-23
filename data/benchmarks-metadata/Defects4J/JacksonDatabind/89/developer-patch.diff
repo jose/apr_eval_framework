@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:52.286025192 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:54.829729773 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2024-07-18 04:07:14.926654605 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2024-07-18 04:07:16.911736157 -0700
 @@ -62,7 +62,13 @@
          // [databind#1680]: may or may not be problem, take no chance
          s.add("com.sun.rowset.JdbcRowSetImpl");

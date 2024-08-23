@@ -1,4 +1,1 @@
---- org.apache.jackrabbit.oak.jcr.RepositoryTest::importUUIDCreateNew[3]
---- org.apache.jackrabbit.oak.jcr.RepositoryTest::importUUIDCreateNew[0]
---- org.apache.jackrabbit.oak.jcr.RepositoryTest::importUUIDCreateNew[2]
---- org.apache.jackrabbit.oak.jcr.RepositoryTest::importUUIDCreateNew[1]
+--- org.apache.jackrabbit.oak.jcr.RepositoryTest::importUUIDCreateNew

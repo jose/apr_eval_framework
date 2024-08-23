@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:28.511731422 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:05:32.217789934 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:34.874853834 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:46:38.471999142 -0700
 @@ -1667,7 +1667,13 @@
  
        // Prototypes of constructors and interfaces are always declared.

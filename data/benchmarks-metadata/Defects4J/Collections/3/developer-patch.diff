@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/CollectionUtils.java	2023-12-05 20:07:16.356998991 +0000
-+++ src/java/org/apache/commons/collections/CollectionUtils.java	2023-12-05 20:07:18.728716125 +0000
+--- src/java/org/apache/commons/collections/CollectionUtils.java	2024-07-18 03:48:01.029337051 -0700
++++ src/java/org/apache/commons/collections/CollectionUtils.java	2024-07-18 03:48:02.789408356 -0700
 @@ -1118,7 +1118,7 @@
       * @since Commons Collections 3.3 (method existed in 3.2 but was completely broken)
       */

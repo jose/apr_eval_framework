@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/NameAnalyzer.java	2023-12-05 19:29:07.824908861 +0000
-+++ src/com/google/javascript/jscomp/NameAnalyzer.java	2023-12-05 19:29:11.818030583 +0000
+--- src/com/google/javascript/jscomp/NameAnalyzer.java	2024-07-18 03:29:29.594377803 -0700
++++ src/com/google/javascript/jscomp/NameAnalyzer.java	2024-07-18 03:29:33.324530059 -0700
 @@ -632,11 +632,9 @@
          Node nameNode = n.getFirstChild();
          NameInformation ns = createNameInformation(t, nameNode, n);

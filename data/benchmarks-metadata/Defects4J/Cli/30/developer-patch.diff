@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:20:49.312943002 +0000
-+++ src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:20:52.530316537 +0000
+--- src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:07.898767081 -0700
++++ src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:10.489872948 -0700
 @@ -147,12 +147,18 @@
          {
              String option = e.nextElement().toString();
@@ -21,8 +21,8 @@
                  // get the value from the properties
                  String value = properties.getProperty(option);
                  
---- src/main/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:49.313281194 +0000
-+++ src/main/java/org/apache/commons/cli/Parser.java	2023-12-05 19:20:52.530662188 +0000
+--- src/main/java/org/apache/commons/cli/Parser.java	2024-07-18 03:23:07.898767081 -0700
++++ src/main/java/org/apache/commons/cli/Parser.java	2024-07-18 03:23:10.489872948 -0700
 @@ -260,12 +260,18 @@
          {
              String option = e.nextElement().toString();

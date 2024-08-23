@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/ode/AbstractIntegrator.java	2023-12-05 17:05:32.246370888 +0000
-+++ src/main/java/org/apache/commons/math3/ode/AbstractIntegrator.java	2023-12-05 17:05:36.955165324 +0000
+--- src/main/java/org/apache/commons/math3/ode/AbstractIntegrator.java	2024-07-18 02:42:12.933916962 -0700
++++ src/main/java/org/apache/commons/math3/ode/AbstractIntegrator.java	2024-07-18 02:42:17.038078813 -0700
 @@ -343,8 +343,10 @@
                  final double[] eventY = interpolator.getInterpolatedState().clone();
  

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/JsAst.java	2023-12-05 20:05:45.563014832 +0000
-+++ src/com/google/javascript/jscomp/JsAst.java	2023-12-05 20:05:49.417167820 +0000
+--- src/com/google/javascript/jscomp/JsAst.java	2024-07-18 03:46:49.896460639 -0700
++++ src/com/google/javascript/jscomp/JsAst.java	2024-07-18 03:46:53.467604897 -0700
 @@ -79,6 +79,7 @@
    }
  
@@ -21,8 +21,8 @@
        // There was a parse error or IOException, so use a dummy block.
        root = IR.script();
      } else {
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 20:05:45.408251862 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 20:05:49.418080868 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:46:49.816457408 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:46:53.469604978 -0700
 @@ -2364,9 +2364,12 @@
      if (nameNode.isName()) {
        result = IR.var(nameNode, value);
@@ -37,8 +37,8 @@
      }
      return result;
    }
---- src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 20:05:45.563432992 +0000
-+++ src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 20:05:49.418525288 +0000
+--- src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:46:49.896460639 -0700
++++ src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:46:53.469604978 -0700
 @@ -353,8 +353,8 @@
        for (Var v : scope.getVarIterable()) {
          Node n = v.getNode();

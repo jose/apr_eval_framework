@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:56:36.901066276 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:56:40.668356089 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:55:44.421197352 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:55:47.491322909 -0700
 @@ -412,7 +412,8 @@
          if (ae instanceof ZipArchiveEntry) {
              final ZipArchiveEntry ze = (ZipArchiveEntry) ae;

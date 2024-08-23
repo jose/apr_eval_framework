@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections4/collection/UnmodifiableBoundedCollection.java	2023-12-05 20:09:44.560154969 +0000
-+++ src/main/java/org/apache/commons/collections4/collection/UnmodifiableBoundedCollection.java	2023-12-05 20:09:48.110458483 +0000
+--- src/main/java/org/apache/commons/collections4/collection/UnmodifiableBoundedCollection.java	2024-07-18 03:49:57.851072656 -0700
++++ src/main/java/org/apache/commons/collections4/collection/UnmodifiableBoundedCollection.java	2024-07-18 03:50:00.718189471 -0700
 @@ -20,6 +20,7 @@
  import java.util.Iterator;
  

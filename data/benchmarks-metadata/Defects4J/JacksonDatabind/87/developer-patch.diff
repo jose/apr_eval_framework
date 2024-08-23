@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:10:39.293743502 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:10:41.985868478 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:07:05.192254696 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:07:07.194336946 -0700
 @@ -44,6 +44,7 @@
       *
       * @since 2.8.10

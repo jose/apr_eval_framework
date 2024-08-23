@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2023-12-05 17:19:24.814780004 +0000
-+++ src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2023-12-05 17:19:29.852587268 +0000
+--- src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2024-07-18 02:53:13.566660825 -0700
++++ src/main/java/org/apache/commons/math/linear/EigenDecompositionImpl.java	2024-07-18 02:53:17.496834879 -0700
 @@ -600,6 +600,7 @@
          lowerSpectra = Math.min(lowerSpectra, lower);
          final double upper = dCurrent + eCurrent;

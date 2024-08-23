@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2023-12-05 20:04:32.996314572 +0000
-+++ src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2023-12-05 20:04:37.229708601 +0000
+--- src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2024-07-18 03:45:47.514940708 -0700
++++ src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2024-07-18 03:45:51.184088926 -0700
 @@ -570,6 +570,12 @@
      // properties on this object.
      if (constraint.isRecordType()) {

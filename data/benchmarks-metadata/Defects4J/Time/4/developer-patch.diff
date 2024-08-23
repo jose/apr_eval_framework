@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:50.864071849 +0000
-+++ src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:55.284719895 +0000
+--- src/main/java/org/joda/time/Partial.java	2024-07-18 03:07:13.062067607 -0700
++++ src/main/java/org/joda/time/Partial.java	2024-07-18 03:07:16.911220305 -0700
 @@ -461,7 +461,7 @@
              System.arraycopy(iValues, i, newValues, i + 1, newValues.length - i - 1);
              // use public constructor to ensure full validation

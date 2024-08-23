@@ -1,5 +1,5 @@
---- source/org/jfree/chart/block/BorderArrangement.java	2023-12-05 17:34:36.268235122 +0000
-+++ source/org/jfree/chart/block/BorderArrangement.java	2023-12-05 17:34:44.112928758 +0000
+--- source/org/jfree/chart/block/BorderArrangement.java	2024-07-18 03:04:39.425004183 -0700
++++ source/org/jfree/chart/block/BorderArrangement.java	2024-07-18 03:04:43.507161358 -0700
 @@ -452,7 +452,7 @@
          h[3] = h[2];
          if (this.rightBlock != null) {

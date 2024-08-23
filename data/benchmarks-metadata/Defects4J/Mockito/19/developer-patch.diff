@@ -1,16 +1,5 @@
---- src/org/mockito/internal/configuration/injection/PropertyAndSetterInjection.java	2023-12-05 17:27:23.301729655 +0000
-+++ src/org/mockito/internal/configuration/injection/PropertyAndSetterInjection.java	2023-12-05 17:27:28.538658657 +0000
-@@ -111,7 +111,7 @@
-     private boolean injectMockCandidatesOnFields(Set<Object> mocks, Object instance, boolean injectionOccurred, List<Field> orderedInstanceFields) {
-         for (Iterator<Field> it = orderedInstanceFields.iterator(); it.hasNext(); ) {
-             Field field = it.next();
--            Object injected = mockCandidateFilter.filterCandidate(mocks, field, instance).thenInject();
-+            Object injected = mockCandidateFilter.filterCandidate(mocks, field, orderedInstanceFields, instance).thenInject();
-             if (injected != null) {
-                 injectionOccurred |= true;
-                 mocks.remove(injected);
---- src/org/mockito/internal/configuration/injection/filter/FinalMockCandidateFilter.java	2023-12-05 17:27:23.301860988 +0000
-+++ src/org/mockito/internal/configuration/injection/filter/FinalMockCandidateFilter.java	2023-12-05 17:27:28.539038761 +0000
+--- src/org/mockito/internal/configuration/injection/filter/FinalMockCandidateFilter.java	2024-07-18 02:59:41.039093083 -0700
++++ src/org/mockito/internal/configuration/injection/filter/FinalMockCandidateFilter.java	2024-07-18 02:59:45.412287586 -0700
 @@ -10,6 +10,7 @@
  
  import java.lang.reflect.Field;
@@ -28,8 +17,8 @@
          if(mocks.size() == 1) {
              final Object matchingMock = mocks.iterator().next();
  
---- src/org/mockito/internal/configuration/injection/filter/MockCandidateFilter.java	2023-12-05 17:27:23.301964204 +0000
-+++ src/org/mockito/internal/configuration/injection/filter/MockCandidateFilter.java	2023-12-05 17:27:28.539472407 +0000
+--- src/org/mockito/internal/configuration/injection/filter/MockCandidateFilter.java	2024-07-18 02:59:41.039093083 -0700
++++ src/org/mockito/internal/configuration/injection/filter/MockCandidateFilter.java	2024-07-18 02:59:45.412287586 -0700
 @@ -6,13 +6,14 @@
  
  import java.lang.reflect.Field;
@@ -46,8 +35,8 @@
      );
  
  }
---- src/org/mockito/internal/configuration/injection/filter/NameBasedCandidateFilter.java	2023-12-05 17:27:23.436778033 +0000
-+++ src/org/mockito/internal/configuration/injection/filter/NameBasedCandidateFilter.java	2023-12-05 17:27:28.539850160 +0000
+--- src/org/mockito/internal/configuration/injection/filter/NameBasedCandidateFilter.java	2024-07-18 02:59:41.116096508 -0700
++++ src/org/mockito/internal/configuration/injection/filter/NameBasedCandidateFilter.java	2024-07-18 02:59:45.412287586 -0700
 @@ -20,7 +20,7 @@
  	}
  
@@ -91,8 +80,8 @@
 +		return next.filterCandidate(mocks, field, fields, fieldInstance);
  	}
  }
---- src/org/mockito/internal/configuration/injection/filter/TypeBasedCandidateFilter.java	2023-12-05 17:27:23.302160956 +0000
-+++ src/org/mockito/internal/configuration/injection/filter/TypeBasedCandidateFilter.java	2023-12-05 17:27:28.540106134 +0000
+--- src/org/mockito/internal/configuration/injection/filter/TypeBasedCandidateFilter.java	2024-07-18 02:59:41.039093083 -0700
++++ src/org/mockito/internal/configuration/injection/filter/TypeBasedCandidateFilter.java	2024-07-18 02:59:45.412287586 -0700
 @@ -17,7 +17,7 @@
          this.next = next;
      }
@@ -110,3 +99,14 @@
 +        return next.filterCandidate(mockTypeMatches, field, fields, fieldInstance);
      }
  }
+--- src/org/mockito/internal/configuration/injection/PropertyAndSetterInjection.java	2024-07-18 02:59:41.039093083 -0700
++++ src/org/mockito/internal/configuration/injection/PropertyAndSetterInjection.java	2024-07-18 02:59:45.411287541 -0700
+@@ -111,7 +111,7 @@
+     private boolean injectMockCandidatesOnFields(Set<Object> mocks, Object instance, boolean injectionOccurred, List<Field> orderedInstanceFields) {
+         for (Iterator<Field> it = orderedInstanceFields.iterator(); it.hasNext(); ) {
+             Field field = it.next();
+-            Object injected = mockCandidateFilter.filterCandidate(mocks, field, instance).thenInject();
++            Object injected = mockCandidateFilter.filterCandidate(mocks, field, orderedInstanceFields, instance).thenInject();
+             if (injected != null) {
+                 injectionOccurred |= true;
+                 mocks.remove(injected);

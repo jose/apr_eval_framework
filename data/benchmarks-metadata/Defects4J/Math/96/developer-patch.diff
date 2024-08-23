@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:22:16.006792608 +0000
-+++ src/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:22:20.972944598 +0000
+--- src/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:55:31.145893866 -0700
++++ src/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:55:35.088070440 -0700
 @@ -255,7 +255,7 @@
                  if (rhs.isNaN()) {
                      ret = this.isNaN();

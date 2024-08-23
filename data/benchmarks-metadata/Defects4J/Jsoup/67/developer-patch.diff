@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:19:00.237752727 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:19:03.238978724 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:57.146072551 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:13:59.789180244 -0700
 @@ -39,6 +39,7 @@
          "section", "select", "style", "summary", "table", "tbody", "td", "textarea", "tfoot", "th", "thead",
          "title", "tr", "ul", "wbr", "xmp"});

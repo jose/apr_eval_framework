@@ -1,5 +1,5 @@
---- src/org/mockito/internal/creation/instance/ConstructorInstantiator.java	2023-12-05 17:27:45.872375547 +0000
-+++ src/org/mockito/internal/creation/instance/ConstructorInstantiator.java	2023-12-05 17:27:50.866803601 +0000
+--- src/org/mockito/internal/creation/instance/ConstructorInstantiator.java	2024-07-18 03:00:00.002936518 -0700
++++ src/org/mockito/internal/creation/instance/ConstructorInstantiator.java	2024-07-18 03:00:04.314128259 -0700
 @@ -14,18 +14,23 @@
          if (outerClassInstance == null) {
              return noArgConstructor(cls);

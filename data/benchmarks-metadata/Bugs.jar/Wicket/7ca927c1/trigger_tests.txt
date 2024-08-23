@@ -1,2 +1,2 @@
---- org.apache.wicket.protocol.http.mock.MockHttpServletRequestTest::getSessionFromNonMockHttpSession
 --- org.apache.wicket.protocol.http.mock.MockHttpServletRequestTest::getSessionDefaultFromMockHttpSession
+--- org.apache.wicket.protocol.http.mock.MockHttpServletRequestTest::getSessionFromNonMockHttpSession

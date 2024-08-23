@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:12:24.605836343 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:12:27.201736948 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:08:28.962696169 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:08:30.962778336 -0700
 @@ -438,12 +438,19 @@
          final int year = cal.get(Calendar.YEAR);
  

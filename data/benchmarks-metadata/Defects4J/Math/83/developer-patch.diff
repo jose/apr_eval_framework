@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:19:47.760025847 +0000
-+++ src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:19:52.757179190 +0000
+--- src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:53:31.930474099 -0700
++++ src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:53:36.000654354 -0700
 @@ -289,7 +289,7 @@
       */
      private Integer getBasicRow(final int col, boolean ignoreObjectiveRows) {

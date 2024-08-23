@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 19:24:28.976035742 +0000
-+++ src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 19:24:33.079740339 +0000
+--- src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:26:14.674403491 -0700
++++ src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:26:18.347553889 -0700
 @@ -167,17 +167,23 @@
  
    private class AliasedTypeNode implements AliasUsage {

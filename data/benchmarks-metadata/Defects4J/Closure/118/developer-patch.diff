@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/DisambiguateProperties.java	2023-12-05 19:40:52.582024249 +0000
-+++ src/com/google/javascript/jscomp/DisambiguateProperties.java	2023-12-05 19:40:56.254416050 +0000
+--- src/com/google/javascript/jscomp/DisambiguateProperties.java	2024-07-18 03:39:34.918960564 -0700
++++ src/com/google/javascript/jscomp/DisambiguateProperties.java	2024-07-18 03:39:38.487105992 -0700
 @@ -492,6 +492,9 @@
            child != null;
            child = child.getNext()) {

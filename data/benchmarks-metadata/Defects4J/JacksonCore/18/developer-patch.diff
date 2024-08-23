@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java	2023-12-05 21:01:01.614141799 +0000
-+++ src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java	2023-12-05 21:01:03.665818463 +0000
+--- src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java	2024-07-18 03:59:33.859649794 -0700
++++ src/main/java/com/fasterxml/jackson/core/base/GeneratorBase.java	2024-07-18 03:59:35.485716941 -0700
 @@ -50,6 +50,7 @@
       * 
       * @since 2.7.7
@@ -25,8 +25,8 @@
          return value.toString();
      }
  
---- src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2023-12-05 21:01:01.614878834 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2023-12-05 21:01:03.666800023 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2024-07-18 03:59:33.860649835 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2024-07-18 03:59:35.487717023 -0700
 @@ -907,10 +907,7 @@
          if (value == null) {
              _writeNull();
@@ -39,8 +39,8 @@
          } else {
              writeRaw(_asString(value));
          }
---- src/main/java/com/fasterxml/jackson/core/json/WriterBasedJsonGenerator.java	2023-12-05 21:01:01.615372073 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/WriterBasedJsonGenerator.java	2023-12-05 21:01:03.667419026 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/WriterBasedJsonGenerator.java	2024-07-18 03:59:33.860649835 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/WriterBasedJsonGenerator.java	2024-07-18 03:59:35.487717023 -0700
 @@ -684,10 +684,7 @@
          if (value == null) {
              _writeNull();

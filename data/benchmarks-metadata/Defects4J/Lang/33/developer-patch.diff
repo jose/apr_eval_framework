@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/ClassUtils.java	2023-12-05 18:57:31.352302514 +0000
-+++ src/main/java/org/apache/commons/lang3/ClassUtils.java	2023-12-05 18:57:37.923246746 +0000
+--- src/main/java/org/apache/commons/lang3/ClassUtils.java	2024-07-18 03:15:31.674327424 -0700
++++ src/main/java/org/apache/commons/lang3/ClassUtils.java	2024-07-18 03:15:35.658489672 -0700
 @@ -907,7 +907,7 @@
          }
          Class<?>[] classes = new Class[array.length];

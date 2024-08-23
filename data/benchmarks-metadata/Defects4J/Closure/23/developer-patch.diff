@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:25:35.734758910 +0000
-+++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2023-12-05 19:25:39.894633092 +0000
+--- src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:27:12.426768172 -0700
++++ src/com/google/javascript/jscomp/PeepholeFoldConstants.java	2024-07-18 03:27:15.714902805 -0700
 @@ -1448,8 +1448,14 @@
  
      Node current = left.getFirstChild();

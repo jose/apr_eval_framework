@@ -1,5 +1,5 @@
---- source/org/jfree/data/time/TimeSeries.java	2023-12-05 17:31:48.182461807 +0000
-+++ source/org/jfree/data/time/TimeSeries.java	2023-12-05 17:31:56.170949399 +0000
+--- source/org/jfree/data/time/TimeSeries.java	2024-07-18 03:03:06.869261179 -0700
++++ source/org/jfree/data/time/TimeSeries.java	2024-07-18 03:03:11.080427588 -0700
 @@ -1054,6 +1054,8 @@
              throw new IllegalArgumentException("Requires start <= end.");
          }

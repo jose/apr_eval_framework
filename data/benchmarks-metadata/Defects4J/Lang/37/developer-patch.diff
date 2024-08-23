@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang3/ArrayUtils.java	2023-12-05 18:58:29.270714123 +0000
-+++ src/java/org/apache/commons/lang3/ArrayUtils.java	2023-12-05 18:58:35.753697589 +0000
+--- src/java/org/apache/commons/lang3/ArrayUtils.java	2024-07-18 03:16:07.394782077 -0700
++++ src/java/org/apache/commons/lang3/ArrayUtils.java	2024-07-18 03:16:11.356943427 -0700
 @@ -2959,8 +2959,16 @@
          final Class<?> type1 = array1.getClass().getComponentType();
          T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);

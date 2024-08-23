@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Line.java	2023-12-05 17:05:56.293918468 +0000
-+++ src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Line.java	2023-12-05 17:06:01.168857060 +0000
+--- src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Line.java	2024-07-18 02:42:31.776660045 -0700
++++ src/main/java/org/apache/commons/math3/geometry/euclidean/threed/Line.java	2024-07-18 02:42:35.743816493 -0700
 @@ -84,7 +84,8 @@
       * @return a new instance, with reversed direction
       */

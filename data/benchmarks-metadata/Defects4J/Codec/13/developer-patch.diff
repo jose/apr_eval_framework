@@ -1,6 +1,6 @@
 Only in src/main/java/org/apache/commons/codec/binary: CharSequenceUtils.java
---- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:06:41.829898725 +0000
-+++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:06:42.850895522 +0000
+--- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:34.668269219 -0700
++++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:35.208291034 -0700
 @@ -67,6 +67,18 @@
       * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
       * @since 1.10
@@ -20,8 +20,8 @@ Only in src/main/java/org/apache/commons/codec/binary: CharSequenceUtils.java
  
      /**
       * Calls {@link String#getBytes(Charset)}
---- src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java	2023-12-05 20:06:41.709050464 +0000
-+++ src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java	2023-12-05 20:06:42.851444563 +0000
+--- src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java	2024-07-18 03:47:34.586265907 -0700
++++ src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java	2024-07-18 03:47:35.208291034 -0700
 @@ -19,6 +19,7 @@
  
  import org.apache.commons.codec.EncoderException;

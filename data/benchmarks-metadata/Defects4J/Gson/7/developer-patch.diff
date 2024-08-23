@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:37.389805876 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2023-12-05 20:58:39.470164938 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:57:35.389790763 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonReader.java	2024-07-18 03:57:37.018856923 -0700
 @@ -951,8 +951,12 @@
      if (p == PEEKED_NUMBER) {
        peekedString = new String(buffer, pos, peekedNumberLength);

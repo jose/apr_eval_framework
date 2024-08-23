@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:16:03.634746906 +0000
-+++ src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:16:05.579423061 +0000
+--- src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:11:26.612946963 -0700
++++ src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:11:28.184010999 -0700
 @@ -3,6 +3,8 @@
  import org.jsoup.helper.Validate;
  import org.jsoup.nodes.*;

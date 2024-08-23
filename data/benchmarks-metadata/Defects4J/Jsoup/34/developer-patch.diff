@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:16:23.287646186 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:16:25.246589221 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:11:43.346629022 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:11:44.915692976 -0700
 @@ -88,7 +88,7 @@
                  while(++offset < length && startChar != input[offset]);
              int i = offset + 1;

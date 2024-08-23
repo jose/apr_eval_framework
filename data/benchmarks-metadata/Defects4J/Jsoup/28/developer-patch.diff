@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:15:54.430922650 +0000
-+++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:15:56.364698742 +0000
+--- src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:11:18.641622053 -0700
++++ src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:11:20.240687231 -0700
 @@ -1,5 +1,6 @@
  package org.jsoup.nodes;
  
@@ -52,8 +52,8 @@
      }
  
      // xhtml has restricted entities
---- src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:15:54.431241764 +0000
-+++ src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:15:56.364929497 +0000
+--- src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:11:18.642622094 -0700
++++ src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:11:20.240687231 -0700
 @@ -130,6 +130,10 @@
       * @param inAttribute if the string is to be escaped in strict mode (as attributes are)
       * @return an unescaped string
@@ -65,8 +65,8 @@
  
      /**
       * @param bodyHtml HTML to parse
---- src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:15:54.431611495 +0000
-+++ src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:15:56.365184553 +0000
+--- src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:11:18.642622094 -0700
++++ src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:11:20.241687272 -0700
 @@ -133,23 +133,14 @@
          } else { // named
              // get as many letters as possible, and look for matching entities.

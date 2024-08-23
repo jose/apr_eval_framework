@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 19:37:55.715612422 +0000
-+++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 19:37:59.704925680 +0000
+--- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:37:02.591759456 -0700
++++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:37:06.205906026 -0700
 @@ -358,6 +358,14 @@
        }
  

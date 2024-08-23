@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:20:02.351220529 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2023-12-05 21:20:05.400010084 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:14:52.250315813 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java	2024-07-18 04:14:54.927424630 -0700
 @@ -379,6 +379,7 @@
                              tb.processEndTag("p");
                          }

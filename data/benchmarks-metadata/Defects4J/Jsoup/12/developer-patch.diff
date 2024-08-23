@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/select/Selector.java	2023-12-05 21:14:39.519589480 +0000
-+++ src/main/java/org/jsoup/select/Selector.java	2023-12-05 21:14:41.468401495 +0000
+--- src/main/java/org/jsoup/select/Selector.java	2024-07-18 04:10:15.540067035 -0700
++++ src/main/java/org/jsoup/select/Selector.java	2024-07-18 04:10:17.104130360 -0700
 @@ -136,7 +136,7 @@
      
      private void combinator(char combinator) {

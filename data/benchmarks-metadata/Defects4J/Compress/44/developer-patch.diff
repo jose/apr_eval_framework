@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/utils/ChecksumCalculatingInputStream.java	2023-12-05 20:56:13.066327483 +0000
-+++ src/main/java/org/apache/commons/compress/utils/ChecksumCalculatingInputStream.java	2023-12-05 20:56:16.781201686 +0000
+--- src/main/java/org/apache/commons/compress/utils/ChecksumCalculatingInputStream.java	2024-07-18 03:55:23.397337553 -0700
++++ src/main/java/org/apache/commons/compress/utils/ChecksumCalculatingInputStream.java	2024-07-18 03:55:26.446462250 -0700
 @@ -32,7 +32,13 @@
  
      public ChecksumCalculatingInputStream(final Checksum checksum, final InputStream in) {

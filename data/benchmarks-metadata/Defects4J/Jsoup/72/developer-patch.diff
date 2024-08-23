@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:19:34.397328383 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:19:37.521644595 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:14:27.746319357 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:14:30.402427581 -0700
 @@ -424,6 +424,8 @@
          // limit (no cache):
          if (count > maxStringCacheLen)

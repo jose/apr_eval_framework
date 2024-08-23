@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:16:18.522958574 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:16:20.582768445 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:11:39.308464428 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:11:40.963531888 -0700
 @@ -159,6 +159,7 @@
          if (startTag.isSelfClosing()) {
              Element el = insertEmpty(startTag);

@@ -6,6 +6,8 @@ mvn_deps_sym/*
 
 results
 
+.DS_Store
+
 # Created by https://www.gitignore.io/api/python
 
 ### Python ###

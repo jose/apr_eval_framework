@@ -69,7 +69,12 @@ while read -r line; do
   excluded_file="$dir/excluded.txt"
   rm -f "$excluded_file"
 
-  python ../get_excluded_test_classes_maven_projects.py --benchmark "Bugs.jar" --project "$pid" --bug "$bid" --output_file "$excluded_file" || die "Failed to collect list of excluded test classes of $pid::$bid!"
+  timeout --signal=SIGTERM 1800s python ../get_excluded_test_classes_maven_projects.py --benchmark "Bugs.jar" --project "$pid" --bug "$bid" --output_file "$excluded_file"
+  if [ "$?" -ne 0 ]; then
+    echo "Failed to collect list of excluded test classes of $pid::$bid!"
+    rm -f "$excluded_file" # Make sure no data of any unsuccessful execution is kept
+    continue
+  fi
 
   # It is known that some bugs of the Commons-Math project in the Bugs.jar
   # benchmark share some bugs with the Math project in the Defects4J benchmark.

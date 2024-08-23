@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java	2023-12-05 17:15:27.376031742 +0000
-+++ src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java	2023-12-05 17:15:32.440974288 +0000
+--- src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java	2024-07-18 02:50:11.432710270 -0700
++++ src/main/java/org/apache/commons/math/optimization/fitting/GaussianFitter.java	2024-07-18 02:50:15.443870900 -0700
 @@ -118,7 +118,7 @@
       */
      public double[] fit() {

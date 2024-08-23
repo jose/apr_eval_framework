@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionInjector.java	2023-12-05 19:40:26.696629209 +0000
-+++ src/com/google/javascript/jscomp/FunctionInjector.java	2023-12-05 19:40:30.509729820 +0000
+--- src/com/google/javascript/jscomp/FunctionInjector.java	2024-07-18 03:39:12.461045225 -0700
++++ src/com/google/javascript/jscomp/FunctionInjector.java	2024-07-18 03:39:15.594172924 -0700
 @@ -694,14 +694,6 @@
  
      Node block = fnNode.getLastChild();

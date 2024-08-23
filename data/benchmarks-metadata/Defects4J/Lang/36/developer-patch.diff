@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:58:14.662586553 +0000
-+++ src/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:58:21.292828719 +0000
+--- src/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:15:58.402415877 -0700
++++ src/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:16:02.407578981 -0700
 @@ -488,7 +488,7 @@
              }
              dec = null;

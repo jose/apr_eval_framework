@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:13:52.355792358 +0000
-+++ src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:13:55.329854658 +0000
+--- src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:34.952404727 -0700
++++ src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:37.548511139 -0700
 @@ -145,6 +145,7 @@
          if (tag.isData()) {
              String data = tq.chompTo("</" + tagName);

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/MinimizeExitPoints.java	2023-12-05 19:42:00.684773494 +0000
-+++ src/com/google/javascript/jscomp/MinimizeExitPoints.java	2023-12-05 19:42:04.469554997 +0000
+--- src/com/google/javascript/jscomp/MinimizeExitPoints.java	2024-07-18 03:40:35.424409191 -0700
++++ src/com/google/javascript/jscomp/MinimizeExitPoints.java	2024-07-18 03:40:38.539534439 -0700
 @@ -138,10 +138,6 @@
         * can cause problems if it changes the completion type of the finally
         * block. See ECMA 262 Sections 8.9 & 12.14

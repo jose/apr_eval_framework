@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/InlineFunctions.java	2023-12-05 20:03:28.123710439 +0000
-+++ src/com/google/javascript/jscomp/InlineFunctions.java	2023-12-05 20:03:32.016557329 +0000
+--- src/com/google/javascript/jscomp/InlineFunctions.java	2024-07-18 03:44:51.415674551 -0700
++++ src/com/google/javascript/jscomp/InlineFunctions.java	2024-07-18 03:44:54.658805559 -0700
 @@ -774,10 +774,9 @@
        Node node, Set<String> changed) {
      Preconditions.checkArgument(changed != null);

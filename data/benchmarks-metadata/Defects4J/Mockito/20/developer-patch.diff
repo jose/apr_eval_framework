@@ -1,5 +1,5 @@
---- src/org/mockito/internal/creation/bytebuddy/ByteBuddyMockMaker.java	2023-12-05 17:27:34.735271027 +0000
-+++ src/org/mockito/internal/creation/bytebuddy/ByteBuddyMockMaker.java	2023-12-05 17:27:39.806309291 +0000
+--- src/org/mockito/internal/creation/bytebuddy/ByteBuddyMockMaker.java	2024-07-18 02:59:50.593518025 -0700
++++ src/org/mockito/internal/creation/bytebuddy/ByteBuddyMockMaker.java	2024-07-18 02:59:54.679699763 -0700
 @@ -29,9 +29,10 @@
                  settings.getTypeToMock(),
                  settings.getExtraInterfaces()

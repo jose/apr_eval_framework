@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:51:13.738088213 +0000
-+++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:51:20.943377493 +0000
+--- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:11:38.347770171 -0700
++++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:11:42.307931671 -0700
 @@ -449,9 +449,6 @@
          if (StringUtils.isBlank(str)) {
              throw new NumberFormatException("A blank string is not a valid number");

@@ -1,5 +1,5 @@
---- src/org/mockito/internal/verification/VerificationOverTimeImpl.java	2023-12-05 17:24:47.187140238 +0000
-+++ src/org/mockito/internal/verification/VerificationOverTimeImpl.java	2023-12-05 17:24:52.096186335 +0000
+--- src/org/mockito/internal/verification/VerificationOverTimeImpl.java	2024-07-18 02:57:30.658286406 -0700
++++ src/org/mockito/internal/verification/VerificationOverTimeImpl.java	2024-07-18 02:57:34.797473652 -0700
 @@ -88,7 +88,7 @@
              } catch (MockitoAssertionError e) {
                  error = handleVerifyException(e);

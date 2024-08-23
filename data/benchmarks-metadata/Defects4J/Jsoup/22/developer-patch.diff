@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:15:25.791456274 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:15:27.709331480 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:10:54.975663684 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:10:56.568728183 -0700
 @@ -431,8 +431,15 @@
       * @return sibling elements
       */
@@ -33,8 +33,8 @@
          List<Element> siblings = parent().children();
          Integer index = indexInList(this, siblings);
          Validate.notNull(index);
---- src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:15:25.791845934 +0000
-+++ src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:15:27.709697354 +0000
+--- src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:54.976663725 -0700
++++ src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:56.568728183 -0700
 @@ -441,8 +441,15 @@
       @return node siblings. If the node has no parent, returns an empty list.
       */
@@ -61,8 +61,8 @@
  
          List<Node> siblings = parentNode.childNodes;
          Integer index = siblingIndex();
---- src/main/java/org/jsoup/select/Elements.java	2023-12-05 21:15:25.792223399 +0000
-+++ src/main/java/org/jsoup/select/Elements.java	2023-12-05 21:15:27.710026982 +0000
+--- src/main/java/org/jsoup/select/Elements.java	2024-07-18 04:10:54.976663725 -0700
++++ src/main/java/org/jsoup/select/Elements.java	2024-07-18 04:10:56.569728224 -0700
 @@ -19,6 +19,9 @@
          contents = new ArrayList<Element>();
      }

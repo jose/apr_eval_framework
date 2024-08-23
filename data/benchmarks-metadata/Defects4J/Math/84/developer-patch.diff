@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java	2023-12-05 17:19:59.239777588 +0000
-+++ src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java	2023-12-05 17:20:04.687392236 +0000
+--- src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java	2024-07-18 02:53:41.227888331 -0700
++++ src/main/java/org/apache/commons/math/optimization/direct/MultiDirectional.java	2024-07-18 02:53:45.227072638 -0700
 @@ -61,6 +61,7 @@
      protected void iterateSimplex(final Comparator<RealPointValuePair> comparator)
          throws FunctionEvaluationException, OptimizationException, IllegalArgumentException {

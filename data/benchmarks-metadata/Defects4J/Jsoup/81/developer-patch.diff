@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:37.866546752 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:40.917222366 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:23.426583047 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:26.060690117 -0700
 @@ -2,6 +2,7 @@
  
  import org.jsoup.UncheckedIOException;

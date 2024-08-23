@@ -1,5 +1,17 @@
---- src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:31.410179003 +0000
-+++ src/main/java/org/joda/time/Partial.java	2023-12-05 17:38:35.763797014 +0000
+--- src/main/java/org/joda/time/field/UnsupportedDurationField.java	2024-07-18 03:06:55.933388107 -0700
++++ src/main/java/org/joda/time/field/UnsupportedDurationField.java	2024-07-18 03:06:59.875544494 -0700
+@@ -224,6 +224,9 @@
+      * @return zero always
+      */
+     public int compareTo(DurationField durationField) {
++        if (durationField.isSupported()) {
++            return 1;
++        }
+         return 0;
+     }
+ 
+--- src/main/java/org/joda/time/Partial.java	2024-07-18 03:06:56.000390765 -0700
++++ src/main/java/org/joda/time/Partial.java	2024-07-18 03:06:59.875544494 -0700
 @@ -215,7 +215,7 @@
              DurationField loopUnitField = loopType.getDurationType().getField(iChronology);
              if (i > 0) {
@@ -19,15 +31,3 @@
                              DurationField rangeField = fieldType.getRangeDurationType().getField(iChronology);
                              DurationField loopRangeField = loopType.getRangeDurationType().getField(iChronology);
                              if (rangeField.compareTo(loopRangeField) > 0) {
---- src/main/java/org/joda/time/field/UnsupportedDurationField.java	2023-12-05 17:38:31.297689755 +0000
-+++ src/main/java/org/joda/time/field/UnsupportedDurationField.java	2023-12-05 17:38:35.764128225 +0000
-@@ -224,6 +224,9 @@
-      * @return zero always
-      */
-     public int compareTo(DurationField durationField) {
-+        if (durationField.isSupported()) {
-+            return 1;
-+        }
-         return 0;
-     }
- 

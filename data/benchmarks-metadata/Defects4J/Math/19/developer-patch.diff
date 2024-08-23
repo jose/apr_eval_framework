@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:07:50.630016865 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:07:55.308809485 +0000
+--- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:44:05.001329296 -0700
++++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:44:09.069486189 -0700
 @@ -537,6 +537,19 @@
                  boundaries[1] = uB;
  

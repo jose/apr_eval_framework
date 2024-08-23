@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2023-12-05 18:54:09.049153587 +0000
-+++ src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2023-12-05 18:54:15.360602562 +0000
+--- src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2024-07-18 03:13:26.422215720 -0700
++++ src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java	2024-07-18 03:13:30.345376424 -0700
 @@ -37,7 +37,7 @@
      public int translate(CharSequence input, int index, Writer out) throws IOException {
          int seqEnd = input.length();

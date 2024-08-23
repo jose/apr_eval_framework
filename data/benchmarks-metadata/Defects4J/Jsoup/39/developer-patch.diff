@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:16:46.500383842 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:16:48.409475177 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:04.287482562 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:05.833545579 -0700
 @@ -116,6 +116,7 @@
              docData = Charset.forName(defaultCharset).decode(byteData).toString();
              docData = docData.substring(1);

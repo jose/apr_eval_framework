@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 19:29:16.866678639 +0000
-+++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 19:29:20.900106186 +0000
+--- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:29:37.655706846 -0700
++++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:29:41.468862490 -0700
 @@ -289,6 +289,9 @@
        }
  

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/SourceFile.java	2023-12-05 19:31:35.498233115 +0000
-+++ src/com/google/javascript/jscomp/SourceFile.java	2023-12-05 19:31:39.763147109 +0000
+--- src/com/google/javascript/jscomp/SourceFile.java	2024-07-18 03:31:38.455647378 -0700
++++ src/com/google/javascript/jscomp/SourceFile.java	2024-07-18 03:31:42.080795886 -0700
 @@ -239,7 +239,11 @@
        // If next new line cannot be found, there are two cases
        // 1. pos already reaches the end of file, then null should be returned

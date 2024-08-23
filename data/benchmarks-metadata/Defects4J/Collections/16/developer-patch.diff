@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:08:41.420328018 +0000
-+++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:08:43.985895449 +0000
+--- src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:06.606993755 -0700
++++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:08.357064654 -0700
 @@ -283,7 +283,26 @@
      }
  

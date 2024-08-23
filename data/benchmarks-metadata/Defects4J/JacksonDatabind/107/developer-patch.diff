@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:12:42.868019913 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:12:45.548220323 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2024-07-18 04:08:43.688301129 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2024-07-18 04:08:45.549377586 -0700
 @@ -162,7 +162,7 @@
                      JavaType actual = _handleUnknownTypeId(ctxt, typeId);
                      if (actual == null) { // what should this be taken to mean?

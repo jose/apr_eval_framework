@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/ExtendedBufferedReader.java	2023-12-05 20:56:43.998164244 +0000
-+++ src/main/java/org/apache/commons/csv/ExtendedBufferedReader.java	2023-12-05 20:56:46.135762554 +0000
+--- src/main/java/org/apache/commons/csv/ExtendedBufferedReader.java	2024-07-18 03:55:51.532488178 -0700
++++ src/main/java/org/apache/commons/csv/ExtendedBufferedReader.java	2024-07-18 03:55:53.298560403 -0700
 @@ -55,7 +55,7 @@
      @Override
      public int read() throws IOException {

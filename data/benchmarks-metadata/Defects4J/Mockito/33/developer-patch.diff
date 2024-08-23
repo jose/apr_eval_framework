@@ -1,5 +1,5 @@
---- src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:29:58.111141280 +0000
-+++ src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:30:02.916547111 +0000
+--- src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 03:01:51.553308290 -0700
++++ src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 03:01:55.507461380 -0700
 @@ -95,8 +95,19 @@
          Method m1 = invocation.getMethod();
          Method m2 = candidate.getMethod();

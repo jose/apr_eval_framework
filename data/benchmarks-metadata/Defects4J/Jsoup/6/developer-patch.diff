@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:11.738947036 +0000
-+++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:13.764927803 +0000
+--- src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:09:51.833096651 -0700
++++ src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:09:53.365159450 -0700
 @@ -67,9 +67,9 @@
  
              if (charval != -1 || charval > 0xFFFF) { // out of range

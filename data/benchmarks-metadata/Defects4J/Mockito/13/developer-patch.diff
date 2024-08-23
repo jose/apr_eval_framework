@@ -1,5 +1,5 @@
---- src/org/mockito/internal/MockHandler.java	2023-12-05 17:26:16.423508918 +0000
-+++ src/org/mockito/internal/MockHandler.java	2023-12-05 17:26:21.236924483 +0000
+--- src/org/mockito/internal/MockHandler.java	2024-07-18 02:58:46.471669732 -0700
++++ src/org/mockito/internal/MockHandler.java	2024-07-18 02:58:50.421844605 -0700
 @@ -74,12 +74,14 @@
          if (verificationMode != null) {
              //We need to check if verification was started on the correct mock 

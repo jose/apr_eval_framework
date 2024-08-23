@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/random/BitsStreamGenerator.java	2023-12-05 17:06:29.970490128 +0000
-+++ src/main/java/org/apache/commons/math3/random/BitsStreamGenerator.java	2023-12-05 17:06:34.783411367 +0000
+--- src/main/java/org/apache/commons/math3/random/BitsStreamGenerator.java	2024-07-18 02:42:59.693760983 -0700
++++ src/main/java/org/apache/commons/math3/random/BitsStreamGenerator.java	2024-07-18 02:43:03.690918614 -0700
 @@ -16,6 +16,7 @@
   */
  package org.apache.commons.math3.random;

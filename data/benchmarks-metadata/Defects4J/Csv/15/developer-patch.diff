@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:57.563523235 +0000
-+++ src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:59.707214071 +0000
+--- src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:57:01.422411273 -0700
++++ src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:57:03.417492298 -0700
 @@ -1186,9 +1186,7 @@
              } else {
                  char c = value.charAt(pos);

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2023-12-05 20:04:04.800297738 +0000
-+++ src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2023-12-05 20:04:08.909005061 +0000
+--- src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2024-07-18 03:45:23.254960715 -0700
++++ src/com/google/javascript/jscomp/AnalyzePrototypeProperties.java	2024-07-18 03:45:26.594095600 -0700
 @@ -198,36 +198,50 @@
      //    given a name context. These contexts do not have scopes.
      private Stack<NameContext> symbolStack = new Stack<NameContext>();
@@ -378,8 +378,8 @@
      }
    }
  
---- src/com/google/javascript/jscomp/CrossModuleMethodMotion.java	2023-12-05 20:04:04.800837975 +0000
-+++ src/com/google/javascript/jscomp/CrossModuleMethodMotion.java	2023-12-05 20:04:08.909309535 +0000
+--- src/com/google/javascript/jscomp/CrossModuleMethodMotion.java	2024-07-18 03:45:23.254960715 -0700
++++ src/com/google/javascript/jscomp/CrossModuleMethodMotion.java	2024-07-18 03:45:26.595095640 -0700
 @@ -138,6 +138,9 @@
          // So if we move a prototype method into a deeper module, we must
          // replace it with a stub function so that it preserves its original

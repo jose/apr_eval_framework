@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java	2023-12-05 20:55:24.506323597 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java	2023-12-05 20:55:28.069419039 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java	2024-07-18 03:54:41.460628056 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveEntry.java	2024-07-18 03:54:44.415748303 -0700
 @@ -856,7 +856,7 @@
              return true;
          }

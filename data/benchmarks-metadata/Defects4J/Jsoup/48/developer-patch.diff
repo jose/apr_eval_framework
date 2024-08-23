@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/HttpConnection.java	2023-12-05 21:17:28.473021805 +0000
-+++ src/main/java/org/jsoup/helper/HttpConnection.java	2023-12-05 21:17:30.422083158 +0000
+--- src/main/java/org/jsoup/helper/HttpConnection.java	2024-07-18 04:12:40.183942999 -0700
++++ src/main/java/org/jsoup/helper/HttpConnection.java	2024-07-18 04:12:41.746006435 -0700
 @@ -770,8 +770,18 @@
                              cookie(cookieName, cookieVal);
                      }

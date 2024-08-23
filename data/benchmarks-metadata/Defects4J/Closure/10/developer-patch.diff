@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:23:31.698886511 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:23:35.820182068 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:25:26.539433392 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:25:30.234584611 -0700
 @@ -1414,7 +1414,7 @@
  
    static boolean mayBeString(Node n, boolean recurse) {

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:03.894106399 +0000
-+++ src/main/java/org/apache/commons/math/complex/Complex.java	2023-12-05 17:13:09.116356284 +0000
+--- src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:48:19.364141467 -0700
++++ src/main/java/org/apache/commons/math/complex/Complex.java	2024-07-18 02:48:23.446310290 -0700
 @@ -257,7 +257,7 @@
  
          if (divisor.isZero) {

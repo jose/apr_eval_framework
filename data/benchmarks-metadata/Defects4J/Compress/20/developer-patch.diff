@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2023-12-05 20:24:17.516863207 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2023-12-05 20:24:26.352344933 +0000
+--- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2024-07-18 03:52:35.385490756 -0700
++++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2024-07-18 03:52:38.405613747 -0700
 @@ -328,7 +328,7 @@
  
          ret.setInode(readAsciiLong(8, 16));

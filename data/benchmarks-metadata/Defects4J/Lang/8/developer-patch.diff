@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java	2023-12-05 18:51:29.833867629 +0000
-+++ src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java	2023-12-05 18:51:36.891772591 +0000
+--- src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java	2024-07-18 03:11:49.042206301 -0700
++++ src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java	2024-07-18 03:11:52.935365068 -0700
 @@ -1095,7 +1095,6 @@
      private static class TimeZoneNameRule implements Rule {
          private final Locale mLocale;

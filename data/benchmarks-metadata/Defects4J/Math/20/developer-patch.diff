@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:08:01.583695715 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:08:06.296437782 +0000
+--- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:44:14.389691368 -0700
++++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:44:18.486849379 -0700
 @@ -918,7 +918,8 @@
           * @return the original objective variables, possibly repaired.
           */

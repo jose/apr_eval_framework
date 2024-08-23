@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/Compiler.java	2023-12-05 19:32:51.672912841 +0000
-+++ src/com/google/javascript/jscomp/Compiler.java	2023-12-05 19:32:55.758191778 +0000
+--- src/com/google/javascript/jscomp/Compiler.java	2024-07-18 03:32:44.147338376 -0700
++++ src/com/google/javascript/jscomp/Compiler.java	2024-07-18 03:32:47.408471938 -0700
 @@ -1429,7 +1429,7 @@
  
          // if LanguageMode is ECMASCRIPT5_STRICT, only print 'use strict'

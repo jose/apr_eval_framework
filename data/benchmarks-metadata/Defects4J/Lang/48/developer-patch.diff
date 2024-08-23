@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/builder/EqualsBuilder.java	2023-12-05 19:01:10.738435711 +0000
-+++ src/java/org/apache/commons/lang/builder/EqualsBuilder.java	2023-12-05 19:01:17.163814025 +0000
+--- src/java/org/apache/commons/lang/builder/EqualsBuilder.java	2024-07-18 03:17:46.052774512 -0700
++++ src/java/org/apache/commons/lang/builder/EqualsBuilder.java	2024-07-18 03:17:50.031933612 -0700
 @@ -377,8 +377,12 @@
          }
          Class lhsClass = lhs.getClass();

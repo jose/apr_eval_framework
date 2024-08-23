@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2023-12-05 21:12:36.735179808 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2023-12-05 21:12:39.469408100 +0000
+--- src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2024-07-18 04:08:38.837101831 -0700
++++ src/main/java/com/fasterxml/jackson/databind/node/TreeTraversingParser.java	2024-07-18 04:08:40.850184532 -0700
 @@ -305,12 +305,18 @@
      @Override
      public int getIntValue() throws IOException {

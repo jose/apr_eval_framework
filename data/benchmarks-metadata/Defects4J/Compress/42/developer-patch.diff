@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java	2023-12-05 20:55:56.994575246 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java	2023-12-05 20:56:00.699951378 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java	2024-07-18 03:55:09.430766370 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/UnixStat.java	2024-07-18 03:55:12.439889433 -0700
 @@ -32,6 +32,7 @@
       * Bits used to indicate the filesystem object type.
       * @since 1.14
@@ -8,8 +8,8 @@
      /**
       * Indicates symbolic links.
       */
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:55:56.849968688 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:56:00.700410544 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:55:09.361763548 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:55:12.439889433 -0700
 @@ -294,7 +294,7 @@
       * @return true if the entry represents a unix symlink, false otherwise.
       */

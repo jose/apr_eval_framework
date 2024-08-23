@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:20:28.361537369 +0000
-+++ src/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:20:31.442760941 +0000
+--- src/java/org/apache/commons/cli/OptionGroup.java	2024-07-18 03:22:49.300007389 -0700
++++ src/java/org/apache/commons/cli/OptionGroup.java	2024-07-18 03:22:51.885112800 -0700
 @@ -95,9 +95,9 @@
          // if no option has already been selected or the 
          // same option is being reselected then set the

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:21.640241060 +0000
-+++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:08:24.095290027 +0000
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:48:51.289373201 -0700
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:48:53.056444789 -0700
 @@ -1721,7 +1721,10 @@
  
          for (Enumeration e = props.propertyNames(); e.hasMoreElements();) {

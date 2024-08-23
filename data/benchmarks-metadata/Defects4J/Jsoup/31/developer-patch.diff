@@ -1,15 +1,5 @@
---- src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:16:08.163456862 +0000
-+++ src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:16:10.317843451 +0000
-@@ -168,6 +168,7 @@
- 
-     static class Comment extends Token {
-         final StringBuilder data = new StringBuilder();
-+        boolean bogus = false;
- 
-         Comment() {
-             type = TokenType.Comment;
---- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:16:08.163578659 +0000
-+++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:16:10.318288320 +0000
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:11:30.735114982 -0700
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:11:32.357181097 -0700
 @@ -1091,6 +1091,7 @@
              // rewind to capture character that lead us here
              r.unconsume();
@@ -18,8 +8,18 @@
              comment.data.append(r.consumeTo('>'));
              // todo: replace nullChar with replaceChar
              t.emit(comment);
---- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:16:08.265399636 +0000
-+++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:16:10.318685652 +0000
+--- src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:11:30.735114982 -0700
++++ src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:11:32.356181056 -0700
+@@ -168,6 +168,7 @@
+ 
+     static class Comment extends Token {
+         final StringBuilder data = new StringBuilder();
++        boolean bogus = false;
+ 
+         Comment() {
+             type = TokenType.Comment;
+--- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:11:30.797117509 -0700
++++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:11:32.357181097 -0700
 @@ -64,6 +64,13 @@
      void insert(Token.Comment commentToken) {
          Comment comment = new Comment(commentToken.getData(), baseUri);

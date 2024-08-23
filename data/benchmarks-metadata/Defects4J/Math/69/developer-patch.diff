@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java	2023-12-05 17:17:16.395190511 +0000
-+++ src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java	2023-12-05 17:17:21.404282908 +0000
+--- src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java	2024-07-18 02:51:35.578424316 -0700
++++ src/main/java/org/apache/commons/math/stat/correlation/PearsonsCorrelation.java	2024-07-18 02:51:39.627596690 -0700
 @@ -168,7 +168,7 @@
                  } else {
                      double r = correlationMatrix.getEntry(i, j);

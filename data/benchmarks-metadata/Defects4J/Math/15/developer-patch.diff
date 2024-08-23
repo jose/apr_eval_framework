@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/util/FastMath.java	2023-12-05 17:07:05.312548827 +0000
-+++ src/main/java/org/apache/commons/math3/util/FastMath.java	2023-12-05 17:07:10.081981089 +0000
+--- src/main/java/org/apache/commons/math3/util/FastMath.java	2024-07-18 02:43:27.831870638 -0700
++++ src/main/java/org/apache/commons/math3/util/FastMath.java	2024-07-18 02:43:31.944032805 -0700
 @@ -310,6 +310,7 @@
      /** 2^52 - double numbers this large must be integral (no fraction) or NaN or Infinite */
      private static final double TWO_POWER_52 = 4503599627370496.0;

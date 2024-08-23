@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2023-12-05 21:11:23.114583207 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2023-12-05 21:11:25.627543997 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2024-07-18 04:07:39.266654547 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java	2024-07-18 04:07:41.229735195 -0700
 @@ -20,6 +20,7 @@
  {
      protected final static String PREFIX_SPRING = "org.springframework.";

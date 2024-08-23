@@ -1,5 +1,5 @@
---- source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java	2023-12-05 17:37:52.360986063 +0000
-+++ source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java	2023-12-05 17:37:59.435697732 +0000
+--- source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java	2024-07-18 03:06:29.210323069 -0700
++++ source/org/jfree/chart/renderer/category/StatisticalBarRenderer.java	2024-07-18 03:06:33.396491252 -0700
 @@ -256,6 +256,9 @@
  
          // BAR X

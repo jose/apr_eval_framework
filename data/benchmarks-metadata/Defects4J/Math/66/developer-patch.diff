@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/univariate/BrentOptimizer.java	2023-12-05 17:16:45.881557113 +0000
-+++ src/main/java/org/apache/commons/math/optimization/univariate/BrentOptimizer.java	2023-12-05 17:16:49.849632350 +0000
+--- src/main/java/org/apache/commons/math/optimization/univariate/BrentOptimizer.java	2024-07-18 02:51:11.476348165 -0700
++++ src/main/java/org/apache/commons/math/optimization/univariate/BrentOptimizer.java	2024-07-18 02:51:14.382479499 -0700
 @@ -41,10 +41,10 @@
       * Construct a solver.
       */

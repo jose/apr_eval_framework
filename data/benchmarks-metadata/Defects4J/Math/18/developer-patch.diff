@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:07:39.225326049 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2023-12-05 17:07:44.233389604 +0000
+--- src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:43:55.764972208 -0700
++++ src/main/java/org/apache/commons/math3/optimization/direct/CMAESOptimizer.java	2024-07-18 02:43:59.701124887 -0700
 @@ -929,7 +929,7 @@
              double[] res = new double[x.length];
              for (int i = 0; i < x.length; i++) {

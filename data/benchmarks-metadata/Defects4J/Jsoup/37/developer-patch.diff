@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:16:37.227827033 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:16:39.160442647 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:11:55.289115794 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:11:56.879180604 -0700
 @@ -1098,7 +1098,7 @@
      public String html() {
          StringBuilder accum = new StringBuilder();

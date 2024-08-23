@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:56:49.273016847 +0000
-+++ src/main/java/org/apache/commons/csv/CSVRecord.java	2023-12-05 20:56:51.551734599 +0000
+--- src/main/java/org/apache/commons/csv/CSVRecord.java	2024-07-18 03:55:56.289682730 -0700
++++ src/main/java/org/apache/commons/csv/CSVRecord.java	2024-07-18 03:55:58.353767143 -0700
 @@ -82,7 +82,14 @@
                      "No header mapping was specified, the record values can't be accessed by name");
          }

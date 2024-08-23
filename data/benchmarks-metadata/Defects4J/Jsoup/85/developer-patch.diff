@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:05.327808518 +0000
-+++ src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:08.484346203 +0000
+--- src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:15:47.770573388 -0700
++++ src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:15:50.404680657 -0700
 @@ -41,8 +41,9 @@
       * @see #createFromEncoded*/
      public Attribute(String key, String val, Attributes parent) {

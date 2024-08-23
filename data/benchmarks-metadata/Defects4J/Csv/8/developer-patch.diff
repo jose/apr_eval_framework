@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:20.761041622 +0000
-+++ src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:23.135773181 +0000
+--- src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:56:26.374938007 -0700
++++ src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:56:28.348022923 -0700
 @@ -313,6 +313,12 @@
          if (header == null) {
          	this.header = null;

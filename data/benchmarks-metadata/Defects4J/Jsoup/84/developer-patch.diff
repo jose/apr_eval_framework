@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:20:58.574712235 +0000
-+++ src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:21:01.584318335 +0000
+--- src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:15:41.759328589 -0700
++++ src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:15:44.375435126 -0700
 @@ -88,7 +88,8 @@
                  String namespace = namespacesStack.peek().get(prefix);
                  String tagName = sourceEl.tagName();

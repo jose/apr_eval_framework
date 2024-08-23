@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:26.343815306 +0000
-+++ src/main/java/org/jsoup/nodes/Attribute.java	2023-12-05 21:21:29.600872422 +0000
+--- src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:16:06.441333725 -0700
++++ src/main/java/org/jsoup/nodes/Attribute.java	2024-07-18 04:16:09.138443560 -0700
 @@ -77,7 +77,7 @@
       @return the attribute value
       */

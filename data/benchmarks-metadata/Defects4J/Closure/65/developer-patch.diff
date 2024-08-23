@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:33:00.633435486 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:33:04.699781571 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:32:51.535640969 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:32:55.206791323 -0700
 @@ -1012,7 +1012,7 @@
      for (int i = 0; i < s.length(); i++) {
        char c = s.charAt(i);

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:55:16.662736958 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:55:20.057015270 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:54:34.452342881 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:54:37.491466546 -0700
 @@ -459,7 +459,9 @@
              int read = 0;
              while((ch = i.read()) != -1) {

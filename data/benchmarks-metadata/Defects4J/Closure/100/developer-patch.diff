@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 19:38:13.846851510 +0000
-+++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2023-12-05 19:38:17.952170077 +0000
+--- src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:37:18.725413754 -0700
++++ src/com/google/javascript/jscomp/CheckGlobalThis.java	2024-07-18 03:37:22.346560608 -0700
 @@ -96,6 +96,13 @@
        // var a = function() { }; // or
        // function a() {} // or

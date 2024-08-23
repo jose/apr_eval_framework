@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionRewriter.java	2023-12-05 19:31:26.023302386 +0000
-+++ src/com/google/javascript/jscomp/FunctionRewriter.java	2023-12-05 19:31:30.147547059 +0000
+--- src/com/google/javascript/jscomp/FunctionRewriter.java	2024-07-18 03:31:30.419318162 -0700
++++ src/com/google/javascript/jscomp/FunctionRewriter.java	2024-07-18 03:31:33.744454379 -0700
 @@ -114,7 +114,8 @@
    }
  

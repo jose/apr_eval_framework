@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:06:16.804415293 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2023-12-05 21:06:19.454182426 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2024-07-18 04:03:42.466916707 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java	2024-07-18 04:03:44.328993340 -0700
 @@ -60,7 +60,8 @@
                      return withFormat(Boolean.TRUE, null);
                  }

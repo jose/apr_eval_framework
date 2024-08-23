@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:17:47.004046701 +0000
-+++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:17:49.993141739 +0000
+--- src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:20:30.304367417 -0700
++++ src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:20:32.882471701 -0700
 @@ -302,8 +302,9 @@
              }
              else

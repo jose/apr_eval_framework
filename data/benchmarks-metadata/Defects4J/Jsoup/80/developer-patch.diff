@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:20:30.688983121 +0000
-+++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:20:33.861394821 +0000
+--- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:15:17.345335860 -0700
++++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:15:19.969442523 -0700
 @@ -88,9 +88,11 @@
              String data = comment.getData();
              if (data.length() > 1 && (data.startsWith("!") || data.startsWith("?"))) {

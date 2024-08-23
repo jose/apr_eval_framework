@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:07:27.818065944 +0000
-+++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:07:30.250305833 +0000
+--- src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:48:09.771691225 -0700
++++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:48:11.476760301 -0700
 @@ -192,8 +192,12 @@
  
          // adds all elements

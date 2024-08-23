@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/linear/OpenMapRealVector.java	2023-12-05 17:09:42.755963898 +0000
-+++ src/main/java/org/apache/commons/math3/linear/OpenMapRealVector.java	2023-12-05 17:09:47.603704858 +0000
+--- src/main/java/org/apache/commons/math3/linear/OpenMapRealVector.java	2024-07-18 02:45:40.217001384 -0700
++++ src/main/java/org/apache/commons/math3/linear/OpenMapRealVector.java	2024-07-18 02:45:44.290158473 -0700
 @@ -346,10 +346,9 @@
           * this only. Indeed, if this[i] = 0d and v[i] = 0d, then
           * this[i] / v[i] = NaN, and not 0d.

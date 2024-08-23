@@ -1,17 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2023-12-05 21:07:55.205022250 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2023-12-05 21:07:57.763056358 +0000
-@@ -229,6 +229,9 @@
-         {
-             // 03-Oct-2016, tatu: As per [databind#1395], need to skip
-             //  primitive types too, regardless
-+            if (t.isPrimitive()) {
-+                return false;
-+            }
- 
-             switch (_appliesFor) {
-             case NON_CONCRETE_AND_ARRAYS:
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdTypeResolverBuilder.java	2023-12-05 21:07:55.205603141 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdTypeResolverBuilder.java	2023-12-05 21:07:57.763669062 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdTypeResolverBuilder.java	2024-07-18 04:04:59.205074556 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdTypeResolverBuilder.java	2024-07-18 04:05:01.207156876 -0700
 @@ -71,6 +71,9 @@
          if (_idType == JsonTypeInfo.Id.NONE) { return null; }
          // 03-Oct-2016, tatu: As per [databind#1395] better prevent use for primitives,
@@ -32,3 +20,15 @@
  
          TypeIdResolver idRes = idResolver(config, baseType, subtypes, false, true);
  
+--- src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2024-07-18 04:04:59.205074556 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2024-07-18 04:05:01.206156835 -0700
+@@ -229,6 +229,9 @@
+         {
+             // 03-Oct-2016, tatu: As per [databind#1395], need to skip
+             //  primitive types too, regardless
++            if (t.isPrimitive()) {
++                return false;
++            }
+ 
+             switch (_appliesFor) {
+             case NON_CONCRETE_AND_ARRAYS:

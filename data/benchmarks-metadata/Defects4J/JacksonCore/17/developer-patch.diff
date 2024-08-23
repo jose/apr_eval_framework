@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2023-12-05 21:00:56.541253703 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2023-12-05 21:00:58.693512630 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2024-07-18 03:59:29.739479657 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8JsonGenerator.java	2024-07-18 03:59:31.350546184 -0700
 @@ -525,17 +525,33 @@
          final char[] buf = _charBuffer;
  

@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/Jsoup.java	2023-12-05 21:18:16.082369757 +0000
-+++ src/main/java/org/jsoup/Jsoup.java	2023-12-05 21:18:18.049101798 +0000
+--- src/main/java/org/jsoup/Jsoup.java	2024-07-18 04:13:20.138565597 -0700
++++ src/main/java/org/jsoup/Jsoup.java	2024-07-18 04:13:21.720629847 -0700
 @@ -247,7 +247,7 @@
       @see #clean(String, org.jsoup.safety.Whitelist) 
       */
@@ -9,8 +9,8 @@
      }
      
  }
---- src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:18:16.082945104 +0000
-+++ src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:18:18.049717956 +0000
+--- src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:13:20.138565597 -0700
++++ src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:13:21.720629847 -0700
 @@ -126,6 +126,10 @@
       *
       * @return list of nodes parsed from the input HTML. Note that the context element, if supplied, is not modified.
@@ -22,8 +22,8 @@
  
      /**
       * Parse a fragment of XML into a list of nodes.
---- src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:18:16.083362966 +0000
-+++ src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:18:18.050038872 +0000
+--- src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:13:20.139565638 -0700
++++ src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:13:21.721629887 -0700
 @@ -14,6 +14,7 @@
  import org.jsoup.select.NodeTraversor;
  import org.jsoup.select.NodeVisitor;

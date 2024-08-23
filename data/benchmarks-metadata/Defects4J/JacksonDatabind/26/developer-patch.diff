@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2023-12-05 21:04:20.543489185 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2023-12-05 21:04:23.121821032 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2024-07-18 04:02:09.921101296 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2024-07-18 04:02:11.898183082 -0700
 @@ -36,9 +36,11 @@
   */
  @JacksonStdImpl // since 2.6. NOTE: sub-classes typically are not

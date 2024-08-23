@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/fraction/BigFraction.java	2023-12-05 17:11:03.750950496 +0000
-+++ src/main/java/org/apache/commons/math/fraction/BigFraction.java	2023-12-05 17:11:08.802263009 +0000
+--- src/main/java/org/apache/commons/math/fraction/BigFraction.java	2024-07-18 02:46:45.374448699 -0700
++++ src/main/java/org/apache/commons/math/fraction/BigFraction.java	2024-07-18 02:46:49.503601089 -0700
 @@ -683,8 +683,14 @@
      @Override
      public double doubleValue() {

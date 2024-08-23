@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 19:25:45.460048179 +0000
-+++ src/com/google/javascript/jscomp/ScopedAliases.java	2023-12-05 19:25:49.680648343 +0000
+--- src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:27:20.375093616 -0700
++++ src/com/google/javascript/jscomp/ScopedAliases.java	2024-07-18 03:27:23.651227759 -0700
 @@ -275,8 +275,8 @@
          Node n = v.getNode();
          int type = n.getType();

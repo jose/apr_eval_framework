@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:58:43.640447536 +0000
-+++ src/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:58:50.596245227 +0000
+--- src/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:16:16.298144648 -0700
++++ src/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:16:20.313308159 -0700
 @@ -869,6 +869,7 @@
       */
      public StringBuffer format(Calendar calendar, StringBuffer buf) {

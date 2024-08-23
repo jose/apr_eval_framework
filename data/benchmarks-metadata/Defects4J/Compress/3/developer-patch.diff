@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:10:35.094112619 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:10:38.575595491 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:50:39.299761384 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:50:42.123876447 -0700
 @@ -52,6 +52,7 @@
      private boolean closed = false;
  

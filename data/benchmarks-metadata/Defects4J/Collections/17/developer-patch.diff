@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections/functors/EqualPredicate.java	2023-12-05 20:08:48.592085552 +0000
-+++ src/main/java/org/apache/commons/collections/functors/EqualPredicate.java	2023-12-05 20:08:52.127784410 +0000
+--- src/main/java/org/apache/commons/collections/functors/EqualPredicate.java	2024-07-18 03:49:12.050214273 -0700
++++ src/main/java/org/apache/commons/collections/functors/EqualPredicate.java	2024-07-18 03:49:14.873328643 -0700
 @@ -81,7 +81,7 @@
      public EqualPredicate(T object) {
          // do not use the DefaultEquator to keep backwards compatibility

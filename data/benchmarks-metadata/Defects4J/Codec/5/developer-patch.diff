@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:19.406889710 +0000
-+++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:20.330466528 +0000
+--- src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:17.608580083 -0700
++++ src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:18.159602342 -0700
 @@ -583,6 +583,9 @@
          // EOF (-1) and first time '=' character is encountered in stream.
          // This approach makes the '=' padding characters completely optional.

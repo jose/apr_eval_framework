@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/chrono/GJChronology.java	2023-12-05 17:41:07.141465988 +0000
-+++ src/main/java/org/joda/time/chrono/GJChronology.java	2023-12-05 17:41:11.496977747 +0000
+--- src/main/java/org/joda/time/chrono/GJChronology.java	2024-07-18 03:09:12.623851281 -0700
++++ src/main/java/org/joda/time/chrono/GJChronology.java	2024-07-18 03:09:16.439006007 -0700
 @@ -361,9 +361,21 @@
  
          // Assume date is Gregorian.

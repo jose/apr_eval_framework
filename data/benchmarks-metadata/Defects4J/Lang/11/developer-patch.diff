@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2023-12-05 18:52:13.661172811 +0000
-+++ src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2023-12-05 18:52:20.468553631 +0000
+--- src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2024-07-18 03:12:15.650298060 -0700
++++ src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2024-07-18 03:12:19.608461600 -0700
 @@ -242,6 +242,10 @@
                      start = ' ';                
                  }

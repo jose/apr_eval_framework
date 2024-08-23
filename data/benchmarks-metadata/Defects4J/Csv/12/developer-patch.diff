@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:41.665731659 +0000
-+++ src/main/java/org/apache/commons/csv/CSVFormat.java	2023-12-05 20:57:43.772897532 +0000
+--- src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:56:46.340797276 -0700
++++ src/main/java/org/apache/commons/csv/CSVFormat.java	2024-07-18 03:56:48.429883619 -0700
 @@ -216,7 +216,7 @@
       * Note: this is currently like {@link #RFC4180} plus {@link #withAllowMissingColumnNames(boolean) withAllowMissingColumnNames(true)}.
       * </p>

@@ -1,5 +1,5 @@
---- source/org/jfree/data/general/DatasetUtilities.java	2023-12-05 17:31:30.457232671 +0000
-+++ source/org/jfree/data/general/DatasetUtilities.java	2023-12-05 17:31:38.510342086 +0000
+--- source/org/jfree/data/general/DatasetUtilities.java	2024-07-18 03:02:57.168877858 -0700
++++ source/org/jfree/data/general/DatasetUtilities.java	2024-07-18 03:03:01.610053356 -0700
 @@ -752,12 +752,19 @@
              for (int series = 0; series < seriesCount; series++) {
                  int itemCount = dataset.getItemCount(series);

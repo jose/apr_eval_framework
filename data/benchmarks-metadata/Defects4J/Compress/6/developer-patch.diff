@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:10:58.317679063 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:11:01.857885236 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:50:58.803556092 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:51:01.526667061 -0700
 @@ -61,6 +61,7 @@
       */
      public ZipArchiveEntry(String name) {

@@ -1,5 +1,21 @@
---- src/org/mockito/Mockito.java	2023-12-05 17:26:48.497478458 +0000
-+++ src/org/mockito/Mockito.java	2023-12-05 17:26:53.694841220 +0000
+--- src/org/mockito/internal/MockitoCore.java	2024-07-18 02:59:13.537869940 -0700
++++ src/org/mockito/internal/MockitoCore.java	2024-07-18 02:59:17.531047539 -0700
+@@ -29,10 +29,11 @@
+     private final MockUtil mockUtil = new MockUtil();
+     private final MockingProgress mockingProgress = new ThreadSafeMockingProgress();
+     
+-    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) { return mock(classToMock, mockSettings); }
+-    public <T> T mock(Class<T> classToMock, MockSettings mockSettings) {
++    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) {
+         mockingProgress.validateState();
++        if (shouldResetOngoingStubbing) {
+             mockingProgress.resetOngoingStubbing();
++        }
+         return mockUtil.createMock(classToMock, (MockSettingsImpl) mockSettings);
+     }
+     
+--- src/org/mockito/Mockito.java	2024-07-18 02:59:13.475867183 -0700
++++ src/org/mockito/Mockito.java	2024-07-18 02:59:17.531047539 -0700
 @@ -824,7 +824,7 @@
       * @return mock object
       */
@@ -18,19 +34,3 @@
      }
  
      /**
---- src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:48.628964042 +0000
-+++ src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:53.695183914 +0000
-@@ -29,10 +29,11 @@
-     private final MockUtil mockUtil = new MockUtil();
-     private final MockingProgress mockingProgress = new ThreadSafeMockingProgress();
-     
--    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) { return mock(classToMock, mockSettings); }
--    public <T> T mock(Class<T> classToMock, MockSettings mockSettings) {
-+    public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoingStubbing) {
-         mockingProgress.validateState();
-+        if (shouldResetOngoingStubbing) {
-             mockingProgress.resetOngoingStubbing();
-+        }
-         return mockUtil.createMock(classToMock, (MockSettingsImpl) mockSettings);
-     }
-     

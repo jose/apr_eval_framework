@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/node/POJONode.java	2023-12-05 21:11:41.253620810 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/node/POJONode.java	2023-12-05 21:11:43.861063118 +0000
+--- src/main/java/com/fasterxml/jackson/databind/node/POJONode.java	2024-07-18 04:07:54.074262877 -0700
++++ src/main/java/com/fasterxml/jackson/databind/node/POJONode.java	2024-07-18 04:07:56.091345743 -0700
 @@ -111,7 +111,7 @@
          } else {
              // 25-May-2018, tatu: [databind#1991] do not call via generator but through context;

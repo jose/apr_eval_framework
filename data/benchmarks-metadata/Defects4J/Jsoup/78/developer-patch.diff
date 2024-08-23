@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:16.273064900 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:20:19.368299791 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:05.152840266 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:15:07.799947865 -0700
 @@ -1,5 +1,6 @@
  package org.jsoup.helper;
  

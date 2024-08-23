@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:05:52.872326459 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:05:55.500731433 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:03:22.206082882 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:03:24.197164823 -0700
 @@ -599,7 +599,9 @@
       */
      @Deprecated

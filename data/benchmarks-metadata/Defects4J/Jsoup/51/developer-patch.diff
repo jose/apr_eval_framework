@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:17:42.437268173 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:17:44.454688144 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:12:52.102427019 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:12:53.731493177 -0700
 @@ -297,7 +297,7 @@
          if (isEmpty())
              return false;

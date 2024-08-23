@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:10:01.817916409 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:10:04.486110790 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:06:36.162061207 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:06:38.139142499 -0700
 @@ -761,7 +761,9 @@
                          type = tf.constructGeneralizedType(type, serClass);
                      } else if (currRaw.isAssignableFrom(serClass)) { // specialization, ok as well

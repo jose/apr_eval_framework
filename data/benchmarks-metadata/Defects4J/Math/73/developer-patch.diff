@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java	2023-12-05 17:17:58.867503538 +0000
-+++ src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java	2023-12-05 17:18:02.897344851 +0000
+--- src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java	2024-07-18 02:52:09.285859246 -0700
++++ src/main/java/org/apache/commons/math/analysis/solvers/BrentSolver.java	2024-07-18 02:52:12.283986877 -0700
 @@ -133,6 +133,10 @@
              return solve(f, initial, yInitial, max, yMax, initial, yInitial);
          }

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:00:31.673022511 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:00:33.735444721 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:59:09.243633304 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:59:10.895701524 -0700
 @@ -619,7 +619,6 @@
          if (_parsingContext.expectComma()) {
              i = _skipComma(i);
@@ -90,8 +90,8 @@
                  getTokenColumnNr());
      }
  
---- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:00:31.673834593 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:00:33.736134056 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:59:09.243633304 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:59:10.895701524 -0700
 @@ -3619,7 +3619,7 @@
                      _nameInputTotal, -1L, _nameInputRow, _tokenInputCol);
          }

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:07:10.576009609 +0000
-+++ src/java/org/apache/commons/collections/ExtendedProperties.java	2023-12-05 20:07:12.963101000 +0000
+--- src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:47:56.674160613 -0700
++++ src/java/org/apache/commons/collections/ExtendedProperties.java	2024-07-18 03:47:58.364229081 -0700
 @@ -175,6 +175,7 @@
       * This is the name of the property that can point to other
       * properties file for including other properties files.

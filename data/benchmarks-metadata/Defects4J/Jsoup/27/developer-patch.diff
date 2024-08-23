@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:15:49.774627674 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:15:51.699548576 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:11:14.690461889 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:11:16.241524688 -0700
 @@ -129,8 +129,9 @@
          Matcher m = charsetPattern.matcher(contentType);
          if (m.find()) {

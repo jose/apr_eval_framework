@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/InlineObjectLiterals.java	2023-12-05 19:27:26.827670882 +0000
-+++ src/com/google/javascript/jscomp/InlineObjectLiterals.java	2023-12-05 19:27:30.833990797 +0000
+--- src/com/google/javascript/jscomp/InlineObjectLiterals.java	2024-07-18 03:28:00.527737673 -0700
++++ src/com/google/javascript/jscomp/InlineObjectLiterals.java	2024-07-18 03:28:04.279891306 -0700
 @@ -154,6 +154,7 @@
       */
      private boolean isInlinableObject(List<Reference> refs) {

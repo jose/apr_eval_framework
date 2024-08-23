@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:40:57.472351259 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:41:01.773665988 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:09:04.137507110 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:09:08.000663784 -0700
 @@ -1164,19 +1164,32 @@
          // a bit messy, but will work in all non-pathological cases
          

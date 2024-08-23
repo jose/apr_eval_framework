@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:22:45.998201556 +0000
-+++ src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:22:50.855148768 +0000
+--- src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:55:54.246930327 -0700
++++ src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:55:58.231110207 -0700
 @@ -540,6 +540,11 @@
          int u = p;
          int v = q;

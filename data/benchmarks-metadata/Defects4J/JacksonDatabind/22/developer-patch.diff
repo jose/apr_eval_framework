@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/BasicSerializerFactory.java	2023-12-05 21:03:56.271812652 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/BasicSerializerFactory.java	2023-12-05 21:03:58.807613938 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/BasicSerializerFactory.java	2024-07-18 04:01:50.807310615 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/BasicSerializerFactory.java	2024-07-18 04:01:52.740390581 -0700
 @@ -577,30 +577,35 @@
               */
              JsonSerializer<Object> keySerializer = _findKeySerializer(prov, beanDesc.getClassInfo());
@@ -151,8 +151,8 @@
          JsonSerializer<?> ser = null;
  
          for (Serializers serializers : customSerializers()) { // (1) Custom
---- src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2023-12-05 21:03:56.272265877 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2023-12-05 21:03:58.808031356 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2024-07-18 04:01:50.807310615 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java	2024-07-18 04:01:52.740390581 -0700
 @@ -171,10 +171,7 @@
              JavaType type, BeanDescription beanDesc, boolean staticTyping)
          throws JsonMappingException

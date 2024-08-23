@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/DocumentType.java	2023-12-05 21:16:51.096031564 +0000
-+++ src/main/java/org/jsoup/nodes/DocumentType.java	2023-12-05 21:16:53.013693147 +0000
+--- src/main/java/org/jsoup/nodes/DocumentType.java	2024-07-18 04:12:08.233643406 -0700
++++ src/main/java/org/jsoup/nodes/DocumentType.java	2024-07-18 04:12:09.840708910 -0700
 @@ -19,7 +19,6 @@
      public DocumentType(String name, String publicId, String systemId, String baseUri) {
          super(baseUri);

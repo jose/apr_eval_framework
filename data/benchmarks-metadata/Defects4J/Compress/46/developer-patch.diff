@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java	2023-12-05 20:56:28.952903507 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java	2023-12-05 20:56:32.673551353 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java	2024-07-18 03:55:37.434911638 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/X5455_ExtendedTimestamp.java	2024-07-18 03:55:40.489036541 -0700
 @@ -526,8 +526,7 @@
      }
  

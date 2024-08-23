@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/enums/ValuedEnum.java	2023-12-05 19:17:14.634161274 +0000
-+++ src/java/org/apache/commons/lang/enums/ValuedEnum.java	2023-12-05 19:17:21.282448330 +0000
+--- src/java/org/apache/commons/lang/enums/ValuedEnum.java	2024-07-18 03:20:07.923462113 -0700
++++ src/java/org/apache/commons/lang/enums/ValuedEnum.java	2024-07-18 03:20:11.862621451 -0700
 @@ -180,6 +180,16 @@
       * @throws NullPointerException if other is <code>null</code>
       */

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2023-12-05 19:30:39.562845944 +0000
-+++ src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2023-12-05 19:30:43.710681637 +0000
+--- src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2024-07-18 03:30:50.270674351 -0700
++++ src/com/google/javascript/jscomp/PeepholeReplaceKnownMethods.java	2024-07-18 03:30:53.562809133 -0700
 @@ -373,7 +373,7 @@
  
      Node right = callTarget.getNext();

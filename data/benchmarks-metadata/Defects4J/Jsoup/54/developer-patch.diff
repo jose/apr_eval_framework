@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:17:56.710728324 +0000
-+++ src/main/java/org/jsoup/helper/W3CDom.java	2023-12-05 21:17:58.689562566 +0000
+--- src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:13:04.221919205 -0700
++++ src/main/java/org/jsoup/helper/W3CDom.java	2024-07-18 04:13:05.790982927 -0700
 @@ -123,6 +123,7 @@
              for (Attribute attribute : source.attributes()) {
                  // valid xml attribute names are: ^[a-zA-Z_:][-a-zA-Z0-9_:.]

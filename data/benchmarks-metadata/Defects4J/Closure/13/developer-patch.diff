@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/PeepholeOptimizationsPass.java	2023-12-05 19:24:00.251752979 +0000
-+++ src/com/google/javascript/jscomp/PeepholeOptimizationsPass.java	2023-12-05 19:24:04.536521315 +0000
+--- src/com/google/javascript/jscomp/PeepholeOptimizationsPass.java	2024-07-18 03:25:50.620418878 -0700
++++ src/com/google/javascript/jscomp/PeepholeOptimizationsPass.java	2024-07-18 03:25:54.406573822 -0700
 @@ -123,8 +123,8 @@
      do {
        Node c = node.getFirstChild();

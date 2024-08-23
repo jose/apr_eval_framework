@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:21.086624035 +0000
-+++ src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:22.995065242 +0000
+--- src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:09:59.678418224 -0700
++++ src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:01.232481924 -0700
 @@ -360,10 +360,13 @@
      }
  

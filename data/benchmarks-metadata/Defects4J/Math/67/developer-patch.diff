@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/MultiStartUnivariateRealOptimizer.java	2023-12-05 17:16:55.276246290 +0000
-+++ src/main/java/org/apache/commons/math/optimization/MultiStartUnivariateRealOptimizer.java	2023-12-05 17:16:59.164361025 +0000
+--- src/main/java/org/apache/commons/math/optimization/MultiStartUnivariateRealOptimizer.java	2024-07-18 02:51:18.443663032 -0700
++++ src/main/java/org/apache/commons/math/optimization/MultiStartUnivariateRealOptimizer.java	2024-07-18 02:51:21.394796400 -0700
 @@ -89,12 +89,12 @@
  
      /** {@inheritDoc} */

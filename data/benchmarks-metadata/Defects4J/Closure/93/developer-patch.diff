@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2023-12-05 19:37:11.396452608 +0000
-+++ src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2023-12-05 19:37:14.503583709 +0000
+--- src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2024-07-18 03:36:25.926272494 -0700
++++ src/com/google/javascript/jscomp/ProcessClosurePrimitives.java	2024-07-18 03:36:28.359371168 -0700
 @@ -786,7 +786,7 @@
          } else {
            // In this case, the name was implicitly provided by two independent

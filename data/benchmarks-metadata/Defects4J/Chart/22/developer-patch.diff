@@ -1,5 +1,5 @@
---- source/org/jfree/data/KeyedObjects2D.java	2023-12-05 17:37:03.292260065 +0000
-+++ source/org/jfree/data/KeyedObjects2D.java	2023-12-05 17:37:10.193377413 +0000
+--- source/org/jfree/data/KeyedObjects2D.java	2024-07-18 03:06:01.485209185 -0700
++++ source/org/jfree/data/KeyedObjects2D.java	2024-07-18 03:06:05.590374115 -0700
 @@ -228,9 +228,10 @@
              throw new UnknownKeyException("Column key (" + columnKey 
                      + ") not recognised.");

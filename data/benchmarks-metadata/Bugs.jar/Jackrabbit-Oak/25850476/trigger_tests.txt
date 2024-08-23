@@ -1,3 +1,1 @@
 --- org.apache.jackrabbit.oak.plugins.document.VersionGarbageCollectorTest::gcLongPathSplitDocs
---- org.apache.jackrabbit.oak.plugins.document.VersionGarbageCollectorTest::gcLongPathSplitDocs[0]
---- org.apache.jackrabbit.oak.plugins.document.VersionGarbageCollectorTest::gcLongPathSplitDocs[1]

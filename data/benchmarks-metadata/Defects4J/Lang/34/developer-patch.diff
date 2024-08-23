@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java	2023-12-05 18:57:45.862873584 +0000
-+++ src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java	2023-12-05 18:57:52.330162268 +0000
+--- src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java	2024-07-18 03:15:40.574689875 -0700
++++ src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java	2024-07-18 03:15:44.487849231 -0700
 @@ -145,7 +145,7 @@
       * @return Set the registry of objects being traversed
       */

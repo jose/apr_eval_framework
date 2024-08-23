@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/fraction/Fraction.java	2023-12-05 17:21:19.801937683 +0000
-+++ src/java/org/apache/commons/math/fraction/Fraction.java	2023-12-05 17:21:24.774420490 +0000
+--- src/java/org/apache/commons/math/fraction/Fraction.java	2024-07-18 02:54:45.496849200 -0700
++++ src/java/org/apache/commons/math/fraction/Fraction.java	2024-07-18 02:54:49.450026267 -0700
 @@ -256,8 +256,8 @@
       *         than <tt>object</tt>, 0 if they are equal.
       */

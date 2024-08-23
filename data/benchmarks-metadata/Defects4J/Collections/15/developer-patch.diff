@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:08:35.566800907 +0000
-+++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2023-12-05 20:08:38.052605246 +0000
+--- src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:02.244817032 -0700
++++ src/java/org/apache/commons/collections/list/SetUniqueList.java	2024-07-18 03:49:04.035889593 -0700
 @@ -221,13 +221,13 @@
          int pos = indexOf(object);
          Object removed = super.set(index, object);

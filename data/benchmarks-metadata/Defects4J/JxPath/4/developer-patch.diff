@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:15.379157069 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:16.385134667 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:16:47.799012466 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:16:48.337033893 -0700
 @@ -293,12 +293,11 @@
                  : current.toUpperCase().startsWith(lang.toUpperCase());
      }
@@ -70,8 +70,8 @@
      }
  
      /**
---- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:22:15.379576005 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:22:16.385650120 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:16:47.799012466 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:16:48.338033933 -0700
 @@ -237,7 +237,14 @@
  
      public Object getValue() {

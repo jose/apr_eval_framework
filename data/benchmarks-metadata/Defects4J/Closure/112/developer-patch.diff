@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 19:40:00.881740298 +0000
-+++ src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 19:40:04.763091083 +0000
+--- src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:38:50.092133514 -0700
++++ src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:38:53.585275887 -0700
 @@ -1189,9 +1189,15 @@
      }
  

@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/format/DateTimeFormatterBuilder.java	2023-12-05 17:41:26.502703399 +0000
-+++ src/main/java/org/joda/time/format/DateTimeFormatterBuilder.java	2023-12-05 17:41:31.216889895 +0000
+--- src/main/java/org/joda/time/format/DateTimeFormatterBuilder.java	2024-07-18 03:09:29.589539340 -0700
++++ src/main/java/org/joda/time/format/DateTimeFormatterBuilder.java	2024-07-18 03:09:33.411694350 -0700
 @@ -2539,12 +2539,18 @@
  
          public int parseInto(DateTimeParserBucket bucket, String text, int position) {

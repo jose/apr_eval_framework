@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2023-12-05 19:28:58.703728957 +0000
-+++ src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2023-12-05 19:29:02.806456663 +0000
+--- src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2024-07-18 03:29:21.513047944 -0700
++++ src/com/google/javascript/rhino/jstype/PrototypeObjectType.java	2024-07-18 03:29:25.351204608 -0700
 @@ -377,10 +377,10 @@
  
          sb.append(property);

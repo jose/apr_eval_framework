@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/field/FieldUtils.java	2023-12-05 17:40:38.312088075 +0000
-+++ src/main/java/org/joda/time/field/FieldUtils.java	2023-12-05 17:40:42.620002091 +0000
+--- src/main/java/org/joda/time/field/FieldUtils.java	2024-07-18 03:08:47.207821456 -0700
++++ src/main/java/org/joda/time/field/FieldUtils.java	2024-07-18 03:08:51.001974384 -0700
 @@ -135,6 +135,9 @@
      public static long safeMultiply(long val1, int val2) {
          switch (val2) {

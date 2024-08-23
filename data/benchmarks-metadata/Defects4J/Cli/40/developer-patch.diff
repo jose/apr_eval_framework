@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:21:58.779165039 +0000
-+++ src/main/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:22:01.957320465 +0000
+--- src/main/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:24:07.718211166 -0700
++++ src/main/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:24:10.333318013 -0700
 @@ -100,7 +100,7 @@
          }
          else

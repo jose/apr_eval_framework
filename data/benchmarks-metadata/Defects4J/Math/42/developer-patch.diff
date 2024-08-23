@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:12:16.357253432 +0000
-+++ src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2023-12-05 17:12:21.572412487 +0000
+--- src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:47:41.797839515 -0700
++++ src/main/java/org/apache/commons/math/optimization/linear/SimplexTableau.java	2024-07-18 02:47:45.823898234 -0700
 @@ -407,10 +407,12 @@
              continue;
            }

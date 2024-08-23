@@ -1,15 +1,5 @@
---- src/java/org/apache/commons/cli2/WriteableCommandLine.java	2023-12-05 19:18:51.328756737 +0000
-+++ src/java/org/apache/commons/cli2/WriteableCommandLine.java	2023-12-05 19:18:54.575100452 +0000
-@@ -44,6 +44,7 @@
-      * @param option the Option associated with the values
-      * @return a list of values or an empty List if none are found
-      */
-+    List getUndefaultedValues(final Option option);
- 
-     /**
-      * Sets the default values for an Option in the CommandLine
---- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:18:51.329084835 +0000
-+++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2023-12-05 19:18:54.575346319 +0000
+--- src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:21:25.420602939 -0700
++++ src/java/org/apache/commons/cli2/commandline/WriteableCommandLineImpl.java	2024-07-18 03:21:28.020708465 -0700
 @@ -129,9 +129,17 @@
          return valueList;
      }
@@ -28,8 +18,8 @@
  
      public Boolean getSwitch(final Option option,
                               final Boolean defaultValue) {
---- src/java/org/apache/commons/cli2/option/ArgumentImpl.java	2023-12-05 19:18:51.218474725 +0000
-+++ src/java/org/apache/commons/cli2/option/ArgumentImpl.java	2023-12-05 19:18:54.575599407 +0000
+--- src/java/org/apache/commons/cli2/option/ArgumentImpl.java	2024-07-18 03:21:25.362600585 -0700
++++ src/java/org/apache/commons/cli2/option/ArgumentImpl.java	2024-07-18 03:21:28.020708465 -0700
 @@ -141,7 +141,7 @@
                                final Option option)
          throws OptionException {
@@ -39,3 +29,13 @@
  
          while (arguments.hasNext() && (argumentCount < maximum)) {
              final String allValuesQuoted = (String) arguments.next();
+--- src/java/org/apache/commons/cli2/WriteableCommandLine.java	2024-07-18 03:21:25.420602939 -0700
++++ src/java/org/apache/commons/cli2/WriteableCommandLine.java	2024-07-18 03:21:28.020708465 -0700
+@@ -44,6 +44,7 @@
+      * @param option the Option associated with the values
+      * @return a list of values or an empty List if none are found
+      */
++    List getUndefaultedValues(final Option option);
+ 
+     /**
+      * Sets the default values for an Option in the CommandLine

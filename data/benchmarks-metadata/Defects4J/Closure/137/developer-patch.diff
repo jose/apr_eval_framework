@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2023-12-05 19:43:37.862846045 +0000
-+++ src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2023-12-05 19:43:42.204937929 +0000
+--- src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2024-07-18 03:41:59.708775974 -0700
++++ src/com/google/javascript/jscomp/MakeDeclaredNamesUnique.java	2024-07-18 03:42:03.420923649 -0700
 @@ -23,7 +23,7 @@
  import com.google.common.collect.Maps;
  import com.google.common.collect.Multiset;
@@ -209,8 +209,8 @@
        if (!declarations.containsKey(name)) {
          declarations.put(name, getUniqueName(name));
        }
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:43:37.863597769 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:43:42.205360031 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:41:59.708775974 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:42:03.420923649 -0700
 @@ -1040,6 +1040,9 @@
     * @return Whether the name is a reference to a variable, function or
     *       function parameter (not a label or a empty anonymous function name).
@@ -221,8 +221,8 @@
  
    /** @return Whether the node is a label name. */
    static boolean isLabelName(Node n) {
---- src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:43:37.864067806 +0000
-+++ src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:43:42.205702657 +0000
+--- src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:41:59.708775974 -0700
++++ src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:42:03.420923649 -0700
 @@ -79,7 +79,6 @@
    public void process(Node externs, Node root) {
      NodeTraversal.traverse(compiler, root,

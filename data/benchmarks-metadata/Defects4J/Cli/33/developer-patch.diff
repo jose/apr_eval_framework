@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:10.336999855 +0000
-+++ src/main/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:21:13.406044689 +0000
+--- src/main/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:23:25.856500792 -0700
++++ src/main/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:23:28.426605800 -0700
 @@ -727,7 +727,7 @@
      {
          StringBuffer sb = new StringBuffer(text.length());

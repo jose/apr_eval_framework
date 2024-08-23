@@ -1,5 +1,5 @@
---- source/org/jfree/data/time/TimePeriodValues.java	2023-12-05 17:32:55.337416643 +0000
-+++ source/org/jfree/data/time/TimePeriodValues.java	2023-12-05 17:33:02.196020415 +0000
+--- source/org/jfree/data/time/TimePeriodValues.java	2024-07-18 03:03:43.988751920 -0700
++++ source/org/jfree/data/time/TimePeriodValues.java	2024-07-18 03:03:48.247926944 -0700
 @@ -297,9 +297,9 @@
          }
          

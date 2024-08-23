@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:17:47.200422325 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:17:49.249239987 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:56.179592598 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:57.772657294 -0700
 @@ -109,13 +109,7 @@
                      foundCharset = getCharsetFromContentType(meta.attr("content"));
                  }
@@ -14,8 +14,8 @@
                  }
              }
              // look for <?xml encoding='ISO-8859-1'?>
---- src/main/java/org/jsoup/nodes/XmlDeclaration.java	2023-12-05 21:17:47.201215852 +0000
-+++ src/main/java/org/jsoup/nodes/XmlDeclaration.java	2023-12-05 21:17:49.250047500 +0000
+--- src/main/java/org/jsoup/nodes/XmlDeclaration.java	2024-07-18 04:12:56.180592638 -0700
++++ src/main/java/org/jsoup/nodes/XmlDeclaration.java	2024-07-18 04:12:57.773657334 -0700
 @@ -43,29 +43,17 @@
       @return XML declaration
       */
@@ -51,8 +51,8 @@
              .append(">");
      }
  
---- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:17:47.201606861 +0000
-+++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2023-12-05 21:17:49.250379779 +0000
+--- src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:12:56.180592638 -0700
++++ src/main/java/org/jsoup/parser/XmlTreeBuilder.java	2024-07-18 04:12:57.773657334 -0700
 @@ -1,5 +1,6 @@
  package org.jsoup.parser;
  

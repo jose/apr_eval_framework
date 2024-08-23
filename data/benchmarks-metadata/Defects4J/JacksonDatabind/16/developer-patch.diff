@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/AnnotationMap.java	2023-12-05 21:03:20.109567288 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/AnnotationMap.java	2023-12-05 21:03:22.641716934 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/AnnotationMap.java	2024-07-18 04:01:22.205127425 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/AnnotationMap.java	2024-07-18 04:01:24.195209749 -0700
 @@ -109,7 +109,7 @@
              _annotations = new HashMap<Class<? extends Annotation>,Annotation>();
          }

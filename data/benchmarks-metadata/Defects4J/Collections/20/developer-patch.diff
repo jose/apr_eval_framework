@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections/list/TreeList.java	2023-12-05 20:09:13.024135962 +0000
-+++ src/main/java/org/apache/commons/collections/list/TreeList.java	2023-12-05 20:09:16.583168276 +0000
+--- src/main/java/org/apache/commons/collections/list/TreeList.java	2024-07-18 03:49:31.784013734 -0700
++++ src/main/java/org/apache/commons/collections/list/TreeList.java	2024-07-18 03:49:34.657130129 -0700
 @@ -900,16 +900,14 @@
              if (currentIndex == -1) {
                  throw new IllegalStateException();

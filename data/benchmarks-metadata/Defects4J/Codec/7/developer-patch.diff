@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:24.507011762 +0000
-+++ src/java/org/apache/commons/codec/binary/Base64.java	2023-12-05 20:06:25.500716587 +0000
+--- src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:21.434734643 -0700
++++ src/java/org/apache/commons/codec/binary/Base64.java	2024-07-18 03:47:22.033758841 -0700
 @@ -667,7 +667,7 @@
       * @since 1.4
       */    

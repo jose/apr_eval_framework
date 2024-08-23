@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 20:59:42.329035598 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 20:59:44.381864646 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:58:28.654957240 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:58:30.278024263 -0700
 @@ -949,6 +949,9 @@
              --ptr; // need to push back following separator
              _inputPtr = ptr;
@@ -45,8 +45,8 @@
      
      /*
      /**********************************************************
---- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 20:59:42.329715212 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 20:59:44.383105729 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:58:28.655957281 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:58:30.281024387 -0700
 @@ -1241,6 +1241,9 @@
          --_inputPtr; // to push back trailing char (comma etc)
          _textBuffer.setCurrentLength(outPtr);

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:00:46.605155297 +0000
-+++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:00:48.624586143 +0000
+--- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:21.467138060 -0700
++++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:23.097205371 -0700
 @@ -224,9 +224,18 @@
      	//Check for _allowMultipleMatches - false and atleast there is one token - which is _currToken
      	// check for no buffered context _exposedContext - null

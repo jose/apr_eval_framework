@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/util/ContinuedFraction.java	2023-12-05 17:10:05.374029191 +0000
-+++ src/main/java/org/apache/commons/math3/util/ContinuedFraction.java	2023-12-05 17:10:10.292411360 +0000
+--- src/main/java/org/apache/commons/math3/util/ContinuedFraction.java	2024-07-18 02:45:58.782717392 -0700
++++ src/main/java/org/apache/commons/math3/util/ContinuedFraction.java	2024-07-18 02:46:02.763870930 -0700
 @@ -131,8 +131,6 @@
  
          int n = 1;

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:32.660150106 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:33.653174586 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:16:59.969497178 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:17:00.578521433 -0700
 @@ -39,7 +39,7 @@
      }
  

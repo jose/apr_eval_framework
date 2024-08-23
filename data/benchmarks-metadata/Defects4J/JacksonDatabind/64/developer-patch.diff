@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:08:13.272449098 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2023-12-05 21:08:16.039082406 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2024-07-18 04:05:13.854676915 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/PropertyBuilder.java	2024-07-18 04:05:15.854759155 -0700
 @@ -149,17 +149,22 @@
              //    whereas for global defaults OR per-property overrides, we have more
              //    static definition. Sigh.

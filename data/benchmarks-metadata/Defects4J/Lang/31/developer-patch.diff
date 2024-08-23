@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/StringUtils.java	2023-12-05 18:57:02.362083999 +0000
-+++ src/main/java/org/apache/commons/lang3/StringUtils.java	2023-12-05 18:57:08.890881036 +0000
+--- src/main/java/org/apache/commons/lang3/StringUtils.java	2024-07-18 03:15:13.747597389 -0700
++++ src/main/java/org/apache/commons/lang3/StringUtils.java	2024-07-18 03:15:17.744760168 -0700
 @@ -1443,13 +1443,21 @@
  		}
  		int csLength = cs.length();

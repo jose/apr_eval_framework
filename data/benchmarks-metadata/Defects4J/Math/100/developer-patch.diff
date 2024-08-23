@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/estimation/AbstractEstimator.java	2023-12-05 17:22:56.171776972 +0000
-+++ src/java/org/apache/commons/math/estimation/AbstractEstimator.java	2023-12-05 17:23:00.117692116 +0000
+--- src/java/org/apache/commons/math/estimation/AbstractEstimator.java	2024-07-18 02:56:02.261292162 -0700
++++ src/java/org/apache/commons/math/estimation/AbstractEstimator.java	2024-07-18 02:56:05.123421383 -0700
 @@ -163,7 +163,7 @@
  
          // compute transpose(J).J, avoiding building big intermediate matrices

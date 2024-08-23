@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:54:12.040145918 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2023-12-05 20:54:15.703183993 +0000
+--- src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:53:38.452061651 -0700
++++ src/main/java/org/apache/commons/compress/archivers/ArchiveStreamFactory.java	2024-07-18 03:53:41.526187043 -0700
 @@ -294,7 +294,11 @@
              }
          }
@@ -24,8 +24,8 @@
              } else if (SevenZFile.matches(signature, signatureLength)) {
                  throw new StreamingNotSupportedException(SEVEN_Z);
              }
---- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2023-12-05 20:54:12.040517957 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2023-12-05 20:54:15.703486917 +0000
+--- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2024-07-18 03:53:38.452061651 -0700
++++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveInputStream.java	2024-07-18 03:53:41.527187083 -0700
 @@ -94,6 +94,7 @@
      private final ZipEncoding zipEncoding;
  
@@ -42,8 +42,8 @@
          this.zipEncoding = ZipEncodingHelper.getZipEncoding(encoding);
      }
  
---- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:54:12.040886532 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2023-12-05 20:54:15.703783850 +0000
+--- src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:53:38.452061651 -0700
++++ src/main/java/org/apache/commons/compress/archivers/cpio/CpioArchiveOutputStream.java	2024-07-18 03:53:41.527187083 -0700
 @@ -95,6 +95,7 @@
      private final ZipEncoding zipEncoding;
  
@@ -60,8 +60,8 @@
          this.zipEncoding = ZipEncodingHelper.getZipEncoding(encoding);
      }
  
---- src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java	2023-12-05 20:54:12.041273916 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java	2023-12-05 20:54:15.704079686 +0000
+--- src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java	2024-07-18 03:53:38.453061692 -0700
++++ src/main/java/org/apache/commons/compress/archivers/dump/DumpArchiveInputStream.java	2024-07-18 03:53:41.527187083 -0700
 @@ -77,6 +77,7 @@
      private final ZipEncoding zipEncoding;
  
@@ -78,8 +78,8 @@
          this.zipEncoding = ZipEncodingHelper.getZipEncoding(encoding);
  
          try {
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:12.042247719 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2023-12-05 20:54:15.704989762 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:53:38.453061692 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveInputStream.java	2024-07-18 03:53:41.528187124 -0700
 @@ -76,6 +76,7 @@
      private final ZipEncoding zipEncoding;
  
@@ -96,8 +96,8 @@
          this.zipEncoding = ZipEncodingHelper.getZipEncoding(encoding);
          this.recordSize = recordSize;
          this.blockSize = blockSize;
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:54:12.042700411 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:54:15.705336691 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:53:38.454061733 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:53:41.528187124 -0700
 @@ -87,6 +87,7 @@
      private final ZipEncoding zipEncoding;
  
@@ -114,8 +114,8 @@
          this.zipEncoding = ZipEncodingHelper.getZipEncoding(encoding);
  
          this.assemLen = 0;
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:54:12.043200195 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2023-12-05 20:54:15.705801188 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:53:38.454061733 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveInputStream.java	2024-07-18 03:53:41.528187124 -0700
 @@ -62,6 +62,7 @@
      private final ZipEncoding zipEncoding;
  

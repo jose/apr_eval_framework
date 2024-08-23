@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:02.581070644 +0000
-+++ src/main/java/org/jsoup/nodes/Entities.java	2023-12-05 21:14:04.491459138 +0000
+--- src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:09:43.898771432 -0700
++++ src/main/java/org/jsoup/nodes/Entities.java	2024-07-18 04:09:45.477836156 -0700
 @@ -61,7 +61,7 @@
                  } catch (NumberFormatException e) {
                  } // skip

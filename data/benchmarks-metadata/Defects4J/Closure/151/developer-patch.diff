@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:02:16.122760534 +0000
-+++ src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:02:20.199809812 +0000
+--- src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:43:49.658187203 -0700
++++ src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:43:53.255331677 -0700
 @@ -298,6 +298,9 @@
          + "a manifest for each module.")
      private String output_manifest = "";

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/sym/ByteQuadsCanonicalizer.java	2023-12-05 21:00:26.697878842 +0000
-+++ src/main/java/com/fasterxml/jackson/core/sym/ByteQuadsCanonicalizer.java	2023-12-05 21:00:28.757971203 +0000
+--- src/main/java/com/fasterxml/jackson/core/sym/ByteQuadsCanonicalizer.java	2024-07-18 03:59:05.143463993 -0700
++++ src/main/java/com/fasterxml/jackson/core/sym/ByteQuadsCanonicalizer.java	2024-07-18 03:59:06.763530891 -0700
 @@ -879,6 +879,7 @@
              _hashShared = false;
              // 09-Sep-2015, tatu: As per [jackson-core#216], also need to ensure

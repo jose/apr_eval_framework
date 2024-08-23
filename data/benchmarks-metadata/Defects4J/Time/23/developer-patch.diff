@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:13:38.137555476 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 18:13:43.108706523 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:09:56.298622552 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:10:00.620797841 -0700
 @@ -561,6 +561,11 @@
              // Backwards compatibility with TimeZone.
              map = new HashMap<String, String>();

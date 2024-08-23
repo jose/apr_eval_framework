@@ -1,5 +1,5 @@
---- src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:24:01.436545964 +0000
-+++ src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:24:06.854544410 +0000
+--- src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 02:56:52.589564401 -0700
++++ src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 02:56:56.712750800 -0700
 @@ -120,7 +120,18 @@
      public void captureArgumentsFrom(Invocation invocation) {
          if (invocation.getMethod().isVarArgs()) {

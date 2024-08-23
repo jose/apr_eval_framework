@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:17:14.464072865 +0000
-+++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2023-12-05 21:17:16.586353095 +0000
+--- src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:12:28.185455726 -0700
++++ src/main/java/org/jsoup/parser/HtmlTreeBuilder.java	2024-07-18 04:12:29.845523143 -0700
 @@ -391,7 +391,7 @@
              if ("select".equals(name)) {
                  transition(HtmlTreeBuilderState.InSelect);

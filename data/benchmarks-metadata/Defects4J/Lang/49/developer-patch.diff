@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/math/Fraction.java	2023-12-05 19:01:24.822161337 +0000
-+++ src/java/org/apache/commons/lang/math/Fraction.java	2023-12-05 19:01:31.413614762 +0000
+--- src/java/org/apache/commons/lang/math/Fraction.java	2024-07-18 03:17:54.917128939 -0700
++++ src/java/org/apache/commons/lang/math/Fraction.java	2024-07-18 03:17:58.891287839 -0700
 @@ -463,6 +463,9 @@
       * @return a new reduced fraction instance, or this if no simplification possible
       */

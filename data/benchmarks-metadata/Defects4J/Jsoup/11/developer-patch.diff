@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/select/Selector.java	2023-12-05 21:14:34.875265445 +0000
-+++ src/main/java/org/jsoup/select/Selector.java	2023-12-05 21:14:36.799965851 +0000
+--- src/main/java/org/jsoup/select/Selector.java	2024-07-18 04:10:11.554905032 -0700
++++ src/main/java/org/jsoup/select/Selector.java	2024-07-18 04:10:13.126969334 -0700
 @@ -107,6 +107,8 @@
          if (tq.matchesAny(combinators)) { // if starts with a combinator, use root as elements
              elements.add(root);

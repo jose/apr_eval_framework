@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2023-12-05 21:03:26.152837785 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2023-12-05 21:03:28.672540033 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2024-07-18 04:01:27.018326533 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ObjectMapper.java	2024-07-18 04:01:28.991408154 -0700
 @@ -177,7 +177,7 @@
                  return (t.getRawClass() == Object.class)
                          || (!t.isConcrete()

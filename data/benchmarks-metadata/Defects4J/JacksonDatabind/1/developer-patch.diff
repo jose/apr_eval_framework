@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2023-12-05 21:01:46.750773854 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2023-12-05 21:01:49.376604517 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2024-07-18 04:00:11.259194166 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java	2024-07-18 04:00:13.228275477 -0700
 @@ -589,6 +589,7 @@
              } else { // can NOT suppress entries in tabular output
                  jgen.writeNull();

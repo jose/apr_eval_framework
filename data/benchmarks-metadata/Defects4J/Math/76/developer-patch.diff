@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/SingularValueDecompositionImpl.java	2023-12-05 17:18:28.883056327 +0000
-+++ src/main/java/org/apache/commons/math/linear/SingularValueDecompositionImpl.java	2023-12-05 17:18:32.767247402 +0000
+--- src/main/java/org/apache/commons/math/linear/SingularValueDecompositionImpl.java	2024-07-18 02:52:30.541764116 -0700
++++ src/main/java/org/apache/commons/math/linear/SingularValueDecompositionImpl.java	2024-07-18 02:52:33.422886766 -0700
 @@ -159,24 +159,27 @@
              if (m >= n) {
                  // the tridiagonal matrix is Bt.B, where B is upper bidiagonal

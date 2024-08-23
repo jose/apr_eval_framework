@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:15:45.122745074 +0000
-+++ src/main/java/org/jsoup/safety/Cleaner.java	2023-12-05 21:15:47.094997079 +0000
+--- src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:11:10.743302077 -0700
++++ src/main/java/org/jsoup/safety/Cleaner.java	2024-07-18 04:11:12.274364066 -0700
 @@ -40,6 +40,7 @@
          Validate.notNull(dirtyDocument);
  

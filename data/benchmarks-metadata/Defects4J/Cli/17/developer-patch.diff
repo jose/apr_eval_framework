@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:19.520041171 +0000
-+++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:22.581223757 +0000
+--- src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:21:49.542581952 -0700
++++ src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:21:52.122686673 -0700
 @@ -300,6 +300,7 @@
              else if (stopAtNonOption)
              {

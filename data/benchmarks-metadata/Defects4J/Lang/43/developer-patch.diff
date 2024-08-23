@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2023-12-05 18:59:57.587203670 +0000
-+++ src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2023-12-05 19:00:04.251422035 +0000
+--- src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2024-07-18 03:17:01.404974969 -0700
++++ src/java/org/apache/commons/lang/text/ExtendedMessageFormat.java	2024-07-18 03:17:05.390136604 -0700
 @@ -419,6 +419,7 @@
          int start = pos.getIndex();
          char[] c = pattern.toCharArray();

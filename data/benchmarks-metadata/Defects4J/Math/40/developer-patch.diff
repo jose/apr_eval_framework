@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java	2023-12-05 17:11:52.251893749 +0000
-+++ src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java	2023-12-05 17:11:57.583841921 +0000
+--- src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java	2024-07-18 02:47:23.026565741 -0700
++++ src/main/java/org/apache/commons/math/analysis/solvers/BracketingNthOrderBrentSolver.java	2024-07-18 02:47:27.173626226 -0700
 @@ -232,10 +232,16 @@
              double targetY;
              if (agingA >= MAXIMAL_AGING) {

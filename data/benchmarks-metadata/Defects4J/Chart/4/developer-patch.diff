@@ -1,5 +1,5 @@
---- source/org/jfree/chart/plot/XYPlot.java	2023-12-05 17:32:06.095606133 +0000
-+++ source/org/jfree/chart/plot/XYPlot.java	2023-12-05 17:32:13.098468421 +0000
+--- source/org/jfree/chart/plot/XYPlot.java	2024-07-18 03:03:16.442639482 -0700
++++ source/org/jfree/chart/plot/XYPlot.java	2024-07-18 03:03:20.631805023 -0700
 @@ -4490,6 +4490,7 @@
                      }
                  }

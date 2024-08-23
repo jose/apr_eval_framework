@@ -1,5 +1,5 @@
---- source/org/jfree/data/time/Week.java	2023-12-05 17:33:11.335913202 +0000
-+++ source/org/jfree/data/time/Week.java	2023-12-05 17:33:18.372820797 +0000
+--- source/org/jfree/data/time/Week.java	2024-07-18 03:03:53.416139324 -0700
++++ source/org/jfree/data/time/Week.java	2024-07-18 03:03:57.580310444 -0700
 @@ -172,7 +172,7 @@
       */
      public Week(Date time, TimeZone zone) {

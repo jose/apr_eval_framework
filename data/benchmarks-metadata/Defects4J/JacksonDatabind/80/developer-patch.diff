@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdSubtypeResolver.java	2023-12-05 21:09:55.685271783 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdSubtypeResolver.java	2023-12-05 21:09:58.329110709 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdSubtypeResolver.java	2024-07-18 04:06:31.295861121 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/StdSubtypeResolver.java	2024-07-18 04:06:33.291943195 -0700
 @@ -76,6 +76,7 @@
          }
          

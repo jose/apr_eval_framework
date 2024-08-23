@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2023-12-05 21:12:55.248389002 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2023-12-05 21:12:57.752069310 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2024-07-18 04:08:53.284695370 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializer.java	2024-07-18 04:08:55.329779387 -0700
 @@ -34,6 +34,7 @@
      /**
       * Copied from `jackson-core` class `GeneratorBase`
@@ -76,8 +76,8 @@
 +        }
 +    }
  }
---- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2023-12-05 21:12:55.114138413 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2023-12-05 21:12:57.752299743 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2024-07-18 04:08:53.214692495 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/NumberSerializers.java	2024-07-18 04:08:55.329779387 -0700
 @@ -2,6 +2,7 @@
  
  import java.io.IOException;

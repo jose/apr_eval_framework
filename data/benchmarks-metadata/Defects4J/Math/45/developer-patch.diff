@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/OpenMapRealMatrix.java	2023-12-05 17:12:52.356946861 +0000
-+++ src/main/java/org/apache/commons/math/linear/OpenMapRealMatrix.java	2023-12-05 17:12:57.439861811 +0000
+--- src/main/java/org/apache/commons/math/linear/OpenMapRealMatrix.java	2024-07-18 02:48:09.990760732 -0700
++++ src/main/java/org/apache/commons/math/linear/OpenMapRealMatrix.java	2024-07-18 02:48:14.077925053 -0700
 @@ -47,6 +47,11 @@
       */
      public OpenMapRealMatrix(int rowDimension, int columnDimension) {

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/AmbiguateProperties.java	2023-12-05 19:43:10.111764282 +0000
-+++ src/com/google/javascript/jscomp/AmbiguateProperties.java	2023-12-05 19:43:14.408267016 +0000
+--- src/com/google/javascript/jscomp/AmbiguateProperties.java	2024-07-18 03:41:35.694820664 -0700
++++ src/com/google/javascript/jscomp/AmbiguateProperties.java	2024-07-18 03:41:39.527973152 -0700
 @@ -207,7 +207,6 @@
      for (Property p : propertyMap.values()) {
        if (!p.skipAmbiguating) {
@@ -57,8 +57,8 @@
      }
    }
  
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:43:10.114036486 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:43:14.411397326 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:41:35.695820704 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:41:39.529973232 -0700
 @@ -557,9 +557,17 @@
        JSType propType = ownerType.getPropertyType(propName);
        if (propType instanceof FunctionType) {

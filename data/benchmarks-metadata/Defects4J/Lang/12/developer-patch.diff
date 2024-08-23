@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2023-12-05 18:52:28.875665291 +0000
-+++ src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2023-12-05 18:52:35.390349121 +0000
+--- src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2024-07-18 03:12:24.483663029 -0700
++++ src/main/java/org/apache/commons/lang3/RandomStringUtils.java	2024-07-18 03:12:28.418825619 -0700
 @@ -227,14 +227,21 @@
          } else if (count < 0) {
              throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");

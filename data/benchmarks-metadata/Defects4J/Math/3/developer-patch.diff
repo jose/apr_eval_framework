@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/util/MathArrays.java	2023-12-05 17:04:45.908085692 +0000
-+++ src/main/java/org/apache/commons/math3/util/MathArrays.java	2023-12-05 17:04:50.645423584 +0000
+--- src/main/java/org/apache/commons/math3/util/MathArrays.java	2024-07-18 02:41:35.718449332 -0700
++++ src/main/java/org/apache/commons/math3/util/MathArrays.java	2024-07-18 02:41:39.693606097 -0700
 @@ -818,7 +818,10 @@
              throw new DimensionMismatchException(len, b.length);
          }

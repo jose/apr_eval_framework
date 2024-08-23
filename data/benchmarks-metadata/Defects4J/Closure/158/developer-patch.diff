@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2023-12-05 20:03:18.878275381 +0000
-+++ src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2023-12-05 20:03:22.995074403 +0000
+--- src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2024-07-18 03:44:43.454352949 -0700
++++ src/com/google/javascript/jscomp/AbstractCommandLineRunner.java	2024-07-18 03:44:46.838489653 -0700
 @@ -194,12 +194,11 @@
        throws FlagUsageException, IOException {
      DiagnosticGroups diagnosticGroups = getDiagnosticGroups();
@@ -76,8 +76,8 @@
 +    }
 +  }
  }
---- src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:03:18.878861307 +0000
-+++ src/com/google/javascript/jscomp/CommandLineRunner.java	2023-12-05 20:03:22.995739747 +0000
+--- src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:44:43.455352989 -0700
++++ src/com/google/javascript/jscomp/CommandLineRunner.java	2024-07-18 03:44:46.839489693 -0700
 @@ -23,6 +23,7 @@
  import com.google.common.collect.Sets;
  import com.google.common.io.Files;
@@ -196,8 +196,8 @@
            .setDefine(flags.define)
            .setCharset(flags.charset)
            .setManageClosureDependencies(flags.manage_closure_dependencies)
---- src/com/google/javascript/jscomp/DiagnosticGroups.java	2023-12-05 20:03:18.879320272 +0000
-+++ src/com/google/javascript/jscomp/DiagnosticGroups.java	2023-12-05 20:03:22.996259603 +0000
+--- src/com/google/javascript/jscomp/DiagnosticGroups.java	2024-07-18 03:44:43.455352989 -0700
++++ src/com/google/javascript/jscomp/DiagnosticGroups.java	2024-07-18 03:44:46.839489693 -0700
 @@ -20,7 +20,6 @@
  import com.google.common.collect.ImmutableMap;
  import com.google.common.collect.Maps;

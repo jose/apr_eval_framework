@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/Normalize.java	2023-12-05 20:02:33.999168779 +0000
-+++ src/com/google/javascript/jscomp/Normalize.java	2023-12-05 20:02:37.867635952 +0000
+--- src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:44:05.199811410 -0700
++++ src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:44:08.403940098 -0700
 @@ -628,6 +628,7 @@
    private final class DuplicateDeclarationHandler implements
        SyntacticScopeCreator.RedeclarationHandler {
@@ -51,8 +51,8 @@
        }
      }
  
---- src/com/google/javascript/jscomp/SyntacticScopeCreator.java	2023-12-05 20:02:33.999533575 +0000
-+++ src/com/google/javascript/jscomp/SyntacticScopeCreator.java	2023-12-05 20:02:37.867934167 +0000
+--- src/com/google/javascript/jscomp/SyntacticScopeCreator.java	2024-07-18 03:44:05.199811410 -0700
++++ src/com/google/javascript/jscomp/SyntacticScopeCreator.java	2024-07-18 03:44:08.403940098 -0700
 @@ -20,7 +20,6 @@
  import com.google.javascript.rhino.JSDocInfo;
  import com.google.javascript.rhino.Node;

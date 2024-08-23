@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:15:30.377075115 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:15:32.297674086 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:10:58.954824791 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:11:00.514887954 -0700
 @@ -115,7 +115,25 @@
          return input.substring(start, pos);
      }
@@ -26,8 +26,8 @@
  
      String consumeHexSequence() {
          int start = pos;
---- src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:15:30.281006428 +0000
-+++ src/main/java/org/jsoup/parser/Tokeniser.java	2023-12-05 21:15:32.297990216 +0000
+--- src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:10:58.899822564 -0700
++++ src/main/java/org/jsoup/parser/Tokeniser.java	2024-07-18 04:11:00.515887994 -0700
 @@ -132,7 +132,7 @@
              }
          } else { // named

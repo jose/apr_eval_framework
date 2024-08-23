@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:35:15.611860915 +0000
-+++ src/com/google/javascript/jscomp/NodeUtil.java	2023-12-05 19:35:19.617226929 +0000
+--- src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:34:47.457362779 -0700
++++ src/com/google/javascript/jscomp/NodeUtil.java	2024-07-18 03:34:50.704486449 -0700
 @@ -1259,6 +1259,7 @@
        // Inversion
        case Token.NOT:

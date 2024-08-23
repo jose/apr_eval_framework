@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThan.java	2023-12-05 21:22:24.084656121 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThan.java	2023-12-05 21:22:25.172197632 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThan.java	2024-07-18 04:16:53.830252671 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThan.java	2024-07-18 04:16:54.368274099 -0700
 @@ -16,8 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;
@@ -22,8 +22,8 @@
      }
  
      public String getSymbol() {
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThanOrEqual.java	2023-12-05 21:22:24.085066052 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThanOrEqual.java	2023-12-05 21:22:25.172565919 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThanOrEqual.java	2024-07-18 04:16:53.830252671 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationGreaterThanOrEqual.java	2024-07-18 04:16:54.368274099 -0700
 @@ -16,8 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;
@@ -46,8 +46,8 @@
      }
  
      public String getSymbol() {
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThan.java	2023-12-05 21:22:24.085365452 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThan.java	2023-12-05 21:22:25.172815103 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThan.java	2024-07-18 04:16:53.830252671 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThan.java	2024-07-18 04:16:54.368274099 -0700
 @@ -16,8 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;
@@ -70,8 +70,8 @@
      }
  
      public String getSymbol() {
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThanOrEqual.java	2023-12-05 21:22:24.085685434 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThanOrEqual.java	2023-12-05 21:22:25.173010517 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThanOrEqual.java	2024-07-18 04:16:53.830252671 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationLessThanOrEqual.java	2024-07-18 04:16:54.368274099 -0700
 @@ -16,8 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;
@@ -94,8 +94,8 @@
      }
  
      public String getSymbol() {
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:24.086063371 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:25.173190660 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:16:53.830252671 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:16:54.369274139 -0700
 @@ -16,7 +16,14 @@
   */
  package org.apache.commons.jxpath.ri.compiler;

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2023-12-05 19:36:00.640057461 +0000
-+++ src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2023-12-05 19:36:04.651566097 +0000
+--- src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2024-07-18 03:35:25.512815632 -0700
++++ src/com/google/javascript/jscomp/UnreachableCodeElimination.java	2024-07-18 03:35:28.946956123 -0700
 @@ -150,20 +150,7 @@
        return n;
      }

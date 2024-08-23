@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:13:40.325329043 +0000
-+++ src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:13:45.794183124 +0000
+--- src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2024-07-18 02:48:47.404301090 -0700
++++ src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2024-07-18 02:48:51.497470366 -0700
 @@ -342,7 +342,7 @@
      public OpenMapRealVector ebeDivide(RealVector v) {
          checkVectorDimensions(v.getDimension());

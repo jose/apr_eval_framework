@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:41:34.869319400 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:41:38.735858422 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:40:12.624492491 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:40:15.865622805 -0700
 @@ -282,7 +282,7 @@
        case Token.HOOK: {
          Preconditions.checkState(childCount == 3);

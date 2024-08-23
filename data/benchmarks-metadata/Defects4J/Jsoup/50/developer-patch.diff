@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:17:37.936288211 +0000
-+++ src/main/java/org/jsoup/helper/DataUtil.java	2023-12-05 21:17:39.871163196 +0000
+--- src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:48.176267573 -0700
++++ src/main/java/org/jsoup/helper/DataUtil.java	2024-07-18 04:12:49.755331701 -0700
 @@ -90,6 +90,20 @@
          Document doc = null;
  

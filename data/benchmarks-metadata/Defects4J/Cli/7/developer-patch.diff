@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli2/builder/PatternBuilder.java	2023-12-05 19:18:19.197707309 +0000
-+++ src/java/org/apache/commons/cli2/builder/PatternBuilder.java	2023-12-05 19:18:22.312503285 +0000
+--- src/java/org/apache/commons/cli2/builder/PatternBuilder.java	2024-07-18 03:20:58.025491100 -0700
++++ src/java/org/apache/commons/cli2/builder/PatternBuilder.java	2024-07-18 03:21:00.675598655 -0700
 @@ -16,8 +16,8 @@
   */
  package org.apache.commons.cli2.builder;

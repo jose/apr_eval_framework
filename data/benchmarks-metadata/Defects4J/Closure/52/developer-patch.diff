@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:30:57.843050991 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 19:31:01.953540794 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:31:06.197326399 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:31:09.535463064 -0700
 @@ -742,7 +742,7 @@
          return false;
        }

@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:39:40.068224148 +0000
-+++ src/main/java/org/joda/time/DateTimeZone.java	2023-12-05 17:39:44.579099676 +0000
+--- src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:07:56.008774888 -0700
++++ src/main/java/org/joda/time/DateTimeZone.java	2024-07-18 03:07:59.928931587 -0700
 @@ -93,6 +93,7 @@
      /** The time zone for Universal Coordinated Time */
      public static final DateTimeZone UTC = new FixedDateTimeZone("UTC", "UTC", 0, 0);

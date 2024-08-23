@@ -1,5 +1,5 @@
---- source/org/jfree/chart/axis/Axis.java	2023-12-05 17:38:08.083855771 +0000
-+++ source/org/jfree/chart/axis/Axis.java	2023-12-05 17:38:15.023953910 +0000
+--- source/org/jfree/chart/axis/Axis.java	2024-07-18 03:06:38.459694671 -0700
++++ source/org/jfree/chart/axis/Axis.java	2024-07-18 03:06:42.529856385 -0700
 @@ -1189,11 +1189,13 @@
          }
          if (plotState != null && hotspot != null) {

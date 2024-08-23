@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:15:35.432718478 +0000
-+++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:15:37.653352773 +0000
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:11:02.845982334 -0700
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:11:04.466047926 -0700
 @@ -555,7 +555,6 @@
                  String name = r.consumeLetterSequence();
                  t.tagPending.appendTagName(name.toLowerCase());

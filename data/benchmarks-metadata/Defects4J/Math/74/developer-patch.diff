@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:18:08.409259473 +0000
-+++ src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2023-12-05 17:18:12.607999736 +0000
+--- src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2024-07-18 02:52:16.422163041 -0700
++++ src/main/java/org/apache/commons/math/ode/nonstiff/EmbeddedRungeKuttaIntegrator.java	2024-07-18 02:52:19.380288970 -0700
 @@ -242,12 +242,15 @@
          }
  

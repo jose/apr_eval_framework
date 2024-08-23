@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializer.java	2023-12-05 21:02:37.852578752 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializer.java	2023-12-05 21:02:40.576860941 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializer.java	2024-07-18 04:00:49.036755347 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/StdKeySerializer.java	2024-07-18 04:00:50.980835769 -0700
 @@ -24,10 +24,15 @@
      @Override
      public void serialize(Object value, JsonGenerator jgen, SerializerProvider provider) throws IOException {

@@ -1,5 +1,50 @@
---- src/java/org/apache/commons/jxpath/ri/NamespaceResolver.java	2023-12-05 21:22:41.553685530 +0000
-+++ src/java/org/apache/commons/jxpath/ri/NamespaceResolver.java	2023-12-05 21:22:42.583918790 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:06.117742043 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:06.754767414 -0700
+@@ -26,6 +26,7 @@
+ import org.apache.commons.jxpath.JXPathException;
+ import org.apache.commons.jxpath.Pointer;
+ import org.apache.commons.jxpath.ri.Compiler;
++import org.apache.commons.jxpath.ri.NamespaceResolver;
+ import org.apache.commons.jxpath.ri.QName;
+ import org.apache.commons.jxpath.ri.compiler.NodeNameTest;
+ import org.apache.commons.jxpath.ri.compiler.NodeTest;
+@@ -58,6 +59,7 @@
+     private Map namespaces;
+     private String defaultNamespace;
+     private String id;
++    private NamespaceResolver localNamespaceResolver;
+ 
+     public static final String XML_NAMESPACE_URI = 
+             "http://www.w3.org/XML/1998/namespace";
+@@ -186,6 +188,13 @@
+     /* (non-Javadoc)
+      * @see org.apache.commons.jxpath.ri.model.NodePointer#getNamespaceResolver()
+      */
++    public synchronized NamespaceResolver getNamespaceResolver() {
++        if (localNamespaceResolver == null) {
++            localNamespaceResolver = new NamespaceResolver(super.getNamespaceResolver());
++            localNamespaceResolver.setNamespaceContextPointer(this);
++        }
++        return localNamespaceResolver;
++    }
+ 
+     public String getNamespaceURI(String prefix) {
+         if (prefix == null || prefix.equals("")) {
+@@ -412,7 +421,11 @@
+         Element element = (Element) node;
+         String prefix = name.getPrefix();
+         if (prefix != null) {
+-            String ns = getNamespaceURI(prefix);
++            String ns = null;
++            NamespaceResolver nsr = getNamespaceResolver();
++            if (nsr != null) {
++                ns = nsr.getNamespaceURI(prefix);
++            }
+             if (ns == null) {
+                 throw new JXPathException(
+                     "Unknown namespace prefix: " + prefix);
+--- src/java/org/apache/commons/jxpath/ri/NamespaceResolver.java	2024-07-18 04:17:06.117742043 -0700
++++ src/java/org/apache/commons/jxpath/ri/NamespaceResolver.java	2024-07-18 04:17:06.753767374 -0700
 @@ -44,6 +44,24 @@
       * @return prefix if found
       * @since JXPath 1.3
@@ -107,48 +152,3 @@
 -}
 +}
 \ No newline at end of file
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:41.554349977 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:42.584738435 +0000
-@@ -26,6 +26,7 @@
- import org.apache.commons.jxpath.JXPathException;
- import org.apache.commons.jxpath.Pointer;
- import org.apache.commons.jxpath.ri.Compiler;
-+import org.apache.commons.jxpath.ri.NamespaceResolver;
- import org.apache.commons.jxpath.ri.QName;
- import org.apache.commons.jxpath.ri.compiler.NodeNameTest;
- import org.apache.commons.jxpath.ri.compiler.NodeTest;
-@@ -58,6 +59,7 @@
-     private Map namespaces;
-     private String defaultNamespace;
-     private String id;
-+    private NamespaceResolver localNamespaceResolver;
- 
-     public static final String XML_NAMESPACE_URI = 
-             "http://www.w3.org/XML/1998/namespace";
-@@ -186,6 +188,13 @@
-     /* (non-Javadoc)
-      * @see org.apache.commons.jxpath.ri.model.NodePointer#getNamespaceResolver()
-      */
-+    public synchronized NamespaceResolver getNamespaceResolver() {
-+        if (localNamespaceResolver == null) {
-+            localNamespaceResolver = new NamespaceResolver(super.getNamespaceResolver());
-+            localNamespaceResolver.setNamespaceContextPointer(this);
-+        }
-+        return localNamespaceResolver;
-+    }
- 
-     public String getNamespaceURI(String prefix) {
-         if (prefix == null || prefix.equals("")) {
-@@ -412,7 +421,11 @@
-         Element element = (Element) node;
-         String prefix = name.getPrefix();
-         if (prefix != null) {
--            String ns = getNamespaceURI(prefix);
-+            String ns = null;
-+            NamespaceResolver nsr = getNamespaceResolver();
-+            if (nsr != null) {
-+                ns = nsr.getNamespaceURI(prefix);
-+            }
-             if (ns == null) {
-                 throw new JXPathException(
-                     "Unknown namespace prefix: " + prefix);

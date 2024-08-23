@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:02:17.827609293 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2023-12-05 21:02:20.615493243 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:00:34.974173620 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/StdDateFormat.java	2024-07-18 04:00:36.860251641 -0700
 @@ -403,10 +403,26 @@
                  // Milliseconds partial or missing; and even seconds are optional
                  len = dateStr.length();

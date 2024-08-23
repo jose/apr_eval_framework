@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:14:07.161141457 +0000
-+++ src/main/java/org/jsoup/parser/Parser.java	2023-12-05 21:14:09.072815453 +0000
+--- src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:47.862933920 -0700
++++ src/main/java/org/jsoup/parser/Parser.java	2024-07-18 04:09:49.382996225 -0700
 @@ -203,7 +203,8 @@
          if (key.length() != 0)
              return Attribute.createFromEncoded(key, value);

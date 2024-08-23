@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/ode/AbstractIntegrator.java	2023-12-05 17:12:40.842500227 +0000
-+++ src/main/java/org/apache/commons/math/ode/AbstractIntegrator.java	2023-12-05 17:12:45.856537251 +0000
+--- src/main/java/org/apache/commons/math/ode/AbstractIntegrator.java	2024-07-18 02:48:00.514379744 -0700
++++ src/main/java/org/apache/commons/math/ode/AbstractIntegrator.java	2024-07-18 02:48:04.563542536 -0700
 @@ -277,7 +277,6 @@
  
              double previousT = interpolator.getGlobalPreviousTime();

@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:18:30.203718470 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:18:32.318019106 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:13:32.081051275 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:13:33.709117612 -0700
 @@ -1089,7 +1089,7 @@
       */
      // performance sensitive

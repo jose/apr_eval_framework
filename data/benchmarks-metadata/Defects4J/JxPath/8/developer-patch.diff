@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:27.037848012 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2023-12-05 21:22:28.062592010 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:16:55.839332686 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationRelationalExpression.java	2024-07-18 04:16:56.416355667 -0700
 @@ -73,7 +73,13 @@
              return containsMatch((Iterator) right, left);
          }

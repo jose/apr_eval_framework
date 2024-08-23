@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:30.270153373 +0000
-+++ src/main/java/org/jsoup/nodes/Node.java	2023-12-05 21:14:32.181101361 +0000
+--- src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:07.598742872 -0700
++++ src/main/java/org/jsoup/nodes/Node.java	2024-07-18 04:10:09.152806571 -0700
 @@ -170,6 +170,8 @@
                      return abs.toExternalForm();
                  }

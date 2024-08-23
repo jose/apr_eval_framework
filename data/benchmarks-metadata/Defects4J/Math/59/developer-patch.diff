@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/util/FastMath.java	2023-12-05 17:15:38.701350062 +0000
-+++ src/main/java/org/apache/commons/math/util/FastMath.java	2023-12-05 17:15:43.777532198 +0000
+--- src/main/java/org/apache/commons/math/util/FastMath.java	2024-07-18 02:50:20.529074542 -0700
++++ src/main/java/org/apache/commons/math/util/FastMath.java	2024-07-18 02:50:24.580236776 -0700
 @@ -3479,7 +3479,7 @@
       * @return b if a is lesser or equal to b, a otherwise
       */

@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:59:17.725738377 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:59:19.723577514 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:58:08.192122935 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:58:09.854190436 -0700
 @@ -492,7 +492,7 @@
     */
    public JsonWriter value(double value) throws IOException {

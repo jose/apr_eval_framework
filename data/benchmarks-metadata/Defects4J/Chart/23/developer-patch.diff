@@ -1,5 +1,5 @@
---- source/org/jfree/chart/renderer/category/MinMaxCategoryRenderer.java	2023-12-05 17:37:19.259635585 +0000
-+++ source/org/jfree/chart/renderer/category/MinMaxCategoryRenderer.java	2023-12-05 17:37:26.454433495 +0000
+--- source/org/jfree/chart/renderer/category/MinMaxCategoryRenderer.java	2024-07-18 03:06:10.634576771 -0700
++++ source/org/jfree/chart/renderer/category/MinMaxCategoryRenderer.java	2024-07-18 03:06:14.676739168 -0700
 @@ -432,6 +432,25 @@
       *
       * @since 1.0.7

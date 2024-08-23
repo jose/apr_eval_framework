@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:53:26.699551246 +0000
-+++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:53:33.078803253 +0000
+--- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:13:00.036131953 -0700
++++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:13:03.942293345 -0700
 @@ -455,7 +455,7 @@
              // a wrong value.
              return null;

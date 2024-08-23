@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:58:02.663378048 +0000
-+++ src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:58:04.741642232 +0000
+--- src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:57:06.357611703 -0700
++++ src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:57:08.394694433 -0700
 @@ -286,6 +286,7 @@
  
      private final Lexer lexer;

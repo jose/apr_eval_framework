@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:21:31.254732927 +0000
-+++ src/main/java/org/apache/commons/cli/OptionGroup.java	2023-12-05 19:21:34.503976422 +0000
+--- src/main/java/org/apache/commons/cli/OptionGroup.java	2024-07-18 03:23:43.717230541 -0700
++++ src/main/java/org/apache/commons/cli/OptionGroup.java	2024-07-18 03:23:46.349338083 -0700
 @@ -19,8 +19,8 @@
  
  import java.io.Serializable;
@@ -19,8 +19,8 @@
  
      /** the name of the selected option */
      private String selected;
---- src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:31.254855972 +0000
-+++ src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:34.504222663 +0000
+--- src/main/java/org/apache/commons/cli/Options.java	2024-07-18 03:23:43.717230541 -0700
++++ src/main/java/org/apache/commons/cli/Options.java	2024-07-18 03:23:46.349338083 -0700
 @@ -21,7 +21,6 @@
  import java.util.ArrayList;
  import java.util.Collection;

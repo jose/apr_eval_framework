@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java	2023-12-05 20:58:52.423130184 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java	2023-12-05 20:58:54.495676485 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java	2024-07-18 03:57:47.612287146 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java	2024-07-18 03:57:49.265354280 -0700
 @@ -119,8 +119,8 @@
        @Override void write(JsonWriter writer, Object value)
            throws IOException, IllegalAccessException {

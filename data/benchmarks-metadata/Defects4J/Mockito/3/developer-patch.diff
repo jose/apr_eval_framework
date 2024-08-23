@@ -1,5 +1,5 @@
---- src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:24:24.945879099 +0000
-+++ src/org/mockito/internal/invocation/InvocationMatcher.java	2023-12-05 17:24:30.113194015 +0000
+--- src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 02:57:11.619425138 -0700
++++ src/org/mockito/internal/invocation/InvocationMatcher.java	2024-07-18 02:57:15.792613923 -0700
 @@ -124,10 +124,12 @@
                      ((CapturesArguments) m).captureFrom(invocation.getArgumentAt(position, Object.class));
                  }

@@ -1,5 +1,5 @@
---- source/org/jfree/chart/util/ShapeList.java	2023-12-05 17:32:38.064637270 +0000
-+++ source/org/jfree/chart/util/ShapeList.java	2023-12-05 17:32:45.244481060 +0000
+--- source/org/jfree/chart/util/ShapeList.java	2024-07-18 03:03:34.767372983 -0700
++++ source/org/jfree/chart/util/ShapeList.java	2024-07-18 03:03:38.845540569 -0700
 @@ -108,7 +108,14 @@
          if (!(obj instanceof ShapeList)) {
              return false;

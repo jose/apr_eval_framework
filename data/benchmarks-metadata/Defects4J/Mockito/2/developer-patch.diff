@@ -1,5 +1,5 @@
---- src/org/mockito/internal/util/Timer.java	2023-12-05 17:24:13.141486733 +0000
-+++ src/org/mockito/internal/util/Timer.java	2023-12-05 17:24:18.266315284 +0000
+--- src/org/mockito/internal/util/Timer.java	2024-07-18 02:57:02.075993421 -0700
++++ src/org/mockito/internal/util/Timer.java	2024-07-18 02:57:06.358187134 -0700
 @@ -1,5 +1,6 @@
  package org.mockito.internal.util;
  

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:14:04.290039260 +0000
-+++ src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:14:09.328719818 +0000
+--- src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2024-07-18 02:49:06.129075470 -0700
++++ src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2024-07-18 02:49:10.233245201 -0700
 @@ -182,10 +182,19 @@
                  case PEGASUS:
                      f0 *= f1 / (f1 + fx);

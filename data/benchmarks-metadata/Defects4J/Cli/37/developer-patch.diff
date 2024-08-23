@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:38.321426324 +0000
-+++ src/main/java/org/apache/commons/cli/DefaultParser.java	2023-12-05 19:21:41.324817143 +0000
+--- src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:49.790478680 -0700
++++ src/main/java/org/apache/commons/cli/DefaultParser.java	2024-07-18 03:23:52.373584220 -0700
 @@ -299,9 +299,15 @@
      private boolean isShortOption(String token)
      {

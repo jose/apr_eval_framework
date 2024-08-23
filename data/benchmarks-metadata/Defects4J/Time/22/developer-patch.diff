@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/base/BasePeriod.java	2023-12-05 18:13:26.943149318 +0000
-+++ src/main/java/org/joda/time/base/BasePeriod.java	2023-12-05 18:13:32.191065373 +0000
+--- src/main/java/org/joda/time/base/BasePeriod.java	2024-07-18 03:09:46.795237134 -0700
++++ src/main/java/org/joda/time/base/BasePeriod.java	2024-07-18 03:09:51.098411653 -0700
 @@ -219,8 +219,13 @@
       * @param duration  the duration, in milliseconds
       */

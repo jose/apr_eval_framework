@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java	2023-12-05 18:55:06.514490215 +0000
-+++ src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java	2023-12-05 18:55:12.995089936 +0000
+--- src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java	2024-07-18 03:14:02.343687157 -0700
++++ src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java	2024-07-18 03:14:06.300849252 -0700
 @@ -70,6 +70,7 @@
   */
  public class ExtendedMessageFormat extends MessageFormat {

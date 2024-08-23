@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:38:31.985000864 +0000
-+++ src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:38:36.391430020 +0000
+--- src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:37:34.502053572 -0700
++++ src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:37:38.285206997 -0700
 @@ -86,12 +86,12 @@
    @Override
    public void process(Node externs, Node root) {

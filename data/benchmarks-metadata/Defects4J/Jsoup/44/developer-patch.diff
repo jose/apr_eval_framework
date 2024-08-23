@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/TreeBuilder.java	2023-12-05 21:17:09.868353764 +0000
-+++ src/main/java/org/jsoup/parser/TreeBuilder.java	2023-12-05 21:17:11.911107363 +0000
+--- src/main/java/org/jsoup/parser/TreeBuilder.java	2024-07-18 04:12:24.206294128 -0700
++++ src/main/java/org/jsoup/parser/TreeBuilder.java	2024-07-18 04:12:25.833360205 -0700
 @@ -58,16 +58,25 @@
      protected abstract boolean process(Token token);
  

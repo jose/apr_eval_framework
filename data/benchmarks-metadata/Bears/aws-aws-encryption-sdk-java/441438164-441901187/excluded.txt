@@ -1,12 +1,10 @@
 --- com.amazonaws.encryptionsdk.AwsCryptoTest
---- com.amazonaws.encryptionsdk.DefaultCryptoMaterialsManagerTest
---- com.amazonaws.encryptionsdk.UtilsTest
---- com.amazonaws.encryptionsdk.XCompatDecryptTest
 --- com.amazonaws.encryptionsdk.caching.CacheIdentifierTests
 --- com.amazonaws.encryptionsdk.caching.CachingCryptoMaterialsManagerTest
 --- com.amazonaws.encryptionsdk.caching.LocalCryptoMaterialsCacheTest
 --- com.amazonaws.encryptionsdk.caching.LocalCryptoMaterialsCacheThreadStormTest
 --- com.amazonaws.encryptionsdk.caching.NullCryptoMaterialsCacheTest
+--- com.amazonaws.encryptionsdk.DefaultCryptoMaterialsManagerTest
 --- com.amazonaws.encryptionsdk.internal.BlockDecryptionHandlerTest
 --- com.amazonaws.encryptionsdk.internal.BlockEncryptionHandlerTest
 --- com.amazonaws.encryptionsdk.internal.CipherHandlerTest
@@ -28,3 +26,5 @@
 --- com.amazonaws.encryptionsdk.model.CiphertextHeadersTest
 --- com.amazonaws.encryptionsdk.model.KeyBlobTest
 --- com.amazonaws.encryptionsdk.multi.MultipleMasterKeyTest
+--- com.amazonaws.encryptionsdk.UtilsTest
+--- com.amazonaws.encryptionsdk.XCompatDecryptTest

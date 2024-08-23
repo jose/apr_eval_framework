@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optimization/fitting/HarmonicFitter.java	2023-12-05 17:08:58.286907799 +0000
-+++ src/main/java/org/apache/commons/math3/optimization/fitting/HarmonicFitter.java	2023-12-05 17:09:03.096665560 +0000
+--- src/main/java/org/apache/commons/math3/optimization/fitting/HarmonicFitter.java	2024-07-18 02:45:02.986565558 -0700
++++ src/main/java/org/apache/commons/math3/optimization/fitting/HarmonicFitter.java	2024-07-18 02:45:07.071723105 -0700
 @@ -320,8 +320,11 @@
                  }
                  a = 0.5 * (yMax - yMin);

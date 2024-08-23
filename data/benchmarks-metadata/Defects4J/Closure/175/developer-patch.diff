@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionInjector.java	2023-12-05 20:05:54.117043202 +0000
-+++ src/com/google/javascript/jscomp/FunctionInjector.java	2023-12-05 20:05:57.853252467 +0000
+--- src/com/google/javascript/jscomp/FunctionInjector.java	2024-07-18 03:46:57.555770041 -0700
++++ src/com/google/javascript/jscomp/FunctionInjector.java	2024-07-18 03:47:00.714897655 -0700
 @@ -43,6 +43,14 @@
    private final boolean assumeStrictThis;
    private final boolean assumeMinimumCapture;

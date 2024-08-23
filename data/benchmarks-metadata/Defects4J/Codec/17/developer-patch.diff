@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:06:54.243411985 +0000
-+++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2023-12-05 20:06:56.403167081 +0000
+--- src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:43.867641792 -0700
++++ src/main/java/org/apache/commons/codec/binary/StringUtils.java	2024-07-18 03:47:45.485707343 -0700
 @@ -336,7 +336,7 @@
       * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
       */

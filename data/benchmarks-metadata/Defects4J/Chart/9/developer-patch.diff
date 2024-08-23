@@ -1,5 +1,5 @@
---- source/org/jfree/data/time/TimeSeries.java	2023-12-05 17:33:28.362652036 +0000
-+++ source/org/jfree/data/time/TimeSeries.java	2023-12-05 17:33:36.227154417 +0000
+--- source/org/jfree/data/time/TimeSeries.java	2024-07-18 03:04:02.707521137 -0700
++++ source/org/jfree/data/time/TimeSeries.java	2024-07-18 03:04:06.856691640 -0700
 @@ -941,7 +941,7 @@
              endIndex = -(endIndex + 1); // this is first item AFTER end period
              endIndex = endIndex - 1;    // so this is last item BEFORE end

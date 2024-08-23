@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2023-12-05 17:06:07.534416382 +0000
-+++ src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2023-12-05 17:06:12.137544231 +0000
+--- src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2024-07-18 02:42:41.076026773 -0700
++++ src/main/java/org/apache/commons/math3/analysis/differentiation/DSCompiler.java	2024-07-18 02:42:45.218190123 -0700
 @@ -1416,6 +1416,7 @@
          }
  

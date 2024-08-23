@@ -1,2 +1,2 @@
---- org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdateTest::failOnConflict
 --- org.apache.jackrabbit.oak.plugins.document.ConcurrentConflictTest::concurrentUpdates
+--- org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdateTest::failOnConflict

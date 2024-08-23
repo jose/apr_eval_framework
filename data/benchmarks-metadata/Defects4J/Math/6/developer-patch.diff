@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2023-12-05 17:05:20.689883152 +0000
-+++ src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2023-12-05 17:05:25.795338452 +0000
+--- src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2024-07-18 02:42:03.563547433 -0700
++++ src/main/java/org/apache/commons/math3/optim/BaseOptimizer.java	2024-07-18 02:42:07.629707785 -0700
 @@ -48,7 +48,7 @@
          this.checker = checker;
  
@@ -9,8 +9,8 @@
      }
  
      /**
---- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.java	2023-12-05 17:05:20.690148302 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.java	2023-12-05 17:05:25.795634516 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.java	2024-07-18 02:42:03.563547433 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.java	2024-07-18 02:42:07.629707785 -0700
 @@ -211,16 +211,15 @@
          }
  
@@ -39,8 +39,8 @@
                  beta < 0) {
                  // Break conjugation: reset search direction.
                  searchDirection = steepestDescent.clone();
---- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java	2023-12-05 17:05:20.857750369 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java	2023-12-05 17:05:25.796133714 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java	2024-07-18 02:42:03.649550825 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/CMAESOptimizer.java	2024-07-18 02:42:07.630707825 -0700
 @@ -385,6 +385,7 @@
  
          generationLoop:
@@ -49,8 +49,8 @@
  
              // Generate and evaluate lambda offspring
              final RealMatrix arz = randn1(dimension, lambda);
---- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/PowellOptimizer.java	2023-12-05 17:05:20.690461838 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/PowellOptimizer.java	2023-12-05 17:05:25.796415217 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/PowellOptimizer.java	2024-07-18 02:42:03.563547433 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/PowellOptimizer.java	2024-07-18 02:42:07.630707825 -0700
 @@ -188,9 +188,8 @@
          double[] x = guess;
          double fVal = computeObjectiveValue(x);
@@ -71,8 +71,8 @@
                  }
              }
              if (stop) {
---- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/SimplexOptimizer.java	2023-12-05 17:05:20.858288140 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/SimplexOptimizer.java	2023-12-05 17:05:25.796679148 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/SimplexOptimizer.java	2024-07-18 02:42:03.649550825 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/scalar/noderiv/SimplexOptimizer.java	2024-07-18 02:42:07.630707825 -0700
 @@ -155,7 +155,7 @@
          int iteration = 0;
          final ConvergenceChecker<PointValuePair> checker = getConvergenceChecker();
@@ -91,8 +91,8 @@
          }
      }
  
---- src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/GaussNewtonOptimizer.java	2023-12-05 17:05:20.690869516 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/GaussNewtonOptimizer.java	2023-12-05 17:05:25.796995512 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/GaussNewtonOptimizer.java	2024-07-18 02:42:03.564547472 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/GaussNewtonOptimizer.java	2024-07-18 02:42:07.630707825 -0700
 @@ -103,9 +103,8 @@
  
          // iterate until convergence is reached
@@ -113,8 +113,8 @@
                  if (converged) {
                      setCost(computeCost(currentResiduals));
                      return current;
---- src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/LevenbergMarquardtOptimizer.java	2023-12-05 17:05:20.691121530 +0000
-+++ src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/LevenbergMarquardtOptimizer.java	2023-12-05 17:05:25.797421629 +0000
+--- src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/LevenbergMarquardtOptimizer.java	2024-07-18 02:42:03.564547472 -0700
++++ src/main/java/org/apache/commons/math3/optim/nonlinear/vector/jacobian/LevenbergMarquardtOptimizer.java	2024-07-18 02:42:07.631707864 -0700
 @@ -319,10 +319,10 @@
          // Outer loop.
          lmPar = 0;

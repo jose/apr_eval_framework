@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2023-12-05 21:22:29.889540329 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2023-12-05 21:22:30.937838283 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2024-07-18 04:16:57.882414056 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationCompare.java	2024-07-18 04:16:58.480437873 -0700
 @@ -34,12 +34,20 @@
   * @version $Revision$ $Date$
   */
@@ -72,8 +72,8 @@
      }
  
  }
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationEqual.java	2023-12-05 21:22:29.889838258 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationEqual.java	2023-12-05 21:22:30.938296417 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationEqual.java	2024-07-18 04:16:57.882414056 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationEqual.java	2024-07-18 04:16:58.480437873 -0700
 @@ -16,7 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;
@@ -92,8 +92,8 @@
      public String getSymbol() {
          return "=";
      }
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationNotEqual.java	2023-12-05 21:22:29.890141342 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationNotEqual.java	2023-12-05 21:22:30.938515997 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationNotEqual.java	2024-07-18 04:16:57.882414056 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreOperationNotEqual.java	2024-07-18 04:16:58.480437873 -0700
 @@ -16,7 +16,6 @@
   */
  package org.apache.commons.jxpath.ri.compiler;

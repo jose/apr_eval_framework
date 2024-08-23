@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 20:02:42.850767418 +0000
-+++ src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 20:02:46.891102776 +0000
+--- src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:44:12.600108631 -0700
++++ src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:44:16.187252704 -0700
 @@ -182,13 +182,6 @@
            "original: {2}\n" +
            "override: {3}");
@@ -39,8 +39,8 @@
        }
      }
  
---- src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 20:02:42.851170634 +0000
-+++ src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 20:02:46.891662273 +0000
+--- src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:44:12.601108671 -0700
++++ src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:44:16.187252704 -0700
 @@ -107,6 +107,13 @@
            "JSC_INTERFACE_METHOD_NOT_IMPLEMENTED",
            "property {0} on interface {1} is not implemented by type {2}");

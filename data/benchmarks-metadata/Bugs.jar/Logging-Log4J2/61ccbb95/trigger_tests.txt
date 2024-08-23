@@ -1,2 +1,2 @@
---- org.apache.logging.log4j.core.jmx.ServerTest::testEscapeEscapesLineFeed
 --- org.apache.logging.log4j.core.jmx.ServerTest::testEscapeEscapesCarriageReturn
+--- org.apache.logging.log4j.core.jmx.ServerTest::testEscapeEscapesLineFeed

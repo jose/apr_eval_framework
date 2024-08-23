@@ -1,5 +1,5 @@
---- src/org/mockito/internal/matchers/Same.java	2023-12-05 17:29:14.599444463 +0000
-+++ src/org/mockito/internal/matchers/Same.java	2023-12-05 17:29:19.442154105 +0000
+--- src/org/mockito/internal/matchers/Same.java	2024-07-18 03:01:15.486909575 -0700
++++ src/org/mockito/internal/matchers/Same.java	2024-07-18 03:01:19.479066497 -0700
 @@ -26,7 +26,7 @@
      public void describeTo(Description description) {
          description.appendText("same(");

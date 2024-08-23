@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/jstype/ArrowType.java	2023-12-05 20:04:14.092415255 +0000
-+++ src/com/google/javascript/rhino/jstype/ArrowType.java	2023-12-05 20:04:18.257502147 +0000
+--- src/com/google/javascript/rhino/jstype/ArrowType.java	2024-07-18 03:45:31.308286032 -0700
++++ src/com/google/javascript/rhino/jstype/ArrowType.java	2024-07-18 03:45:34.660421444 -0700
 @@ -125,13 +125,25 @@
  
        boolean thisIsVarArgs = thisParam.isVarArgs();

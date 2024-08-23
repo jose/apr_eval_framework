@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/ClassUtils.java	2023-12-05 18:59:28.399231271 +0000
-+++ src/java/org/apache/commons/lang/ClassUtils.java	2023-12-05 18:59:34.936065831 +0000
+--- src/java/org/apache/commons/lang/ClassUtils.java	2024-07-18 03:16:43.444246497 -0700
++++ src/java/org/apache/commons/lang/ClassUtils.java	2024-07-18 03:16:47.440408578 -0700
 @@ -188,10 +188,23 @@
              return StringUtils.EMPTY;
          }

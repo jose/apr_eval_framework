@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/sevenz/Coders.java	2023-12-05 20:36:33.056199423 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/sevenz/Coders.java	2023-12-05 20:52:41.568989359 +0000
+--- src/main/java/org/apache/commons/compress/archivers/sevenz/Coders.java	2024-07-18 03:52:56.595354499 -0700
++++ src/main/java/org/apache/commons/compress/archivers/sevenz/Coders.java	2024-07-18 03:52:59.736482474 -0700
 @@ -109,7 +109,7 @@
              byte propsByte = coder.properties[0];
              long dictSize = coder.properties[1];

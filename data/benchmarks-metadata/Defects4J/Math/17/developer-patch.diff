@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/dfp/Dfp.java	2023-12-05 17:07:28.160738663 +0000
-+++ src/main/java/org/apache/commons/math3/dfp/Dfp.java	2023-12-05 17:07:32.981254746 +0000
+--- src/main/java/org/apache/commons/math3/dfp/Dfp.java	2024-07-18 02:43:46.593610527 -0700
++++ src/main/java/org/apache/commons/math3/dfp/Dfp.java	2024-07-18 02:43:50.558766897 -0700
 @@ -1600,7 +1600,11 @@
       * @return product of this and x
       */

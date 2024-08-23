@@ -1,5 +1,5 @@
---- src/org/mockito/internal/MockHandler.java	2023-12-05 17:26:26.948286577 +0000
-+++ src/org/mockito/internal/MockHandler.java	2023-12-05 17:26:31.812389418 +0000
+--- src/org/mockito/internal/MockHandler.java	2024-07-18 02:58:55.460067645 -0700
++++ src/org/mockito/internal/MockHandler.java	2024-07-18 02:58:59.424243137 -0700
 @@ -17,6 +17,7 @@
  import org.mockito.internal.stubbing.OngoingStubbingImpl;
  import org.mockito.internal.stubbing.StubbedInvocationMatcher;
@@ -20,8 +20,8 @@
          }
          
          invocationContainerImpl.setInvocationForPotentialStubbing(invocationMatcher);
---- src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:26.819761870 +0000
-+++ src/org/mockito/internal/MockitoCore.java	2023-12-05 17:26:31.812701794 +0000
+--- src/org/mockito/internal/MockitoCore.java	2024-07-18 02:58:55.394064723 -0700
++++ src/org/mockito/internal/MockitoCore.java	2024-07-18 02:58:59.424243137 -0700
 @@ -20,6 +20,7 @@
  import org.mockito.internal.stubbing.OngoingStubbingImpl;
  import org.mockito.internal.stubbing.StubberImpl;

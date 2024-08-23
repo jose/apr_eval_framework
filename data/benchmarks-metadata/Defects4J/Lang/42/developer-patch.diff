@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/Entities.java	2023-12-05 18:59:42.755404210 +0000
-+++ src/java/org/apache/commons/lang/Entities.java	2023-12-05 18:59:49.419928801 +0000
+--- src/java/org/apache/commons/lang/Entities.java	2024-07-18 03:16:52.432611058 -0700
++++ src/java/org/apache/commons/lang/Entities.java	2024-07-18 03:16:56.466774680 -0700
 @@ -825,10 +825,15 @@
      public void escape(Writer writer, String str) throws IOException {
          int len = str.length();

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java	2023-12-05 17:04:56.939086694 +0000
-+++ src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java	2023-12-05 17:05:01.937876251 +0000
+--- src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java	2024-07-18 02:41:44.888810975 -0700
++++ src/main/java/org/apache/commons/math3/geometry/euclidean/threed/SubLine.java	2024-07-18 02:41:49.063975627 -0700
 @@ -111,6 +111,9 @@
  
          // compute the intersection on infinite line
@@ -10,8 +10,8 @@
  
          // check location of point with respect to first sub-line
          Location loc1 = remainingRegion.checkPoint(line.toSubSpace(v1D));
---- src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java	2023-12-05 17:04:56.939215244 +0000
-+++ src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java	2023-12-05 17:05:01.938261967 +0000
+--- src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java	2024-07-18 02:41:44.888810975 -0700
++++ src/main/java/org/apache/commons/math3/geometry/euclidean/twod/SubLine.java	2024-07-18 02:41:49.063975627 -0700
 @@ -115,6 +115,9 @@
  
          // compute the intersection on infinite line

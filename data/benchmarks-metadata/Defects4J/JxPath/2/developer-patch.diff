@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/Expression.java	2023-12-05 21:22:09.315302383 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/Expression.java	2023-12-05 21:22:10.364330978 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/Expression.java	2024-07-18 04:16:43.775852236 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/Expression.java	2024-07-18 04:16:44.273872071 -0700
 @@ -16,6 +16,7 @@
   */
  package org.apache.commons.jxpath.ri.compiler;

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/WordUtils.java	2023-12-05 19:00:26.740048328 +0000
-+++ src/java/org/apache/commons/lang/WordUtils.java	2023-12-05 19:00:33.342472786 +0000
+--- src/java/org/apache/commons/lang/WordUtils.java	2024-07-18 03:17:19.176695777 -0700
++++ src/java/org/apache/commons/lang/WordUtils.java	2024-07-18 03:17:23.134856317 -0700
 @@ -613,6 +613,9 @@
  
          // if the lower value is greater than the length of the string,

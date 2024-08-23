@@ -1,5 +1,5 @@
---- source/org/jfree/chart/renderer/GrayPaintScale.java	2023-12-05 17:37:36.349517222 +0000
-+++ source/org/jfree/chart/renderer/GrayPaintScale.java	2023-12-05 17:37:43.185071101 +0000
+--- source/org/jfree/chart/renderer/GrayPaintScale.java	2024-07-18 03:06:19.812945520 -0700
++++ source/org/jfree/chart/renderer/GrayPaintScale.java	2024-07-18 03:06:23.956111976 -0700
 @@ -123,7 +123,7 @@
      public Paint getPaint(double value) {
          double v = Math.max(value, this.lowerBound);

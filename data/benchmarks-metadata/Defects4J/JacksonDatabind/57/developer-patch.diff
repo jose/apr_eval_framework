@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:07:29.784585552 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:07:32.418699540 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:04:39.981283684 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:04:41.942364391 -0700
 @@ -1438,7 +1438,7 @@
          if (_dataFormatReaders != null) {
              return _detectBindAndReadValues(_dataFormatReaders.findFormat(src, offset, length), false);

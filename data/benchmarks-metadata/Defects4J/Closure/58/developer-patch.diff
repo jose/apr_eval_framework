@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/LiveVariablesAnalysis.java	2023-12-05 19:31:53.967123406 +0000
-+++ src/com/google/javascript/jscomp/LiveVariablesAnalysis.java	2023-12-05 19:31:57.966115194 +0000
+--- src/com/google/javascript/jscomp/LiveVariablesAnalysis.java	2024-07-18 03:31:54.655311016 -0700
++++ src/com/google/javascript/jscomp/LiveVariablesAnalysis.java	2024-07-18 03:31:58.361462843 -0700
 @@ -203,8 +203,12 @@
              // for(var x in y) {...}
              lhs = lhs.getLastChild();

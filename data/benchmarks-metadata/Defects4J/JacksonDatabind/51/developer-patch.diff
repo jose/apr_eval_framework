@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:06:53.231716865 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2023-12-05 21:06:55.754576461 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2024-07-18 04:04:11.148097067 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java	2024-07-18 04:04:13.131178680 -0700
 @@ -181,7 +181,9 @@
                      //   generic type with custom type resolvers. If so, should try to retain them.
                      //  Whether this is sufficient to avoid problems remains to be seen, but for

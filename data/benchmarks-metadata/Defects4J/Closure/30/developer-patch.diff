@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2023-12-05 19:27:35.913980438 +0000
-+++ src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2023-12-05 19:27:40.012723823 +0000
+--- src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2024-07-18 03:28:08.556066395 -0700
++++ src/com/google/javascript/jscomp/FlowSensitiveInlineVariables.java	2024-07-18 03:28:12.358222074 -0700
 @@ -154,7 +154,7 @@
  
    @Override
@@ -9,8 +9,8 @@
    }
  
    @Override
---- src/com/google/javascript/jscomp/MustBeReachingVariableDef.java	2023-12-05 19:27:35.914352389 +0000
-+++ src/com/google/javascript/jscomp/MustBeReachingVariableDef.java	2023-12-05 19:27:40.013012977 +0000
+--- src/com/google/javascript/jscomp/MustBeReachingVariableDef.java	2024-07-18 03:28:08.556066395 -0700
++++ src/com/google/javascript/jscomp/MustBeReachingVariableDef.java	2024-07-18 03:28:12.358222074 -0700
 @@ -68,6 +68,7 @@
    private static class Definition {
      final Node node;

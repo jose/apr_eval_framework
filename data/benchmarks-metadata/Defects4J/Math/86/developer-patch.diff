@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/linear/CholeskyDecompositionImpl.java	2023-12-05 17:20:22.711233452 +0000
-+++ src/java/org/apache/commons/math/linear/CholeskyDecompositionImpl.java	2023-12-05 17:20:27.767977275 +0000
+--- src/java/org/apache/commons/math/linear/CholeskyDecompositionImpl.java	2024-07-18 02:53:59.711740181 -0700
++++ src/java/org/apache/commons/math/linear/CholeskyDecompositionImpl.java	2024-07-18 02:54:03.746926147 -0700
 @@ -111,9 +111,6 @@
  
              final double[] lI = lTData[i];

@@ -1,5 +1,5 @@
---- source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java	2023-12-05 17:36:47.201758061 +0000
-+++ source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java	2023-12-05 17:36:54.385532809 +0000
+--- source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java	2024-07-18 03:05:52.230837381 -0700
++++ source/org/jfree/data/statistics/DefaultBoxAndWhiskerCategoryDataset.java	2024-07-18 03:05:56.364003435 -0700
 @@ -154,6 +154,7 @@
                  && this.minimumRangeValueColumn == c))  {
              updateBounds();

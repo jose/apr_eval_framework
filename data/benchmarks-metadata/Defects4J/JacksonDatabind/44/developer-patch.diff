@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:06:10.805137506 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2023-12-05 21:06:13.431771914 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:37.811725124 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/SimpleType.java	2024-07-18 04:03:39.725803897 -0700
 @@ -129,15 +129,41 @@
          // 15-Jan-2016, tatu: Almost yes, but there are some complications with
          //    placeholder values (`Void`, `NoClass`), so can not quite do yet.

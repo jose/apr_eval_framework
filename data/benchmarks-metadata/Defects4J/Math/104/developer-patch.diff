@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/special/Gamma.java	2023-12-05 17:23:32.604701285 +0000
-+++ src/java/org/apache/commons/math/special/Gamma.java	2023-12-05 17:23:36.490536208 +0000
+--- src/java/org/apache/commons/math/special/Gamma.java	2024-07-18 02:56:29.943541970 -0700
++++ src/java/org/apache/commons/math/special/Gamma.java	2024-07-18 02:56:32.942677377 -0700
 @@ -34,7 +34,7 @@
      private static final long serialVersionUID = -6587513359895466954L;
  

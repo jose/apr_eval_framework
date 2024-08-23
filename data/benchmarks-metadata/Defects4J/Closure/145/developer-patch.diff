@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:01:01.659679373 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:01:20.054633229 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:43:03.118317996 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:43:06.446451665 -0700
 @@ -706,12 +706,25 @@
     * labels).
     */

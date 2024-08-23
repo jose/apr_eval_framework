@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:59.062108434 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:23:00.142124666 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:18.262225720 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:18.900251131 -0700
 @@ -557,17 +557,21 @@
          int count = 1;
          Node n = node.getPreviousSibling();
@@ -26,8 +26,8 @@
  
      /**
       * Get relative position of this among all siblings.
---- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:22:59.062507056 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:23:00.142517962 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:17:18.262225720 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:17:18.900251131 -0700
 @@ -693,8 +693,7 @@
              String name = ((Element) node).getQualifiedName();
              for (int i = 0; i < children.size(); i++) {

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2023-12-05 20:09:59.081598436 +0000
-+++ src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2023-12-05 20:10:01.581436419 +0000
+--- src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2024-07-18 03:50:09.838561058 -0700
++++ src/main/java/org/apache/commons/collections4/keyvalue/MultiKey.java	2024-07-18 03:50:11.744638717 -0700
 @@ -274,7 +274,7 @@
       * only stable for the same process).
       * @return the instance with recalculated hash code

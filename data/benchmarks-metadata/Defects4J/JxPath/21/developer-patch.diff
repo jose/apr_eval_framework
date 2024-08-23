@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/beans/PropertyPointer.java	2023-12-05 21:23:08.178183870 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/beans/PropertyPointer.java	2023-12-05 21:23:10.406571831 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/beans/PropertyPointer.java	2024-07-18 04:17:25.310506431 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/beans/PropertyPointer.java	2024-07-18 04:17:26.985573143 -0700
 @@ -149,7 +149,8 @@
       * @return int length
       */

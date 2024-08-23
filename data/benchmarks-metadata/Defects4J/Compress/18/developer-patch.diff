@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:19:42.859418648 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2023-12-05 20:19:55.936770765 +0000
+--- src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:52:21.360919622 -0700
++++ src/main/java/org/apache/commons/compress/archivers/tar/TarArchiveOutputStream.java	2024-07-18 03:52:24.353041474 -0700
 @@ -454,8 +454,11 @@
      void writePaxHeaders(String entryName,
                           Map<String, String> headers) throws IOException {

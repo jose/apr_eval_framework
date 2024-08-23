@@ -1,5 +1,5 @@
---- gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2023-12-05 20:58:47.315905075 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2023-12-05 20:58:49.491815497 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2024-07-18 03:57:43.513120670 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java	2024-07-18 03:57:45.143186870 -0700
 @@ -159,6 +159,13 @@
      return this;
    }
@@ -14,8 +14,8 @@
  
    @Override public JsonWriter value(double value) throws IOException {
      if (!isLenient() && (Double.isNaN(value) || Double.isInfinite(value))) {
---- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:47.209798267 +0000
-+++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2023-12-05 20:58:49.492222022 +0000
+--- gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:43.457118395 -0700
++++ gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java	2024-07-18 03:57:45.143186870 -0700
 @@ -162,10 +162,6 @@
      }
      @Override
@@ -27,8 +27,8 @@
        out.value(value);
      }
    };
---- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:47.316276274 +0000
-+++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2023-12-05 20:58:49.492727943 +0000
+--- gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:57:43.514120710 -0700
++++ gson/src/main/java/com/google/gson/stream/JsonWriter.java	2024-07-18 03:57:45.144186911 -0700
 @@ -473,6 +473,15 @@
     *
     * @return this writer.

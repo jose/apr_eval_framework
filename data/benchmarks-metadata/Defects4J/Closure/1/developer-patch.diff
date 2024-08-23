@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/RemoveUnusedVars.java	2023-12-05 19:22:07.330510809 +0000
-+++ src/com/google/javascript/jscomp/RemoveUnusedVars.java	2023-12-05 19:22:11.682588122 +0000
+--- src/com/google/javascript/jscomp/RemoveUnusedVars.java	2024-07-18 03:24:14.570491135 -0700
++++ src/com/google/javascript/jscomp/RemoveUnusedVars.java	2024-07-18 03:24:18.195639250 -0700
 @@ -376,6 +376,9 @@
      // is removing globals, then it's OK to remove unused function args.
      //

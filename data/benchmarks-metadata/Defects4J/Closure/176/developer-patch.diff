@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 20:06:02.840663713 +0000
-+++ src/com/google/javascript/jscomp/TypeInference.java	2023-12-05 20:06:06.811444188 +0000
+--- src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:47:04.916067363 -0700
++++ src/com/google/javascript/jscomp/TypeInference.java	2024-07-18 03:47:08.481211379 -0700
 @@ -527,7 +527,9 @@
        case Token.NAME:
          String varName = left.getString();

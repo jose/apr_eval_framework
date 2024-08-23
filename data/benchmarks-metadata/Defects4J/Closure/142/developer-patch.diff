@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CoalesceVariableNames.java	2023-12-05 19:44:34.742913927 +0000
-+++ src/com/google/javascript/jscomp/CoalesceVariableNames.java	2023-12-05 19:44:38.868139603 +0000
+--- src/com/google/javascript/jscomp/CoalesceVariableNames.java	2024-07-18 03:42:39.723378372 -0700
++++ src/com/google/javascript/jscomp/CoalesceVariableNames.java	2024-07-18 03:42:43.332523328 -0700
 @@ -105,6 +105,9 @@
      // a work-around for an IE bug where it throws an exception if you
      // write to the parameters of the callback in a sort(). See:
@@ -10,8 +10,8 @@
      liveness.analyze();
  
      UndiGraph<Var, Void> interferenceGraph =
---- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:44:34.745009091 +0000
-+++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2023-12-05 19:44:38.870133908 +0000
+--- src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:42:39.724378412 -0700
++++ src/com/google/javascript/jscomp/parsing/JsDocInfoParser.java	2024-07-18 03:42:43.333523369 -0700
 @@ -1165,6 +1165,8 @@
          case EOF:
            // When we're capturing a license block, annotations

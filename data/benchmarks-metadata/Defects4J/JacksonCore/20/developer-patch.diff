@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/JsonGenerator.java	2023-12-05 21:01:11.437190079 +0000
-+++ src/main/java/com/fasterxml/jackson/core/JsonGenerator.java	2023-12-05 21:01:13.588388077 +0000
+--- src/main/java/com/fasterxml/jackson/core/JsonGenerator.java	2024-07-18 03:59:42.161992630 -0700
++++ src/main/java/com/fasterxml/jackson/core/JsonGenerator.java	2024-07-18 03:59:43.841061965 -0700
 @@ -1327,7 +1327,16 @@
       */
      public void writeEmbeddedObject(Object object) throws IOException {

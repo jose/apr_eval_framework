@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/impl/BeanPropertyMap.java	2023-12-05 21:08:50.375238104 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/impl/BeanPropertyMap.java	2023-12-05 21:08:52.837963449 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/BeanPropertyMap.java	2024-07-18 04:05:42.892870901 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/BeanPropertyMap.java	2024-07-18 04:05:44.870952236 -0700
 @@ -437,7 +437,7 @@
              if (!found) {
                  // 09-Jan-2017, tatu: Important: must check name slot and NOT property name,

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java	2023-12-05 21:22:44.384653521 +0000
-+++ src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java	2023-12-05 21:22:45.482324092 +0000
+--- src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java	2024-07-18 04:17:08.126822058 -0700
++++ src/java/org/apache/commons/jxpath/ri/compiler/CoreFunction.java	2024-07-18 04:17:08.810849301 -0700
 @@ -653,18 +653,27 @@
      protected Object functionFloor(EvalContext context) {
          assertArgCount(1);

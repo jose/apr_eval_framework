@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java	2023-12-05 17:17:27.636701435 +0000
-+++ src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java	2023-12-05 17:17:32.675179916 +0000
+--- src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java	2024-07-18 02:51:44.779816020 -0700
++++ src/main/java/org/apache/commons/math/analysis/solvers/BisectionSolver.java	2024-07-18 02:51:48.807987498 -0700
 @@ -69,7 +69,7 @@
      /** {@inheritDoc} */
      public double solve(final UnivariateRealFunction f, double min, double max, double initial)

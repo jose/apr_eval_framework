@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:13:52.280360214 +0000
-+++ src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2023-12-05 17:13:57.343695559 +0000
+--- src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2024-07-18 02:48:56.818690431 -0700
++++ src/main/java/org/apache/commons/math/analysis/solvers/BaseSecantSolver.java	2024-07-18 02:49:00.861857640 -0700
 @@ -184,10 +184,6 @@
                      break;
                  case REGULA_FALSI:

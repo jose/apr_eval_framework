@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:21:42.793702524 +0000
-+++ src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:21:47.697459575 +0000
+--- src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:55:03.803669181 -0700
++++ src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:55:07.733845217 -0700
 @@ -342,8 +342,10 @@
       * @throws IllegalArgumentException if n < 0
       */

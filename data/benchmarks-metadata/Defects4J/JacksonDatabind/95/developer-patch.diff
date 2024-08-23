@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:11:28.999374443 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2023-12-05 21:11:31.657222449 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:07:44.055851298 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeFactory.java	2024-07-18 04:07:46.145937164 -0700
 @@ -352,7 +352,7 @@
          // also: if we start from untyped, not much to save
          do { // bogus loop to be able to break
@@ -27,8 +27,8 @@
          }
          return constructParametricType(parametrized, pt);
      }
---- src/main/java/com/fasterxml/jackson/databind/type/TypeParser.java	2023-12-05 21:11:28.999476292 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/type/TypeParser.java	2023-12-05 21:11:31.657508857 +0000
+--- src/main/java/com/fasterxml/jackson/databind/type/TypeParser.java	2024-07-18 04:07:44.055851298 -0700
++++ src/main/java/com/fasterxml/jackson/databind/type/TypeParser.java	2024-07-18 04:07:46.145937164 -0700
 @@ -56,7 +56,7 @@
              // can be comma that separates types, or closing '>'
              tokens.pushBack(token);

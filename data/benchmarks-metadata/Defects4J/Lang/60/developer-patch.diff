@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:16.389872561 +0000
-+++ src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:22.836346426 +0000
+--- src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:32.213019190 -0700
++++ src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:36.194178670 -0700
 @@ -1670,7 +1670,7 @@
       */
      public boolean contains(char ch) {

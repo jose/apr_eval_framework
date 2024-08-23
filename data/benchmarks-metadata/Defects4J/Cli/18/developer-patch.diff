@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:26.297332375 +0000
-+++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:29.442475258 +0000
+--- src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:21:55.543825530 -0700
++++ src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:21:58.127930414 -0700
 @@ -125,7 +125,7 @@
              // single hyphen
              else if ("-".equals(token))

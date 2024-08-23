@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/analysis/BrentSolver.java	2023-12-05 17:22:26.327938001 +0000
-+++ src/java/org/apache/commons/math/analysis/BrentSolver.java	2023-12-05 17:22:30.307104752 +0000
+--- src/java/org/apache/commons/math/analysis/BrentSolver.java	2024-07-18 02:55:39.185253957 -0700
++++ src/java/org/apache/commons/math/analysis/BrentSolver.java	2024-07-18 02:55:42.097384394 -0700
 @@ -135,17 +135,31 @@
          
          // Verify bracketing

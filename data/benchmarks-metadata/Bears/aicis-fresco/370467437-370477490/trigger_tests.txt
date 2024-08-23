@@ -1,2 +1,2 @@
---- dk.alexandra.fresco.suite.dummy.arithmetic.TestDummyArithmeticProtocolSuite::testGenerateRandomBitMask
 --- dk.alexandra.fresco.framework.network.async.TestAsyncNetwork::testReceiveAfterClose
+--- dk.alexandra.fresco.suite.dummy.arithmetic.TestDummyArithmeticProtocolSuite::testGenerateRandomBitMask

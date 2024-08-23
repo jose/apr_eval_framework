@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/stat/descriptive/moment/Variance.java	2023-12-05 17:12:04.641152796 +0000
-+++ src/main/java/org/apache/commons/math/stat/descriptive/moment/Variance.java	2023-12-05 17:12:09.748259206 +0000
+--- src/main/java/org/apache/commons/math/stat/descriptive/moment/Variance.java	2024-07-18 02:47:32.389702301 -0700
++++ src/main/java/org/apache/commons/math/stat/descriptive/moment/Variance.java	2024-07-18 02:47:36.488762085 -0700
 @@ -517,7 +517,7 @@
                  }
  

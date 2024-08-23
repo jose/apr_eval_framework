@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:53:54.857473202 +0000
-+++ src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2023-12-05 18:54:01.327944035 +0000
+--- src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:13:17.586853801 -0700
++++ src/main/java/org/apache/commons/lang3/time/FastDateFormat.java	2024-07-18 03:13:21.423010941 -0700
 @@ -492,10 +492,10 @@
                  rule = new TextField(Calendar.ERA, ERAs);
                  break;

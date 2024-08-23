@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java	2023-12-05 20:54:44.679684568 +0000
-+++ src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java	2023-12-05 20:54:48.102323857 +0000
+--- src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java	2024-07-18 03:54:06.378200509 -0700
++++ src/main/java/org/apache/commons/compress/compressors/CompressorStreamFactory.java	2024-07-18 03:54:09.439325070 -0700
 @@ -237,6 +237,9 @@
                  return new ZCompressorInputStream(in);
              }
@@ -10,8 +10,8 @@
  
              if (XZUtils.matches(signature, signatureLength) &&
                  XZUtils.isXZCompressionAvailable()) {
---- src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java	2023-12-05 20:54:44.680013793 +0000
-+++ src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java	2023-12-05 20:54:48.102615179 +0000
+--- src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java	2024-07-18 03:54:06.378200509 -0700
++++ src/main/java/org/apache/commons/compress/compressors/deflate/DeflateCompressorInputStream.java	2024-07-18 03:54:09.440325111 -0700
 @@ -30,6 +30,11 @@
   * @since 1.9
   */

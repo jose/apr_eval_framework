@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:41:51.957574488 +0000
-+++ src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:41:55.762907011 +0000
+--- src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:40:27.602094684 -0700
++++ src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:40:30.888226808 -0700
 @@ -1658,7 +1658,7 @@
      JSType type = getJSType(constructor).restrictByNotNullOrUndefined();
      if (type.isConstructor() || type.isEmptyType() || type.isUnknownType()) {

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 19:22:54.125183333 +0000
-+++ src/com/google/javascript/jscomp/TypeValidator.java	2023-12-05 19:22:58.071312024 +0000
+--- src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:24:54.569125387 -0700
++++ src/com/google/javascript/jscomp/TypeValidator.java	2024-07-18 03:24:58.329279019 -0700
 @@ -363,9 +363,6 @@
        JSType leftType, Node owner, String propName) {
      // The NoType check is a hack to make typedefs work OK.

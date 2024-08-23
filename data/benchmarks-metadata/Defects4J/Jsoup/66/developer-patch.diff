@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:18:54.346662601 +0000
-+++ src/main/java/org/jsoup/nodes/Element.java	2023-12-05 21:18:56.387291742 +0000
+--- src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:13:52.086866413 -0700
++++ src/main/java/org/jsoup/nodes/Element.java	2024-07-18 04:13:53.690931771 -0700
 @@ -86,7 +86,7 @@
  
      protected List<Node> ensureChildNodes() {

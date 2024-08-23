@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:43:56.097312148 +0000
-+++ src/com/google/javascript/jscomp/Normalize.java	2023-12-05 19:44:00.350614881 +0000
+--- src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:42:15.737415011 -0700
++++ src/com/google/javascript/jscomp/Normalize.java	2024-07-18 03:42:19.530567358 -0700
 @@ -278,6 +278,9 @@
            }
            break;

@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/TokenQueue.java	2023-12-05 21:17:51.988285575 +0000
-+++ src/main/java/org/jsoup/parser/TokenQueue.java	2023-12-05 21:17:53.967621252 +0000
+--- src/main/java/org/jsoup/parser/TokenQueue.java	2024-07-18 04:13:00.216756551 -0700
++++ src/main/java/org/jsoup/parser/TokenQueue.java	2024-07-18 04:13:01.812821369 -0700
 @@ -262,11 +262,16 @@
          int end = -1;
          int depth = 0;

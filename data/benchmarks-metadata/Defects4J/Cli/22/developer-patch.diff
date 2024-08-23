@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:53.898891224 +0000
-+++ src/java/org/apache/commons/cli/PosixParser.java	2023-12-05 19:19:56.891663411 +0000
+--- src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:22:19.470796679 -0700
++++ src/java/org/apache/commons/cli/PosixParser.java	2024-07-18 03:22:22.038900912 -0700
 @@ -38,6 +38,7 @@
      private boolean eatTheRest;
  

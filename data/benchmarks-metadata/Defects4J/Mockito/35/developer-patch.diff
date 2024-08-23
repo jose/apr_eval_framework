@@ -1,5 +1,5 @@
---- src/org/mockito/Matchers.java	2023-12-05 17:30:19.687405523 +0000
-+++ src/org/mockito/Matchers.java	2023-12-05 17:30:24.827584071 +0000
+--- src/org/mockito/Matchers.java	2024-07-18 03:02:10.443039627 -0700
++++ src/org/mockito/Matchers.java	2024-07-18 03:02:14.543198370 -0700
 @@ -359,7 +359,7 @@
       * @return <code>null</code>.
       */

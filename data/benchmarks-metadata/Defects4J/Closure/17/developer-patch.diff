@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:24:38.266806728 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 19:24:42.514712916 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:26:22.655730288 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:26:26.458886007 -0700
 @@ -1288,8 +1288,12 @@
            if (info.isConstant()) {
              JSType knownType = null;

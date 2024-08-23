@@ -1,2 +1,2 @@
---- org.springframework.data.web.ProxyingHandlerMethodArgumentResolverUnitTests::doesNotSupportUnannotatedInterfaceFromSpringNamespace
 --- org.springframework.data.web.ProxyingHandlerMethodArgumentResolverUnitTests::doesNotSupportCoreJavaType
+--- org.springframework.data.web.ProxyingHandlerMethodArgumentResolverUnitTests::doesNotSupportUnannotatedInterfaceFromSpringNamespace

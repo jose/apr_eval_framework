@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:21:31.412924391 +0000
-+++ src/java/org/apache/commons/math/util/MathUtils.java	2023-12-05 17:21:36.325957873 +0000
+--- src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:54:54.696261251 -0700
++++ src/java/org/apache/commons/math/util/MathUtils.java	2024-07-18 02:54:58.662438900 -0700
 @@ -181,30 +181,43 @@
          if ((k == 1) || (k == n - 1)) {
              return n;

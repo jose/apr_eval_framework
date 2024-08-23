@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:18:20.889598601 +0000
-+++ src/main/java/org/jsoup/parser/Token.java	2023-12-05 21:18:22.866968937 +0000
+--- src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:13:24.127727602 -0700
++++ src/main/java/org/jsoup/parser/Token.java	2024-07-18 04:13:25.718792217 -0700
 @@ -104,6 +104,7 @@
              if (pendingAttributeName != null) {
                  // the tokeniser has skipped whitespace control chars, but trimming could collapse to empty for other control codes, so verify here

@@ -1,5 +1,5 @@
---- src/org/mockito/exceptions/Reporter.java	2023-12-05 17:24:36.107214864 +0000
-+++ src/org/mockito/exceptions/Reporter.java	2023-12-05 17:24:41.073528089 +0000
+--- src/org/mockito/exceptions/Reporter.java	2024-07-18 02:57:21.194858306 -0700
++++ src/org/mockito/exceptions/Reporter.java	2024-07-18 02:57:25.517053830 -0700
 @@ -421,7 +421,7 @@
          throw new NoInteractionsWanted(join(
                  "No interactions wanted here:",

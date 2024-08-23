@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:03:09.923161212 +0000
-+++ src/com/google/javascript/jscomp/CodeGenerator.java	2023-12-05 20:03:13.876566844 +0000
+--- src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:44:35.544033407 -0700
++++ src/com/google/javascript/jscomp/CodeGenerator.java	2024-07-18 03:44:39.102177140 -0700
 @@ -340,14 +340,20 @@
          Node body = fn.getLastChild();
  
@@ -83,28 +83,8 @@
  
    /**
     * @return Whether the name is an indirect eval.
---- src/com/google/javascript/jscomp/RenamePrototypes.java	2023-12-05 20:03:09.924457900 +0000
-+++ src/com/google/javascript/jscomp/RenamePrototypes.java	2023-12-05 20:03:13.877639502 +0000
-@@ -333,7 +333,7 @@
-                  child != null;
-                  child = child.getNext()) {
- 
--              if (child.getType() != Token.NUMBER) {
-+              if (TokenStream.isJSIdentifier(child.getString())) {
-                 markObjLitPropertyCandidate(child, t.getInput());
-               }
-             }
-@@ -374,7 +374,7 @@
- 
-             for (Node key = map.getFirstChild();
-                  key != null; key = key.getNext()) {
--              if (key.getType() != Token.NUMBER) {
-+              if (TokenStream.isJSIdentifier(key.getString())) {
-                // May be STRING, GET, or SET
-                 markPrototypePropertyCandidate(key, input);
-               }
---- src/com/google/javascript/jscomp/parsing/IRFactory.java	2023-12-05 20:03:09.924931011 +0000
-+++ src/com/google/javascript/jscomp/parsing/IRFactory.java	2023-12-05 20:03:13.878118757 +0000
+--- src/com/google/javascript/jscomp/parsing/IRFactory.java	2024-07-18 03:44:35.545033448 -0700
++++ src/com/google/javascript/jscomp/parsing/IRFactory.java	2024-07-18 03:44:39.103177180 -0700
 @@ -252,9 +252,26 @@
      return irNode;
    }
@@ -151,3 +131,23 @@
        return ret;
      }
  
+--- src/com/google/javascript/jscomp/RenamePrototypes.java	2024-07-18 03:44:35.545033448 -0700
++++ src/com/google/javascript/jscomp/RenamePrototypes.java	2024-07-18 03:44:39.103177180 -0700
+@@ -333,7 +333,7 @@
+                  child != null;
+                  child = child.getNext()) {
+ 
+-              if (child.getType() != Token.NUMBER) {
++              if (TokenStream.isJSIdentifier(child.getString())) {
+                 markObjLitPropertyCandidate(child, t.getInput());
+               }
+             }
+@@ -374,7 +374,7 @@
+ 
+             for (Node key = map.getFirstChild();
+                  key != null; key = key.getNext()) {
+-              if (key.getType() != Token.NUMBER) {
++              if (TokenStream.isJSIdentifier(key.getString())) {
+                // May be STRING, GET, or SET
+                 markPrototypePropertyCandidate(key, input);
+               }

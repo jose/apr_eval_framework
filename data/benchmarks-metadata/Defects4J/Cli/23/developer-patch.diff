@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:00.572378166 +0000
-+++ src/java/org/apache/commons/cli/HelpFormatter.java	2023-12-05 19:20:03.740291207 +0000
+--- src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:22:25.378036442 -0700
++++ src/java/org/apache/commons/cli/HelpFormatter.java	2024-07-18 03:22:27.985142260 -0700
 @@ -821,7 +821,6 @@
  
          while (true)

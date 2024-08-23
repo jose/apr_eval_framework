@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java	2023-12-05 20:54:52.709248777 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java	2023-12-05 20:54:56.233338369 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java	2024-07-18 03:54:13.404486417 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/X7875_NewUnix.java	2024-07-18 03:54:16.406608577 -0700
 @@ -55,6 +55,7 @@
   */
  public class X7875_NewUnix implements ZipExtraField, Cloneable, Serializable {

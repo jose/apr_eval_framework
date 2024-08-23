@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/StringUtils.java	2023-12-05 18:56:47.611630969 +0000
-+++ src/main/java/org/apache/commons/lang3/StringUtils.java	2023-12-05 18:56:54.336589194 +0000
+--- src/main/java/org/apache/commons/lang3/StringUtils.java	2024-07-18 03:15:04.753231109 -0700
++++ src/main/java/org/apache/commons/lang3/StringUtils.java	2024-07-18 03:15:08.738393398 -0700
 @@ -1373,13 +1373,21 @@
              return INDEX_NOT_FOUND;
          }

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:04.767636914 +0000
-+++ src/main/java/org/apache/commons/csv/CSVPrinter.java	2023-12-05 20:57:07.152883711 +0000
+--- src/main/java/org/apache/commons/csv/CSVPrinter.java	2024-07-18 03:56:11.374299636 -0700
++++ src/main/java/org/apache/commons/csv/CSVPrinter.java	2024-07-18 03:56:13.351380491 -0700
 @@ -322,7 +322,9 @@
       */
      public void println() throws IOException {

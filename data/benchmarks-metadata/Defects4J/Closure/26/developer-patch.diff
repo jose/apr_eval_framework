@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ProcessCommonJSModules.java	2023-12-05 19:26:03.913974513 +0000
-+++ src/com/google/javascript/jscomp/ProcessCommonJSModules.java	2023-12-05 19:27:01.271600357 +0000
+--- src/com/google/javascript/jscomp/ProcessCommonJSModules.java	2024-07-18 03:27:36.462752330 -0700
++++ src/com/google/javascript/jscomp/ProcessCommonJSModules.java	2024-07-18 03:27:39.878892204 -0700
 @@ -125,6 +125,7 @@
        AbstractPostOrderCallback {
  

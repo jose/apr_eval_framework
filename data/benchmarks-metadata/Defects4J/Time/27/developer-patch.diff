@@ -1,5 +1,5 @@
---- src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2023-12-05 18:14:22.151523142 +0000
-+++ src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2023-12-05 18:14:27.210446235 +0000
+--- src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2024-07-18 03:10:36.173239702 -0700
++++ src/main/java/org/joda/time/format/PeriodFormatterBuilder.java	2024-07-18 03:10:40.507415478 -0700
 @@ -798,9 +798,11 @@
          int size = elementPairs.size();
          if (size >= 2 && elementPairs.get(0) instanceof Separator) {

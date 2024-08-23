@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionToBlockMutator.java	2023-12-05 19:34:03.610197571 +0000
-+++ src/com/google/javascript/jscomp/FunctionToBlockMutator.java	2023-12-05 19:34:07.647019442 +0000
+--- src/com/google/javascript/jscomp/FunctionToBlockMutator.java	2024-07-18 03:33:46.166877611 -0700
++++ src/com/google/javascript/jscomp/FunctionToBlockMutator.java	2024-07-18 03:33:49.439011357 -0700
 @@ -149,6 +149,8 @@
                  "inline_",
                  isCallInLoop)));
@@ -9,8 +9,8 @@
    }
  
    static class LabelNameSupplier implements Supplier<String> {
---- src/com/google/javascript/jscomp/RenameLabels.java	2023-12-05 19:34:03.611114356 +0000
-+++ src/com/google/javascript/jscomp/RenameLabels.java	2023-12-05 19:34:07.647255344 +0000
+--- src/com/google/javascript/jscomp/RenameLabels.java	2024-07-18 03:33:46.166877611 -0700
++++ src/com/google/javascript/jscomp/RenameLabels.java	2024-07-18 03:33:49.439011357 -0700
 @@ -212,7 +212,7 @@
        String name = nameNode.getString();
        LabelInfo li = getLabelInfo(name);

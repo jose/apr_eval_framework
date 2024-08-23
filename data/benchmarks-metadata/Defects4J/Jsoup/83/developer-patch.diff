@@ -1,5 +1,5 @@
---- src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:20:51.631680093 +0000
-+++ src/main/java/org/jsoup/parser/CharacterReader.java	2023-12-05 21:20:54.681568042 +0000
+--- src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:15:35.621078722 -0700
++++ src/main/java/org/jsoup/parser/CharacterReader.java	2024-07-18 04:15:38.289187274 -0700
 @@ -251,7 +251,7 @@
  
          while (bufPos < remaining) {
@@ -9,8 +9,8 @@
                  break;
              bufPos++;
          }
---- src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:20:51.632146124 +0000
-+++ src/main/java/org/jsoup/parser/TokeniserState.java	2023-12-05 21:20:54.682328817 +0000
+--- src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:15:35.621078722 -0700
++++ src/main/java/org/jsoup/parser/TokeniserState.java	2024-07-18 04:15:38.289187274 -0700
 @@ -158,6 +158,9 @@
                  case '/':
                      t.transition(SelfClosingStartTag);

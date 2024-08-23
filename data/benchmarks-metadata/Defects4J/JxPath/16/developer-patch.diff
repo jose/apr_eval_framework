@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:50.356955762 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2023-12-05 21:22:51.423477966 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:12.173983244 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/dom/DOMNodePointer.java	2024-07-18 04:17:12.880011363 -0700
 @@ -144,8 +144,7 @@
              int nodeType = node.getNodeType();
              switch (((NodeTypeTest) test).getNodeType()) {
@@ -10,8 +10,8 @@
                  case Compiler.NODE_TYPE_TEXT :
                      return nodeType == Node.CDATA_SECTION_NODE
                          || nodeType == Node.TEXT_NODE;
---- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:22:50.357134969 +0000
-+++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2023-12-05 21:22:51.423959713 +0000
+--- src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:17:12.173983244 -0700
++++ src/java/org/apache/commons/jxpath/ri/model/jdom/JDOMNodePointer.java	2024-07-18 04:17:12.880011363 -0700
 @@ -388,7 +388,7 @@
          if (test instanceof NodeTypeTest) {
              switch (((NodeTypeTest) test).getNodeType()) {

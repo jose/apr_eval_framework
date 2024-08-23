@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/linear/RectangularCholeskyDecomposition.java	2023-12-05 17:08:12.802078151 +0000
-+++ src/main/java/org/apache/commons/math3/linear/RectangularCholeskyDecomposition.java	2023-12-05 17:08:17.574408977 +0000
+--- src/main/java/org/apache/commons/math3/linear/RectangularCholeskyDecomposition.java	2024-07-18 02:44:23.710050817 -0700
++++ src/main/java/org/apache/commons/math3/linear/RectangularCholeskyDecomposition.java	2024-07-18 02:44:27.733205975 -0700
 @@ -66,7 +66,6 @@
          final double[][] c = matrix.getData();
          final double[][] b = new double[order][order];

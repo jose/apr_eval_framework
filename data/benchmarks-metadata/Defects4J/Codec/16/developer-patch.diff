@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/codec/binary/Base32.java	2023-12-05 20:06:50.268200022 +0000
-+++ src/main/java/org/apache/commons/codec/binary/Base32.java	2023-12-05 20:06:51.284755825 +0000
+--- src/main/java/org/apache/commons/codec/binary/Base32.java	2024-07-18 03:47:40.799517495 -0700
++++ src/main/java/org/apache/commons/codec/binary/Base32.java	2024-07-18 03:47:41.339539373 -0700
 @@ -96,7 +96,7 @@
              -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 20-2f
               0,  1,  2,  3,  4,  5,  6,  7,  8,  9, -1, -1, -1, -1, -1, -1, // 30-3f 2-7

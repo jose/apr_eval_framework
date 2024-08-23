@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/jxpath/ri/axes/AttributeContext.java	2023-12-05 21:22:56.126877158 +0000
-+++ src/java/org/apache/commons/jxpath/ri/axes/AttributeContext.java	2023-12-05 21:22:57.204031438 +0000
+--- src/java/org/apache/commons/jxpath/ri/axes/AttributeContext.java	2024-07-18 04:17:16.257145864 -0700
++++ src/java/org/apache/commons/jxpath/ri/axes/AttributeContext.java	2024-07-18 04:17:16.900171474 -0700
 @@ -16,10 +16,12 @@
   */
  package org.apache.commons.jxpath.ri.axes;

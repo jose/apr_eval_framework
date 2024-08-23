@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeDeserializer.java	2023-12-05 21:09:16.123999918 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeDeserializer.java	2023-12-05 21:09:18.812916872 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeDeserializer.java	2024-07-18 04:06:02.075659652 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeDeserializer.java	2024-07-18 04:06:04.126743988 -0700
 @@ -153,6 +153,13 @@
          // or, something for which "as-property" won't work, changed into "wrapper-array" type:
          if (p.getCurrentToken() == JsonToken.START_ARRAY) {

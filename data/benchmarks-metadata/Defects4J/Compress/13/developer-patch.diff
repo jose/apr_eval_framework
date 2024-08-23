@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:11:52.834635968 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2023-12-05 20:11:56.601318937 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:51:46.331492885 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/ZipArchiveEntry.java	2024-07-18 03:51:49.397617831 -0700
 @@ -509,6 +509,10 @@
       * @param name the name to use
       */

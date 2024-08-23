@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/std/StringCollectionDeserializer.java	2023-12-05 21:13:13.940553222 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/std/StringCollectionDeserializer.java	2023-12-05 21:13:16.626840579 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/std/StringCollectionDeserializer.java	2024-07-18 04:09:08.126305096 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/std/StringCollectionDeserializer.java	2024-07-18 04:09:10.123387003 -0700
 @@ -104,8 +104,11 @@
          JsonDeserializer<Object> delegate = null;
          if (_valueInstantiator != null) {

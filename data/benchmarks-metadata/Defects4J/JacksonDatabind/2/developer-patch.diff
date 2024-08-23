@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2023-12-05 21:01:53.392352206 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2023-12-05 21:01:55.867414528 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2024-07-18 04:00:16.084393417 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2024-07-18 04:00:18.013473076 -0700
 @@ -780,19 +780,39 @@
      @Override
      public void writeObject(Object value) throws IOException

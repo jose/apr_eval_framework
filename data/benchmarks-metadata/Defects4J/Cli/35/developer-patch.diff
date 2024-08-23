@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:24.441556980 +0000
-+++ src/main/java/org/apache/commons/cli/Options.java	2023-12-05 19:21:27.510539839 +0000
+--- src/main/java/org/apache/commons/cli/Options.java	2024-07-18 03:23:37.777987877 -0700
++++ src/main/java/org/apache/commons/cli/Options.java	2024-07-18 03:23:40.336092396 -0700
 @@ -237,6 +237,9 @@
          List<String> matchingOpts = new ArrayList<String>();
  

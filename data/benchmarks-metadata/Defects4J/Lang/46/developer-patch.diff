@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:00:41.631940259 +0000
-+++ src/java/org/apache/commons/lang/StringEscapeUtils.java	2023-12-05 19:00:48.346369786 +0000
+--- src/java/org/apache/commons/lang/StringEscapeUtils.java	2024-07-18 03:17:28.156058934 -0700
++++ src/java/org/apache/commons/lang/StringEscapeUtils.java	2024-07-18 03:17:32.121217476 -0700
 @@ -83,7 +83,7 @@
       * @return String with escaped values, <code>null</code> if null string input
       */

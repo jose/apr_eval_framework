@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/codec/binary/Base64InputStream.java	2023-12-05 20:06:22.002906089 +0000
-+++ src/java/org/apache/commons/codec/binary/Base64InputStream.java	2023-12-05 20:06:22.936101989 +0000
+--- src/java/org/apache/commons/codec/binary/Base64InputStream.java	2024-07-18 03:47:19.558658858 -0700
++++ src/java/org/apache/commons/codec/binary/Base64InputStream.java	2024-07-18 03:47:20.115681359 -0700
 @@ -145,6 +145,7 @@
          } else if (len == 0) {
              return 0;

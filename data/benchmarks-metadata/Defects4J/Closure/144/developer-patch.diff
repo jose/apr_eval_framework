@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 20:00:51.995192653 +0000
-+++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2023-12-05 20:00:56.789726734 +0000
+--- src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:42:55.405008202 -0700
++++ src/com/google/javascript/jscomp/FunctionTypeBuilder.java	2024-07-18 03:42:58.663139060 -0700
 @@ -71,6 +71,7 @@
    private final Scope scope;
  
@@ -67,8 +67,8 @@
            .withTypeOfThis(thisType)
            .withTemplateName(templateTypeName)
            .build();
---- src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:00:51.996531004 +0000
-+++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2023-12-05 20:00:56.791165951 +0000
+--- src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:42:55.406008242 -0700
++++ src/com/google/javascript/jscomp/TypedScopeCreator.java	2024-07-18 03:42:58.665139140 -0700
 @@ -574,6 +574,7 @@
        Node fnRoot = isFnLiteral ? rValue : null;
        Node parametersNode = isFnLiteral ?
@@ -93,8 +93,8 @@
              .buildAndRegister();
        }
  
---- src/com/google/javascript/rhino/jstype/FunctionBuilder.java	2023-12-05 20:00:51.997693557 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionBuilder.java	2023-12-05 20:00:56.791457658 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionBuilder.java	2024-07-18 03:42:55.406008242 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionBuilder.java	2024-07-18 03:42:58.665139140 -0700
 @@ -98,6 +98,11 @@
    }
  
@@ -107,8 +107,8 @@
  
    /** Sets an inferred return type. */
    public FunctionBuilder withInferredReturnType(JSType returnType) {
---- src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:00:51.998706487 +0000
-+++ src/com/google/javascript/rhino/jstype/FunctionType.java	2023-12-05 20:00:56.792055005 +0000
+--- src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:42:55.406008242 -0700
++++ src/com/google/javascript/rhino/jstype/FunctionType.java	2024-07-18 03:42:58.665139140 -0700
 @@ -514,7 +514,7 @@
  
    FunctionType cloneWithNewReturnType(JSType newReturnType, boolean inferred) {

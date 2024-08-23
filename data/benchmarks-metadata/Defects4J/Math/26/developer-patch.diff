@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math3/fraction/Fraction.java	2023-12-05 17:09:09.164304421 +0000
-+++ src/main/java/org/apache/commons/math3/fraction/Fraction.java	2023-12-05 17:09:14.056781134 +0000
+--- src/main/java/org/apache/commons/math3/fraction/Fraction.java	2024-07-18 02:45:12.289924349 -0700
++++ src/main/java/org/apache/commons/math3/fraction/Fraction.java	2024-07-18 02:45:16.416083479 -0700
 @@ -178,7 +178,7 @@
          long overflow = Integer.MAX_VALUE;
          double r0 = value;

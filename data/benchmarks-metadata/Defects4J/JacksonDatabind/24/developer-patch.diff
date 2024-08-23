@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/cfg/BaseSettings.java	2023-12-05 21:04:08.184136235 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/cfg/BaseSettings.java	2023-12-05 21:04:10.849749610 +0000
+--- src/main/java/com/fasterxml/jackson/databind/cfg/BaseSettings.java	2024-07-18 04:02:00.148697041 -0700
++++ src/main/java/com/fasterxml/jackson/databind/cfg/BaseSettings.java	2024-07-18 04:02:02.208782261 -0700
 @@ -231,10 +231,9 @@
          if (_dateFormat == df) {
              return this;

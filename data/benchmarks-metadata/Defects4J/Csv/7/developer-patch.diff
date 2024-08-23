@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:57:15.634825281 +0000
-+++ src/main/java/org/apache/commons/csv/CSVParser.java	2023-12-05 20:57:17.838966548 +0000
+--- src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:56:21.290719198 -0700
++++ src/main/java/org/apache/commons/csv/CSVParser.java	2024-07-18 03:56:23.320806567 -0700
 @@ -29,6 +29,7 @@
  import java.net.URL;
  import java.nio.charset.Charset;

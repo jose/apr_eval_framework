@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/impl/InnerClassProperty.java	2023-12-05 21:09:02.619206282 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/impl/InnerClassProperty.java	2023-12-05 21:09:05.770307379 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/impl/InnerClassProperty.java	2024-07-18 04:05:52.326258779 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/impl/InnerClassProperty.java	2024-07-18 04:05:54.282339209 -0700
 @@ -90,6 +90,8 @@
      @Override
      public int getPropertyIndex() { return _delegate.getPropertyIndex(); }

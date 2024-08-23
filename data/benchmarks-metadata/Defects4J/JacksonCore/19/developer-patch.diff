@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:06.428025912 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2023-12-05 21:01:08.585426586 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:59:37.915817289 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/ReaderBasedJsonParser.java	2024-07-18 03:59:39.643888648 -0700
 @@ -1415,6 +1415,10 @@
          int fractLen = 0;
          // And then see if we get other parts
@@ -11,8 +11,8 @@
              outBuf[outPtr++] = c;
  
              fract_loop:
---- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:01:06.535045529 +0000
-+++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2023-12-05 21:01:08.586064778 +0000
+--- src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:59:37.981820014 -0700
++++ src/main/java/com/fasterxml/jackson/core/json/UTF8StreamJsonParser.java	2024-07-18 03:59:39.644888689 -0700
 @@ -1541,6 +1541,10 @@
  
          // And then see if we get other parts

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:09:49.459510101 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2023-12-05 21:09:52.191974025 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:06:26.270654495 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java	2024-07-18 04:06:28.362740517 -0700
 @@ -576,10 +576,13 @@
      @Override
      public ObjectIdInfo findObjectReferenceInfo(Annotated ann, ObjectIdInfo objectIdInfo) {
@@ -17,8 +17,8 @@
      }
  
      /*
---- src/main/java/com/fasterxml/jackson/databind/introspect/ObjectIdInfo.java	2023-12-05 21:09:49.578836855 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/introspect/ObjectIdInfo.java	2023-12-05 21:09:52.192345856 +0000
+--- src/main/java/com/fasterxml/jackson/databind/introspect/ObjectIdInfo.java	2024-07-18 04:06:26.347657661 -0700
++++ src/main/java/com/fasterxml/jackson/databind/introspect/ObjectIdInfo.java	2024-07-18 04:06:28.362740517 -0700
 @@ -22,6 +22,7 @@
      /**
       * @since 2.8.9
@@ -37,8 +37,8 @@
  
      public ObjectIdInfo withAlwaysAsId(boolean state) {
          if (_alwaysAsId == state) {
---- src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2023-12-05 21:09:49.579320603 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2023-12-05 21:09:52.192867573 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2024-07-18 04:06:26.348657702 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java	2024-07-18 04:06:28.363740558 -0700
 @@ -429,9 +429,10 @@
              if (objectIdInfo == null) {
                  // no ObjectId override, but maybe ObjectIdRef?

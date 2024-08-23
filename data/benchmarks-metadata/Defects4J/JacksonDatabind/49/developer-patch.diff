@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ser/impl/WritableObjectId.java	2023-12-05 21:06:41.081201743 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ser/impl/WritableObjectId.java	2023-12-05 21:06:43.606707965 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ser/impl/WritableObjectId.java	2024-07-18 04:04:01.647706083 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ser/impl/WritableObjectId.java	2024-07-18 04:04:03.422779136 -0700
 @@ -47,7 +47,9 @@
          // 04-Jun-2016, tatu: As per [databind#1255], need to consider possibility of
          //    id being generated for "alwaysAsId", but not being written as POJO; regardless,

@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java	2023-12-05 20:04:42.850056353 +0000
-+++ src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java	2023-12-05 20:04:47.135325036 +0000
+--- src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java	2024-07-18 03:45:55.669270107 -0700
++++ src/com/google/javascript/jscomp/type/SemanticReverseAbstractInterpreter.java	2024-07-18 03:45:59.436422283 -0700
 @@ -298,8 +298,8 @@
      if (merged != null) {
        return maybeRestrictTwoNames(
@@ -63,8 +63,8 @@
      }
      return blindScope;
    }
---- src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:04:42.850761286 +0000
-+++ src/com/google/javascript/rhino/jstype/JSType.java	2023-12-05 20:04:47.135756902 +0000
+--- src/com/google/javascript/rhino/jstype/JSType.java	2024-07-18 03:45:55.669270107 -0700
++++ src/com/google/javascript/rhino/jstype/JSType.java	2024-07-18 03:45:59.437422323 -0700
 @@ -880,6 +880,9 @@
     * method of types to get the restricted type.
     */

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java	2023-12-05 17:11:27.779088849 +0000
-+++ src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java	2023-12-05 17:11:33.633762359 +0000
+--- src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java	2024-07-18 02:47:04.263145800 -0700
++++ src/main/java/org/apache/commons/math/optimization/direct/BOBYQAOptimizer.java	2024-07-18 02:47:08.410298853 -0700
 @@ -1657,10 +1657,10 @@
                      final int tmp2 = jpt;
                      jpt = ipt - n;

@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:01:16.436335346 +0000
-+++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2023-12-05 21:01:18.497793580 +0000
+--- src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:46.310163924 -0700
++++ src/main/java/com/fasterxml/jackson/core/filter/FilteringParserDelegate.java	2024-07-18 03:59:47.950231648 -0700
 @@ -235,6 +235,7 @@
          // If all the conditions matches then check for scalar / non-scalar property
          if (!_allowMultipleMatches && (_currToken != null) && (_exposedContext == null)) {

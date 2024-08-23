@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/LocaleUtils.java	2023-12-05 19:15:32.876035624 +0000
-+++ src/java/org/apache/commons/lang/LocaleUtils.java	2023-12-05 19:15:39.592422858 +0000
+--- src/java/org/apache/commons/lang/LocaleUtils.java	2024-07-18 03:19:05.769961896 -0700
++++ src/java/org/apache/commons/lang/LocaleUtils.java	2024-07-18 03:19:09.761121476 -0700
 @@ -220,7 +220,7 @@
       * @return true if the locale is a known locale
       */

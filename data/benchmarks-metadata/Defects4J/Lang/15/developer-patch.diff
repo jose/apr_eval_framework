@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java	2023-12-05 18:53:12.538115961 +0000
-+++ src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java	2023-12-05 18:53:18.917239670 +0000
+--- src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java	2024-07-18 03:12:51.246768801 -0700
++++ src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java	2024-07-18 03:12:55.161930564 -0700
 @@ -216,9 +216,9 @@
                  toClass, typeVarAssigns);
  

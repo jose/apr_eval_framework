@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/dataformat/xml/ser/ToXmlGenerator.java	2023-12-05 21:13:39.639018323 +0000
-+++ src/main/java/com/fasterxml/jackson/dataformat/xml/ser/ToXmlGenerator.java	2023-12-05 21:13:41.436515850 +0000
+--- src/main/java/com/fasterxml/jackson/dataformat/xml/ser/ToXmlGenerator.java	2024-07-18 04:09:24.462974771 -0700
++++ src/main/java/com/fasterxml/jackson/dataformat/xml/ser/ToXmlGenerator.java	2024-07-18 04:09:25.439014779 -0700
 @@ -840,14 +840,67 @@
          }
      }

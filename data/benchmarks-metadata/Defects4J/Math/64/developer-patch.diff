@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java	2023-12-05 17:16:27.777523903 +0000
-+++ src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java	2023-12-05 17:16:31.691753182 +0000
+--- src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java	2024-07-18 02:50:57.279706586 -0700
++++ src/main/java/org/apache/commons/math/optimization/general/LevenbergMarquardtOptimizer.java	2024-07-18 02:51:00.280842214 -0700
 @@ -255,6 +255,8 @@
          double[] diag    = new double[cols];
          double[] oldX    = new double[cols];

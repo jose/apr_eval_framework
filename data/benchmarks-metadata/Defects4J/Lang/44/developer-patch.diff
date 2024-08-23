@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/NumberUtils.java	2023-12-05 19:00:11.938996942 +0000
-+++ src/java/org/apache/commons/lang/NumberUtils.java	2023-12-05 19:00:18.512169135 +0000
+--- src/java/org/apache/commons/lang/NumberUtils.java	2024-07-18 03:17:10.292335434 -0700
++++ src/java/org/apache/commons/lang/NumberUtils.java	2024-07-18 03:17:14.289497556 -0700
 @@ -142,6 +142,9 @@
          if (val.length() == 0) {
              throw new NumberFormatException("\"\" is not a valid number.");

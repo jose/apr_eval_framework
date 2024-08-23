@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2023-12-05 21:02:24.224814130 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2023-12-05 21:02:27.216835517 +0000
+--- src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2024-07-18 04:00:39.627366108 -0700
++++ src/main/java/com/fasterxml/jackson/databind/util/TokenBuffer.java	2024-07-18 04:00:41.428440613 -0700
 @@ -402,11 +402,23 @@
       */
      public TokenBuffer deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException

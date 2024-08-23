@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/collections/map/Flat3Map.java	2023-12-05 20:07:04.576114712 +0000
-+++ src/java/org/apache/commons/collections/map/Flat3Map.java	2023-12-05 20:07:07.116891488 +0000
+--- src/java/org/apache/commons/collections/map/Flat3Map.java	2024-07-18 03:47:52.131976599 -0700
++++ src/java/org/apache/commons/collections/map/Flat3Map.java	2024-07-18 03:47:54.001052319 -0700
 @@ -651,10 +651,13 @@
              switch (nextIndex) {
                  case 3: 

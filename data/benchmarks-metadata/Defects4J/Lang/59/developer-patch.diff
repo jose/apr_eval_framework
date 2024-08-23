@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:02.213193302 +0000
-+++ src/java/org/apache/commons/lang/text/StrBuilder.java	2023-12-05 19:16:08.764679192 +0000
+--- src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:23.443668556 -0700
++++ src/java/org/apache/commons/lang/text/StrBuilder.java	2024-07-18 03:19:27.413827298 -0700
 @@ -881,7 +881,7 @@
              String str = (obj == null ? getNullText() : obj.toString());
              int strLen = str.length();

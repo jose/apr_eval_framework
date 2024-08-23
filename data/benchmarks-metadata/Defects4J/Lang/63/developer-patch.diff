@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/lang/time/DurationFormatUtils.java	2023-12-05 19:17:00.160834637 +0000
-+++ src/java/org/apache/commons/lang/time/DurationFormatUtils.java	2023-12-05 19:17:06.782844039 +0000
+--- src/java/org/apache/commons/lang/time/DurationFormatUtils.java	2024-07-18 03:19:58.983100475 -0700
++++ src/java/org/apache/commons/lang/time/DurationFormatUtils.java	2024-07-18 03:20:02.897258803 -0700
 @@ -303,25 +303,20 @@
              days -= 1;
          }

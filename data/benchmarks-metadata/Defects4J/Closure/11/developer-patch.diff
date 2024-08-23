@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:23:41.155877107 +0000
-+++ src/com/google/javascript/jscomp/TypeCheck.java	2023-12-05 19:23:45.330302431 +0000
+--- src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:25:34.553761368 -0700
++++ src/com/google/javascript/jscomp/TypeCheck.java	2024-07-18 03:25:38.418919545 -0700
 @@ -1311,8 +1311,6 @@
  
      if (childType.isDict()) {

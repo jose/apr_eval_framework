@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:49:30.055431207 +0000
-+++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2023-12-05 18:49:37.651949072 +0000
+--- src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:10:45.278608979 -0700
++++ src/main/java/org/apache/commons/lang3/math/NumberUtils.java	2024-07-18 03:10:49.265770679 -0700
 @@ -464,11 +464,20 @@
              }
          }

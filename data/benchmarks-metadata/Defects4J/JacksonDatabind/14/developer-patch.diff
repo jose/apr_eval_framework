@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:03:08.154806378 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2023-12-05 21:03:10.646466922 +0000
+--- src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:01:12.624731114 -0700
++++ src/main/java/com/fasterxml/jackson/databind/ObjectReader.java	2024-07-18 04:01:14.451806695 -0700
 @@ -1473,7 +1473,7 @@
              result = NullNode.instance;
          } else {

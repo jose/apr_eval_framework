@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2023-12-05 17:18:38.506360373 +0000
-+++ src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2023-12-05 17:18:42.697560580 +0000
+--- src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2024-07-18 02:52:37.652070284 -0700
++++ src/main/java/org/apache/commons/math/linear/ArrayRealVector.java	2024-07-18 02:52:40.684204567 -0700
 @@ -718,7 +718,7 @@
      public double getLInfNorm() {
          double max = 0;
@@ -9,8 +9,8 @@
          }
          return max;
      }
---- src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:18:38.507130468 +0000
-+++ src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2023-12-05 17:18:42.698000197 +0000
+--- src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2024-07-18 02:52:37.652070284 -0700
++++ src/main/java/org/apache/commons/math/linear/OpenMapRealVector.java	2024-07-18 02:52:40.684204567 -0700
 @@ -495,15 +495,6 @@
          return max;
      }

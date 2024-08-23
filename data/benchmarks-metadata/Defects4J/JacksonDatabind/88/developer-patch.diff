@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/ClassNameIdResolver.java	2023-12-05 21:10:45.760810715 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/ClassNameIdResolver.java	2023-12-05 21:10:48.516312620 +0000
+--- src/main/java/com/fasterxml/jackson/databind/jsontype/impl/ClassNameIdResolver.java	2024-07-18 04:07:10.028453377 -0700
++++ src/main/java/com/fasterxml/jackson/databind/jsontype/impl/ClassNameIdResolver.java	2024-07-18 04:07:12.011534846 -0700
 @@ -55,7 +55,11 @@
              //    compatibility -- needed later anyway, and not doing so may open
              //    security issues.

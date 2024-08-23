@@ -1,5 +1,5 @@
---- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:08.029207967 +0000
-+++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2023-12-05 21:10:10.795193600 +0000
+--- src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2024-07-18 04:06:41.005260347 -0700
++++ src/main/java/com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java	2024-07-18 04:06:43.052344518 -0700
 @@ -492,7 +492,7 @@
              boolean ignoreAny = ignorals.getIgnoreUnknown();
              builder.setIgnoreUnknownProperties(ignoreAny);

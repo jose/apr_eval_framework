@@ -1,5 +1,5 @@
---- src/org/mockito/internal/util/Primitives.java	2023-12-05 17:28:41.257471840 +0000
-+++ src/org/mockito/internal/util/Primitives.java	2023-12-05 17:28:46.114197443 +0000
+--- src/org/mockito/internal/util/Primitives.java	2024-07-18 03:00:47.995680281 -0700
++++ src/org/mockito/internal/util/Primitives.java	2024-07-18 03:00:52.264871182 -0700
 @@ -63,6 +63,6 @@
          primitiveValues.put(int.class, 0);
          primitiveValues.put(long.class, 0L);

@@ -1,5 +1,5 @@
---- src/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:17:53.823300892 +0000
-+++ src/java/org/apache/commons/cli/TypeHandler.java	2023-12-05 19:17:56.800115650 +0000
+--- src/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:20:36.288609479 -0700
++++ src/java/org/apache/commons/cli/TypeHandler.java	2024-07-18 03:20:38.864713681 -0700
 @@ -22,7 +22,6 @@
  
  import java.util.Date;

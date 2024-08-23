@@ -1,5 +1,5 @@
---- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 19:41:09.551416366 +0000
-+++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2023-12-05 19:41:13.376943288 +0000
+--- src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:39:49.929572364 -0700
++++ src/com/google/javascript/jscomp/ReferenceCollectingCallback.java	2024-07-18 03:39:53.428714982 -0700
 @@ -428,6 +428,9 @@
        for (BasicBlock block = ref.getBasicBlock();
             block != null; block = block.getParent()) {

@@ -1,5 +1,5 @@
---- src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java	2023-12-05 20:24:09.220895915 +0000
-+++ src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java	2023-12-05 20:24:12.781387080 +0000
+--- src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java	2024-07-18 03:52:28.367204946 -0700
++++ src/main/java/org/apache/commons/compress/archivers/zip/Zip64ExtendedInformationExtraField.java	2024-07-18 03:52:31.393328181 -0700
 @@ -256,7 +256,7 @@
                  + (hasCompressedSize ? DWORD : 0)
                  + (hasRelativeHeaderOffset ? DWORD : 0)

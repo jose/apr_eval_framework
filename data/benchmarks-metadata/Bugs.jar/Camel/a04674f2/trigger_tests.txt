@@ -1,2 +1,2 @@
---- org.apache.camel.processor.SplitTokenizerNamespaceTest::testSplitTokenizerWithImplicitNamespaces
 --- org.apache.camel.component.file.FileConsumeSingleDirectoryOnlyTest::testConsumeFileOnly
+--- org.apache.camel.processor.SplitTokenizerNamespaceTest::testSplitTokenizerWithImplicitNamespaces

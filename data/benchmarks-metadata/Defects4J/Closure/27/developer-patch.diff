@@ -1,5 +1,5 @@
---- src/com/google/javascript/rhino/IR.java	2023-12-05 19:27:07.118946714 +0000
-+++ src/com/google/javascript/rhino/IR.java	2023-12-05 19:27:11.653556303 +0000
+--- src/com/google/javascript/rhino/IR.java	2024-07-18 03:27:44.491081051 -0700
++++ src/com/google/javascript/rhino/IR.java	2024-07-18 03:27:47.974223669 -0700
 @@ -108,6 +108,9 @@
      return block;
    }

@@ -1,5 +1,5 @@
---- src/org/mockito/internal/verification/argumentmatching/ArgumentMatchingTool.java	2023-12-05 17:30:53.692501606 +0000
-+++ src/org/mockito/internal/verification/argumentmatching/ArgumentMatchingTool.java	2023-12-05 17:30:58.949796850 +0000
+--- src/org/mockito/internal/verification/argumentmatching/ArgumentMatchingTool.java	2024-07-18 03:02:37.744110264 -0700
++++ src/org/mockito/internal/verification/argumentmatching/ArgumentMatchingTool.java	2024-07-18 03:02:41.966277107 -0700
 @@ -45,6 +45,6 @@
      }
  

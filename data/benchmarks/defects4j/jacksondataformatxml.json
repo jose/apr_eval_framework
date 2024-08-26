@@ -1,0 +1,12 @@
+{
+    "project": "JacksonXml",
+    "nbBugs": 6,
+    "complianceLevel": {
+      "1": { "source": 7 },
+      "2": { "source": 7 },
+      "3": { "source": 6 },
+      "4": { "source": 7 },
+      "5": { "source": 7 },
+      "6": { "source": 7 }
+    }
+}

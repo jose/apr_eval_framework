@@ -1,0 +1,24 @@
+{
+    "project": "Codec",
+    "nbBugs": 18,
+    "complianceLevel": {
+      "1": { "source": 6 },
+      "2": { "source": 6 },
+      "3": { "source": 6 },
+      "4": { "source": 6 },
+      "5": { "source": 6 },
+      "6": { "source": 6 },
+      "7": { "source": 6 },
+      "8": { "source": 6 },
+      "9": { "source": 6 },
+      "10": { "source": 6 },
+      "11": { "source": 6 },
+      "12": { "source": 6 },
+      "13": { "source": 6 },
+      "14": { "source": 6 },
+      "15": { "source": 6 },
+      "16": { "source": 6 },
+      "17": { "source": 6 },
+      "18": { "source": 6 }
+    }
+}

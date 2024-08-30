@@ -75,7 +75,7 @@ def checkout(bug, checkout_dir, rm_tests=True, buggy_version=True):
     print("Checkout " + str(bug))
 
     ret = 1 # Success
-    lock = FileLock(os.path.join(REPAIR_ROOT, LOCK_FILE))
+    lock = FileLock(os.path.join(REPAIR_ROOT, LOCK_FILE + "_" + bug.benchmark.name))
     try:
         lock.acquire()
         if bug.checkout(checkout_dir, rm_tests, buggy_version) != 0:

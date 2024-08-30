@@ -84,6 +84,7 @@ else
     echo "Failed to manually install apache-jar-resource-bundle-1.4 in $mvn_deps_dir!"
     exit 1
   fi
+  rm -f "apache-jar-resource-bundle-1.4.jar"
 
   bugs_file="$REPAIR_THEM_ALL_FRAMEWORK_DIR/benchmarks/bugs.csv"
   if [ ! -s "$bugs_file" ]; then

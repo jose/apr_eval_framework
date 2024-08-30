@@ -27,9 +27,9 @@ export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.6.3/bin:$PATH/"
 #
 # Hack the user's ~/.m2/settings.xml file
 if [ -s ~/.m2/settings.xml ]; then
-  cp -v ~/.m2/settings.xml ~/.m2/settings.xml.bak # Backup user's file
+  mv -v ~/.m2/settings.xml ~/.m2/settings.xml.bak # Backup user's file
 fi
-mkdir ~/.m2
+mkdir -p ~/.m2
 cp -v "$REPAIR_THEM_ALL_FRAMEWORK_DIR/m2_settings.xml" ~/.m2/settings.xml
 
 # Remove any existing data and create required directories

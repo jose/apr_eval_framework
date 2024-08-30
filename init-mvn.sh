@@ -2,7 +2,7 @@
 
 REPAIR_THEM_ALL_FRAMEWORK_DIR=`pwd`
 
-# Get Apache-Maven <= 3.6, as any version higher than 3.6 disables all insecure
+# Get Apache-Maven <= 3.6.x, as any version higher than 3.6.x disables all insecure
 # http://* mirrors by default.
 # More info in here https://maven.apache.org/docs/3.8.1/release-notes.html#cve-2021-26291
 #
@@ -13,17 +13,17 @@ REPAIR_THEM_ALL_FRAMEWORK_DIR=`pwd`
 # Both hacks are required to successfully run `mvn` on some Wickets defects, e.g.,
 # 0eb596df.
 #
-wget https://archive.apache.org/dist/maven/binaries/apache-maven-3.2.2-bin.zip
-if [ ! -s "apache-maven-3.2.2-bin.zip" ]; then
-  echo "Failed to get apache-maven-3.2.2-bin.zip!"
+wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.6.3/apache-maven-3.6.3-bin.zip
+if [ ! -s "apache-maven-3.6.3-bin.zip" ]; then
+  echo "Failed to get apache-maven-3.6.3-bin.zip!"
   exit 1
 fi
-unzip apache-maven-3.2.2-bin.zip
-if [ ! -d "apache-maven-3.2.2" ]; then
-  echo "Failed to unzip apache-maven-3.2.2-bin.zip!"
+unzip apache-maven-3.6.3-bin.zip
+if [ ! -d "apache-maven-3.6.3" ]; then
+  echo "Failed to unzip apache-maven-3.6.3-bin.zip!"
   exit 1
 fi
-export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.2.2/bin:$PATH/"
+export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.6.3/bin:$PATH/"
 #
 # Hack the user's ~/.m2/settings.xml file
 if [ -s ~/.m2/settings.xml ]; then
@@ -35,8 +35,6 @@ cp -v "$REPAIR_THEM_ALL_FRAMEWORK_DIR/m2_settings.xml" ~/.m2/settings.xml
 # Remove any existing data and create required directories
 mvn_deps_dir="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps"
 rm -rf "$mvn_deps_dir"; mkdir -p "$mvn_deps_dir"
-mvn_deps_sym_dir="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps_sym"
-rm -rf "$mvn_deps_sym_dir"; mkdir -p "$mvn_deps_sym_dir"
 
 mvn_deps_zip="$REPAIR_THEM_ALL_FRAMEWORK_DIR/mvn_deps.zip"
 
@@ -61,6 +59,7 @@ else
   echo "Building project-info-maven-plugin"
   git clone https://github.com/tdurieux/project-info-maven-plugin
   cd project-info-maven-plugin
+  git checkout 93c8c5f8a4413a8b17f1346af6223ea345aae8cb
   export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn -DskipTests -Dmaven.repo.local="$mvn_deps_dir/plugin" install
   if [ "$?" -ne "0" ]; then
     echo "Failed to build the project-info-maven-plugin project and install it in $mvn_deps_dir/plugin!"
@@ -76,10 +75,20 @@ else
 
   echo "Collecting and caching all mvn dependencies"
 
-  # Each project/bug may need the project-info-maven-plugin in the mvn_deps_sym
-  # directory to get project info, e.g., path to the source directory
-  mkdir -p "$mvn_deps_sym_dir/plugin"
-  cp -R $mvn_deps_dir/plugin/* "$mvn_deps_sym_dir/plugin/"
+  # Collect apache-jar-resource-bundle, require to latter use the --offline mode
+  wget https://repo1.maven.org/maven2/org/apache/apache-jar-resource-bundle/1.4/apache-jar-resource-bundle-1.4.jar
+  if [ "$?" -ne "0" ]; then
+    echo "Failed to get https://repo1.maven.org/maven2/org/apache/apache-jar-resource-bundle/1.4/apache-jar-resource-bundle-1.4.jar!"
+    exit 1
+  fi
+  export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn \
+    install:install-file -Dfile="apache-jar-resource-bundle-1.4.jar" \
+    -DgroupId="org.apache" -DartifactId="apache-jar-resource-bundle" -Dversion="1.4" -Dpackaging="jar" \
+    -Dmaven.repo.local="$mvn_deps_dir"
+  if [ "$?" -ne "0" ]; then
+    echo "Failed to manually install apache-jar-resource-bundle-1.4 in $mvn_deps_dir!"
+    exit 1
+  fi
 
   bugs_file="$REPAIR_THEM_ALL_FRAMEWORK_DIR/benchmarks/bugs.csv"
   if [ ! -s "$bugs_file" ]; then
@@ -124,23 +133,6 @@ else
     exit 1
   fi
 fi
-
-#
-# Setting up symlinks
-#
-
-# echo "Setting up symlinks"
-# rm -rf "$mvn_deps_sym_dir"; mkdir -p "$mvn_deps_sym_dir" # from scratch
-# # Copy over the directory structure, with symlinks to all (leaf) files.
-# cp -as $mvn_deps_dir/* mvn_deps_sym
-# # Remove all files that might change
-# find mvn_deps_sym -type l -regextype posix-egrep ! -regex ".*\.jar(\.sha1)?$|.*\.pom(\.sha1)?$" -exec rm {} +
-# # Copy all remaining files
-# echo "Setting up hard links"
-# rsync -a --exclude "*.jar" --exclude "*.jar.sha1" --exclude "*.pom" --exclude "*.pom.sha1" mvn_deps/ mvn_deps_sym/
-# # Change permissions of all files in mvn_deps to read-only
-# echo "Making all mvn_deps files read-only"
-# find mvn_deps -type f -exec chmod -w {} +
 
 #
 # Install junit-4.11.jar and hamcrest-core-1.3.jar in the local m2 (e.g., ~/.m2)

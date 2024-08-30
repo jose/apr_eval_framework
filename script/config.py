@@ -19,7 +19,7 @@ JAVA8_HOME = os.path.join(REPAIR_ROOT, "jdks", "jdk1.8.0_181")
 JAVA_ARGS = "-Xmx32g -Xms1g"
 JAVA_VERSION = os.environ.get('JAVA_VERSION', '8')
 
-MAVEN_BIN = os.path.join(REPAIR_ROOT, "apache-maven-3.2.2", "bin")
+MAVEN_BIN = os.path.join(REPAIR_ROOT, "apache-maven-3.6.3", "bin")
 
 LOCAL_THREAD = 1
 GRID5K_MAX_NODE = 50

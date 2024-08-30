@@ -85,14 +85,14 @@ class QuixBugs(Benchmark):
     def compile(self, bug, working_directory, java_home_dir=None):
         if java_home_dir == None:
             java_home_dir = JAVA8_HOME
-        cmd = "cd %s; export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true; export JAVA_HOME=\"%s\"; export PATH=\"$JAVA_HOME/bin:%s:$PATH\"; mvn -Dhttps.protocols=TLSv1.2 clean test -DskipTests;" % (working_directory, java_home_dir, MAVEN_BIN)
+        cmd = "cd %s; export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true; export JAVA_HOME=\"%s\"; export PATH=\"$JAVA_HOME/bin:%s:$PATH\"; mvn -Dhttps.protocols=TLSv1.2 --offline clean test -DskipTests;" % (working_directory, java_home_dir, MAVEN_BIN)
         log_file = file(os.path.join(working_directory, "repair_them_all.compile.log"), 'w')
         return run_cmd(cmd, log_file, log_file)
 
     def run_test(self, bug, working_directory, java_home_dir=None):
         if java_home_dir == None:
             java_home_dir = JAVA8_HOME
-        cmd = "cd %s; export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true; export JAVA_HOME=\"%s\"; export PATH=\"$JAVA_HOME/bin:%s:$PATH\"; timeout -s KILL %s mvn -Dhttps.protocols=TLSv1.2 test;" % (working_directory, java_home_dir, MAVEN_BIN, TEST_TIMEOUT)
+        cmd = "cd %s; export _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true; export JAVA_HOME=\"%s\"; export PATH=\"$JAVA_HOME/bin:%s:$PATH\"; timeout -s KILL %s mvn -Dhttps.protocols=TLSv1.2 --offline test;" % (working_directory, java_home_dir, MAVEN_BIN, TEST_TIMEOUT)
         log_file = file(os.path.join(working_directory, "repair_them_all.run_test.log"), 'w')
         return run_cmd(cmd, log_file, log_file)
 

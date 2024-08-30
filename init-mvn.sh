@@ -65,11 +65,6 @@ else
     echo "Failed to build the project-info-maven-plugin project and install it in $mvn_deps_dir/plugin!"
     exit 1
   fi
-  export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn -DskipTests install
-  if [ "$?" -ne "0" ]; then
-    echo "Failed to build the project-info-maven-plugin project and install it in ~/.m2/!"
-    exit 1
-  fi
   cd ..
   rm -rf project-info-maven-plugin
 

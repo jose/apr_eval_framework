@@ -78,7 +78,7 @@ if str(benchmark) == "Bear" and str(project) == "dhis2-dhis2-core" and str(bug) 
     run_cmd(fix_pom_cmd, sys.stdout, sys.stderr)
 
 cmd  = "export JAVA_HOME=\"%s\"; export PATH=\"$JAVA_HOME/bin:$PATH\";" %(JAVA8_HOME)
-cmd += " cd \"%s\"; find . -type f -name pom.xml | while read -r pom_file; do dir=$(dirname \"$pom_file\"); (cd \"$dir\"; mvn -V -B -U -Dhttps.protocols=TLSv1.2 de.qaware.maven:go-offline-maven-plugin:1.2.8:resolve-dependencies -Dmaven.repo.local=\"%s\" --fail-never;) done" %(CHECKOUT_DIR, mtwo_dir)
+cmd += " cd \"%s\"; find . -type f -name pom.xml | while read -r pom_file; do dir=$(dirname \"$pom_file\"); (cd \"$dir\"; mvn -V -B -U -Dhttps.protocols=TLSv1.2 dependency:go-offline -Dmaven.repo.local=\"%s\" --fail-never; mvn -V -B -U -Dhttps.protocols=TLSv1.2 de.qaware.maven:go-offline-maven-plugin:1.2.8:resolve-dependencies -Dmaven.repo.local=\"%s\" --fail-never;) done" %(CHECKOUT_DIR, mtwo_dir)
 cmd_exit_code = run_cmd(cmd, sys.stdout, sys.stderr)
 
 # Clean up checkout directory

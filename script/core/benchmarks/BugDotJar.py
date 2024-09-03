@@ -125,6 +125,11 @@ class BugDotJar(Benchmark):
                     cmd = "cp -a %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, bug.project), working_directory)
                     subprocess.check_output(cmd, shell=True)
 
+                # Copy over the extra dependencies
+                if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "extra")):
+                    cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "extra"), working_directory)
+                    subprocess.check_output(cmd, shell=True)
+
                 # Copy over the project-info-maven-plugin dependency
                 if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "plugin")):
                     cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "plugin"), working_directory)

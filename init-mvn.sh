@@ -79,7 +79,7 @@ else
   export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn \
     install:install-file -Dfile="apache-jar-resource-bundle-1.4.jar" \
     -DgroupId="org.apache" -DartifactId="apache-jar-resource-bundle" -Dversion="1.4" -Dpackaging="jar" \
-    -Dmaven.repo.local="$mvn_deps_dir"
+    -Dmaven.repo.local="$mvn_deps_dir/extra"
   if [ "$?" -ne "0" ]; then
     echo "Failed to manually install apache-jar-resource-bundle-1.4 in $mvn_deps_dir!"
     exit 1

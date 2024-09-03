@@ -187,7 +187,7 @@ class Bears(Benchmark):
             subprocess.check_output(cmd, shell=True)
 
             # Copy over project's mvn dependencies
-            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project)):
+            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project)) and len(os.listdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project))) > 0:
                 cmd = "cp -a %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, bug.project), working_directory)
                 subprocess.check_output(cmd, shell=True)
 

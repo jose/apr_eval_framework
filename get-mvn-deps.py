@@ -63,7 +63,7 @@ def die(msg=""):
 #
 try:
     checkout_exit_code = utils.checkout(bugObj, CHECKOUT_DIR, False, True)
-    if checkout_exit_code != 0:
+    if checkout_exit_code == 0:
         die()
 except:
     traceback.print_exc()

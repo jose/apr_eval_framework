@@ -26,6 +26,7 @@ MVN_FLAGS = """-V -B -U -Dhttps.protocols=TLSv1.2 --offline \
   -Dskip.bower=true \
   -Dbaseline.skip=true \
   -Dmaven.javadoc.skip=true \
+  -Danimal.sniffer.skip=true \
 """
 
 MVN_DEPS_ROOT_DIR = os.path.join(REPAIR_ROOT, "mvn_deps")
@@ -231,6 +232,21 @@ class Bears(Benchmark):
         #
 
         log_file = file(os.path.join(working_directory, "repair_them_all.compile.log"), 'w')
+
+        # 0. Fix dependency's version.
+        # Most INRIA's bugs depend on the com.github.stefanbirkner::system-rules (1.9.0)
+        # plugin and on commons-io::commons-io (v1.4).  Given that com.github.stefanbirkner::system-rules (1.9.0)
+        # also depends on commons-io::commons-io but on any version greater or equal than 2.0,
+        # Apache Maven downloads the latest version of commons-io::commons-io which is 2.16.1
+        # (as of today; September 3, 2024).  However, the source source code of most INRIA's
+        # bugs is not compatible with commons-io::commons-io <= 2.8.0.  To allow the source code
+        # to compile, we set the version of commons-io::commons-io to 2.5 (the common version
+        # that works for all bugs).
+        if bug.project == "INRIA-spoon":
+            cmd = """
+            %s; cd %s; mvn org.codehaus.mojo:versions-maven-plugin:2.17.1:use-dep-version -Dincludes=commons-io:commons-io -DdepVersion=2.5 -DforceVersion=true -Dmaven.repo.local=%s/.m2 --offline;
+            """ % (export_cmd, working_directory, working_directory)
+            run_cmd(cmd, log_file, log_file)
 
         # 1. Compile root pom.xml
         pom_xml_file = os.path.join(working_directory, "pom.xml")

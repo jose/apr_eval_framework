@@ -10,7 +10,7 @@ from core.Bug import Bug
 from core.utils import add_benchmark
 from core.utils import run_cmd
 
-MVN_FLAGS = """-V -B -U -Dhttps.protocols=TLSv1.2 --offline \
+MVN_FLAGS = """-V -B -Dhttps.protocols=TLSv1.2 --offline \
   -Denforcer.skip=true \
   -Dcheckstyle.skip=true \
   -Dcobertura.skip=true \

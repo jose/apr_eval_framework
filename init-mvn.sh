@@ -229,6 +229,9 @@ else
 
   done < <(tail -n +2 "$bugs_file")
 
+  find "$mvn_deps_dir" -type f -iname "*.repositories" -exec rm -f {} \;
+  find "$mvn_deps_dir" -type f -iname "*.sha1" -exec rm -f {} \;
+
   # Create a master zip file with all maven dependencies
   zip -r "$mvn_deps_zip" mvn_deps/*
   if [ "$?" -ne "0" ]; then

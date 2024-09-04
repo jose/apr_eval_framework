@@ -120,6 +120,113 @@ else
       exit 1
     fi
 
+    if [ "$benchmark" == "Bears" ]; then
+      if [ "$project" == "spring-projects-spring-data-jpa" ] && [ "$bug" == "341944401-342236799" ]; then
+        wget https://repo1.maven.org/maven2/org/hibernate/hibernate-jpamodelgen/1.3.0.Final/hibernate-jpamodelgen-1.3.0.Final.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hibernate-jpamodelgen-1.3.0.Final.jar" -DgroupId="org.hibernate" -DartifactId="hibernate-jpamodelgen" -Dversion="1.3.0.Final" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f "hibernate-jpamodelgen-1.3.0.Final.jar"
+
+        wget https://repo1.maven.org/maven2/org/aspectj/aspectjtools/1.8.12/aspectjtools-1.8.12.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="aspectjtools-1.8.12.jar" -DgroupId="org.aspectj" -DartifactId="aspectjtools" -Dversion="1.8.12" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f "aspectjtools-1.8.12.jar"
+      elif [ "$project" == "INRIA-spoon" ] && [ "$bug" == "189186902-189233591" ]; then
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/3.20.200/org.eclipse.core.resources-3.20.200.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-3.20.200.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="3.20.200" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.resources-3.20.200.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.expressions/3.9.400/org.eclipse.core.expressions-3.9.400.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.expressions-3.9.400.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.expressions" -Dversion="3.9.400" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.expressions-3.9.400.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.runtime/3.31.100/org.eclipse.core.runtime-3.31.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.runtime-3.31.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.runtime" -Dversion="3.31.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.runtime-3.31.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.jobs/3.15.300/org.eclipse.core.jobs-3.15.300.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.jobs-3.15.300.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.jobs" -Dversion="3.15.300" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.jobs-3.15.300.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.contenttype/3.9.400/org.eclipse.core.contenttype-3.9.400.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.contenttype-3.9.400.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.contenttype" -Dversion="3.9.400" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.filesystem/1.10.400/org.eclipse.core.filesystem-1.10.400.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.filesystem-1.10.400.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.filesystem" -Dversion="1.10.400" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.filesystem-1.10.400.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.commands/3.12.100/org.eclipse.core.commands-3.12.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.commands-3.12.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.commands" -Dversion="3.12.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.commands-3.12.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.osgi/3.20.0/org.eclipse.osgi-3.20.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.osgi-3.20.0.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.osgi" -Dversion="3.20.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.osgi-3.20.0.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.common/3.19.100/org.eclipse.equinox.common-3.19.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.common-3.19.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.common" -Dversion="3.19.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.equinox.common-3.19.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.registry/3.12.100/org.eclipse.equinox.registry-3.12.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.registry-3.12.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.registry" -Dversion="3.12.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.equinox.registry-3.12.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.preferences/3.11.100/org.eclipse.equinox.preferences-3.11.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.preferences-3.11.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.preferences" -Dversion="3.11.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.equinox.preferences-3.11.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.app/1.7.100/org.eclipse.equinox.app-1.7.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.app-1.7.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.app" -Dversion="1.7.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.equinox.app-1.7.100.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.text/3.14.100/org.eclipse.text-3.14.100.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.text-3.14.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.text" -Dversion="3.14.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.text-3.14.100.jar
+
+        wget https://repo1.maven.org/maven2/org/osgi/org.osgi.service.prefs/1.1.2/org.osgi.service.prefs-1.1.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.osgi.service.prefs-1.1.2.jar" -DgroupId="org.osgi" -DartifactId="org.osgi.service.prefs" -Dversion="1.1.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.osgi.service.prefs-1.1.2.jar
+
+        wget https://repo1.maven.org/maven2/org/osgi/osgi.annotation/8.0.1/osgi.annotation-8.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.osgi.service.prefs-1.1.2.jar" -DgroupId="org.osgi" -DartifactId="osgi.annotation" -Dversion="8.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f osgi.annotation-8.0.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/signature/java17/1.0/java17-1.0.pom
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -DgroupId="org.codehaus.mojo.signature" -DartifactId="java17" -Dversion="1.0" -Dpackaging="signature" -Dfile="java17-1.0.pom" -Dmaven.repo.local="$mtwo_dir"
+        rm -f java17-1.0.pom
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/versions/versions-api/2.17.1/versions-api-2.17.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="versions-api-2.17.1.jar" -DgroupId="org.codehaus.mojo.versions" -DartifactId="versions-api" -Dversion="2.17.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f versions-api-2.17.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/versions/versions-common/2.17.1/versions-common-2.17.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="versions-common-2.17.1.jar" -DgroupId="org.codehaus.mojo.versions" -DartifactId="versions-common" -Dversion="2.17.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f versions-common-2.17.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/versions/versions-model/2.17.1/versions-model-2.17.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="versions-model-2.17.1.jar" -DgroupId="org.codehaus.mojo.versions" -DartifactId="versions-model" -Dversion="2.17.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f versions-model-2.17.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/versions/versions-model-report/2.17.1/versions-model-report-2.17.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="versions-model-report-2.17.1.jar" -DgroupId="org.codehaus.mojo.versions" -DartifactId="versions-model-report" -Dversion="2.17.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f versions-model-report-2.17.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/versions-maven-plugin/2.17.1/versions-maven-plugin-2.17.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="versions-maven-plugin-2.17.1.jar" -DgroupId="org.codehaus.mojo" -DartifactId="versions-maven-plugin" -Dversion="2.17.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f versions-maven-plugin-2.17.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-xml/3.0.1/plexus-xml-3.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-xml-3.0.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-xml" -Dversion="3.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-xml-3.0.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-4.0.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="4.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-4.0.1.jar
+      fi
+    fi
+
   done < <(tail -n +2 "$bugs_file")
 
   # Create a master zip file with all maven dependencies

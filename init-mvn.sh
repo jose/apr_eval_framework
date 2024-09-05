@@ -129,6 +129,85 @@ else
         wget https://repo1.maven.org/maven2/org/aspectj/aspectjtools/1.8.12/aspectjtools-1.8.12.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="aspectjtools-1.8.12.jar" -DgroupId="org.aspectj" -DartifactId="aspectjtools" -Dversion="1.8.12" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f "aspectjtools-1.8.12.jar"
+      elif [ "$project" == "spring-projects-spring-data-commons" ]; then
+        export PYTHONPATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/script:$PYTHONPATH" && \
+        python "$REPAIR_THEM_ALL_FRAMEWORK_DIR/get-mvn-deps.py" \
+          --benchmark "$benchmark" \
+          --project "$project" \
+          --bug "$bug" \
+          --mtwo_dir "$mtwo_dir"
+        if [ "$?" -ne "0" ]; then
+          echo "get-mvn-deps.py has failed!"
+          exit 1
+        fi
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-core/4.2.5.RELEASE/spring-core-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-core-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-core" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-core-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-beans/4.2.5.RELEASE/spring-beans-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-beans-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-beans" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-beans-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-context/4.2.5.RELEASE/spring-context-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-context-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-context" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-context-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-aop/4.2.5.RELEASE/spring-aop-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-aop-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-aop" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-aop-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-expression/4.2.5.RELEASE/spring-expression-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-expression-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-expression" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-expression-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-tx/4.2.5.RELEASE/spring-tx-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-tx-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-tx" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-tx-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-oxm/4.2.5.RELEASE/spring-oxm-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-oxm-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-oxm" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-oxm-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.6.5/jackson-databind-2.6.5.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-databind-2.6.5.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-databind" -Dversion="2.6.5" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-databind-2.6.5.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.6.0/jackson-annotations-2.6.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-annotations-2.6.0.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-annotations" -Dversion="2.6.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-annotations-2.6.0.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.6.5/jackson-core-2.6.5.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-core-2.6.5.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-core" -Dversion="2.6.5" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-core-2.6.5.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-web/4.2.5.RELEASE/spring-web-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-web-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-web" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-web-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="javax.servlet-api-3.0.1.jar" -DgroupId="javax.servlet" -DartifactId="javax.servlet-api" -Dversion="3.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f javax.servlet-api-3.0.1.jar
+
+        wget https://repo1.maven.org/maven2/joda-time/joda-time/2.9.2/joda-time-2.9.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="joda-time-2.9.2.jar" -DgroupId="joda-time" -DartifactId="joda-time" -Dversion="2.9.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f joda-time-2.9.2.jar
+
+        wget https://repo1.maven.org/maven2/org/threeten/threetenbp/1.3.1/threetenbp-1.3.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="threetenbp-1.3.1.jar" -DgroupId="org.threeten" -DartifactId="threetenbp" -Dversion="1.3.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f threetenbp-1.3.1.jar
+
+        # TODO do we need this extra step?!
+        export PYTHONPATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/script:$PYTHONPATH" && \
+        python "$REPAIR_THEM_ALL_FRAMEWORK_DIR/get-mvn-deps.py" \
+          --benchmark "$benchmark" \
+          --project "$project" \
+          --bug "$bug" \
+          --mtwo_dir "$mtwo_dir"
+        if [ "$?" -ne "0" ]; then
+          echo "get-mvn-deps.py has failed!"
+          exit 1
+        fi
       elif [ "$project" == "INRIA-spoon" ] && [ "$bug" == "189186902-189233591" ]; then
         wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/3.20.200/org.eclipse.core.resources-3.20.200.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-3.20.200.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="3.20.200" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"

@@ -195,6 +195,54 @@ class Bears(Benchmark):
             sed -i '242s|<version>1.4</version>|<version>2.5</version>|' %s/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        elif str(bug.project) == "spring-projects-spring-data-commons":
+          cmd = """
+          sed -i '15s|<version>1.7.7.BUILD-SNAPSHOT</version>|<version>1.8.0.RELEASE</version>|' %s/pom.xml;
+          """ % (working_directory)
+          subprocess.check_output(cmd, shell=True)
+
+          spring_data_parent_1_8_0_RELEASE_pom_file=os.path.join(MVN_DEPS_ROOT_DIR, "org", "springframework", "data", "build", "spring-data-parent", "1.8.0.RELEASE", "spring-data-parent-1.8.0.RELEASE.pom")
+          if os.path.isfile(spring_data_parent_1_8_0_RELEASE_pom_file):
+              # Remove lines 645--649:
+              # <plugin>
+              #         <groupId>com.springsource.bundlor</groupId>
+              #         <artifactId>com.springsource.bundlor.maven</artifactId>
+              #         <version>1.0.0.RELEASE</version>
+              # </plugin>
+              cmd = """
+              sed -i '645,649s|.*||g' %s;
+              """ % (spring_data_parent_1_8_0_RELEASE_pom_file)
+              subprocess.check_output(cmd, shell=True)
+
+              # Remove lines 769--784:
+              # <plugin>
+              #         <groupId>com.springsource.bundlor</groupId>
+              #         <artifactId>com.springsource.bundlor.maven</artifactId>
+              #         <configuration>
+              #                 <enabled>${bundlor.enabled}</enabled>
+              #                 <failOnWarnings>${bundlor.failOnWarnings}</failOnWarnings>
+              #         </configuration>
+              #         <executions>
+              #                 <execution>
+              #                         <id>bundlor</id>
+              #                         <goals>
+              #                                 <goal>bundlor</goal>
+              #                         </goals>
+              #                 </execution>
+              #         </executions>
+              # </plugin>
+              cmd = """
+              sed -i '769,784s|.*||g' %s;
+              """ % (spring_data_parent_1_8_0_RELEASE_pom_file)
+              subprocess.check_output(cmd, shell=True)
+
+              # Downgrade com.mysema.querydsl:querydsl-[core|apt|collections] from
+              # 4.1.0 (which is not available as of today; September 3, 2024) to
+              # 3.7.4, in the parent pom
+              cmd = """
+              sed -i '103s|<querydsl>4.1.0</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+              """ % (spring_data_parent_1_8_0_RELEASE_pom_file)
+              subprocess.check_output(cmd, shell=True)
 
         # Copy over cached dependencies
         if os.path.isdir(MVN_DEPS_ROOT_DIR):

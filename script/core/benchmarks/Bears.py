@@ -200,7 +200,7 @@ class Bears(Benchmark):
             cmd = """
             sed -ne '15s|.*<version>\\(.*\\)</version>.*|\\1|p' %s/pom.xml;
             """ % (working_directory)
-            parent_snapshot_version = subprocess.check_output(cmd, shell=True)
+            parent_snapshot_version = subprocess.check_output(cmd, shell=True).rstrip()
             # Replace the no longer available SNAPSHOT versions with RELEASE versions
             parent_release_version = ""
             if parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT":

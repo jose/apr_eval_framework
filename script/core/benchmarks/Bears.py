@@ -279,7 +279,7 @@ class Bears(Benchmark):
                     """ % (spring_data_parent_pom_file)
                 elif parent_release_version == "1.9.0.RELEASE":
                     cmd = """
-                    sed -i '839,864s|.*||g' %s;
+                    sed -i '839,854s|.*||g' %s;
                     """ % (spring_data_parent_pom_file)
                 elif parent_release_version == "1.9.5.RELEASE":
                     cmd = """

@@ -214,129 +214,129 @@ class Bears(Benchmark):
             """ % (parent_snapshot_version, parent_release_version, working_directory)
             subprocess.check_output(cmd, shell=True)
 
-          spring_data_parent_pom_file=os.path.join(MVN_DEPS_ROOT_DIR, str(bug.project), "org", "springframework", "data", "build", "spring-data-parent", parent_release_version, "spring-data-parent-" + parent_release_version + ".pom")
-          if os.path.isfile(spring_data_parent_pom_file):
-              # Remove lines:
-              # <plugin>
-              #         <groupId>com.springsource.bundlor</groupId>
-              #         <artifactId>com.springsource.bundlor.maven</artifactId>
-              #         <version>1.0.0.RELEASE</version>
-              # </plugin>
-              if parent_release_version == "1.8.0.RELEASE":
-                  cmd = """
-                  sed -i '645,649s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.0.RELEASE":
-                  cmd = """
-                  sed -i '707,711s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.5.RELEASE":
-                  cmd = """
-                  sed -i '732,736s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.7.RELEASE":
-                  cmd = """
-                  sed -i '732,736s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.9.RELEASE":
-                  cmd = """
-                  sed -i '725,729s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.10.RELEASE":
-                  cmd = """
-                  sed -i '755,759s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              else:
-                  raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
-              subprocess.check_output(cmd, shell=True)
+            spring_data_parent_pom_file=os.path.join(MVN_DEPS_ROOT_DIR, str(bug.project), "org", "springframework", "data", "build", "spring-data-parent", parent_release_version, "spring-data-parent-" + parent_release_version + ".pom")
+            if os.path.isfile(spring_data_parent_pom_file):
+                # Remove lines:
+                # <plugin>
+                #         <groupId>com.springsource.bundlor</groupId>
+                #         <artifactId>com.springsource.bundlor.maven</artifactId>
+                #         <version>1.0.0.RELEASE</version>
+                # </plugin>
+                if parent_release_version == "1.8.0.RELEASE":
+                    cmd = """
+                    sed -i '645,649s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.0.RELEASE":
+                    cmd = """
+                    sed -i '707,711s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.5.RELEASE":
+                    cmd = """
+                    sed -i '732,736s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.7.RELEASE":
+                    cmd = """
+                    sed -i '732,736s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.9.RELEASE":
+                    cmd = """
+                    sed -i '725,729s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.10.RELEASE":
+                    cmd = """
+                    sed -i '755,759s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                else:
+                    raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
+                subprocess.check_output(cmd, shell=True)
 
-              # Remove lines:
-              # <plugin>
-              #         <groupId>com.springsource.bundlor</groupId>
-              #         <artifactId>com.springsource.bundlor.maven</artifactId>
-              #         <configuration>
-              #                 <enabled>${bundlor.enabled}</enabled>
-              #                 <failOnWarnings>${bundlor.failOnWarnings}</failOnWarnings>
-              #         </configuration>
-              #         <executions>
-              #                 <execution>
-              #                         <id>bundlor</id>
-              #                         <goals>
-              #                                 <goal>bundlor</goal>
-              #                         </goals>
-              #                 </execution>
-              #         </executions>
-              # </plugin>
-              if parent_release_version == "1.8.0.RELEASE":
-                  cmd = """
-                  sed -i '769,784s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.0.RELEASE":
-                  cmd = """
-                  sed -i '839,864s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.5.RELEASE":
-                  cmd = """
-                  sed -i '864,879s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.7.RELEASE":
-                  cmd = """
-                  sed -i '864,879s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.9.RELEASE":
-                  cmd = """
-                  sed -i '857,872s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.10.RELEASE":
-                  cmd = """
-                  sed -i '893,908s|.*||g' %s;
-                  """ % (spring_data_parent_pom_file)
-              else:
-                  raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
-              subprocess.check_output(cmd, shell=True)
+                # Remove lines:
+                # <plugin>
+                #         <groupId>com.springsource.bundlor</groupId>
+                #         <artifactId>com.springsource.bundlor.maven</artifactId>
+                #         <configuration>
+                #                 <enabled>${bundlor.enabled}</enabled>
+                #                 <failOnWarnings>${bundlor.failOnWarnings}</failOnWarnings>
+                #         </configuration>
+                #         <executions>
+                #                 <execution>
+                #                         <id>bundlor</id>
+                #                         <goals>
+                #                                 <goal>bundlor</goal>
+                #                         </goals>
+                #                 </execution>
+                #         </executions>
+                # </plugin>
+                if parent_release_version == "1.8.0.RELEASE":
+                    cmd = """
+                    sed -i '769,784s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.0.RELEASE":
+                    cmd = """
+                    sed -i '839,864s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.5.RELEASE":
+                    cmd = """
+                    sed -i '864,879s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.7.RELEASE":
+                    cmd = """
+                    sed -i '864,879s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.9.RELEASE":
+                    cmd = """
+                    sed -i '857,872s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.10.RELEASE":
+                    cmd = """
+                    sed -i '893,908s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                else:
+                    raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
+                subprocess.check_output(cmd, shell=True)
 
-              # Downgrade com.mysema.querydsl:querydsl-[core|apt|collections] from
-              # 4.1.0 or 4.1.4 (which is not available as of today; September 3, 2024)
-              # to 3.7.4, in the parent pom
-              if parent_release_version == "1.8.0.RELEASE":
-                  cmd = """
-                  sed -i '103s|<querydsl>4.1.0</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.0.RELEASE":
-                  cmd = """
-                  sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.5.RELEASE":
-                  cmd = """
-                  sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.7.RELEASE":
-                  cmd = """
-                  sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.9.RELEASE":
-                  cmd = """
-                  sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "1.9.10.RELEASE":
-                  cmd = """
-                  sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "2.0.0.RELEASE":
-                  cmd = """
-                  sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "2.0.1.RELEASE":
-                  cmd = """
-                  sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              elif parent_release_version == "2.2.0.RELEASE":
-                  cmd = """
-                  sed -i '118s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                  """ % (spring_data_parent_pom_file)
-              else:
-                  raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
-              subprocess.check_output(cmd, shell=True)
+                # Downgrade com.mysema.querydsl:querydsl-[core|apt|collections] from
+                # 4.1.0 or 4.1.4 (which is not available as of today; September 3, 2024)
+                # to 3.7.4, in the parent pom
+                if parent_release_version == "1.8.0.RELEASE":
+                    cmd = """
+                    sed -i '103s|<querydsl>4.1.0</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.0.RELEASE":
+                    cmd = """
+                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.5.RELEASE":
+                    cmd = """
+                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.7.RELEASE":
+                    cmd = """
+                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.9.RELEASE":
+                    cmd = """
+                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.9.10.RELEASE":
+                    cmd = """
+                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "2.0.0.RELEASE":
+                    cmd = """
+                    sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "2.0.1.RELEASE":
+                    cmd = """
+                    sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "2.2.0.RELEASE":
+                    cmd = """
+                    sed -i '118s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                else:
+                    raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
+                subprocess.check_output(cmd, shell=True)
 
         # Copy over cached dependencies
         if os.path.isdir(MVN_DEPS_ROOT_DIR):

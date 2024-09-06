@@ -246,6 +246,12 @@ class Bears(Benchmark):
                     cmd = """
                     sed -i '755,759s|.*||g' %s;
                     """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "2.0.0.RELEASE":
+                    pass
+                elif parent_release_version == "2.0.1.RELEASE":
+                    pass
+                elif parent_release_version == "2.2.0.RELEASE":
+                    pass
                 else:
                     raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
                 subprocess.check_output(cmd, shell=True)
@@ -291,6 +297,12 @@ class Bears(Benchmark):
                     cmd = """
                     sed -i '893,908s|.*||g' %s;
                     """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "2.0.0.RELEASE":
+                    pass
+                elif parent_release_version == "2.0.1.RELEASE":
+                    pass
+                elif parent_release_version == "2.2.0.RELEASE":
+                    pass
                 else:
                     raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
                 subprocess.check_output(cmd, shell=True)

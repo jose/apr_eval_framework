@@ -308,44 +308,28 @@ class Bears(Benchmark):
                 subprocess.check_output(cmd, shell=True)
 
                 # Downgrade com.mysema.querydsl:querydsl-[core|apt|collections] from
-                # 4.1.0 or 4.1.4 (which is not available as of today; September 3, 2024)
+                # 4.1.0 (which is not available as of today; September 3, 2024)
                 # to 3.7.4, in the parent pom
                 if parent_release_version == "1.8.0.RELEASE":
                     cmd = """
                     sed -i '103s|<querydsl>4.1.0</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
                     """ % (spring_data_parent_pom_file)
                 elif parent_release_version == "1.9.0.RELEASE":
-                    cmd = """
-                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "1.9.5.RELEASE":
-                    cmd = """
-                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "1.9.7.RELEASE":
-                    cmd = """
-                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "1.9.9.RELEASE":
-                    cmd = """
-                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "1.9.10.RELEASE":
-                    cmd = """
-                    sed -i '105s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "2.0.0.RELEASE":
-                    cmd = """
-                    sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "2.0.1.RELEASE":
-                    cmd = """
-                    sed -i '104s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 elif parent_release_version == "2.2.0.RELEASE":
-                    cmd = """
-                    sed -i '118s|<querydsl>4.1.4</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
-                    """ % (spring_data_parent_pom_file)
+                    pass
                 else:
                     raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
                 subprocess.check_output(cmd, shell=True)

@@ -198,7 +198,7 @@ class Bears(Benchmark):
         elif str(bug.project) == "spring-projects-spring-data-commons":
             # Find parent pom's version
             cmd = """
-            sed -ne '15s|.*<version>\(.*\)</version>.*|\1|p' %s/pom.xml
+            sed -ne '15s|.*<version>\\(.*\\)</version>.*|\\1|p' %s/pom.xml;
             """ % (working_directory)
             parent_snapshot_version = subprocess.check_output(cmd, shell=True)
             # Replace the no longer available SNAPSHOT versions with RELEASE versions

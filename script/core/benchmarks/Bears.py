@@ -334,6 +334,32 @@ class Bears(Benchmark):
                     raise Exception("Parent release version: " + str(parent_release_version) + " not supported!")
                 subprocess.check_output(cmd, shell=True)
 
+                # Workaround fix for
+                # Failed to execute goal org.apache.maven.plugins:maven-jar-plugin:3.0.2:jar (default-jar)
+                # on project spring-data-commons: Error assembling JAR: Manifest file: target/classes/META-INF/MANIFEST.MF does not exist.
+                #
+                # Replace
+                # <manifestFile>${manifest.file}</manifestFile>
+                # with
+                # <manifestEntries>
+                #     <Implementation-Title>${project.name}</Implementation-Title>
+                #     <Implementation-Version>${project.version}</Implementation-Version>
+                #     <Automatic-Module-Name>${java-module-name}</Automatic-Module-Name>
+                # </manifestEntries>
+                cmd = """
+                sed -i 's|<manifestFile>${manifest.file}</manifestFile>|<manifestEntries><Implementation-Title>${project.name}</Implementation-Title><Implementation-Version>${project.version}</Implementation-Version><Automatic-Module-Name>${java-module-name}</Automatic-Module-Name></manifestEntries>|' %s;
+                """ % (spring_data_parent_pom_file)
+                subprocess.check_output(cmd, shell=True)
+
+                # Fix for bug 458393275-458823066.
+                # Downgrade org.springframework.hateoas:spring-hateoas from 1.0.0.RELEASE
+                # to 0.23.0.RELEASE.
+                if str(bug.bug_id) == "458393275-458823066":
+                    cmd = """
+                    sed -i 's|<spring-hateoas>1.0.0.RELEASE</spring-hateoas>|<spring-hateoas>0.23.0.RELEASE</spring-hateoas>|' %s;
+                    """ % (spring_data_parent_pom_file)
+                    subprocess.check_output(cmd, shell=True)
+
         # Copy over cached dependencies
         if os.path.isdir(MVN_DEPS_ROOT_DIR):
             # Create local .m2 directory

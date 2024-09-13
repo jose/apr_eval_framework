@@ -27,6 +27,7 @@ MVN_FLAGS = """-V -B -Dhttps.protocols=TLSv1.2 --offline \
   -Dbaseline.skip=true \
   -Dmaven.javadoc.skip=true \
   -Danimal.sniffer.skip=true \
+  -Dsort.skip=true \
 """
 
 MVN_DEPS_ROOT_DIR = os.path.join(REPAIR_ROOT, "mvn_deps")

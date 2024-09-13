@@ -195,6 +195,11 @@ class Bears(Benchmark):
             sed -i '242s|<version>1.4</version>|<version>2.5</version>|' %s/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        elif str(bug.project) == "CorfuDB-CorfuDB":
+            cmd = """
+            sed -i 's|<configLocation>${session.executionRootDirectory}/test_checks.xml</configLocation>|<configLocation>test_checks.xml</configLocation>|' %s/test/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
         elif str(bug.project) == "spring-projects-spring-data-commons":
             # Find parent pom's version
             cmd = """

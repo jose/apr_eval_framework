@@ -182,6 +182,27 @@ class Bears(Benchmark):
         cmd = "cd %s && rm -rf .git* .svn && git init && git commit -m 'init' --allow-empty;" %(working_directory)
         subprocess.check_output(cmd, shell=True)
 
+        # Copy over cached dependencies
+        if os.path.isdir(MVN_DEPS_ROOT_DIR):
+            # Create local .m2 directory
+            cmd = "mkdir -p %s/.m2" %(working_directory)
+            subprocess.check_output(cmd, shell=True)
+
+            # Copy over project's mvn dependencies
+            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project)) and len(os.listdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project))) > 0:
+                cmd = "cp -a %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, bug.project), working_directory)
+                subprocess.check_output(cmd, shell=True)
+
+            # Copy over the extra dependencies
+            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "extra")):
+                cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "extra"), working_directory)
+                subprocess.check_output(cmd, shell=True)
+
+            # Copy over the project-info-maven-plugin dependency
+            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "plugin")):
+                cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "plugin"), working_directory)
+                subprocess.check_output(cmd, shell=True)
+
         # Fix dependency's version.
         # Most INRIA's bugs depend on the com.github.stefanbirkner::system-rules (1.9.0)
         # plugin and on commons-io::commons-io (v1.4).  Given that com.github.stefanbirkner::system-rules (1.9.0)
@@ -220,7 +241,7 @@ class Bears(Benchmark):
             """ % (parent_snapshot_version, parent_release_version, working_directory)
             subprocess.check_output(cmd, shell=True)
 
-            spring_data_parent_pom_file=os.path.join(MVN_DEPS_ROOT_DIR, str(bug.project), "org", "springframework", "data", "build", "spring-data-parent", parent_release_version, "spring-data-parent-" + parent_release_version + ".pom")
+            spring_data_parent_pom_file=os.path.join(working_directory, ".m2", "org", "springframework", "data", "build", "spring-data-parent", parent_release_version, "spring-data-parent-" + parent_release_version + ".pom")
             if os.path.isfile(spring_data_parent_pom_file):
                 # Remove lines:
                 # <plugin>
@@ -381,27 +402,6 @@ class Bears(Benchmark):
             sed -i '132,135s|.*||g' %s/omod/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
-
-        # Copy over cached dependencies
-        if os.path.isdir(MVN_DEPS_ROOT_DIR):
-            # Create local .m2 directory
-            cmd = "mkdir -p %s/.m2" %(working_directory)
-            subprocess.check_output(cmd, shell=True)
-
-            # Copy over project's mvn dependencies
-            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project)) and len(os.listdir(os.path.join(MVN_DEPS_ROOT_DIR, bug.project))) > 0:
-                cmd = "cp -a %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, bug.project), working_directory)
-                subprocess.check_output(cmd, shell=True)
-
-            # Copy over the extra dependencies
-            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "extra")):
-                cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "extra"), working_directory)
-                subprocess.check_output(cmd, shell=True)
-
-            # Copy over the project-info-maven-plugin dependency
-            if os.path.isdir(os.path.join(MVN_DEPS_ROOT_DIR, "plugin")):
-                cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "plugin"), working_directory)
-                subprocess.check_output(cmd, shell=True)
 
         if rm_tests:
             # Remove known flaky tests

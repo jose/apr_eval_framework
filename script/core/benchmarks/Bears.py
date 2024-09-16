@@ -365,6 +365,22 @@ class Bears(Benchmark):
                     sed -i 's|<spring-hateoas>1.0.0.RELEASE</spring-hateoas>|<spring-hateoas>0.23.0.RELEASE</spring-hateoas>|' %s;
                     """ % (spring_data_parent_pom_file)
                     subprocess.check_output(cmd, shell=True)
+        # Manually remove [buildnumber-maven-plugin](https://www.mojohaus.org/buildnumber-maven-plugin)
+        # from the pom.xml file as none of the following parameters disable the plugin
+        #  -Dmaven.buildNumber.skip=true
+        #  -Dmaven.buildNumber.doCheck=false
+        #  -Dmaven.buildNumber.doUpdate=false
+        #  -Dmaven.buildNumber.revisionOnScmFailure=no-scm
+        #  -Dmaven.buildNumber.failTheBuild=false
+        elif str(bug.project) == "openmrs-openmrs-module-webservices.rest":
+            cmd = """
+            sed -i '329,347s|.*||g' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd = """
+            sed -i '132,135s|.*||g' %s/omod/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
 
         # Copy over cached dependencies
         if os.path.isdir(MVN_DEPS_ROOT_DIR):

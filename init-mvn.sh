@@ -198,17 +198,6 @@ else
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="threetenbp-1.3.1.jar" -DgroupId="org.threeten" -DartifactId="threetenbp" -Dversion="1.3.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f threetenbp-1.3.1.jar
 
-        # TODO do we need this extra step?!
-        export PYTHONPATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/script:$PYTHONPATH" && \
-        python "$REPAIR_THEM_ALL_FRAMEWORK_DIR/get-mvn-deps.py" \
-          --benchmark "$benchmark" \
-          --project "$project" \
-          --bug "$bug" \
-          --mtwo_dir "$mtwo_dir"
-        if [ "$?" -ne "0" ]; then
-          echo "get-mvn-deps.py has failed!"
-          exit 1
-        fi
       elif [ "$project" == "INRIA-spoon" ] && [ "$bug" == "189186902-189233591" ]; then
         # Although the following code is only executed on INRIA-spoon::189186902-189233591,
         # it is required for most of the bugs in the INRIA-spoon project.  The condition is in

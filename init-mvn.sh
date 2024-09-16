@@ -129,6 +129,7 @@ else
         wget https://repo1.maven.org/maven2/org/aspectj/aspectjtools/1.8.12/aspectjtools-1.8.12.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="aspectjtools-1.8.12.jar" -DgroupId="org.aspectj" -DartifactId="aspectjtools" -Dversion="1.8.12" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f "aspectjtools-1.8.12.jar"
+
       elif [ "$project" == "spring-projects-spring-data-commons" ]; then
         export PYTHONPATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/script:$PYTHONPATH" && \
         python "$REPAIR_THEM_ALL_FRAMEWORK_DIR/get-mvn-deps.py" \
@@ -209,6 +210,10 @@ else
           exit 1
         fi
       elif [ "$project" == "INRIA-spoon" ] && [ "$bug" == "189186902-189233591" ]; then
+        # Although the following code is only executed on INRIA-spoon::189186902-189233591,
+        # it is required for most of the bugs in the INRIA-spoon project.  The condition is in
+        # place to avoid executing the following code for every single bug in the INRIA-spoon project.
+
         wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/3.20.200/org.eclipse.core.resources-3.20.200.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-3.20.200.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="3.20.200" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f org.eclipse.core.resources-3.20.200.jar
@@ -303,6 +308,703 @@ else
         wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/4.0.1/plexus-utils-4.0.1.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-4.0.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="4.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f plexus-utils-4.0.1.jar
+
+      elif [ "$project" == "debezium-debezium" ] && [ "$bug" == "324021438-324040188" ]; then
+        # Although the following code is only executed on debezium-debezium::324021438-324040188,
+        # it is required for most of the bugs in the debezium-debezium project.  The condition is in
+        # place to avoid executing the following code for every single bug in the debezium-debezium project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "2018swecapstone-h2ms" ] && [ "$bug" == "356638992-356666847" ]; then
+        # Although the following code is only executed on 2018swecapstone-h2ms::356638992-356666847,
+        # it is required for most of the bugs in the 2018swecapstone-h2ms project.  The condition is in
+        # place to avoid executing the following code for every single bug in the 2018swecapstone-h2ms project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "apache-incubator-servicecomb-java-chassis" ] && [ "$bug" == "330826674-331080091" ]; then
+        # Although the following code is only executed on apache-incubator-servicecomb-java-chassis::330826674-331080091,
+        # it is required for most of the bugs in the apache-incubator-servicecomb-java-chassis project.  The condition is in
+        # place to avoid executing the following code for every single bug in the apache-incubator-servicecomb-java-chassis project.
+
+        wget https://repo1.maven.org/maven2/org/apache/apache-incubator-disclaimer-resource-bundle/1.1/apache-incubator-disclaimer-resource-bundle-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="apache-incubator-disclaimer-resource-bundle-1.1.jar" -DgroupId="org.apache" -DartifactId="apache-incubator-disclaimer-resource-bundle" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f apache-incubator-disclaimer-resource-bundle-1.1.jar
+
+      elif [ "$project" == "molgenis-molgenis" ] && [ "$bug" == "336061452-336065127" ]; then
+        # Although the following code is only executed on molgenis-molgenis::336061452-336065127,
+        # it is required for most of the bugs in the molgenis-molgenis project.  The condition is in
+        # place to avoid executing the following code for every single bug in the molgenis-molgenis project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "thelastpickle-cassandra-reaper" ] && [ "$bug" == "324455111-327555133" ]; then
+        # Although the following code is only executed on thelastpickle-cassandra-reaper::324455111-327555133,
+        # it is required for most of the bugs in the thelastpickle-cassandra-reaper project.  The condition is in
+        # place to avoid executing the following code for every single bug in the thelastpickle-cassandra-reaper project.
+
+        wget https://repo1.maven.org/maven2/joda-time/joda-time/2.9.4/joda-time-2.9.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="joda-time-2.9.4.jar" -DgroupId="joda-time" -DartifactId="joda-time" -Dversion="2.9.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f joda-time-2.9.4.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="slf4j-api-1.7.21.jar" -DgroupId="org.slf4j" -DartifactId="slf4j-api" -Dversion="1.7.21" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f slf4j-api-1.7.21.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/log4j-over-slf4j/1.7.21/log4j-over-slf4j-1.7.21.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="log4j-over-slf4j-1.7.21.jar" -DgroupId="org.slf4j" -DartifactId="log4j-over-slf4j" -Dversion="1.7.21" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f log4j-over-slf4j-1.7.21.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.21/jcl-over-slf4j-1.7.21.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jcl-over-slf4j-1.7.21.jar" -DgroupId="org.slf4j" -DartifactId="jcl-over-slf4j" -Dversion="1.7.21" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jcl-over-slf4j-1.7.21.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.7/logback-classic-1.1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-classic-1.1.7.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-classic" -Dversion="1.1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-classic-1.1.7.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.7/logback-core-1.1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-core-1.1.7.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-core" -Dversion="1.1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-core-1.1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="snakeyaml-1.15.jar" -DgroupId="org.yaml" -DartifactId="snakeyaml" -Dversion="1.15" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f snakeyaml-1.15.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-access/1.1.7/logback-access-1.1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-access-1.1.7.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-access" -Dversion="1.1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-access-1.1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/core/jersey-common/2.23.2/jersey-common-2.23.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-common-2.23.2.jar" -DgroupId="org.glassfish.jersey.core" -DartifactId="jersey-common" -Dversion="2.23.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-common-2.23.2.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/core/jersey-client/2.23.2/jersey-client-2.23.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-client-2.23.2.jar" -DgroupId="org.glassfish.jersey.core" -DartifactId="jersey-client" -Dversion="2.23.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-client-2.23.2.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/bundles/repackaged/jersey-guava/2.23.2/jersey-guava-2.23.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-guava-2.23.2.jar" -DgroupId="org.glassfish.jersey.bundles.repackaged" -DartifactId="jersey-guava" -Dversion="2.23.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-guava-2.23.2.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/hk2/hk2-api/2.5.0-b05/hk2-api-2.5.0-b05.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hk2-api-2.5.0-b05.jar" -DgroupId="org.glassfish.hk2" -DartifactId="hk2-api" -Dversion="2.5.0-b05" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hk2-api-2.5.0-b05.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/hk2/hk2-utils/2.5.0-b05/hk2-utils-2.5.0-b05.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hk2-utils-2.5.0-b05.jar" -DgroupId="org.glassfish.hk2" -DartifactId="hk2-utils" -Dversion="2.5.0-b05" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hk2-utils-2.5.0-b05.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/hk2/hk2-locator/2.5.0-b05/hk2-locator-2.5.0-b05.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hk2-locator-2.5.0-b05.jar" -DgroupId="org.glassfish.hk2" -DartifactId="hk2-locator" -Dversion="2.5.0-b05" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hk2-locator-2.5.0-b05.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/hk2/external/aopalliance-repackaged/2.5.0-b05/aopalliance-repackaged-2.5.0-b05.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="aopalliance-repackaged-2.5.0-b05.jar" -DgroupId="org.glassfish.hk2.external" -DartifactId="aopalliance-repackaged" -Dversion="2.5.0-b05" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f aopalliance-repackaged-2.5.0-b05.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/hk2/external/javax.inject/2.5.0-b05/javax.inject-2.5.0-b05.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="javax.inject-2.5.0-b05.jar" -DgroupId="org.glassfish.hk2.external" -DartifactId="javax.inject" -Dversion="2.5.0-b05" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f javax.inject-2.5.0-b05.jar
+
+        https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="objenesis-2.1.jar" -DgroupId="org.objenesis" -DartifactId="objenesis" -Dversion="2.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f objenesis-2.1.jar
+
+        wget https://repo1.maven.org/maven2/org/objenesis/objenesis/2.6/objenesis-2.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="objenesis-2.6.jar" -DgroupId="org.objenesis" -DartifactId="objenesis" -Dversion="2.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f objenesis-2.6.jar
+
+      elif [ "$project" == "FasterXML-jackson-dataformats-binary" ] && [ "$bug" == "461131167-461139756" ]; then
+        # Although the following code is only executed on FasterXML-jackson-dataformats-binary::461131167-461139756,
+        # it is required for most of the bugs in the FasterXML-jackson-dataformats-binary project.  The condition is in
+        # place to avoid executing the following code for every single bug in the FasterXML-jackson-dataformats-binary project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "vert-x3-vertx-jdbc-client" ] && [ "$bug" == "438227334-440167311" ]; then
+        # Although the following code is only executed on vert-x3-vertx-jdbc-client::438227334-440167311,
+        # it is required for most of the bugs in the vert-x3-vertx-jdbc-client project.  The condition is in
+        # place to avoid executing the following code for every single bug in the vert-x3-vertx-jdbc-client project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "vert-x3-vertx-web" ] && [ "$bug" == "459797171-460136219" ]; then
+        # Although the following code is only executed on vert-x3-vertx-web::459797171-460136219,
+        # it is required for most of the bugs in the vert-x3-vertx-web project.  The condition is in
+        # place to avoid executing the following code for every single bug in the vert-x3-vertx-web project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/reporting/maven-reporting-api/2.2.1/maven-reporting-api-2.2.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-reporting-api-2.2.1.jar" -DgroupId="org.apache.maven.reporting" -DartifactId="maven-reporting-api" -Dversion="2.2.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-reporting-api-2.2.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/doxia/doxia-sink-api/1.1/doxia-sink-api-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="doxia-sink-api-1.1.jar" -DgroupId="org.apache.maven.doxia" -DartifactId="doxia-sink-api" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f doxia-sink-api-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/doxia/doxia-logging-api/1.1/doxia-logging-api-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="doxia-logging-api-1.1.jar" -DgroupId="org.apache.maven.doxia" -DartifactId="doxia-logging-api" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f doxia-logging-api-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-api-3.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-plugin-api" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-api-3.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.1.0/maven-plugin-api-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-api-3.1.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-plugin-api" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-api-3.1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.1.0/maven-core-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-core-3.1.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-core" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-core-3.1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.0/maven-core-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-core-3.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-core" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-core-3.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/maven-shared-utils/3.0.0/maven-shared-utils-3.0.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-shared-utils-3.0.0.jar" -DgroupId="org.apache.maven.shared" -DartifactId="maven-shared-utils" -Dversion="3.0.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-shared-utils-3.0.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/file-management/3.0.0/file-management-3.0.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="file-management-3.0.0.jar" -DgroupId="org.apache.maven.shared" -DartifactId="file-management" -Dversion="3.0.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f file-management-3.0.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.2/maven-plugin-annotations-3.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-annotations-3.2.jar" -DgroupId="org.apache.maven.plugin-tools" -DartifactId="maven-plugin-annotations" -Dversion="3.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-annotations-3.2.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-3.0.15.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="3.0.15" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-3.0.15.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-model/3.0/maven-model-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-model-3.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-model" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-model-3.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-archiver/3.1.1/maven-archiver-3.1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-archiver-3.1.1.jar" -DgroupId="org.apache.maven" -DartifactId="maven-archiver" -Dversion="3.1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-archiver-3.1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-archiver/3.4/plexus-archiver-3.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-archiver-3.4.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-archiver" -Dversion="3.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-archiver-3.4.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/3.0.24/plexus-utils-3.0.24.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-3.0.24.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="3.0.24" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-3.0.24.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-io/2.7.1/plexus-io-2.7.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-io-2.7.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-io" -Dversion="2.7.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-io-2.7.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-build-api/0.0.1/plexus-build-api-0.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-build-api-0.0.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-build-api" -Dversion="0.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-build-api-0.0.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-build-api/1.0.0/plexus-build-api-1.0.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-build-api-1.0.0.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-build-api" -Dversion="1.0.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-build-api-1.0.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/maven-shared-utils/0.3/maven-shared-utils-0.3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-shared-utils-0.3.jar" -DgroupId="org.apache.maven.shared" -DartifactId="maven-shared-utils" -Dversion="0.3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-shared-utils-0.3.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-2.0.4.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="2.0.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-2.0.4.jar
+
+        wget https://repo1.maven.org/maven2/org/ow2/asm/asm/6.0_BETA/asm-6.0_BETA.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="asm-6.0_BETA.jar" -DgroupId="org.ow2.asm" -DartifactId="asm" -Dversion="6.0_BETA" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f asm-6.0_BETA.jar
+
+        wget https://repo1.maven.org/maven2/com/thoughtworks/qdox/qdox/2.0-M7/qdox-2.0-M7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="qdox-2.0-M7.jar" -DgroupId="com.thoughtworks.qdox" -DartifactId="qdox" -Dversion="2.0-M7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f qdox-2.0-M7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/maven-filtering/1.2/maven-filtering-1.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-filtering-1.2.jar" -DgroupId="org.apache.maven.shared" -DartifactId="maven-filtering" -Dversion="1.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-filtering-1.2.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-interpolation/1.19/plexus-interpolation-1.19.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-interpolation-1.19.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-interpolation" -Dversion="1.19" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-interpolation-1.19.jar
+
+      elif [ "$project" == "Activiti-activiti-cloud-app-service" ] && [ "$bug" == "459060444-459062447" ]; then
+        # Although the following code is only executed on Activiti-activiti-cloud-app-service::459060444-459062447,
+        # it is required for most of the bugs in the Activiti-activiti-cloud-app-service project.  The condition is in
+        # place to avoid executing the following code for every single bug in the Activiti-activiti-cloud-app-service project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-2.0.4.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="2.0.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-2.0.4.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/3.0.15/plexus-utils-3.0.15.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-3.0.15.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="3.0.15" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-3.0.15.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.6/plexus-component-annotations-1.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-component-annotations-1.6.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-component-annotations" -Dversion="1.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-component-annotations-1.6.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/maven-shared-utils/0.4/maven-shared-utils-0.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-shared-utils-0.4.jar" -DgroupId="org.apache.maven.shared" -DartifactId="maven-shared-utils" -Dversion="0.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-shared-utils-0.4.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-shared-utils-3.1.0.jar" -DgroupId="org.apache.maven.shared" -DartifactId="maven-shared-utils" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-shared-utils-3.1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-api-3.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-plugin-api" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-api-3.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.0/maven-core-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-core-3.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-core" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-core-3.0.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-java/0.9.2/plexus-java-0.9.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-java-0.9.2.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-java" -Dversion="0.9.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-java-0.9.2.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.8.2/plexus-compiler-api-2.8.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-compiler-api-2.8.2.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-compiler-api" -Dversion="2.8.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-compiler-api-2.8.2.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.8.2/plexus-compiler-manager-2.8.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-compiler-manager-2.8.2.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-compiler-manager" -Dversion="2.8.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-compiler-manager-2.8.2.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.8.2/plexus-compiler-javac-2.8.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-compiler-javac-2.8.2.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-compiler-javac" -Dversion="2.8.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-compiler-javac-2.8.2.jar
+
+        wget https://repo1.maven.org/maven2/org/ow2/asm/asm/6.0_BETA/asm-6.0_BETA.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="asm-6.0_BETA.jar" -DgroupId="org.ow2.asm" -DartifactId="asm" -Dversion="6.0_BETA" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f asm-6.0_BETA.jar
+
+        wget https://repo1.maven.org/maven2/commons-codec/commons-codec/1.6/commons-codec-1.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="commons-codec-1.6.jar" -DgroupId="commons-codec" -DartifactId="commons-codec" -Dversion="1.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f commons-codec-1.6.jar
+
+      elif [ "$project" == "awslabs-amazon-kinesis-client" ] && [ "$bug" == "446289265-452166805" ]; then
+        # Although the following code is only executed on awslabs-amazon-kinesis-client::446289265-452166805,
+        # it is required for most of the bugs in the awslabs-amazon-kinesis-client project.  The condition is in
+        # place to avoid executing the following code for every single bug in the awslabs-amazon-kinesis-client project.
+
+        wget https://repo1.maven.org/maven2/com/almworks/sqlite4java/libsqlite4java-osx/1.0.392/libsqlite4java-osx-1.0.392.dylib
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="libsqlite4java-osx-1.0.392.dylib" -DgroupId="com.almworks.sqlite4java" -DartifactId="libsqlite4java-osx" -Dversion="1.0.392" -Dpackaging="dylib" -Dmaven.repo.local="$mtwo_dir"
+        rm -f libsqlite4java-osx-1.0.392.dylib
+
+        wget https://repo1.maven.org/maven2/com/almworks/sqlite4java/libsqlite4java-linux-i386/1.0.392/libsqlite4java-linux-i386-1.0.392.so
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="libsqlite4java-linux-i386-1.0.392.so" -DgroupId="com.almworks.sqlite4java" -DartifactId="libsqlite4java-linux-i386" -Dversion="1.0.392" -Dpackaging="so" -Dmaven.repo.local="$mtwo_dir"
+        rm -f libsqlite4java-linux-i386-1.0.392.so
+
+        wget https://repo1.maven.org/maven2/com/almworks/sqlite4java/libsqlite4java-linux-amd64/1.0.392/libsqlite4java-linux-amd64-1.0.392.so
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="libsqlite4java-linux-amd64-1.0.392.so" -DgroupId="com.almworks.sqlite4java" -DartifactId="libsqlite4java-linux-amd64" -Dversion="1.0.392" -Dpackaging="so" -Dmaven.repo.local="$mtwo_dir"
+        rm -f libsqlite4java-linux-amd64-1.0.392.so
+
+        wget https://repo1.maven.org/maven2/com/almworks/sqlite4java/sqlite4java-win32-x86/1.0.392/sqlite4java-win32-x86-1.0.392.dll
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="sqlite4java-win32-x86-1.0.392.dll" -DgroupId="com.almworks.sqlite4java" -DartifactId="sqlite4java-win32-x86" -Dversion="1.0.392" -Dpackaging="dll" -Dmaven.repo.local="$mtwo_dir"
+        rm -f sqlite4java-win32-x86-1.0.392.dll
+
+        wget https://repo1.maven.org/maven2/com/almworks/sqlite4java/sqlite4java-win32-x64/1.0.392/sqlite4java-win32-x64-1.0.392.dll
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="sqlite4java-win32-x64-1.0.392.dll" -DgroupId="com.almworks.sqlite4java" -DartifactId="sqlite4java-win32-x64" -Dversion="1.0.392" -Dpackaging="dll" -Dmaven.repo.local="$mtwo_dir"
+        rm -f sqlite4java-win32-x64-1.0.392.dll
+
+      elif [ "$project" == "AxonFramework-AxonFramework" ] && [ "$bug" == "451926440-451937647" ]; then
+        # Although the following code is only executed on AxonFramework-AxonFramework::451926440-451937647,
+        # it is required for most of the bugs in the AxonFramework-AxonFramework project.  The condition is in
+        # place to avoid executing the following code for every single bug in the AxonFramework-AxonFramework project.
+        #
+        # TODO the following only works on linux-x86_64 for other OS it must be adapted
+
+        wget https://repo1.maven.org/maven2/com/google/protobuf/protoc/3.0.2/protoc-3.0.2-linux-x86_64.exe
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="protoc-3.0.2-linux-x86_64.exe" -DgroupId="com.google.protobuf" -DartifactId="protoc" -Dversion="3.0.2" -Dclassifier="linux-x86_64" -Dpackaging="exe" -Dmaven.repo.local="$mtwo_dir"
+        rm -f protoc-3.0.2-linux-x86_64.exe
+
+        wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.1.2/protoc-gen-grpc-java-1.1.2-linux-x86_64.exe
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="protoc-gen-grpc-java-1.1.2-linux-x86_64.exe" -DgroupId="io.grpc" -DartifactId="protoc-gen-grpc-java" -Dversion="1.1.2" -Dclassifier="linux-x86_64" -Dpackaging="exe" -Dmaven.repo.local="$mtwo_dir"
+        rm -f protoc-gen-grpc-java-1.1.2-linux-x86_64.exe
+
+      elif [ "$project" == "brettwooldridge-HikariCP" ] && [ "$bug" == "446097106-446106182" ]; then
+        # Although the following code is only executed on brettwooldridge-HikariCP::446289265-452166805,
+        # it is required for most of the bugs in the brettwooldridge-HikariCP project.  The condition is in
+        # place to avoid executing the following code for every single bug in the brettwooldridge-HikariCP project.
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit4/2.20/surefire-junit4-2.20.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="surefire-junit4-2.20.jar" -DgroupId="org.apache.maven.surefire" -DartifactId="surefire-junit4" -Dversion="2.20" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f surefire-junit4-2.20.jar
+
+      elif [ "$project" == "classgraph-classgraph" ] && [ "$bug" == "448207270-449613955" ]; then
+        # Although the following code is only executed on classgraph-classgraph::448207270-449613955,
+        # it is required for most of the bugs in the classgraph-classgraph project.  The condition is in
+        # place to avoid executing the following code for every single bug in the classgraph-classgraph project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "DataBiosphere-consent-ontology" ] && [ "$bug" == "453433108-453941362" ]; then
+        # Although the following code is only executed on DataBiosphere-consent-ontology::453433108-453941362,
+        # it is required for most of the bugs in the DataBiosphere-consent-ontology project.  The condition is in
+        # place to avoid executing the following code for every single bug in the DataBiosphere-consent-ontology project.
+
+        wget https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jsr305-3.0.1.jar" -DgroupId="com.google.code.findbugs" -DartifactId="jsr305" -Dversion="3.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jsr305-3.0.1.jar
+
+        wget https://repo1.maven.org/maven2/io/dropwizard/metrics/metrics-core/3.1.2/metrics-core-3.1.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="metrics-core-3.1.2.jar" -DgroupId="io.dropwizard.metrics" -DartifactId="metrics-core" -Dversion="3.1.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f metrics-core-3.1.2.jar
+
+        wget https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="javax.servlet-api-3.0.1.jar" -DgroupId="javax.servlet" -DartifactId="javax.servlet-api" -Dversion="3.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f javax.servlet-api-3.0.1.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.7.8/jackson-core-2.7.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-core-2.7.8.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-core" -Dversion="2.7.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-core-2.7.8.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.7.8/jackson-annotations-2.7.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-annotations-2.7.8.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-annotations" -Dversion="2.7.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-annotations-2.7.8.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.7.8/jackson-databind-2.7.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-databind-2.7.8.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-databind" -Dversion="2.7.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-databind-2.7.8.jar
+
+        wget https://repo1.maven.org/maven2/org/json/json/20090211/json-20090211.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="json-20090211.jar" -DgroupId="org.json" -DartifactId="json" -Dversion="20090211" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f json-20090211.jar
+
+        wget https://repo1.maven.org/maven2/xerces/xercesImpl/2.4.0/xercesImpl-2.4.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="xercesImpl-2.4.0.jar" -DgroupId="xerces" -DartifactId="xercesImpl" -Dversion="2.4.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f xercesImpl-2.4.0.jar
+
+        wget https://repo1.maven.org/maven2/commons-io/commons-io/1.3.2/commons-io-1.3.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="commons-io-1.3.2.jar" -DgroupId="commons-io" -DartifactId="commons-io" -Dversion="1.3.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f commons-io-1.3.2.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="slf4j-api-1.7.25.jar" -DgroupId="org.slf4j" -DartifactId="slf4j-api" -Dversion="1.7.25" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f slf4j-api-1.7.25.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-classic-1.1.3.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-classic" -Dversion="1.1.3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-classic-1.1.3.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-core-1.1.3.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-core" -Dversion="1.1.3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-core-1.1.3.jar
+
+        wget https://repo1.maven.org/maven2/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="javassist-3.18.1-GA.jar" -DgroupId="org.javassist" -DartifactId="javassist" -Dversion="3.18.1-GA" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f javassist-3.18.1-GA.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/containers/jersey-container-servlet/2.20/jersey-container-servlet-2.20.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-container-servlet-2.20.jar" -DgroupId="org.glassfish.jersey.containers" -DartifactId="jersey-container-servlet" -Dversion="2.20" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-container-servlet-2.20.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.7.6/jackson-annotations-2.7.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-annotations-2.7.6.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-annotations" -Dversion="2.7.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-annotations-2.7.6.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.7.6/jackson-core-2.7.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-core-2.7.6.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-core" -Dversion="2.7.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-core-2.7.6.jar
+
+        wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.7.6/jackson-databind-2.7.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jackson-databind-2.7.6.jar" -DgroupId="com.fasterxml.jackson.core" -DartifactId="jackson-databind" -Dversion="2.7.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jackson-databind-2.7.6.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/test-framework/jersey-test-framework-core/2.20/jersey-test-framework-core-2.20.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-test-framework-core-2.20.jar" -DgroupId="org.glassfish.jersey.test-framework" -DartifactId="jersey-test-framework-core" -Dversion="2.20" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-test-framework-core-2.20.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/containers/jersey-container-servlet-core/2.20/jersey-container-servlet-core-2.20.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-container-servlet-core-2.20.jar" -DgroupId="org.glassfish.jersey.containers" -DartifactId="jersey-container-servlet-core" -Dversion="2.20" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-container-servlet-core-2.20.jar
+
+        wget https://repo1.maven.org/maven2/org/ow2/asm/asm-debug-all/5.0.4/asm-debug-all-5.0.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="asm-debug-all-5.0.4.jar" -DgroupId="org.ow2.asm" -DartifactId="asm-debug-all" -Dversion="5.0.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f asm-debug-all-5.0.4.jar
+
+        wget https://repo1.maven.org/maven2/org/glassfish/jersey/containers/jersey-container-servlet-core/2.23.1/jersey-container-servlet-core-2.23.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jersey-container-servlet-core-2.23.1.jar" -DgroupId="org.glassfish.jersey.containers" -DartifactId="jersey-container-servlet-core" -Dversion="2.23.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jersey-container-servlet-core-2.23.1.jar
+
+      elif [ "$project" == "DmitriiSerikov-money-transfer-service" ] && [ "$bug" == "446104441-446106577" ]; then
+        # Although the following code is only executed on DmitriiSerikov-money-transfer-service::446104441-446106577,
+        # it is required for most of the bugs in the DmitriiSerikov-money-transfer-service project.  The condition is in
+        # place to avoid executing the following code for every single bug in the DmitriiSerikov-money-transfer-service project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/groovy/groovy/2.5.1/groovy-2.5.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="groovy-2.5.1.jar" -DgroupId="org.codehaus.groovy" -DartifactId="groovy" -Dversion="2.5.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f groovy-2.5.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit47/2.22.1/surefire-junit47-2.22.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="surefire-junit47-2.22.1.jar" -DgroupId="org.apache.maven.surefire" -DartifactId="surefire-junit47" -Dversion="2.22.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f surefire-junit47-2.22.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/surefire/common-junit48/2.22.1/common-junit48-2.22.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="common-junit48-2.22.1.jar" -DgroupId="org.apache.maven.surefire" -DartifactId="common-junit48" -Dversion="2.22.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f common-junit48-2.22.1.jar
+
+      elif [ "$project" == "FasterXML-jackson-dataformats-text" ] && [ "$bug" == "430357777-445435582" ]; then
+        # Although the following code is only executed on FasterXML-jackson-dataformats-text::430357777-445435582,
+        # it is required for most of the bugs in the FasterXML-jackson-dataformats-text project.  The condition is in
+        # place to avoid executing the following code for every single bug in the FasterXML-jackson-dataformats-text project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "jenkinsci-ansicolor-plugin" ] && [ "$bug" == "440438437-449394834" ]; then
+        # Although the following code is only executed on jenkinsci-ansicolor-plugin::440438437-449394834,
+        # it is required for most of the bugs in the jenkinsci-ansicolor-plugin project.  The condition is in
+        # place to avoid executing the following code for every single bug in the jenkinsci-ansicolor-plugin project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/extra-enforcer-rules/1.0-beta-4/extra-enforcer-rules-1.0-beta-4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="extra-enforcer-rules-1.0-beta-4.jar" -DgroupId="org.codehaus.mojo" -DartifactId="extra-enforcer-rules" -Dversion="1.0-beta-4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f extra-enforcer-rules-1.0-beta-4.jar
+
+        wget https://repositories.tomtom.com/artifactory/maven/org/codehaus/gmaven/runtime/gmaven-runtime-1.6/1.5-jenkins-3/gmaven-runtime-1.6-1.5-jenkins-3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="gmaven-runtime-1.6-1.5-jenkins-3.jar" -DgroupId="org.codehaus.gmaven.runtime" -DartifactId="gmaven-runtime-1.6" -Dversion="1.5-jenkins-3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f gmaven-runtime-1.6-1.5-jenkins-3.jar
+
+      elif [ "$project" == "openmrs-openmrs-module-webservices.rest" ] && [ "$bug" == "455565885-458312291" ]; then
+        # Although the following code is only executed on openmrs-openmrs-module-webservices.rest::455565885-458312291,
+        # it is required for most of the bugs in the openmrs-openmrs-module-webservices.rest project.  The condition is in
+        # place to avoid executing the following code for every single bug in the openmrs-openmrs-module-webservices.rest project.
+
+        wget https://repo1.maven.org/maven2/junit/junit/4.10/junit-4.10.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="junit-4.10.jar" -DgroupId="junit" -DartifactId="junit" -Dversion="4.10" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f junit-4.10.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/2.0.1/maven-plugin-api-2.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-api-2.0.1.jar" -DgroupId="org.apache.maven" -DartifactId="maven-plugin-api" -Dversion="2.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-api-2.0.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-api/1.7/maven-scm-api-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-api-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-api" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-api-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-manager-plexus/1.7/maven-scm-manager-plexus-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-manager-plexus-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-manager-plexus" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-manager-plexus-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-bazaar/1.7/maven-scm-provider-bazaar-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-bazaar-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-bazaar" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-bazaar-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-svnexe/1.7/maven-scm-provider-svnexe-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-svnexe-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-svnexe" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-svnexe-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-gitexe/1.7/maven-scm-provider-gitexe-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-gitexe-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-gitexe" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-gitexe-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-svn-commons/1.7/maven-scm-provider-svn-commons-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-svn-commons-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-svn-commons" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-svn-commons-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-cvsexe/1.7/maven-scm-provider-cvsexe-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-cvsexe-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-cvsexe" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-cvsexe-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-starteam/1.7/maven-scm-provider-starteam-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-starteam-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-starteam" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-starteam-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-clearcase/1.7/maven-scm-provider-clearcase-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-clearcase-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-clearcase" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-clearcase-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-perforce/1.7/maven-scm-provider-perforce-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-perforce-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-perforce" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-perforce-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/scm/maven-scm-provider-hg/1.7/maven-scm-provider-hg-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-hg-1.7.jar" -DgroupId="org.apache.maven.scm" -DartifactId="maven-scm-provider-hg" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-hg-1.7.jar
+
+        wget https://repo1.maven.org/maven2/com/google/code/maven-scm-provider-svnjava/maven-scm-provider-svnjava/1.13/maven-scm-provider-svnjava-1.13.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-scm-provider-svnjava-1.13.jar" -DgroupId="com.google.code.maven-scm-provider-svnjava" -DartifactId="maven-scm-provider-svnjava" -Dversion="1.13" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-scm-provider-svnjava-1.13.jar
+
+        wget https://repo1.maven.org/maven2/org/tmatesoft/svnkit/svnkit/1.3.5/svnkit-1.3.5.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="svnkit-1.3.5.jar" -DgroupId="org.tmatesoft.svnkit" -DartifactId="svnkit" -Dversion="1.3.5" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f svnkit-1.3.5.jar
+
+        wget https://repo1.maven.org/maven2/net/java/dev/jna/jna/3.2.2/jna-3.2.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jna-3.2.2.jar" -DgroupId="net.java.dev.jna" -DartifactId="jna" -Dversion="3.2.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jna-3.2.2.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.13.0/maven-compiler-plugin-3.13.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-compiler-plugin-3.13.0.jar" -DgroupId="org.apache.maven.plugins" -DartifactId="maven-compiler-plugin" -Dversion="3.13.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-compiler-plugin-3.13.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/4.0.0-beta-1/maven-compiler-plugin-4.0.0-beta-1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-compiler-plugin-4.0.0-beta-1.jar" -DgroupId="org.apache.maven.plugins" -DartifactId="maven-compiler-plugin" -Dversion="4.0.0-beta-1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-compiler-plugin-4.0.0-beta-1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-jar-plugin-3.4.2.jar" -DgroupId="org.apache.maven.plugins" -DartifactId="maven-jar-plugin" -Dversion="3.4.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-jar-plugin-3.4.2.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugins/maven-jar-plugin/4.0.0-beta-1/maven-jar-plugin-4.0.0-beta-1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-jar-plugin-4.0.0-beta-1.jar" -DgroupId="org.apache.maven.plugins" -DartifactId="maven-jar-plugin" -Dversion="4.0.0-beta-1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-jar-plugin-4.0.0-beta-1.jar
+
+      elif [ "$project" == "societe-generale-ci-droid-tasks-consumer" ] && [ "$bug" == "420388707-430936160" ]; then
+        # Although the following code is only executed on societe-generale-ci-droid-tasks-consumer::420388707-430936160,
+        # it is required for most of the bugs in the societe-generale-ci-droid-tasks-consumer project.  The condition is in
+        # place to avoid executing the following code for every single bug in the societe-generale-ci-droid-tasks-consumer project.
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "SpoonLabs-gumtree-spoon-ast-diff" ] && [ "$bug" == "431628140-431912220" ]; then
+        # Although the following code is only executed on SpoonLabs-gumtree-spoon-ast-diff::420388707-430936160,
+        # it is required for most of the bugs in the SpoonLabs-gumtree-spoon-ast-diff project.  The condition is in
+        # place to avoid executing the following code for every single bug in the SpoonLabs-gumtree-spoon-ast-diff project.
+
+        for version in 3.12.0 3.13.0 3.13.100 3.13.200 3.13.300 3.13.400 3.13.500 3.13.600 3.21.0; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/$version/org.eclipse.core.resources-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.resources-$version.jar
+        done
+
+        for version in 3.5.100 3.6.0 3.6.100 3.6.200 3.6.300 3.6.400 3.6.500 3.6.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.expressions/$version/org.eclipse.core.expressions-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.expressions-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.expressions" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.expressions-$version.jar
+        done
+
+        for version in 3.11.2 3.11.3 3.12.0 3.12.100 3.12.50 3.13.0 3.13.100 3.13.200 3.13.300 3.14.0 3.15.0 3.15.100; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.osgi/$version/org.eclipse.osgi-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.osgi-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.osgi" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.osgi-$version.jar
+        done
+
+        for version in 3.8.0 3.9.0 3.10.0 3.10.100 3.10.200 3.10.300 3.10.400 3.10.500 3.10.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.common/$version/org.eclipse.equinox.common-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.common-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.common" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.equinox.common-$version.jar
+        done
+
+        for version in 3.8.0 3.9.0 3.9.1 3.9.2 3.9.3 3.10.0 3.10.100 3.10.200 3.10.300 3.10.400 3.10.500 3.10.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.jobs/$version/org.eclipse.core.jobs-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.jobs-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.jobs" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.jobs-$version.jar
+        done
+
+        for version in 3.6.100 3.7.0 3.8.0 3.8.100 3.8.200 3.8.300 3.8.400 3.8.500 3.8.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.registry/$version/org.eclipse.equinox.registry-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.registry-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.registry" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.equinox.registry-$version.jar
+        done
+
+        for version in 3.6.1 3.7.0 3.7.100 3.7.200 3.7.300 3.7.400 3.7.500 3.7.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.preferences/$version/org.eclipse.equinox.preferences-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.preferences-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.preferences" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.equinox.preferences-$version.jar
+        done
+
+        for version in 3.5.100 3.6.0 3.7.0 3.7.100 3.7.200 3.7.300 3.7.400 3.7.500; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.contenttype/$version/org.eclipse.core.contenttype-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.contenttype-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.contenttype" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.contenttype-$version.jar
+        done
+
+        for version in 1.3.400 1.3.500 1.3.600 1.4.0 1.4.100 1.4.200 1.4.300; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.app/$version/org.eclipse.equinox.app-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.equinox.app-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.equinox.app" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.equinox.app-$version.jar
+        done
+
+        for version in 1.6.1 1.7.0 1.7.100 1.7.200 1.7.300 1.7.400 1.7.500 1.7.600 1.11.0; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.filesystem/$version/org.eclipse.core.filesystem-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.filesystem-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.filesystem" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.filesystem-$version.jar
+        done
+
+        for version in 3.6.0 3.6.100 3.6.300 3.7.0 3.8.0 3.8.100 3.8.200 3.9.0 3.10.0 3.14.100; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.text/$version/org.eclipse.text-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.text-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.text" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.text-$version.jar
+        done
+
+        for version in 3.8.0 3.8.1 3.9.0 3.9.100 3.9.200 3.9.300 3.9.400 3.9.500 3.9.600; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.commands/$version/org.eclipse.core.commands-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.commands-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.commands" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.commands-$version.jar
+        done
+
+        for version in 3.12.0 3.13.0 3.14.0 3.15.0 3.15.100 3.15.200 3.15.300 3.16.0 3.17.0 3.31.100; do
+          wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.runtime/$version/org.eclipse.core.runtime-$version.jar
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.runtime-$version.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.runtime" -Dversion="$version" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+          rm -f org.eclipse.core.runtime-$version.jar
+        done
+
+        wget https://repo1.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="log4j-1.2.17.jar" -DgroupId="log4j" -DartifactId="log4j" -Dversion="1.2.17" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f log4j-1.2.17.jar
+
+      elif [ "$project" == "vitorenesduarte-VCD-java-client" ] && [ "$bug" == "437204853-437571024" ]; then
+        # Although the following code is only executed on vitorenesduarte-VCD-java-client::437204853-437571024,
+        # it is required for most of the bugs in the vitorenesduarte-VCD-java-client project.  The condition is in
+        # place to avoid executing the following code for every single bug in the vitorenesduarte-VCD-java-client project.
+
+        wget https://repo1.maven.org/maven2/com/google/protobuf/protoc/3.4.0/protoc-3.4.0-linux-x86_64.exe
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="protoc-3.4.0-linux-x86_64.exe" -DgroupId="com.google.protobuf" -DartifactId="protoc" -Dversion="3.4.0" -Dclassifier="linux-x86_64" -Dpackaging="exe" -Dmaven.repo.local="$mtwo_dir"
+        rm -f protoc-3.4.0-linux-x86_64.exe
+
+      elif [ "$project" == "HubSpot-Baragon" ] && [ "$bug" == "444834347-445744181" ]; then
+        # Although the following code is only executed on HubSpot-Baragon::444834347-445744181,
+        # it is required for most of the bugs in the HubSpot-Baragon project.  The condition is in
+        # place to avoid executing the following code for every single bug in the HubSpot-Baragon project.
+
+        for item in cglib:cglib:jar:3.1 com.fasterxml.jackson.core:jackson-annotations:jar:2.6.4 com.fasterxml.jackson.core:jackson-annotations:jar:2.7.0 com.fasterxml.jackson.core:jackson-annotations:jar:2.7.8 com.fasterxml.jackson.core:jackson-core:jar:2.1.3 com.fasterxml.jackson.core:jackson-core:jar:2.6.4 com.fasterxml.jackson.core:jackson-core:jar:2.7.8 com.fasterxml.jackson.core:jackson-databind:jar:2.6.4 com.fasterxml.jackson.core:jackson-databind:jar:2.6.6 com.fasterxml.jackson.core:jackson-databind:jar:2.7.6 com.fasterxml.jackson.core:jackson-databind:jar:2.7.8 com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:jar:2.6.6 com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.7.8 com.fasterxml.jackson.datatype:jackson-datatype-guava:jar:2.7.8 com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.7.8 com.fasterxml.jackson.datatype:jackson-datatype-joda:jar:2.7.8 com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.7.8 com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:jar:2.7.8 com.fasterxml.jackson.module:jackson-module-afterburner:jar:2.7.8 com.google.code.findbugs:jsr305:jar:3.0.0 com.google.errorprone:error_prone_annotations:jar:2.0.12 com.google.guava:guava:jar:17.0 com.google.guava:guava-jdk5:jar:17.0 com.google.inject:guice:jar:3.0 commons-codec:commons-codec:jar:1.9 commons-logging:commons-logging:jar:1.2 com.rabbitmq:amqp-client:jar:3.3.5 com.thoughtworks.paranamer:paranamer:jar:2.5.5 io.dropwizard:dropwizard-core:jar:1.0.0 io.dropwizard:dropwizard-jersey:jar:1.0.0 io.dropwizard:dropwizard-jetty:jar:1.0.0 io.dropwizard:dropwizard-lifecycle:jar:1.0.0 io.dropwizard:dropwizard-servlets:jar:1.0.0 io.dropwizard.metrics:metrics-annotation:jar:3.1.0 io.dropwizard.metrics:metrics-core:jar:3.1.0 io.dropwizard.metrics:metrics-healthchecks:jar:3.1.0 io.dropwizard.metrics:metrics-healthchecks:jar:3.1.2 io.netty:netty:jar:3.7.0.Final javax.mail:mail:jar:1.4 jdiff:jdiff:jar:1.0.9 jline:jline:jar:0.9.94 joda-time:joda-time:jar:2.8.1 org.apache.geronimo.specs:geronimo-jms_1.1_spec:jar:1.0 org.apache.httpcomponents:httpclient:jar:4.0.1 org.apache.httpcomponents:httpclient:jar:4.5.1 org.apache.maven:maven-ant-tasks:jar:2.1.3 org.apache.maven.wagon:wagon-http:jar:2.4 org.apache.rat:apache-rat-tasks:jar:0.6 org.codehaus.groovy:groovy-all:jar:2.4.0 org.codehaus.janino:janino:jar:2.7.8 org.eclipse.jetty:jetty-jmx:jar:9.3.9.v20160517 org.glassfish.grizzly:grizzly-websockets:jar:2.3.14 org.glassfish.hk2.external:aopalliance-repackaged:jar:2.5.0-b05 org.glassfish.hk2.external:javax.inject:jar:2.5.0-b05 org.glassfish.hk2:hk2-api:jar:2.4.0-b34 org.glassfish.jersey.containers:jersey-container-servlet-core:jar:2.22.2 org.glassfish.jersey.core:jersey-server:jar:2.23.1 org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final org.javassist:javassist:jar:3.18.1-GA org.jsoup:jsoup:jar:1.8.3 org.mockito:mockito-core:jar:2.5.7 org.objenesis:objenesis:jar:2.5 org.ow2.asm:asm-debug-all:jar:5.0.4 org.slf4j:jcl-over-slf4j:jar:1.7.12 org.slf4j:slf4j-api:jar:1.6.4 org.slf4j:slf4j-api:jar:1.7.16 org.slf4j:slf4j-api:jar:1.7.20 org.slf4j:slf4j-api:jar:1.7.7 org.slf4j:slf4j-api:jar:1.7.9 org.vafer:jdeb:jar:0.8 xerces:xerces:jar:1.4.4; do
+          groupId=$(echo "$item" | cut -f1 -d':')
+          groupIdWithSlash=$(echo "$groupId" | tr '.' '/')
+          artifactId=$(echo "$item" | cut -f2 -d':')
+          version=$(echo "$item" | cut -f4 -d':')
+          jar_file="$artifactId-$version.jar"
+          echo "$groupId :: $artifactId :: $version = $jar_file"
+          wget "https://repo1.maven.org/maven2/$groupIdWithSlash/$artifactId/$version/$jar_file"
+          if [ "$?" -ne "0" ]; then
+            echo "  FAILED TO GET"
+            continue
+          fi
+          export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file \
+            -Dmaven.repo.local="$(pwd)" \
+            -Dpackaging="jar" \
+            -Dfile="$jar_file" \
+            -DgroupId="$groupId" -DartifactId="$artifactId" -Dversion="$version"
+        done
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
       fi
     fi
 

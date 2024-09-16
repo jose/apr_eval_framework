@@ -20,6 +20,7 @@ MVN_FLAGS = """-V -B -Dhttps.protocols=TLSv1.2 --offline \
   -Drat.numUnapprovedLicenses=1000000 \
   -Dlicense.skip=true \
   -Dfindbugs.skip=true \
+  -Dpmd.skip=true \
   -Dgpg.skip=true \
   -Dskip.npm=true \
   -Dskip.gulp=true \

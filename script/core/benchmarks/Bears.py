@@ -402,6 +402,27 @@ class Bears(Benchmark):
             sed -i '132,135s|.*||g' %s/omod/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        # Manually skip and remove [findbugs-maven-plugin](https://www.mojohaus.org/findbugs-maven-plugin)
+        # from the parent's pom.xml file as none of the following parameters disable the plugin
+        #  -Dfindbugs.skip=true
+        #  -Dfindbugs.failOnError=false
+        elif str(bug.project) == "HubSpot-Baragon" and str(bug.bug_id) == "444834347-445744181":
+            cmd="""
+            sed -i 's|<basepom.check.skip-all>false</basepom.check.skip-all>|<basepom.check.skip-all>true</basepom.check.skip-all>|' %s/.m2/org/basepom/basepom-foundation/15/basepom-foundation-15.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd="""
+            sed -i 's|<basepom.check.fail-all>true</basepom.check.fail-all>|<basepom.check.fail-all>false</basepom.check.fail-all>|' %s/.m2/org/basepom/basepom-foundation/15/basepom-foundation-15.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd="""
+            sed -i '830s|<plugin>|<!--plugin>|' %s/.m2/org/basepom/basepom-foundation/15/basepom-foundation-15.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd="""
+            sed -i '842s|</plugin>|</plugin-->|' %s/.m2/org/basepom/basepom-foundation/15/basepom-foundation-15.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
 
         if rm_tests:
             # Remove known flaky tests

@@ -233,7 +233,7 @@ class Bears(Benchmark):
             parent_release_version = ""
             if parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT" and str(bug.bug_id) == "185852074-193313389":
                 parent_release_version = "1.7.6.RELEASE"
-            if parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT":
+            elif parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT":
                 parent_release_version = "1.8.0.RELEASE"
             elif parent_snapshot_version == "1.8.12.BUILD-SNAPSHOT":
                 parent_release_version = "1.9.0.RELEASE"

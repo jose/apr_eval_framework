@@ -198,6 +198,206 @@ else
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="threetenbp-1.3.1.jar" -DgroupId="org.threeten" -DartifactId="threetenbp" -Dversion="1.3.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f threetenbp-1.3.1.jar
 
+        wget https://repo1.maven.org/maven2/com/mysema/querydsl/querydsl-core/3.7.4/querydsl-core-3.7.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="querydsl-core-3.7.4.jar" -DgroupId="com.mysema.querydsl" -DartifactId="querydsl-core" -Dversion="3.7.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f querydsl-core-3.7.4.jar
+
+        wget https://repo1.maven.org/maven2/com/mysema/querydsl/querydsl-apt/3.7.4/querydsl-apt-3.7.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="querydsl-apt-3.7.4.jar" -DgroupId="com.mysema.querydsl" -DartifactId="querydsl-apt" -Dversion="3.7.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f querydsl-apt-3.7.4.jar
+
+        wget https://repo1.maven.org/maven2/com/mysema/querydsl/querydsl-collections/3.7.4/querydsl-collections-3.7.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="querydsl-collections-3.7.4.jar" -DgroupId="com.mysema.querydsl" -DartifactId="querydsl-collections" -Dversion="3.7.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f querydsl-collections-3.7.4.jar
+
+        wget https://repo1.maven.org/maven2/javax/ejb/ejb-api/3.0/ejb-api-3.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="ejb-api-3.0.jar" -DgroupId="javax.ejb" -DartifactId="ejb-api" -Dversion="3.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f ejb-api-3.0.jar
+
+        wget https://repo1.maven.org/maven2/javax/el/el-api/1.0/el-api-1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="el-api-1.0.jar" -DgroupId="javax.el" -DartifactId="el-api" -Dversion="1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f el-api-1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/openwebbeans/test/cditest-owb/1.2.8/cditest-owb-1.2.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="cditest-owb-1.2.8.jar" -DgroupId="org.apache.openwebbeans.test" -DartifactId="cditest-owb" -Dversion="1.2.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f cditest-owb-1.2.8.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/openwebbeans/test/cditest/1.2.8/cditest-1.2.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="cditest-1.2.8.jar" -DgroupId="org.apache.openwebbeans.test" -DartifactId="cditest" -Dversion="1.2.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f cditest-1.2.8.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/geronimo/specs/geronimo-jcdi_1.0_spec/1.0/geronimo-jcdi_1.0_spec-1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="geronimo-jcdi_1.0_spec-1.0.jar" -DgroupId="org.apache.geronimo.specs" -DartifactId="geronimo-jcdi_1.0_spec" -Dversion="1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f geronimo-jcdi_1.0_spec-1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/geronimo/specs/geronimo-atinject_1.0_spec/1.0/geronimo-atinject_1.0_spec-1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="geronimo-atinject_1.0_spec-1.0.jar" -DgroupId="org.apache.geronimo.specs" -DartifactId="geronimo-atinject_1.0_spec" -Dversion="1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f geronimo-atinject_1.0_spec-1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/openwebbeans/openwebbeans-spi/1.2.8/openwebbeans-spi-1.2.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="openwebbeans-spi-1.2.8.jar" -DgroupId="org.apache.openwebbeans" -DartifactId="openwebbeans-spi" -Dversion="1.2.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f openwebbeans-spi-1.2.8.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/openwebbeans/openwebbeans-impl/1.2.8/openwebbeans-impl-1.2.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="openwebbeans-impl-1.2.8.jar" -DgroupId="org.apache.openwebbeans" -DartifactId="openwebbeans-impl" -Dversion="1.2.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f openwebbeans-impl-1.2.8.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/xbean/xbean-finder-shaded/4.1/xbean-finder-shaded-4.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="xbean-finder-shaded-4.1.jar" -DgroupId="org.apache.xbean" -DartifactId="xbean-finder-shaded" -Dversion="4.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f xbean-finder-shaded-4.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/xbean/xbean-asm5-shaded/4.1/xbean-asm5-shaded-4.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="xbean-asm5-shaded-4.1.jar" -DgroupId="org.apache.xbean" -DartifactId="xbean-asm5-shaded" -Dversion="4.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f xbean-asm5-shaded-4.1.jar
+
+        wget https://repo1.maven.org/maven2/org/jboss/interceptor/jboss-interceptor-api/1.1/jboss-interceptor-api-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jboss-interceptor-api-1.1.jar" -DgroupId="org.jboss.interceptor" -DartifactId="jboss-interceptor-api" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jboss-interceptor-api-1.1.jar
+
+        wget https://repo1.maven.org/maven2/com/google/guava/guava/19.0/guava-19.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="guava-19.0.jar" -DgroupId="com.google.guava" -DartifactId="guava" -Dversion="19.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f guava-19.0.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/hateoas/spring-hateoas/0.19.0.RELEASE/spring-hateoas-0.19.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-hateoas-0.19.0.RELEASE.jar" -DgroupId="org.springframework.hateoas" -DartifactId="spring-hateoas" -Dversion="0.19.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-hateoas-0.19.0.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-webmvc/4.2.5.RELEASE/spring-webmvc-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-webmvc-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-webmvc" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-webmvc-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/springframework/spring-test/4.2.5.RELEASE/spring-test-4.2.5.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="spring-test-4.2.5.RELEASE.jar" -DgroupId="org.springframework" -DartifactId="spring-test" -Dversion="4.2.5.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f spring-test-4.2.5.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-impl/2.2.3U1/jaxb-impl-2.2.3U1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jaxb-impl-2.2.3U1.jar" -DgroupId="com.sun.xml.bind" -DartifactId="jaxb-impl" -Dversion="2.2.3U1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jaxb-impl-2.2.3U1.jar
+
+        wget https://repo1.maven.org/maven2/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jaxb-api-2.2.2.jar" -DgroupId="javax.xml.bind" -DartifactId="jaxb-api" -Dversion="2.2.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jaxb-api-2.2.2.jar
+
+        wget https://repo1.maven.org/maven2/javax/activation/activation/1.1/activation-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="activation-1.1.jar" -DgroupId="javax.activation" -DartifactId="activation" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f activation-1.1.jar
+
+        wget https://repo1.maven.org/maven2/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="stax-api-1.0-2.jar" -DgroupId="javax.xml.stream" -DartifactId="stax-api" -Dversion="1.0-2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f stax-api-1.0-2.jar
+
+        wget https://repo1.maven.org/maven2/xmlunit/xmlunit/1.6/xmlunit-1.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="xmlunit-1.6.jar" -DgroupId="xmlunit" -DartifactId="xmlunit" -Dversion="1.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f xmlunit-1.6.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.4/groovy-all-2.4.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="groovy-all-2.4.4.jar" -DgroupId="org.codehaus.groovy" -DartifactId="groovy-all" -Dversion="2.4.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f groovy-all-2.4.4.jar
+
+        wget https://repo1.maven.org/maven2/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="javax.transaction-api-1.2.jar" -DgroupId="javax.transaction" -DartifactId="javax.transaction-api" -Dversion="1.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f javax.transaction-api-1.2.jar
+
+        wget https://repo1.maven.org/maven2/com/jayway/jsonpath/json-path/2.0.0/json-path-2.0.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="json-path-2.0.0.jar" -DgroupId="com.jayway.jsonpath" -DartifactId="json-path" -Dversion="2.0.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f json-path-2.0.0.jar
+
+        wget https://repo1.maven.org/maven2/net/minidev/json-smart/2.1.1/json-smart-2.1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="json-smart-2.1.1.jar" -DgroupId="net.minidev" -DartifactId="json-smart" -Dversion="2.1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f json-smart-2.1.1.jar
+
+        wget https://repo1.maven.org/maven2/net/minidev/asm/1.0.2/asm-1.0.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="asm-1.0.2.jar" -DgroupId="net.minidev" -DartifactId="asm" -Dversion="1.0.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f asm-1.0.2.jar
+
+        wget https://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hamcrest-library-1.3.jar" -DgroupId="org.hamcrest" -DartifactId="hamcrest-library" -Dversion="1.3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hamcrest-library-1.3.jar
+
+        wget https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hamcrest-core-1.3.jar" -DgroupId="org.hamcrest" -DartifactId="hamcrest-core" -Dversion="1.3" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hamcrest-core-1.3.jar
+
+        wget https://repo1.maven.org/maven2/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="mockito-core-1.10.19.jar" -DgroupId="org.mockito" -DartifactId="mockito-core" -Dversion="1.10.19" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f mockito-core-1.10.19.jar
+
+        wget https://repo1.maven.org/maven2/org/objenesis/objenesis/2.1/objenesis-2.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="objenesis-2.1.jar" -DgroupId="org.objenesis" -DartifactId="objenesis" -Dversion="2.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f objenesis-2.1.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.19/slf4j-api-1.7.19.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="slf4j-api-1.7.19.jar" -DgroupId="org.slf4j" -DartifactId="slf4j-api" -Dversion="1.7.19" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f slf4j-api-1.7.19.jar
+
+        wget https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.19/jcl-over-slf4j-1.7.19.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jcl-over-slf4j-1.7.19.jar" -DgroupId="org.slf4j" -DartifactId="jcl-over-slf4j" -Dversion="1.7.19" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jcl-over-slf4j-1.7.19.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.1.6/logback-classic-1.1.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-classic-1.1.6.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-classic" -Dversion="1.1.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-classic-1.1.6.jar
+
+        wget https://repo1.maven.org/maven2/ch/qos/logback/logback-core/1.1.6/logback-core-1.1.6.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="logback-core-1.1.6.jar" -DgroupId="ch.qos.logback" -DartifactId="logback-core" -Dversion="1.1.6" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f logback-core-1.1.6.jar
+
+        wget https://repo1.maven.org/maven2/org/projectlombok/lombok/1.16.8/lombok-1.16.8.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="lombok-1.16.8.jar" -DgroupId="org.projectlombok" -DartifactId="lombok" -Dversion="1.16.8" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f lombok-1.16.8.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/bundlor/com.springsource.bundlor.maven/1.0.0.RELEASE/com.springsource.bundlor.maven-1.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.bundlor.maven-1.0.0.RELEASE.jar" -DgroupId="com.springsource.bundlor" -DartifactId="com.springsource.bundlor.maven" -Dversion="1.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.bundlor.maven-1.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/bundlor/com.springsource.bundlor/1.0.0.RELEASE/com.springsource.bundlor-1.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.bundlor-1.0.0.RELEASE.jar" -DgroupId="com.springsource.bundlor" -DartifactId="com.springsource.bundlor" -Dversion="1.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.bundlor-1.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/bundlor/com.springsource.bundlor.blint/1.0.0.RELEASE/com.springsource.bundlor.blint-1.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.bundlor.blint-1.0.0.RELEASE.jar" -DgroupId="com.springsource.bundlor" -DartifactId="com.springsource.bundlor.blint" -Dversion="1.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.bundlor.blint-1.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/util/com.springsource.util.common/2.0.0.RELEASE/com.springsource.util.common-2.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.util.common-2.0.0.RELEASE.jar" -DgroupId="com.springsource.util" -DartifactId="com.springsource.util.common" -Dversion="2.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.util.common-2.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/util/com.springsource.util.osgi/2.0.0.RELEASE/com.springsource.util.osgi-2.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.util.osgi-2.0.0.RELEASE.jar" -DgroupId="com.springsource.util" -DartifactId="com.springsource.util.osgi" -Dversion="2.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.util.osgi-2.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/util/com.springsource.util.parser.manifest/2.0.0.RELEASE/com.springsource.util.parser.manifest-2.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.util.parser.manifest-2.0.0.RELEASE.jar" -DgroupId="com.springsource.util" -DartifactId="com.springsource.util.parser.manifest" -Dversion="2.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.util.parser.manifest-2.0.0.RELEASE.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/com/springsource/util/com.springsource.util.math/2.0.0.RELEASE/com.springsource.util.math-2.0.0.RELEASE.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.util.math-2.0.0.RELEASE.jar" -DgroupId="com.springsource.util" -DartifactId="com.springsource.util.math" -Dversion="2.0.0.RELEASE" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.util.math-2.0.0.RELEASE.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/org/objectweb/asm/com.springsource.org.objectweb.asm/3.1.0/com.springsource.org.objectweb.asm-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.org.objectweb.asm-3.1.0.jar" -DgroupId="org.objectweb.asm" -DartifactId="com.springsource.org.objectweb.asm" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.org.objectweb.asm-3.1.0.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/org/objectweb/asm/com.springsource.org.objectweb.asm.tree/3.1.0/com.springsource.org.objectweb.asm.tree-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.org.objectweb.asm.tree-3.1.0.jar" -DgroupId="org.objectweb.asm" -DartifactId="com.springsource.org.objectweb.asm.tree" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.org.objectweb.asm.tree-3.1.0.jar
+
+        wget https://nexus.squashtest.org/nexus/repository/maven-squashtest-public-releases/org/objectweb/asm/com.springsource.org.objectweb.asm.commons/3.1.0/com.springsource.org.objectweb.asm.commons-3.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="com.springsource.org.objectweb.asm.commons-3.1.0.jar" -DgroupId="org.objectweb.asm" -DartifactId="com.springsource.org.objectweb.asm.commons" -Dversion="3.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f com.springsource.org.objectweb.asm.commons-3.1.0.jar
+
+        wget https://repo1.maven.org/maven2/org/osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.osgi.core-4.1.0.jar" -DgroupId="org.osgi" -DartifactId="org.osgi.core" -Dversion="4.1.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.osgi.core-4.1.0.jar
+
+        wget https://sirius.cs.put.poznan.pl/~inf94272/eclipse/.metadata/.plugins/org.springframework.ide.eclipse.osgi.targetdefinition/2.5.0.201010221000-RELEASE/target/org.eclipse.osgi-3.5.1.R35x_v20091005.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.osgi-3.5.1.R35x_v20091005.jar" -DgroupId="org.eclipse.osgi" -DartifactId="org.eclipse.osgi" -Dversion="3.5.1.R35x_v20091005" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.osgi-3.5.1.R35x_v20091005.jar
+
       elif [ "$project" == "INRIA-spoon" ] && [ "$bug" == "189186902-189233591" ]; then
         # Although the following code is only executed on INRIA-spoon::189186902-189233591,
         # it is required for most of the bugs in the INRIA-spoon project.  The condition is in

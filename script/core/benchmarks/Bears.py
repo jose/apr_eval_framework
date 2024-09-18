@@ -231,6 +231,8 @@ class Bears(Benchmark):
             parent_snapshot_version = subprocess.check_output(cmd, shell=True).rstrip()
             # Replace the no longer available SNAPSHOT versions with RELEASE versions
             parent_release_version = ""
+            if parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT" and str(bug.bug_id) == "185852074-193313389":
+                parent_release_version = "1.7.6.RELEASE"
             if parent_snapshot_version == "1.7.7.BUILD-SNAPSHOT":
                 parent_release_version = "1.8.0.RELEASE"
             elif parent_snapshot_version == "1.8.12.BUILD-SNAPSHOT":
@@ -250,7 +252,11 @@ class Bears(Benchmark):
                 #         <artifactId>com.springsource.bundlor.maven</artifactId>
                 #         <version>1.0.0.RELEASE</version>
                 # </plugin>
-                if parent_release_version == "1.8.0.RELEASE":
+                if parent_release_version == "1.7.6.RELEASE":
+                    cmd = """
+                    sed -i '635,639s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.8.0.RELEASE":
                     cmd = """
                     sed -i '645,649s|.*||g' %s;
                     """ % (spring_data_parent_pom_file)
@@ -301,7 +307,11 @@ class Bears(Benchmark):
                 #                 </execution>
                 #         </executions>
                 # </plugin>
-                if parent_release_version == "1.8.0.RELEASE":
+                if parent_release_version == "1.7.6.RELEASE":
+                    cmd = """
+                    sed -i '759,774s|.*||g' %s;
+                    """ % (spring_data_parent_pom_file)
+                elif parent_release_version == "1.8.0.RELEASE":
                     cmd = """
                     sed -i '769,784s|.*||g' %s;
                     """ % (spring_data_parent_pom_file)
@@ -338,7 +348,9 @@ class Bears(Benchmark):
                 # Downgrade com.mysema.querydsl:querydsl-[core|apt|collections] from
                 # 4.1.0 (which is not available as of today; September 3, 2024)
                 # to 3.7.4, in the parent pom
-                if parent_release_version == "1.8.0.RELEASE":
+                if parent_release_version == "1.7.6.RELEASE":
+                    pass
+                elif parent_release_version == "1.8.0.RELEASE":
                     cmd = """
                     sed -i '103s|<querydsl>4.1.0</querydsl>|<querydsl>3.7.4</querydsl>|' %s;
                     """ % (spring_data_parent_pom_file)

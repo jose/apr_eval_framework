@@ -223,6 +223,27 @@ class Bears(Benchmark):
             sed -i 's|<configLocation>${session.executionRootDirectory}/test_checks.xml</configLocation>|<configLocation>test_checks.xml</configLocation>|' %s/test/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        elif str(bug.project) == "Activiti-activiti-cloud-app-service":
+            cmd = """
+            sed -i 's|<version>7.0.36</version>|<version>7.0.0.GA</version>|' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd = """
+            sed -i 's|<activiti-cloud-build.version>7.0.36</activiti-cloud-build.version>|<activiti-cloud-build.version>7.0.0.GA</activiti-cloud-build.version>|' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd = """
+            sed -i 's|<activiti-cloud-service-common.version>7.0.47</activiti-cloud-service-common.version>|<activiti-cloud-service-common.version>7.0.0.GA</activiti-cloud-service-common.version>|' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd = """
+            sed -i 's|<java.version>11</java.version>|<java.version>8</java.version>|' %s/.m2/org/activiti/cloud/build/activiti-cloud-parent/7.0.0.GA/activiti-cloud-parent-7.0.0.GA.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
+            cmd = """
+            sed -i 's|<release>${java.version}</release>||' %s/.m2/org/activiti/cloud/build/activiti-cloud-parent/7.0.0.GA/activiti-cloud-parent-7.0.0.GA.pom;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
         elif str(bug.project) == "spring-projects-spring-data-commons":
             # Find parent pom's version
             cmd = """

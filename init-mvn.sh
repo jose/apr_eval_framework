@@ -60,6 +60,8 @@ else
   git clone https://github.com/tdurieux/project-info-maven-plugin
   cd project-info-maven-plugin
   git checkout 93c8c5f8a4413a8b17f1346af6223ea345aae8cb
+  # Fix project-info-maven-plugin
+  sed -i 's|String version = javaVersion.substring(2, 3);|String version = javaVersion.length() == 1 ? javaVersion : javaVersion.substring(2, 3);|' src/main/java/com/github/tdurieux/repair/maven/plugin/ProjectConfigMojo.java
   export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn -DskipTests -Dmaven.repo.local="$mvn_deps_dir/plugin" install
   if [ "$?" -ne "0" ]; then
     echo "Failed to build the project-info-maven-plugin project and install it in $mvn_deps_dir/plugin!"

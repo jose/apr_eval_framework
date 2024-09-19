@@ -223,6 +223,11 @@ class Bears(Benchmark):
             sed -i 's|<configLocation>${session.executionRootDirectory}/test_checks.xml</configLocation>|<configLocation>test_checks.xml</configLocation>|' %s/test/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        elif str(bug.project) == "brettwooldridge-HikariCP":
+            cmd = """
+            sed -i '386s|<version>2.20</version>|<version>2.22.0</version>|' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
         elif str(bug.project) == "Activiti-activiti-cloud-app-service":
             cmd = """
             sed -i 's|<version>7.0.36</version>|<version>7.0.0.GA</version>|' %s/pom.xml;

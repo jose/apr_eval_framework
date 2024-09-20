@@ -232,6 +232,12 @@ class Bears(Benchmark):
             sed -i '386s|<version>2.20</version>|<version>2.22.0</version>|' %s/pom.xml;
             """ % (working_directory)
             subprocess.check_output(cmd, shell=True)
+        elif str(bug.project) == "openzipkin-zipkin":
+            # Disable net.orfjackal.retrolambda :: retrolambda-maven-plugin
+            cmd = """
+            sed -i '550s|$|<phase>none</phase>|' %s/pom.xml;
+            """ % (working_directory)
+            subprocess.check_output(cmd, shell=True)
         elif str(bug.project) == "Activiti-activiti-cloud-app-service":
             cmd = """
             sed -i 's|<version>7.0.36</version>|<version>7.0.0.GA</version>|' %s/pom.xml;

@@ -2,30 +2,30 @@
 
 REPAIR_THEM_ALL_FRAMEWORK_DIR=`pwd`
 
-# Get Apache-Maven <= 3.6.x, as any version higher than 3.6.x disables all insecure
-# http://* mirrors by default.
-# More info in here https://maven.apache.org/docs/3.8.1/release-notes.html#cve-2021-26291
+# Get Apache-Maven v3.5.4.
 #
-# And hack the user's ~/.m2/settings.xml file to address the "Return code is: 501 , ReasonPhrase:HTTPS Required"
-# error.
-# More info in here https://stackoverflow.com/questions/59763531/maven-dependencies-are-failing-with-a-501-error
+# Any version greater than 3.5.4 causes `Failed to execute goal org.codehaus.mojo:findbugs-maven-plugin:2.5.3:findbugs (findbugs) on project accumulo-project: Unable to parse configuration of mojo org.codehaus.mojo:findbugs-maven-plugin:2.5.3:findbugs for parameter pluginArtifacts: Cannot assign configuration entry 'pluginArtifacts' with value '${plugin.artifacts}' of type java.util.Collections.UnmodifiableRandomAccessList to property of type java.util.ArrayList`.
+# on some Accumulo bugs.
 #
-# Both hacks are required to successfully run `mvn` on some Wickets defects, e.g.,
-# 0eb596df.
+# Any version greater that 3.6.x disables all insecure http://* mirrors by default
+# (more info in here https://maven.apache.org/docs/3.8.1/release-notes.html#cve-2021-26291)
+# which causes errors on some pom.xml file that still http://.
 #
-wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.6.3/apache-maven-3.6.3-bin.zip
-if [ ! -s "apache-maven-3.6.3-bin.zip" ]; then
-  echo "Failed to get apache-maven-3.6.3-bin.zip!"
+wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.5.4/apache-maven-3.5.4-bin.zip
+if [ ! -s "apache-maven-3.5.4-bin.zip" ]; then
+  echo "Failed to get apache-maven-3.5.4-bin.zip!"
   exit 1
 fi
-unzip apache-maven-3.6.3-bin.zip
-if [ ! -d "apache-maven-3.6.3" ]; then
-  echo "Failed to unzip apache-maven-3.6.3-bin.zip!"
+unzip apache-maven-3.5.4-bin.zip
+if [ ! -d "apache-maven-3.5.4" ]; then
+  echo "Failed to unzip apache-maven-3.5.4-bin.zip!"
   exit 1
 fi
-export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.6.3/bin:$PATH/"
+export PATH="$REPAIR_THEM_ALL_FRAMEWORK_DIR/apache-maven-3.5.4/bin:$PATH/"
 #
-# Hack the user's ~/.m2/settings.xml file
+# Hack the user's ~/.m2/settings.xml file to address the "Return code is: 501 , ReasonPhrase:HTTPS Required"
+# error.  More info in here https://stackoverflow.com/questions/59763531/maven-dependencies-are-failing-with-a-501-error
+#
 if [ -s ~/.m2/settings.xml ]; then
   mv -v ~/.m2/settings.xml ~/.m2/settings.xml.bak # Backup user's file
 fi
@@ -60,7 +60,9 @@ else
   git clone https://github.com/tdurieux/project-info-maven-plugin
   cd project-info-maven-plugin
   git checkout 93c8c5f8a4413a8b17f1346af6223ea345aae8cb
-  # Fix project-info-maven-plugin
+  # Fix project-info-maven-plugin for
+  # Bears :: Activiti-activiti-cloud-app-service :: 459060444-459062447
+  # Bears :: societe-generale-ci-droid-tasks-consumer :: 420388707-430936160
   sed -i 's|String version = javaVersion.substring(2, 3);|String version = javaVersion.length() == 1 ? javaVersion : javaVersion.substring(2, 3);|' src/main/java/com/github/tdurieux/repair/maven/plugin/ProjectConfigMojo.java
   export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn -DskipTests -Dmaven.repo.local="$mvn_deps_dir/plugin" install
   if [ "$?" -ne "0" ]; then
@@ -413,6 +415,10 @@ else
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-3.20.200.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="3.20.200" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f org.eclipse.core.resources-3.20.200.jar
 
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/3.21.0/org.eclipse.core.resources-3.21.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.resources-3.21.0.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.resources" -Dversion="3.21.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.resources-3.21.0.jar
+
         wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.expressions/3.9.400/org.eclipse.core.expressions-3.9.400.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.expressions-3.9.400.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.expressions" -Dversion="3.9.400" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f org.eclipse.core.expressions-3.9.400.jar
@@ -431,6 +437,10 @@ else
         wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.filesystem/1.10.400/org.eclipse.core.filesystem-1.10.400.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.filesystem-1.10.400.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.filesystem" -Dversion="1.10.400" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f org.eclipse.core.filesystem-1.10.400.jar
+
+        wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.filesystem/1.11.0/org.eclipse.core.filesystem-1.11.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.filesystem-1.11.0.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.filesystem" -Dversion="1.11.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f org.eclipse.core.filesystem-1.11.0.jar
 
         wget https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.commands/3.12.100/org.eclipse.core.commands-3.12.100.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="org.eclipse.core.commands-3.12.100.jar" -DgroupId="org.eclipse.platform" -DartifactId="org.eclipse.core.commands" -Dversion="3.12.100" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
@@ -539,6 +549,32 @@ else
         wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f plexus-utils-1.1.jar
+
+      elif [ "$project" == "openzipkin-zipkin" ] && [ "$bug" == "332209085-332270677" ]; then
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-2.0.5.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="2.0.5" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.1.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/plugins/maven-antrun-plugin/1.7/maven-antrun-plugin-1.7.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-antrun-plugin-1.7.jar" -DgroupId="org.apache.maven.plugins" -DartifactId="maven-antrun-plugin" -Dversion="1.7" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-antrun-plugin-1.7.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/ant/ant-parent/1.8.2/ant-parent-1.8.2.pom
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="ant-parent-1.8.2.pom" -DpomFile="ant-parent-1.8.2.pom" -Dpackaging="pom" -Dmaven.repo.local="$mtwo_dir"
+        rm -f ant-parent-1.8.2.pom
+
+        wget https://repo1.maven.org/maven2/org/apache/ant/ant/1.8.2/ant-1.8.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="ant-1.8.2.jar" -DgroupId="org.apache.ant" -DartifactId="ant" -Dversion="1.8.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f ant-1.8.2.jar
+
+        wget https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.8.2/ant-launcher-1.8.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="ant-launcher-1.8.2.jar" -DgroupId="org.apache.ant" -DartifactId="ant-launcher" -Dversion="1.8.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f ant-1.8.2.jar
 
       elif [ "$project" == "thelastpickle-cassandra-reaper" ] && [ "$bug" == "324455111-327555133" ]; then
         # Although the following code is only executed on thelastpickle-cassandra-reaper::324455111-327555133,
@@ -1308,6 +1344,62 @@ else
         wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar
         export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.1.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
         rm -f plexus-utils-1.1.jar
+      fi
+    elif [ "$benchmark" == "Bugs.jar" ]; then
+
+      if [ "$project" == "Accumulo" ] && [ "$bug" == "db4a291f" ]; then
+        # Although the following code is only executed on Accumulo::db4a291f,
+        # it is required for most of the bugs in the Accumulo project.  The condition is in
+        # place to avoid executing the following code for every single bug in the Accumulo project.
+
+        wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-core/0.20.2/hadoop-core-0.20.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="hadoop-core-0.20.2.jar" -DgroupId="org.apache.hadoop" -DartifactId="hadoop-core" -Dversion="0.20.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f hadoop-core-0.20.2.jar
+
+        wget https://repo1.maven.org/maven2/org/mortbay/jetty/jetty/6.1.14/jetty-6.1.14.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jetty-6.1.14.jar" -DgroupId="org.mortbay.jetty" -DartifactId="jetty" -Dversion="6.1.14" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jetty-6.1.14.jar
+
+      elif [ "$project" == "Flink" ] && [ "$bug" == "734ba01d" ]; then
+
+        wget https://repo1.maven.org/maven2/org/scalamacros/paradise_2.10.4/2.0.1/paradise_2.10.4-2.0.1.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="paradise_2.10.4-2.0.1.jar" -DgroupId="org.scalamacros" -DartifactId="paradise_2.10.4" -Dversion="2.0.1" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f paradise_2.10.4-2.0.1.jar
+
+        wget https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="commons-beanutils-1.8.0.jar" -DgroupId="commons-beanutils" -DartifactId="commons-beanutils" -Dversion="1.8.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f commons-beanutils-1.8.0.jar
+
+        wget https://repo1.maven.org/maven2/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="jsp-api-2.0.jar" -DgroupId="javax.servlet" -DartifactId="jsp-api" -Dversion="2.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f jsp-api-2.0.jar
+
+        wget https://repo1.maven.org/maven2/commons-io/commons-io/1.2/commons-io-1.2.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="commons-io-1.2.jar" -DgroupId="commons-io" -DartifactId="commons-io" -Dversion="1.2" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f commons-io-1.2.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-plugin-api-2.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-plugin-api" -Dversion="2.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-plugin-api-2.0.jar
+
+        wget https://repo1.maven.org/maven2/org/apache/maven/maven-artifact/2.0/maven-artifact-2.0.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="maven-artifact-2.0.jar" -DgroupId="org.apache.maven" -DartifactId="maven-artifact" -Dversion="2.0" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f maven-artifact-2.0.jar
+
+        wget https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.jar
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="plexus-utils-1.0.4.jar" -DgroupId="org.codehaus.plexus" -DartifactId="plexus-utils" -Dversion="1.0.4" -Dpackaging="jar" -Dmaven.repo.local="$mtwo_dir"
+        rm -f plexus-utils-1.0.4.jar
+
+      elif [ "$project" == "Maven" ] && [ "$bug" == "a7d9b689" ]; then
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/signature/java15/1.0/java15-1.0.pom
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="java15-1.0.pom" -DpomFile="java15-1.0.pom" -Dpackaging="pom" -Dmaven.repo.local="$mtwo_dir"
+        rm -f java15-1.0.pom
+
+        wget https://repo1.maven.org/maven2/org/codehaus/mojo/signature/java15/1.0/java15-1.0.signature
+        export JAVA_HOME="$REPAIR_THEM_ALL_FRAMEWORK_DIR/jdks/jdk1.8.0_181" && mvn install:install-file -Dfile="java15-1.0.signature" -DgroupId="org.codehaus.mojo.signature" -DartifactId="java15" -Dversion="1.0" -Dpackaging="signature" -Dmaven.repo.local="$mtwo_dir"
+        rm -r java15-1.0.signature
+
       fi
     fi
 

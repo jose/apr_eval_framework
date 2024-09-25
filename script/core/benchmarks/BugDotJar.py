@@ -21,12 +21,15 @@ MVN_FLAGS = """-V -B -Dhttps.protocols=TLSv1.2 --offline \
   -Drat.numUnapprovedLicenses=1000000 \
   -Dlicense.skip=true \
   -Dfindbugs.skip=true \
+  -Dpmd.skip=true \
   -Dgpg.skip=true \
   -Dskip.npm=true \
   -Dskip.gulp=true \
   -Dskip.bower=true \
   -Dbaseline.skip=true \
   -Dmaven.javadoc.skip=true \
+  -Danimal.sniffer.skip=true \
+  -Dsort.skip=true \
 """
 
 MVN_DEPS_ROOT_DIR = os.path.join(REPAIR_ROOT, "mvn_deps")

@@ -135,6 +135,24 @@ class BugDotJar(Benchmark):
                     cmd = "cp -an %s/* %s/.m2/" %(os.path.join(MVN_DEPS_ROOT_DIR, "plugin"), working_directory)
                     subprocess.check_output(cmd, shell=True)
 
+            if str(bug.project) == "Wicket" and str(bug.bug_id) == "087c0a26":
+                # Modify the access of NO_PAGE_ID from private to protected to
+                # avoid the NO_PAGE_ID has private access in org.apache.wicket.protocol.ws.api.AbstractWebSocketProcessor error
+                cmd = """
+                sed -i '79s|private |protected |' %s/wicket-native-websocket/wicket-native-websocket-core/src/main/java/org/apache/wicket/protocol/ws/api/AbstractWebSocketProcessor.java;
+                """ % (working_directory)
+                subprocess.check_output(cmd, shell=True)
+            elif str(bug.project) == "Jackrabbit-Oak" and str(bug.bug_id) == "24ce6788":
+                # Remove the following goal from the main pom.xml file
+                #  <goals>
+                #    <goal>scr</goal>
+                #  </goals>
+                # which leads to "Comparison method violates its general contract" error
+                cmd = """
+                sed -i '93,95s|.*||g' %s/oak-parent/pom.xml;
+                """ % (working_directory)
+                subprocess.check_output(cmd, shell=True)
+
             if rm_tests:
                 # Remove known flaky tests
                 if bug.rm_tests() != 0:

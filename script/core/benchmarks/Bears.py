@@ -520,14 +520,14 @@ class Bears(Benchmark):
             pom_xml_file = os.path.join(path, "pom.xml")
             if os.path.isfile(pom_xml_file):
                 cmd = """
-                %s; cd %s; mvn clean install -DskipTests -DskipUTs=true -DskipITs=true -Dskip.unit.tests=true -Dmaven.repo.local=%s/.m2 --fail-never %s;
+                %s; cd %s; mvn install -DskipTests -DskipUTs=true -DskipITs=true -Dskip.unit.tests=true -Dmaven.repo.local=%s/.m2 --fail-never %s;
                 """ % (export_cmd, path, working_directory, MVN_FLAGS)
                 run_cmd(cmd, log_file, log_file)
 
         # 3. Compile the buggy module and return the exit of that operation
         path = os.path.join(path, dirs_in_the_failing_module_path[-1])
         cmd = """
-        %s; cd %s; mvn clean install -DskipTests -DskipUTs=true -DskipITs=true -Dskip.unit.tests=true -Dmaven.repo.local=%s/.m2 %s;
+        %s; cd %s; mvn install -DskipTests -DskipUTs=true -DskipITs=true -Dskip.unit.tests=true -Dmaven.repo.local=%s/.m2 %s;
         """ % (export_cmd, path, working_directory, MVN_FLAGS)
         return run_cmd(cmd, log_file, log_file)
 
